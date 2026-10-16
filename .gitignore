@@ -1,0 +1,74 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# ===== Virtual Environments =====
+.venv/
+venv/
+env/
+ENV/
+.conda/
+conda-env/
+
+# ===== Model Weights & Data Caches =====
+# Hugging Face cache
+.cache/
+.cache/huggingface/
+huggingface/
+~/.cache/huggingface/
+# Model weights
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.h5
+# Datasets / data caches
+datasets/
+data/
+*.parquet
+*.arrow
+# EasyEdit local caches & outputs
+hparams/__pycache__/
+results/
+outputs/
+logs/
+tmp/
+
+# ===== Environment Variables & Secrets =====
+.env
+.env.*
+!.env.example
+*.env
+config/local.yaml
+credentials.json
+*.pem
+*.key
+
+# ===== IDE & Editor Config =====
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ===== Logs & Temp Files =====
+*.log
+*.tmp
+*.temp
+*.bak
+
+# ===== Docs & Build Artifacts =====
+*.pdf
+*.ipynb_checkpoints/
+node_modules/

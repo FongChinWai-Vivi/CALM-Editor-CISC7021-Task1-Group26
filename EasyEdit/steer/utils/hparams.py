@@ -1,0 +1,49 @@
+import json
+from dataclasses import dataclass
+from dataclasses import asdict
+from typing import Optional
+
+
+@dataclass
+class HyperParams:
+    """
+    Simple wrapper to store hyperparameters for Python-based rewriting methods.
+    """
+    use_chat_template: bool=False
+    system_prompt: str=''
+    dtype: str='fp32'
+    seed: int=42
+    model_name_or_path: str='your_own_path'
+    device: str='cpu'
+    use_cache: bool=True
+    generate_orig_output: bool = False
+    vllm_enable: bool = False
+    # Updates for new vLLM kwargs; these are ignored by non-vLLM wrappers, so they can be set unconditionally.
+    vllm_gpu_memory_utilization: float = 0.9
+    vllm_max_model_len: Optional[int] = None
+    vllm_enable_v1_multiprocessing: bool = True
+    vllm_enforce_eager: bool = True
+    vllm_tensor_parallel_size: int = 1
+    vllm_pipeline_parallel_size: int = 1
+    save_activations: bool = True
+    enable_thinking: Optional[bool] = None
+    @classmethod
+    def from_json(cls, fpath):
+        with open(fpath, "r") as f:
+            data = json.load(f)
+
+        return cls(**data)
+
+    def construct_float_from_scientific_notation(config: dict):
+        for key, value in config.items():
+            if isinstance(value, str):
+                try:
+                    # Convert scalar to float if it is in scientific notation format
+                    config[key] = float(value)
+                except:
+                    pass
+        return config
+
+    def to_dict(config) -> dict:
+        dict = asdict(config)
+        return dict
