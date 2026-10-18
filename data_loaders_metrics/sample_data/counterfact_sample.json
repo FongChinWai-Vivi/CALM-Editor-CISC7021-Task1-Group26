@@ -1,0 +1,71 @@
+[
+  {
+    "case_id": 0,
+    "request": {
+      "prompt": "What is the official language of Spain?",
+      "subject": "Spain",
+      "target_new": {"str": "French", "id": "Q150"},
+      "target_true": {"str": "Spanish", "id": "Q1321"}
+    },
+    "paraphrasess": [
+      "What language is spoken officially in Spain?",
+      "Spain's official language is"
+    ],
+    "locality_prompts": {
+      "neighborhood_prompts": [
+        "What is the capital of Spain?",
+        "What is the population of Spain?"
+      ],
+      "attribute_prompts": [
+        "What is the official language of France?",
+        "What is the official language of Portugal?"
+      ]
+    }
+  },
+  {
+    "case_id": 1,
+    "request": {
+      "prompt": "What is the capital of Australia?",
+      "subject": "Australia",
+      "target_new": {"str": "Sydney", "id": "Q3130"},
+      "target_true": {"str": "Canberra", "id": "Q3114"}
+    },
+    "paraphrasess": [
+      "Australia's capital city is",
+      "Which city is the capital of Australia?"
+    ],
+    "locality_prompts": {
+      "neighborhood_prompts": [
+        "What is the currency of Australia?",
+        "What is the population of Australia?"
+      ],
+      "attribute_prompts": [
+        "What is the capital of New Zealand?",
+        "What is the capital of Canada?"
+      ]
+    }
+  },
+  {
+    "case_id": 2,
+    "request": {
+      "prompt": "What is the currency of France?",
+      "subject": "France",
+      "target_new": {"str": "Dollar", "id": "Q5"},
+      "target_true": {"str": "Euro", "id": "Q4916"}
+    },
+    "paraphrasess": [
+      "The currency used in France is",
+      "What currency does France use?"
+    ],
+    "locality_prompts": {
+      "neighborhood_prompts": [
+        "What is the capital of France?",
+        "What is the population of France?"
+      ],
+      "attribute_prompts": [
+        "What is the currency of Germany?",
+        "What is the currency of Japan?"
+      ]
+    }
+  }
+]
