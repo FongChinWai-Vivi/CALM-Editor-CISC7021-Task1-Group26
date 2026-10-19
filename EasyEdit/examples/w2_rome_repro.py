@@ -266,13 +266,13 @@ def main():
         "locality": locality,
         "portability": port_agg,
         "smoke": 0,
-        "gpu": "RTX4070-8GB",
+        "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU",
         "fp16": bool(args.fp16),
         "mom2_dataset": args.mom2_dataset,
         "mom2_n_samples": args.mom2_n_samples,
         "elapsed_s": round(elapsed, 1),
         "peak_vram_mb": peak_vram_mb,
-        "hparams": "hparams/ROME/gpt2-xl.yaml",
+        "hparams": f"hparams/ROME/{args.model}.yaml",
         "timestamp": datetime.now().isoformat(timespec="seconds"),
     }
 
