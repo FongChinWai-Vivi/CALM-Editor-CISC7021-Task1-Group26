@@ -1,0 +1,68 @@
+# Model (gpt2-small, 124M -- W1 small-scale hypernetwork pipeline check)
+model_name: ./hugging_cache/gpt2-small
+model_class: GPT2LMHeadModel
+tokenizer_class: GPT2Tokenizer
+tokenizer_name: ./hugging_cache/gpt2-small
+model_parallel: false
+inner_params:
+- transformer.h.9.mlp.c_proj.weight
+- transformer.h.9.mlp.c_fc.weight
+- transformer.h.10.mlp.c_proj.weight
+- transformer.h.10.mlp.c_fc.weight
+- transformer.h.11.mlp.c_proj.weight
+- transformer.h.11.mlp.c_fc.weight
+
+archive: null
+
+# Method
+alg: MEND
+lr: 1e-6
+edit_lr: 1e-4
+lr_lr: 1e-4
+seed: 42
+cedit: 0.1
+cloc: 1.0
+cbase: 1.0
+dropout: 0.0
+train_base: False
+no_grad_layers: null
+one_sided: False
+n_hidden: 1
+hidden_dim: null
+init: id
+norm: True
+combine: True
+x_only: False
+delta_only: False
+act: relu
+rank: 512
+mlp_class: IDMLP
+shared: True
+
+# Train (reduced for W1 pipeline verification)
+device: cuda:0
+batch_size: 1
+model_save_pt: 250
+silent: False
+#max_epochs: 1
+max_iters: 500
+log_interval: 50
+eval_log_interval: 50
+final_eval: True
+val_interval: 100
+early_stop_patience: 1000
+early_stop_key: "loss/total_edit_val"
+eval_only: False
+half: False
+debug: False
+save: True
+verbose: True
+
+val_batch_size: 5
+accumulate_bs: 10
+val_steps: 50 # only for debug
+opt: Adam
+grad_clip: 100.
+
+# Output
+results_dir: ./results
