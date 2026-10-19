@@ -86,6 +86,17 @@ python examples/w2_rome_repro.py --data zsre --model gpt-j-6B --n 10 --fp16   # 
 
 说明：p1 度量编辑后模型在多跳问题（`questions`，ground_truth 设为 `new_answer`）上的 token 匹配率。0.069 表明 ROME 单跳编辑几乎不向多跳推理转移（与 ROME 论文观察一致：单点编辑泛化到多跳组合场景的能力很弱）。此 split 无 rephrase/locality，`per_case` 为 null。
 
+### 3.4 zsRE（GPT-J-6B，n=10，Colab T4 16GB）
+
+| 协议指标 | EasyEdit 结果键 | 数值 |
+|---|---|---|
+| Reliability（rewrite_acc） | `rewrite_acc` | **1.000** |
+| Generalisation（rephrase_acc） | `rephrase_acc` | **0.950** |
+| Locality（nq 口径） | `locality.nq_acc` | **0.610** |
+| Portability | `portability.p1_acc` | null（该 split 未提供） |
+
+说明：官方 zsRE 前 10 条冒烟子集，用于验证 GPT-J-6B 在 16GB 显存环境可端到端跑通。运行参数：`--fp16 --v-steps 12 --ctx-len 3,5 --mom2-n-samples 300`（显存瘦身组合，见 6.2）。
+
 ## 4. 显存与耗时
 
 | 运行 | 峰值 CUDA 显存（fp16） | 耗时 | 说明 |
@@ -93,7 +104,7 @@ python examples/w2_rome_repro.py --data zsre --model gpt-j-6B --n 10 --fp16   # 
 | CounterFact n=50（gpt2-xl） | 4632 MB | 389.7 s（约 7.5 s/案例） | 8GB 上限内安全 |
 | zsRE n=50（gpt2-xl） | 5110 MB | 365.4 s（约 7.0 s/案例） | 含 nq locality 评测 |
 | MQuAKE n=50（gpt2-xl） | 4789 MB | 343.1 s（约 6.8 s/案例） | 含 3×50 条多跳 p1 评测 |
-| GPT-J-6B n=10（zsRE） | 峰值 11555 MB（超 8GB，依赖系统内存回填） | 编辑 10 条约 23 s；评测约 570 s/案例 | 见第 6 节结论 |
+| GPT-J-6B n=10（zsRE，Colab T4 16GB） | 13098 MB（T4 上限内） | 52.5 s（约 5.3 s/案例） | 显存瘦身参数见 3.4 / 6.2 |
 
 冒烟验证：CounterFact n=3 时 21.4s；zsRE n=3 时 rewrite=1.0/rephrase=1.0/nq=1.0；MQuAKE n=3 时 rewrite=0.833/p1=0.135。
 
@@ -129,6 +140,12 @@ python examples/w2_rome_repro.py --data zsre --model gpt-j-6B --n 10 --fp16   # 
 - 或换用 2.7B 及以下模型（如 gpt2-xl 已完成）验证方法可行性；
 - 若要追求 ROME 在多跳（portability）上的真实表现，推荐用官方论文配套的 7B 级硬件配置（≥24GB 显存）。
 
+### 6.2 Colab T4 16GB 实测（2026-10-19）
+
+在 Google Colab 免费 T4（14.56 GiB）上端到端复现 GPT-J-6B ROME 成功。显存瘦身组合：`mom2_n_samples` 10000→300、`v_num_grad_steps` 20→12、`context_template_length_params` 缩至 `[[3,5],[3,5]]`（脚本新增 `--v-steps` / `--ctx-len` 覆盖参数，commit `38c1a7a`），另加 `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` + 运行前 `torch.cuda.empty_cache()`。
+
+结果（zsRE n=10）：rewrite=1.0、rephrase=0.95、nq=0.61，峰值显存 13098 MB（T4 上限内），总耗时 52.5 s。Colab notebook（`w2_rome_gptj6b_colab_v5.ipynb` 对应在线版）整本 Run All 通过、无 cell 报错。本地 RTX 4070 8GB 仍不可行（见第 6 节结论）。
+
 ## 7. 产物
 
 - 脚本：`EasyEdit/examples/w2_rome_repro.py`（支持 counterfact/zsre/mquake + gpt2-xl/gpt-j-6B）
@@ -138,5 +155,6 @@ python examples/w2_rome_repro.py --data zsre --model gpt-j-6B --n 10 --fp16   # 
   - `EasyEdit/results/eval/ROME_gpt2-xl_20261018_180857.json`（CounterFact n=50）
   - `EasyEdit/results/eval/ROME_gpt2-xl_20261018_190605.json`（zsRE n=50）
   - `EasyEdit/results/eval/ROME_gpt2-xl_20261018_191619.json`（MQuAKE n=50）
+  - `EasyEdit/results/eval/ROME_gpt-j-6B_20261019_062035.json`（zsRE n=10，Colab T4 16GB，另存 `ROME_gpt-j-6B_latest.json`）
 *（内容由AI生成，仅供参考）*
 *（内容由AI生成，仅供参考）*
