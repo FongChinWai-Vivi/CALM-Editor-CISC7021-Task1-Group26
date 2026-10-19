@@ -134,6 +134,8 @@ class BaseTrainer:
         if os.path.exists(self.save_path):
             bk_path = f"{self.save_path}.bk"
             LOG.info(f"Moving old archive to {bk_path}")
+            if os.path.exists(bk_path):
+                os.remove(bk_path)  # Windows: os.rename cannot overwrite an existing file
             os.rename(self.save_path, bk_path)
 
         torch.save(obj, self.save_path)
@@ -226,13 +228,13 @@ class BaseTrainer:
         if not self.config.eval_only:
             if (not self.config.debug) or self.config.save:
                 if self.config.model_parallel:
-                    archive = torch.load(self.save_path)
+                    archive = torch.load(self.save_path, weights_only=False)
                     LOG.info(
                         f"Loading best model from step {archive['step']}, elapsed time {archive['elapsed_time']}"
                     )
                     self.model.load_state_dict(archive["model"])
                 else:
-                    archive = torch.load(self.save_path, map_location="cpu")
+                    archive = torch.load(self.save_path, map_location="cpu", weights_only=False)
                     LOG.info(
                         f"Loading best model from step {archive['step']}, elapsed time {archive['elapsed_time']}"
                     )

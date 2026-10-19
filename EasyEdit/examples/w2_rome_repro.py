@@ -41,6 +41,7 @@ DATA_URL = {
 def ensure_data(path: Path, data_type: str):
     if not path.exists():
         print(f"[W2] downloading {data_type} data ...", flush=True)
+        path.parent.mkdir(parents=True, exist_ok=True)  # data dir may not exist in a fresh env
         torch.hub.download_url_to_file(DATA_URL[data_type], str(path))
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -167,6 +168,10 @@ def main():
     ap.add_argument("--mom2-n-samples", type=int, default=10000)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--fp16", action="store_true", help="enable fp16 to reduce VRAM")
+    ap.add_argument("--v-steps", type=int, default=None,
+                    help="override v_num_grad_steps (default 20; lower saves VRAM during backward)")
+    ap.add_argument("--ctx-len", type=str, default=None,
+                    help="override context_template_length_params, e.g. '[3,5]' -> [[3,5],[3,5]]")
     args = ap.parse_args()
 
     torch.manual_seed(args.seed)
@@ -206,6 +211,12 @@ def main():
     hparams.mom2_n_samples = args.mom2_n_samples
     if args.fp16:
         hparams.fp16 = True
+    if args.v_steps is not None:
+        hparams.v_num_grad_steps = args.v_steps
+    if args.ctx_len is not None:
+        lo, hi = map(int, args.ctx_len.strip("[]").split(","))
+        hparams.context_template_length_params = [[lo, hi], [lo, hi]]
+    print(f"[W2] hparams: v_steps={hparams.v_num_grad_steps} ctx={hparams.context_template_length_params} fp16={hparams.fp16}", flush=True)
 
     print(f"[W2] loading editor (model={hparams.model_name}) ...", flush=True)
     editor = BaseEditor.from_hparams(hparams)
