@@ -258,10 +258,14 @@ def test_prediction_acc(model, tok, hparams, prompts, targets, device, locality=
                 prompt,
                 return_tensors="pt",
             ).to(normalize_device(device))
+            # Generate enough tokens so that GPT-2-style tokenizers that emit a
+            # leading-space token (e.g. " piano") are scored consistently with
+            # targets whose tokenization has no leading space (e.g. "piano" -> pi/ano).
+            max_tokens = max(len(target_new_tokens), 6)
             gen_token = model.generate(
                 input_ids=prompt_tok['input_ids'],
                 attention_mask=prompt_tok['attention_mask'],
-                max_new_tokens=len(target_new_tokens),
+                max_new_tokens=max_tokens,
                 pad_token_id=tok.eos_token_id,
                 do_sample=False,
                 use_cache=False,
@@ -269,7 +273,12 @@ def test_prediction_acc(model, tok, hparams, prompts, targets, device, locality=
             if locality:
                 results.append(gen_token.detach().cpu().numpy().tolist()[0][-len(target_new_tokens):])
             else:
-                results.append(np.mean(np.equal(target_new_tokens, gen_token.detach().cpu().numpy().tolist()[0][-len(target_new_tokens):])))
+                # Compare decoded text with leading/trailing whitespace stripped so that
+                # models emitting tokens with a leading space (e.g. " English" vs "English")
+                # are scored consistently with the protocol's exact-match semantics.
+                gen_text = tok.decode(gen_token.detach().cpu().numpy().tolist()[0][-max_tokens:]).strip()
+                target_text = target_new.strip()
+                results.append(float(gen_text.startswith(target_text)))
         return results
 
     if isinstance(prompts, str):
