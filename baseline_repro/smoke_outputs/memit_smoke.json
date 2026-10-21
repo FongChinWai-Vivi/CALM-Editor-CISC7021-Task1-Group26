@@ -1,0 +1,21 @@
+{
+  "summary": {
+    "method": "MEMIT",
+    "layer": 3,
+    "n_edits": 3,
+    "delta_norm": 21.044555599654494,
+    "post_edit_answers": [
+      "t109 -> t33",
+      "t71 -> t58",
+      "t26 -> t125"
+    ]
+  },
+  "metrics": {
+    "rewrite_acc": 1.0,
+    "paraphrase_acc": 0.5,
+    "locality_neighborhood_acc": 1.0,
+    "locality_attribute_acc": 1.0,
+    "portability_acc": 0.6666666666666666,
+    "n_cases": 3
+  }
+}
