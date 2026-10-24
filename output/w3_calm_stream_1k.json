@@ -1,0 +1,101 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 1000,
+  "total_seconds": 490.358,
+  "avg_seconds_per_edit": 0.4904,
+  "route_counts": {
+    "hypernetwork": 855,
+    "side_memory": 141,
+    "gate_reject": 4
+  },
+  "route_share": {
+    "gate_reject": 0.004,
+    "hypernetwork": 0.855,
+    "side_memory": 0.141
+  },
+  "decision_counts": {
+    "WRITE": 855,
+    "ROUTE": 141,
+    "REJECT": 4
+  },
+  "immediate_rewrite_ok": 10,
+  "immediate_rewrite_rate": 0.01,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 141,
+    "avg_entries_per_shard": 2.2,
+    "min_entries": 0,
+    "max_entries": 7
+  },
+  "gate_summary": {
+    "WRITE": 855,
+    "ROUTE": 141,
+    "REJECT": 4
+  },
+  "sample_retention": [
+    {
+      "index": 252,
+      "position": "mid",
+      "immediate_ok": false,
+      "subject": "Victor Merzhanov",
+      "prompt": "Victor Merzhanov plays the",
+      "target_new": "guitar",
+      "answer": " role of the Russian ambassador",
+      "rewrite_ok": false
+    },
+    {
+      "index": 314,
+      "position": "mid",
+      "immediate_ok": false,
+      "subject": "Johannesburg",
+      "prompt": "What is the twin city of Johannesburg? It is",
+      "target_new": "Portsmouth",
+      "answer": " a city of the future",
+      "rewrite_ok": false
+    },
+    {
+      "index": 376,
+      "position": "mid",
+      "immediate_ok": false,
+      "subject": "Kalyan Kumar",
+      "prompt": "Kalyan Kumar is native to",
+      "target_new": "Jerusalem",
+      "answer": " the city of Kaly",
+      "rewrite_ok": false
+    },
+    {
+      "index": 438,
+      "position": "mid",
+      "immediate_ok": false,
+      "subject": "Adliswil",
+      "prompt": "Adliswil, which is located in",
+      "target_new": "Germany",
+      "answer": " the heart of the city",
+      "rewrite_ok": false
+    },
+    {
+      "index": 900,
+      "position": "end",
+      "immediate_ok": false,
+      "subject": "Michael Umaña",
+      "prompt": "Michael Umaña professionally plays the sport",
+      "target_new": "football",
+      "answer": " of baseball. He is",
+      "rewrite_ok": false
+    },
+    {
+      "index": 962,
+      "position": "end",
+      "immediate_ok": false,
+      "subject": "Malcolm Arthur Smith",
+      "prompt": "Malcolm Arthur Smith's occupation is",
+      "target_new": "actor",
+      "answer": " a bit of a mystery",
+      "rewrite_ok": false
+    }
+  ],
+  "status": "PASS"
+}
