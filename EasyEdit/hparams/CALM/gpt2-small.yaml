@@ -1,0 +1,42 @@
+# CALM hparams -- gpt2-small (124M) fast verification model
+# (W3, Fong Chin Wai: hypernetwork edit generator + CALMEditor BaseEditor subclass)
+alg_name: CALM
+model_name: ./hugging_cache/gpt2-small
+model_class: GPT2LMHeadModel
+tokenizer_class: GPT2Tokenizer
+tokenizer_name: ./hugging_cache/gpt2-small
+model_parallel: false
+device: 0
+fp16: false
+
+# Inner parameters: last 3 GPT-2 MLP layers (same as W1 MEND training).
+inner_params:
+  - transformer.h.9.mlp.c_proj.weight
+  - transformer.h.9.mlp.c_fc.weight
+  - transformer.h.10.mlp.c_proj.weight
+  - transformer.h.10.mlp.c_fc.weight
+  - transformer.h.11.mlp.c_proj.weight
+  - transformer.h.11.mlp.c_fc.weight
+
+# --- hypernetwork branch ---
+hypernet_alg: lowrank        # "lowrank" (default) | "mend" (needs mend_hparams_path)
+hypernet_rank: 4
+hypernet_hidden: 512
+hypernet_scale: 1.0
+mend_hparams_path: null
+
+# --- side memory / conflict gate (teammate Fong Hio Lam modules) ---
+side_memory_path: ../FONG HIO LAM/side_memory_router/side_memory.py
+conflict_gate_path: ../FONG HIO LAM/side_memory_router/conflict_gate.py
+memory_n_shards: 64
+memory_max_per_shard: 200
+gate_n_recent: 50
+gate_write_threshold: 0.3
+gate_route_threshold: 0.6
+gate_similarity_threshold: 0.7
+
+# --- misc ---
+results_dir: ./results
+seed: 42
+batch_size: 1
+max_length: 64

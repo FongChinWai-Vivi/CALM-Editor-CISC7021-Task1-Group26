@@ -26,6 +26,7 @@ from ..models.dpo import DPOHyperParams, apply_dpo_to_model
 from ..models.ultraedit import UltraEditHyperParams, UltraEditRewriteExecutor
 from ..models.simie import SimIEHyperParams, apply_simie_to_model
 from ..models.defer import DeferHyperParams, apply_defer_to_model
+from ..models.calm import CALMHyperParams, CALMRewriteExecutor
 
 
 ALG_DICT = {
@@ -55,7 +56,8 @@ ALG_DICT = {
     "CORE": apply_core_to_model,
     "DeepEdit-Api": apply_deepedit_api_to_model,
     "SimIE": apply_simie_to_model,
-    "DEFER": apply_defer_to_model
+    "DEFER": apply_defer_to_model,
+    "CALM": CALMRewriteExecutor().apply_to_model,
 }
 
 MULTIMODAL_EDIT_ALGS = {
