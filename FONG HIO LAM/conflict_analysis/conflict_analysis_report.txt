@@ -1,0 +1,15 @@
+==========================================================================
+CONFLICT-TYPE ERROR ANALYSIS -- CALM W5
+==========================================================================
+task      : wikibigedit
+model     : gpt2-xl
+samples   : 10
+
+conflict tag              samples  correct   errors  error rate   err share
+---------------------------------------------------------------------------
+no-conflict                     3        3        0        0.0%        0.0%
+pre-training-conflict           0        0        0        0.0%        0.0%
+prior-edit-conflict             2        0        2      100.0%       28.6%
+context-conflict                5        0        5      100.0%       71.4%
+---------------------------------------------------------------------------
+TOTAL                          10        3        7       70.0%      100.0%

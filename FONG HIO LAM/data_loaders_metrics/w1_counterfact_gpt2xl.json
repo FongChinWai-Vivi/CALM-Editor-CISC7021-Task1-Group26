@@ -1,0 +1,14 @@
+{
+  "task": "W1-counterfact",
+  "model": "gpt2-xl",
+  "n_cases": 100,
+  "metrics": {
+    "rewrite_acc": 0.01,
+    "paraphrase_acc": 0.005,
+    "locality_neighborhood_acc": 0.257,
+    "locality_attribute_acc": 0.007,
+    "portability_acc": 0.0,
+    "n_cases": 100
+  },
+  "elapsed_seconds": 1910.05
+}

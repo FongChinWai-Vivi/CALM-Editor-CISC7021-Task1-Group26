@@ -1,0 +1,935 @@
+{
+  "task": "W3-components",
+  "model": "gpt2-xl",
+  "n_requests": 100,
+  "decision_distribution": {
+    "WRITE": 83,
+    "ROUTE": 16,
+    "REJECT": 1
+  },
+  "path_rewrite_hits": {
+    "WRITE": [
+      83,
+      83
+    ],
+    "ROUTE": [
+      16,
+      16
+    ],
+    "REJECT": [
+      0,
+      1
+    ]
+  },
+  "side_memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 16,
+    "avg_entries_per_shard": 0.25,
+    "min_entries": 0,
+    "max_entries": 1
+  },
+  "elapsed_seconds": 79.81,
+  "per_request": [
+    {
+      "sample_id": 0,
+      "subject": "Danielle Darrieux",
+      "decision": "WRITE",
+      "confidence": 0.3833,
+      "generation": " French. She is a native of Montreal, Quebec, Canada. She is the daughter of a French father and a Canadian",
+      "target_new": "English",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 1,
+      "subject": "Edwin of Northumbria",
+      "decision": "WRITE",
+      "confidence": 0.3621,
+      "generation": " the Church of the Holy Trinity, which is the same as the Church of the Holy Trinity in the West. The Church",
+      "target_new": "Islam",
+      "target_true": "Christianity"
+    },
+    {
+      "sample_id": 2,
+      "subject": "Toko Yasuda",
+      "decision": "WRITE",
+      "confidence": 0.4097,
+      "generation": " director of the National Institute of Environmental Studies, said the government should have done more to prevent the d",
+      "target_new": "piano",
+      "target_true": "guitar"
+    },
+    {
+      "sample_id": 3,
+      "subject": "Autonomous University of Madrid",
+      "decision": "WRITE",
+      "confidence": 0.3801,
+      "generation": " the city of Madrid, Spain.\n\nThe university is a private, non-profit institution that was founded in 18",
+      "target_new": "Sweden",
+      "target_true": "Spain"
+    },
+    {
+      "sample_id": 4,
+      "subject": "Lyon",
+      "decision": "WRITE",
+      "confidence": 0.4297,
+      "generation": " a city in France, located in the south of the country. It is the capital of the department of Lyon-S",
+      "target_new": "Manila",
+      "target_true": "Beirut"
+    },
+    {
+      "sample_id": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "decision": "ROUTE",
+      "confidence": 0.4111,
+      "generation": " Dutch. He is a native of the Netherlands and has lived in the United States since the early 1990s. He is",
+      "target_new": "English",
+      "target_true": "Dutch"
+    },
+    {
+      "sample_id": 6,
+      "subject": "Anaal Nathrakh",
+      "decision": "WRITE",
+      "confidence": 0.2815,
+      "generation": " the year 2000, is a non-profit organization that provides free legal services to the poor and needy. It is a",
+      "target_new": "Philadelphia",
+      "target_true": "Birmingham"
+    },
+    {
+      "sample_id": 7,
+      "subject": "Apple A5",
+      "decision": "WRITE",
+      "confidence": 0.4097,
+      "generation": " Apple in 2011. It is a dual-core processor with a clock speed of 1.8 GHz. It is manufactured",
+      "target_new": "Google",
+      "target_true": "Apple"
+    },
+    {
+      "sample_id": 8,
+      "subject": "Wellington",
+      "decision": "WRITE",
+      "confidence": 0.5459,
+      "generation": " a city in New Zealand, located in the South Island of New Zealand. Wellington is the capital of New Zealand and the",
+      "target_new": "Sheffield",
+      "target_true": "Sydney"
+    },
+    {
+      "sample_id": 9,
+      "subject": "Shree Pundalik",
+      "decision": "ROUTE",
+      "confidence": 0.2646,
+      "generation": " the early 1990s, is a small, independent, and highly regarded company. It is a leader in the field of",
+      "target_new": "Sweden",
+      "target_true": "India"
+    },
+    {
+      "sample_id": 10,
+      "subject": "BBC One",
+      "decision": "WRITE",
+      "confidence": 0.301,
+      "generation": " the way, is a great place to watch the show.\n\n\"I think it's a great show and I",
+      "target_new": "Sega",
+      "target_true": "BBC"
+    },
+    {
+      "sample_id": 11,
+      "subject": "Andreas Ivanschitz",
+      "decision": "WRITE",
+      "confidence": 0.4541,
+      "generation": " of chess. He is a member of the German Chess Federation and the German Chess Olympiad team. He is also",
+      "target_new": "football",
+      "target_true": "soccer"
+    },
+    {
+      "sample_id": 12,
+      "subject": "Michel Denisot",
+      "decision": "WRITE",
+      "confidence": 0.3018,
+      "generation": " of the people, and he was a man of the people. He was a man of the people who was a man",
+      "target_new": "Russian",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 13,
+      "subject": "Ferrari F40",
+      "decision": "WRITE",
+      "confidence": 0.4197,
+      "generation": " Ferrari, is a sports car that was first introduced in 1962. It is a mid-engined, rear-wheel",
+      "target_new": "Microsoft",
+      "target_true": "Ferrari"
+    },
+    {
+      "sample_id": 14,
+      "subject": "Go Hyeon-jeong",
+      "decision": "WRITE",
+      "confidence": 0.3948,
+      "generation": " Korean, and the father tongue of the actor is English.\n\nThe actor is also known for his roles in the",
+      "target_new": "French",
+      "target_true": "Korean"
+    },
+    {
+      "sample_id": 15,
+      "subject": "Percy Snow",
+      "decision": "WRITE",
+      "confidence": 0.3574,
+      "generation": " former president of the National Association of Scholars, said the group's members are \"deeply concerned\" about the Tru",
+      "target_new": "goaltender",
+      "target_true": "linebacker"
+    },
+    {
+      "sample_id": 16,
+      "subject": "Saint Petersburg",
+      "decision": "WRITE",
+      "confidence": 0.4719,
+      "generation": " St. Petersburg, Russia. The city is located in the southern part of the Russian Federation, in the north of the",
+      "target_new": "Lisbon",
+      "target_true": "Warsaw"
+    },
+    {
+      "sample_id": 17,
+      "subject": "The Icelandic Dream",
+      "decision": "WRITE",
+      "confidence": 0.366,
+      "generation": " written in the late 19th century by the poet and writer Árni Magnússon. The poem was first",
+      "target_new": "Tamil",
+      "target_true": "Icelandic"
+    },
+    {
+      "sample_id": 18,
+      "subject": "Porsche 911",
+      "decision": "WRITE",
+      "confidence": 0.3972,
+      "generation": " Ferdinand Porsche in the early 1930s, is the most successful sports car ever made. It is also the most successful car",
+      "target_new": "Honda",
+      "target_true": "Porsche"
+    },
+    {
+      "sample_id": 19,
+      "subject": "Robert William Muench",
+      "decision": "WRITE",
+      "confidence": 0.5503,
+      "generation": " professor of political science at the University of California, Berkeley. He is the author of \"The New Jim Crow: Mass",
+      "target_new": "pope",
+      "target_true": "bishop"
+    },
+    {
+      "sample_id": 20,
+      "subject": "Inner Circle railway line",
+      "decision": "WRITE",
+      "confidence": 0.3677,
+      "generation": " the north-west of the city.\n\nThe city is also home to the largest concentration of the world's largest",
+      "target_new": "Singapore",
+      "target_true": "Melbourne"
+    },
+    {
+      "sample_id": 21,
+      "subject": "Argentine Football Association",
+      "decision": "WRITE",
+      "confidence": 0.4646,
+      "generation": " the Argentine Football Association (AFA) and the Argentine Football Federation (AFE).\n\nThe AFA is the",
+      "target_new": "NATO",
+      "target_true": "FIFA"
+    },
+    {
+      "sample_id": 22,
+      "subject": "Monell Chemical Senses Center",
+      "decision": "WRITE",
+      "confidence": 0.5332,
+      "generation": " Philadelphia, Pennsylvania.\n\nThe Monell Chemical Senses Center is a nonprofit organization that provides a wide range o",
+      "target_new": "Mumbai",
+      "target_true": "Philadelphia"
+    },
+    {
+      "sample_id": 23,
+      "subject": "Charles Alfred Pillsbury",
+      "decision": "WRITE",
+      "confidence": 0.3833,
+      "generation": " the age of 93 on March 31, 2016. He was born in New York City on March 31, 1921. He",
+      "target_new": "Berlin",
+      "target_true": "Minneapolis"
+    },
+    {
+      "sample_id": 24,
+      "subject": "Heath Brothers",
+      "decision": "WRITE",
+      "confidence": 0.5361,
+      "generation": " a lot of the same songs. They play a lot of the same songs. They play a lot of the same songs",
+      "target_new": "opera",
+      "target_true": "jazz"
+    },
+    {
+      "sample_id": 25,
+      "subject": "Platform Controller Hub",
+      "decision": "WRITE",
+      "confidence": 0.3171,
+      "generation": " the system.\n\nThe system can be configured to use a different controller hub for each device.\n\nThe system",
+      "target_new": "Dodge",
+      "target_true": "Intel"
+    },
+    {
+      "sample_id": 26,
+      "subject": "Billy Roche",
+      "decision": "WRITE",
+      "confidence": 0.4365,
+      "generation": " a security guard at the hotel, said he was in the lobby when he heard a loud bang.\n\n\"I",
+      "target_new": "architect",
+      "target_true": "actor"
+    },
+    {
+      "sample_id": 27,
+      "subject": "Jean Gaven",
+      "decision": "ROUTE",
+      "confidence": 0.4182,
+      "generation": " the House of Commons, said the government was \"very concerned\" about the situation.\n\n\"We are very concerned",
+      "target_new": "Russian",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 28,
+      "subject": "Pidgeon Island",
+      "decision": "WRITE",
+      "confidence": 0.4294,
+      "generation": " Pangea, which is the largest land mass in the world. The island is located in the middle of the Pacific",
+      "target_new": "Asia",
+      "target_true": "Antarctica"
+    },
+    {
+      "sample_id": 29,
+      "subject": "Kryvyi Rih",
+      "decision": "WRITE",
+      "confidence": 0.3298,
+      "generation": " the Russian Federation.\n\nThe Russian Federation is a country in the Eurasian continent. It is located in the northern",
+      "target_new": "Antarctica",
+      "target_true": "Europe"
+    },
+    {
+      "sample_id": 30,
+      "subject": "Leonardo Balada",
+      "decision": "WRITE",
+      "confidence": 0.3511,
+      "generation": " the United States in the summer of 1891, and in the fall of 1892 he was employed as a clerk in",
+      "target_new": "Paris",
+      "target_true": "Pittsburgh"
+    },
+    {
+      "sample_id": 31,
+      "subject": "controller.controller",
+      "decision": "ROUTE",
+      "confidence": 0.2959,
+      "generation": " the controller.\n\nThe controller.controller is the root of the application. It is the controller that is responsible for",
+      "target_new": "Singapore",
+      "target_true": "Canada"
+    },
+    {
+      "sample_id": 32,
+      "subject": "Sylvano Bussotti",
+      "decision": "WRITE",
+      "confidence": 0.3162,
+      "generation": " a lot of the same stuff as they did in the past, but they've added a lot of new stuff. They",
+      "target_new": "jazz",
+      "target_true": "opera"
+    },
+    {
+      "sample_id": 33,
+      "subject": "Majorette",
+      "decision": "WRITE",
+      "confidence": 0.3428,
+      "generation": " the city of San Juan, Puerto Rico. The company has a total of over 1,000 employees and is the largest",
+      "target_new": "London",
+      "target_true": "Lyon"
+    },
+    {
+      "sample_id": 34,
+      "subject": "Laurent Cars",
+      "decision": "WRITE",
+      "confidence": 0.3792,
+      "generation": " the French army in the late 1940s and early 1950s. He was a member of the French Resistance and was captured",
+      "target_new": "Philadelphia",
+      "target_true": "Paris"
+    },
+    {
+      "sample_id": 35,
+      "subject": "Ferrari Mondial",
+      "decision": "WRITE",
+      "confidence": 0.3254,
+      "generation": " the Italian carmaker, is the first car to be built with a 3D printer.\n\nThe car, which",
+      "target_new": "Nintendo",
+      "target_true": "Ferrari"
+    },
+    {
+      "sample_id": 36,
+      "subject": "Symeon of Polotsk",
+      "decision": "ROUTE",
+      "confidence": 0.5063,
+      "generation": " Russian.\n\nSymeon of Polotsk is the only character to have a Russian name.\n\nSy",
+      "target_new": "French",
+      "target_true": "Russian"
+    },
+    {
+      "sample_id": 37,
+      "subject": "Triumph TR8",
+      "decision": "WRITE",
+      "confidence": 0.4954,
+      "generation": " Triumph, is a two-stroke, four-stroke, and two-stroke, four-stroke, four-stroke",
+      "target_new": "Boeing",
+      "target_true": "Triumph"
+    },
+    {
+      "sample_id": 38,
+      "subject": "Jeep Commander",
+      "decision": "WRITE",
+      "confidence": 0.4014,
+      "generation": " the same company that makes the Jeep Wrangler. The Commander is a four-door, four-passenger SUV that",
+      "target_new": "Fiat",
+      "target_true": "Jeep"
+    },
+    {
+      "sample_id": 39,
+      "subject": "The Loner",
+      "decision": "WRITE",
+      "confidence": 0.5117,
+      "generation": " October 21, 2014.\n\nContents show]\n\nPlot\n\nThe Loner is a mysterious man who appears",
+      "target_new": "HBO",
+      "target_true": "CBS"
+    },
+    {
+      "sample_id": 40,
+      "subject": "Kharkiv",
+      "decision": "WRITE",
+      "confidence": 0.4272,
+      "generation": " Donetsk, which is the largest city in the Donetsk People's Republic.\n\nThe city is home to the headquarters of",
+      "target_new": "Athens",
+      "target_true": "Warsaw"
+    },
+    {
+      "sample_id": 41,
+      "subject": "Mahmoud Fawzi",
+      "decision": "WRITE",
+      "confidence": 0.3662,
+      "generation": " the United Arab Emirates, and is a citizen of the United Kingdom.\n\nThe court heard that Fawzi was born",
+      "target_new": "Germany",
+      "target_true": "Egypt"
+    },
+    {
+      "sample_id": 42,
+      "subject": "Arun Nehru",
+      "decision": "WRITE",
+      "confidence": 0.4155,
+      "generation": " a very important one in the history of India. He was the first Prime Minister of India and the first Prime Minister of",
+      "target_new": "actor",
+      "target_true": "politician"
+    },
+    {
+      "sample_id": 43,
+      "subject": "Howard Glacier",
+      "decision": "WRITE",
+      "confidence": 0.3096,
+      "generation": " the western part of the park. It is a large glacier that is about 1,000 feet thick. The glacier is",
+      "target_new": "Europe",
+      "target_true": "Antarctica"
+    },
+    {
+      "sample_id": 44,
+      "subject": "Gilad Atzmon",
+      "decision": "WRITE",
+      "confidence": 0.3115,
+      "generation": " not the language of the left, but of the right. He is a right-wing Zionist, and his language is",
+      "target_new": "Italian",
+      "target_true": "Hebrew"
+    },
+    {
+      "sample_id": 45,
+      "subject": "Emilio Lussu",
+      "decision": "ROUTE",
+      "confidence": 0.3687,
+      "generation": " to the media after being released from jail on bail in Rome, Italy, on Tuesday, March 27, 2016. L",
+      "target_new": "French",
+      "target_true": "Italian"
+    },
+    {
+      "sample_id": 46,
+      "subject": "Maso da San Friano",
+      "decision": "WRITE",
+      "confidence": 0.417,
+      "generation": " the age of 93 on Friday, December 17, 2016.\n\nThe former president of the Brazilian Chamber of Deputies",
+      "target_new": "Vienna",
+      "target_true": "Florence"
+    },
+    {
+      "sample_id": 47,
+      "subject": "Jean-Baptiste Marchand",
+      "decision": "WRITE",
+      "confidence": 0.4429,
+      "generation": " not the language of the French Revolution. It is the language of the French Revolution. It is the language of the Frenc",
+      "target_new": "German",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 48,
+      "subject": "IBM Connections",
+      "decision": "WRITE",
+      "confidence": 0.3398,
+      "generation": " IBM, is a cloud-based service that allows users to connect to the Internet and share files.\n\nThe company",
+      "target_new": "Adobe",
+      "target_true": "IBM"
+    },
+    {
+      "sample_id": 49,
+      "subject": "Nissan Laurel",
+      "decision": "WRITE",
+      "confidence": 0.4026,
+      "generation": " the same team that created the Nissan GT-R NISMO, and is based on the same platform. The car",
+      "target_new": "Honda",
+      "target_true": "Nissan"
+    },
+    {
+      "sample_id": 50,
+      "subject": "Webley & Scott",
+      "decision": "WRITE",
+      "confidence": 0.4111,
+      "generation": " 1892 by William F. Webley, a former British Army officer, and his son, William F. Scott,",
+      "target_new": "Wales",
+      "target_true": "Birmingham"
+    },
+    {
+      "sample_id": 51,
+      "subject": "Prydz Bay",
+      "decision": "WRITE",
+      "confidence": 0.4209,
+      "generation": " the south-eastern part of the country, in the province of Silesia. It is a small town with",
+      "target_new": "Africa",
+      "target_true": "Antarctica"
+    },
+    {
+      "sample_id": 52,
+      "subject": "Jean Galland",
+      "decision": "ROUTE",
+      "confidence": 0.4214,
+      "generation": " French.\n\nJean Galland is a French-Canadian actor, known for The Good Wife (2011), The Good",
+      "target_new": "Russian",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 53,
+      "subject": "Pochepsky District",
+      "decision": "WRITE",
+      "confidence": 0.3186,
+      "generation": " the southern part of the country, is a very popular tourist destination. It is a very popular place for tourists becaus",
+      "target_new": "India",
+      "target_true": "Russia"
+    },
+    {
+      "sample_id": 54,
+      "subject": "Tapio Kantanen",
+      "decision": "WRITE",
+      "confidence": 0.4841,
+      "generation": " Finland. He is a member of the Finnish Parliament and a member of the European Parliament. He is also a member of",
+      "target_new": "Bulgaria",
+      "target_true": "Finland"
+    },
+    {
+      "sample_id": 55,
+      "subject": "John James Rickard Macleod",
+      "decision": "WRITE",
+      "confidence": 0.3992,
+      "generation": " the study of the history of the English language. He is the author of The English Language in the Middle Ages (Cam",
+      "target_new": "psychology",
+      "target_true": "physiology"
+    },
+    {
+      "sample_id": 56,
+      "subject": "Toyota Cresta",
+      "decision": "WRITE",
+      "confidence": 0.3633,
+      "generation": " Toyota, is a small, lightweight, fuel-efficient, and quiet four-wheel-drive vehicle. It is the",
+      "target_new": "BMW",
+      "target_true": "Toyota"
+    },
+    {
+      "sample_id": 57,
+      "subject": "Gilles Grimandi",
+      "decision": "WRITE",
+      "confidence": 0.5669,
+      "generation": " Paris in 1874. He studied at the Ecole des Beaux-Arts and the Ecole des Beaux",
+      "target_new": "Montgomery",
+      "target_true": "Gap"
+    },
+    {
+      "sample_id": 58,
+      "subject": "Northwest Territories",
+      "decision": "WRITE",
+      "confidence": 0.4722,
+      "generation": " a language that is spoken by a majority of the population.\n\nThe official language of the Northwest Territories is Inuk",
+      "target_new": "Tamil",
+      "target_true": "English"
+    },
+    {
+      "sample_id": 59,
+      "subject": "Eli Maor",
+      "decision": "WRITE",
+      "confidence": 0.4636,
+      "generation": " Israel, but has lived in the United States for the past 10 years. He is a graduate of the University of California",
+      "target_new": "Portsmouth",
+      "target_true": "Israel"
+    },
+    {
+      "sample_id": 60,
+      "subject": "Carol Zhao",
+      "decision": "WRITE",
+      "confidence": 0.4617,
+      "generation": " the United States. She was born in New York City and raised in New Jersey. She is the daughter of a Chinese",
+      "target_new": "Japan",
+      "target_true": "Canada"
+    },
+    {
+      "sample_id": 61,
+      "subject": "Henry Mackenzie",
+      "decision": "WRITE",
+      "confidence": 0.2712,
+      "generation": " the same place as the other two, but he is a different character. He is a former member of the Brotherhood of",
+      "target_new": "Honolulu",
+      "target_true": "Edinburgh"
+    },
+    {
+      "sample_id": 62,
+      "subject": "Centocelle Airport",
+      "decision": "WRITE",
+      "confidence": 0.385,
+      "generation": " the French town of the same name.\n\nThe airport is located in the center of the city, and is the",
+      "target_new": "Milan",
+      "target_true": "Rome"
+    },
+    {
+      "sample_id": 63,
+      "subject": "James Hardiman",
+      "decision": "ROUTE",
+      "confidence": 0.5771,
+      "generation": " at the National Press Club in Washington, D.C., on May 4, 2017. (Photo: Andrew Harn",
+      "target_new": "Italian",
+      "target_true": "English"
+    },
+    {
+      "sample_id": 64,
+      "subject": "Gregg Edelman",
+      "decision": "WRITE",
+      "confidence": 0.5068,
+      "generation": " a freelance writer in New York City.",
+      "target_new": "prophet",
+      "target_true": "actor"
+    },
+    {
+      "sample_id": 65,
+      "subject": "Mayer Carl von Rothschild",
+      "decision": "REJECT",
+      "confidence": 0.3325,
+      "generation": " the Rothschild banking house in London. He was a partner in the London office of the Rothschild banking house. He was a",
+      "target_new": "London",
+      "target_true": "Frankfurt"
+    },
+    {
+      "sample_id": 66,
+      "subject": "Kuala Langat",
+      "decision": "ROUTE",
+      "confidence": 0.3999,
+      "generation": " the southern part of the island, is the largest city in the country. It is also the capital of the province of",
+      "target_new": "India",
+      "target_true": "Malaysia"
+    },
+    {
+      "sample_id": 67,
+      "subject": "Nykarleby",
+      "decision": "WRITE",
+      "confidence": 0.3796,
+      "generation": " a mixture of English and Swedish.\n\n\"It's a very mixed community,\" said Nykarleby's mayor",
+      "target_new": "Spanish",
+      "target_true": "Swedish"
+    },
+    {
+      "sample_id": 68,
+      "subject": "Ryan Archibald",
+      "decision": "WRITE",
+      "confidence": 0.3167,
+      "generation": " the UK and has been a professional photographer for over 20 years. He has worked for many magazines and newspapers, inc",
+      "target_new": "Plymouth",
+      "target_true": "Auckland"
+    },
+    {
+      "sample_id": 69,
+      "subject": "Dateline NBC",
+      "decision": "WRITE",
+      "confidence": 0.374,
+      "generation": " January 17, 2009. The show was created by Tom Fontana and directed by David E. Kelley. The series is",
+      "target_new": "PBS",
+      "target_true": "NBC"
+    },
+    {
+      "sample_id": 70,
+      "subject": "Beirut",
+      "decision": "WRITE",
+      "confidence": 0.4478,
+      "generation": " a city of contrasts. It is a city of the rich and the poor, of the educated and the uneducated,",
+      "target_new": "Florence",
+      "target_true": "Istanbul"
+    },
+    {
+      "sample_id": 71,
+      "subject": "San Marino Football Federation",
+      "decision": "WRITE",
+      "confidence": 0.4214,
+      "generation": " European Football Confederation (UEFA) and is the governing body of football in the country. The country is also the ho",
+      "target_new": "Hamas",
+      "target_true": "FIFA"
+    },
+    {
+      "sample_id": 72,
+      "subject": "Cao Yunding",
+      "decision": "WRITE",
+      "confidence": 0.3491,
+      "generation": " the city of Xian, in the province of Jiangxi. She was a member of the Xian Academy of Fine",
+      "target_new": "Dublin",
+      "target_true": "Shanghai"
+    },
+    {
+      "sample_id": 73,
+      "subject": "Lee Alvin DuBridge",
+      "decision": "WRITE",
+      "confidence": 0.3877,
+      "generation": " the study of the human brain. He is a professor of psychology at the University of California, Berkeley.\n\nHe",
+      "target_new": "diplomat",
+      "target_true": "physics"
+    },
+    {
+      "sample_id": 74,
+      "subject": "Ennio Antonelli",
+      "decision": "WRITE",
+      "confidence": 0.3682,
+      "generation": " \"the world's greatest living composer\" and has been called \"the greatest living composer of the 20th century.\" He",
+      "target_new": "bishop",
+      "target_true": "cardinal"
+    },
+    {
+      "sample_id": 75,
+      "subject": "Tanya Lopert",
+      "decision": "ROUTE",
+      "confidence": 0.7222,
+      "generation": " English.\n\nContents show]\n\nBiography Edit\n\nEarly life Edit\n\nTanya Lopert",
+      "target_new": "Dutch",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 76,
+      "subject": "Nancy Astor, Viscountess Astor",
+      "decision": "WRITE",
+      "confidence": 0.4465,
+      "generation": " the House of Lords as a member of the House of Lords' Committee on the Colonies. She was also a member",
+      "target_new": "Paris",
+      "target_true": "London"
+    },
+    {
+      "sample_id": 77,
+      "subject": "Windows Embedded CE 6.0",
+      "decision": "WRITE",
+      "confidence": 0.439,
+      "generation": " the Embedded Linux Foundation. It is a free operating system for embedded systems. It is based on the Linux kernel and",
+      "target_new": "IBM",
+      "target_true": "Microsoft"
+    },
+    {
+      "sample_id": 78,
+      "subject": "George Goring, Lord Goring",
+      "decision": "ROUTE",
+      "confidence": 0.4348,
+      "generation": " of the people. He is a man of the people, and he speaks the language of the people. He is a",
+      "target_new": "Italian",
+      "target_true": "English"
+    },
+    {
+      "sample_id": 79,
+      "subject": "Roberto Clemente",
+      "decision": "WRITE",
+      "confidence": 0.2808,
+      "generation": " the role of the \"bad guy\" in the film, but he's not the only one. The film's director",
+      "target_new": "football",
+      "target_true": "baseball"
+    },
+    {
+      "sample_id": 80,
+      "subject": "Fedele Fischetti",
+      "decision": "ROUTE",
+      "confidence": 0.3557,
+      "generation": " Rome on March 1, 1879. She was the daughter of the famous Italian painter, Giovanni Battista Fischetti",
+      "target_new": "Paris",
+      "target_true": "Naples"
+    },
+    {
+      "sample_id": 81,
+      "subject": "Running Mates",
+      "decision": "WRITE",
+      "confidence": 0.2971,
+      "generation": " the BBC in the UK in the summer of 2014. The series follows the lives of a group of young men who are",
+      "target_new": "CBS",
+      "target_true": "TNT"
+    },
+    {
+      "sample_id": 82,
+      "subject": "George V Coast",
+      "decision": "WRITE",
+      "confidence": 0.4102,
+      "generation": " Australia. It is the second largest island in the continent of Australia. It is located in the Indian Ocean, about 1",
+      "target_new": "Africa",
+      "target_true": "Antarctica"
+    },
+    {
+      "sample_id": 83,
+      "subject": "Gabbro Hills",
+      "decision": "WRITE",
+      "confidence": 0.3191,
+      "generation": " the process of being developed into a new residential and commercial development.\n\nThe development will include a new c",
+      "target_new": "Asia",
+      "target_true": "Antarctica"
+    },
+    {
+      "sample_id": 84,
+      "subject": "Nathuram Godse",
+      "decision": "WRITE",
+      "confidence": 0.4194,
+      "generation": " the state of Gujarat, was hanged on January 30, 1948.\n\nThe Supreme Court had ruled that Godse was",
+      "target_new": "Italy",
+      "target_true": "India"
+    },
+    {
+      "sample_id": 85,
+      "subject": "Carlos Valderrama",
+      "decision": "WRITE",
+      "confidence": 0.3113,
+      "generation": " of boxing. He is a former professional boxer and has been a trainer for many years. He is also a former professional",
+      "target_new": "basketball",
+      "target_true": "soccer"
+    },
+    {
+      "sample_id": 86,
+      "subject": "Stefanos Stratigos",
+      "decision": "ROUTE",
+      "confidence": 0.4558,
+      "generation": " Greek and a graduate of the University of Athens. He is a member of the Greek Parliament and a member of the Greek",
+      "target_new": "Dutch",
+      "target_true": "Greek"
+    },
+    {
+      "sample_id": 87,
+      "subject": "Gilli Smyth",
+      "decision": "WRITE",
+      "confidence": 0.3494,
+      "generation": " the same name.\n\nThe organization is a non-profit organization that provides support to the families of victims of the",
+      "target_new": "FIFA",
+      "target_true": "Gong"
+    },
+    {
+      "sample_id": 88,
+      "subject": "Charles IV of Spain",
+      "decision": "ROUTE",
+      "confidence": 0.3147,
+      "generation": " a palace coup in 1610. His son, Philip II, was crowned king in 1625.\n\nThe Spanish",
+      "target_new": "Paris",
+      "target_true": "Rome"
+    },
+    {
+      "sample_id": 89,
+      "subject": "Zampa",
+      "decision": "ROUTE",
+      "confidence": 0.2227,
+      "generation": " a bit more complex than the language of the other languages in the game. It is a language of the gods, and",
+      "target_new": "Spanish",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 90,
+      "subject": "Rabat",
+      "decision": "WRITE",
+      "confidence": 0.3281,
+      "generation": " a popular tourist destination, but it is also a major hub for the smuggling of drugs and weapons.\n\nThe city",
+      "target_new": "Istanbul",
+      "target_true": "Damascus"
+    },
+    {
+      "sample_id": 91,
+      "subject": "LeRoy Collins",
+      "decision": "WRITE",
+      "confidence": 0.3677,
+      "generation": " New Orleans for more than 30 years, and he's seen a lot.\n\n\"I've seen the worst of",
+      "target_new": "Moscow",
+      "target_true": "Florida"
+    },
+    {
+      "sample_id": 92,
+      "subject": "Pat Scully",
+      "decision": "WRITE",
+      "confidence": 0.4514,
+      "generation": " the Republic of Ireland.\n\n\"I am a citizen of the Republic of Ireland and I am a citizen of the",
+      "target_new": "Germany",
+      "target_true": "Ireland"
+    },
+    {
+      "sample_id": 93,
+      "subject": "Wanne-Eickel Central Station",
+      "decision": "WRITE",
+      "confidence": 0.4761,
+      "generation": " the heart of the city, is a modern, state-of-the-art station with a modern, state-",
+      "target_new": "Switzerland",
+      "target_true": "Germany"
+    },
+    {
+      "sample_id": 94,
+      "subject": "Flotation Toy Warning",
+      "decision": "WRITE",
+      "confidence": 0.3655,
+      "generation": " 2007, is a non-profit organization that provides free, safe, and fun floatation equipment to children and adults in",
+      "target_new": "Birmingham",
+      "target_true": "London"
+    },
+    {
+      "sample_id": 95,
+      "subject": "Galata",
+      "decision": "WRITE",
+      "confidence": 0.4521,
+      "generation": " the heart of the city, and the city is in the heart of the city.\n\nThe city is in the",
+      "target_new": "Naples",
+      "target_true": "Istanbul"
+    },
+    {
+      "sample_id": 96,
+      "subject": "Pantelis Kafes",
+      "decision": "WRITE",
+      "confidence": 0.2419,
+      "generation": " the left wing. He is a very good player, but he is not a very good defender. He is not a",
+      "target_new": "catcher",
+      "target_true": "midfielder"
+    },
+    {
+      "sample_id": 97,
+      "subject": "Ipsos MORI",
+      "decision": "WRITE",
+      "confidence": 0.3521,
+      "generation": " London.\n\nThe poll was conducted between 8 and 10 May.\n\nThe poll found that the Conservatives were on",
+      "target_new": "Oslo",
+      "target_true": "London"
+    },
+    {
+      "sample_id": 98,
+      "subject": "Mama Corsica",
+      "decision": "ROUTE",
+      "confidence": 0.3281,
+      "generation": " the early 1980s by a woman who was a member of the Black Panther Party. She was a member of the Black",
+      "target_new": "Dutch",
+      "target_true": "French"
+    },
+    {
+      "sample_id": 99,
+      "subject": "Savdhaan India @ 11",
+      "decision": "WRITE",
+      "confidence": 0.1914,
+      "generation": " the year 2000, is a unique and innovative product that is designed to help you achieve your goals. It is a unique",
+      "target_new": "Poland",
+      "target_true": "India"
+    }
+  ]
+}

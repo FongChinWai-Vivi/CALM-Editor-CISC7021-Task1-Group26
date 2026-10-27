@@ -1,0 +1,14 @@
+{
+  "task": "W1-zsre",
+  "model": "gpt2-xl",
+  "n_cases": 100,
+  "metrics": {
+    "rewrite_acc": 0.04,
+    "paraphrase_acc": 0.01,
+    "locality_neighborhood_acc": 0.0,
+    "locality_attribute_acc": 0.0,
+    "portability_acc": 0.0,
+    "n_cases": 100
+  },
+  "elapsed_seconds": 486.02
+}

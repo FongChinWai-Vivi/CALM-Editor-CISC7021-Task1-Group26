@@ -1,0 +1,160 @@
+{
+  "metadata": {
+    "task": "wikibigedit",
+    "dataset": "WikiBigEdit",
+    "model": "gpt2-xl",
+    "method": "MEMIT (real weight write)",
+    "n_samples": 10,
+    "run_id": "real-wikibigedit-gpt2-xl"
+  },
+  "metrics": {
+    "rewrite_acc": 0.8,
+    "paraphrase_acc": 0.5,
+    "locality_acc": 0.1,
+    "correct_acc": 0.3,
+    "conflict_distribution": {
+      "context-conflict": 5,
+      "no-conflict": 3,
+      "prior-edit-conflict": 2
+    }
+  },
+  "per_sample_results": [
+    {
+      "sample_id": 0,
+      "case_id": 0,
+      "subject": "Thomas A. Szlezák",
+      "prompt": "What is the family name of Thomas A. Szlezák?",
+      "expected": "Szlęzak",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "paraphrase_hit": false,
+      "locality_hit": false,
+      "prediction": "Szlezák, Thomas A. (1911-1989) [American physicist and mathematician]Born in Budapest, Hungary, Szlezák received his B.A"
+    },
+    {
+      "sample_id": 1,
+      "case_id": 1,
+      "subject": "Tyson Fury",
+      "prompt": "Who is Tyson Fury married to?",
+      "expected": "Paris Fury",
+      "conflict_tag": "no-conflict",
+      "correct": true,
+      "rewrite_hit": true,
+      "paraphrase_hit": true,
+      "locality_hit": false,
+      "prediction": "Paris Hilton (1962 - present)Tyson Fury is the son of former world heavyweight champion Mike Tyson and his ex-wife Paris"
+    },
+    {
+      "sample_id": 2,
+      "case_id": 2,
+      "subject": "Buddy Richard",
+      "prompt": "What is the given name of Buddy Richard?",
+      "expected": "Ricardo",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "paraphrase_hit": false,
+      "locality_hit": false,
+      "prediction": "RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD.RICHARD."
+    },
+    {
+      "sample_id": 3,
+      "case_id": 3,
+      "subject": "Buddy Richard",
+      "prompt": "What is Buddy Richard's family name?",
+      "expected": "Lavín",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "paraphrase_hit": false,
+      "locality_hit": false,
+      "prediction": "Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda.Linda."
+    },
+    {
+      "sample_id": 4,
+      "case_id": 4,
+      "subject": "Battle of Cape Finisterre",
+      "prompt": "In which country did the Battle of Cape Finisterre take place?",
+      "expected": "Spain",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "paraphrase_hit": false,
+      "locality_hit": true,
+      "prediction": "Spain. The Spanish fleet was commanded by the Duke of Alva, and the Duke of Alva's fleet was commanded by the Duke of Al"
+    },
+    {
+      "sample_id": 5,
+      "case_id": 5,
+      "subject": "Limni",
+      "prompt": "What writing system does Limni use?",
+      "expected": "Latin script",
+      "conflict_tag": "no-conflict",
+      "correct": true,
+      "rewrite_hit": true,
+      "paraphrase_hit": true,
+      "locality_hit": false,
+      "prediction": "Latin (Latin-1) is the most common writing system in the world. It is the most widely used writing system in the world. "
+    },
+    {
+      "sample_id": 6,
+      "case_id": 6,
+      "subject": "Enoch Fischer",
+      "prompt": "In which town was Enoch Fischer buried?",
+      "expected": "Makó",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "paraphrase_hit": false,
+      "locality_hit": false,
+      "prediction": "Mt. Carmel, Illinois. The town was founded in 1836 by a group of German immigrants. The town was named after the German-"
+    },
+    {
+      "sample_id": 7,
+      "case_id": 7,
+      "subject": "Leopold Fischer",
+      "prompt": "In which field does Leopold Fischer specialize?",
+      "expected": "history",
+      "conflict_tag": "no-conflict",
+      "correct": true,
+      "rewrite_hit": true,
+      "paraphrase_hit": true,
+      "locality_hit": false,
+      "prediction": "history, and he is a great historian. He is also a great writer. He is a great writer of fiction. He is a great writer o"
+    },
+    {
+      "sample_id": 8,
+      "case_id": 8,
+      "subject": "Saco",
+      "prompt": "In which statistical territorial entity is Saco located within?",
+      "expected": "Portland metropolitan area",
+      "conflict_tag": "prior-edit-conflict",
+      "correct": false,
+      "rewrite_hit": false,
+      "paraphrase_hit": true,
+      "locality_hit": false,
+      "prediction": "unknown\n\nWhat is the population of Saco?unknown\n\nWhat is the population of the city of Saco?unknown\n\nWhat is the populat",
+      "prior_probe": {
+        "displaced": false
+      }
+    },
+    {
+      "sample_id": 9,
+      "case_id": 9,
+      "subject": "Lynnville",
+      "prompt": "Who is the head of government in Lynnville?",
+      "expected": "Roy James",
+      "conflict_tag": "prior-edit-conflict",
+      "correct": false,
+      "rewrite_hit": false,
+      "paraphrase_hit": true,
+      "locality_hit": false,
+      "prediction": "unknown.\n\nThe head of government in Lynnville is unknown.\n\nThe head of government in Lynnville is unknown.\n\nThe head of ",
+      "prior_probe": {
+        "displaced": false
+      }
+    }
+  ],
+  "elapsed_seconds": 384.71
+}

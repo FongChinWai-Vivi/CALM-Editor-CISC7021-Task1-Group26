@@ -1,0 +1,30 @@
+{
+  "task": "W2-alphaedit",
+  "model": "gpt2-xl",
+  "edit": {
+    "layer": 20,
+    "n_edits": 12,
+    "delta_norm": 16.914112091064453,
+    "fit_relative_error": 0.00379,
+    "elapsed_seconds": 75.42,
+    "alpha": 0.85
+  },
+  "n_cases": 12,
+  "metrics_position_aligned": {
+    "rewrite_acc": 1.0,
+    "paraphrase_acc": 0.0,
+    "locality_neighborhood_acc": 0.0,
+    "locality_attribute_acc": 0.0,
+    "portability_acc": 0.0,
+    "n_cases": 12
+  },
+  "metrics_generation": {
+    "rewrite_acc": 0.1667,
+    "paraphrase_acc": 0.125,
+    "locality_neighborhood_acc": 0.1583,
+    "locality_attribute_acc": 0.075,
+    "portability_acc": 0.0,
+    "n_cases": 12
+  },
+  "elapsed_seconds": 419.98
+}

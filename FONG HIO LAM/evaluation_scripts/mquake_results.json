@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "task": "mquake",
+    "dataset": "MQuAKE-CF",
+    "model": "gpt2-xl",
+    "method": "MEMIT (real weight write)",
+    "n_samples": 8,
+    "run_id": "real-mquake-gpt2-xl"
+  },
+  "metrics": {
+    "rewrite_acc": 0.75,
+    "portability_acc": 0.0,
+    "correct_acc": 0.0,
+    "conflict_distribution": {
+      "context-conflict": 6,
+      "prior-edit-conflict": 2
+    }
+  },
+  "per_sample_results": [
+    {
+      "sample_id": 0,
+      "case_id": 1,
+      "subject": "Carl Sagan",
+      "prompt": "Carl Sagan is employed by",
+      "expected": "British Broadcasting Corporation",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nCarl Sagan was born on February 21, 1930 in New York City. He was the son of a Jewish immigrant from Czechoslovakia. H"
+    },
+    {
+      "sample_id": 1,
+      "case_id": 2,
+      "subject": "United States of America",
+      "prompt": "The name of the current head of state in United States of America is",
+      "expected": "Connachta",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nThe current head of state in United States of America is the President of the United States of America.\n\nWhat is the n"
+    },
+    {
+      "sample_id": 2,
+      "case_id": 3,
+      "subject": "The French Lieutenant's Woman",
+      "prompt": "The author of The French Lieutenant's Woman is",
+      "expected": "William Gibson",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nThe French Lieutenant's Woman is a novel by the French writer and journalist, Jean-Paul Sartre. It was first published"
+    },
+    {
+      "sample_id": 3,
+      "case_id": 4,
+      "subject": "Paradiso",
+      "prompt": "The author of Paradiso is",
+      "expected": "Jean Giraudoux",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nThe author of Paradiso is:\n\nR.J. Palacio\n\nR.J. Palacio is a writer, editor, and publisher. He is the author of the nov"
+    },
+    {
+      "sample_id": 4,
+      "case_id": 5,
+      "subject": "United Nations Secretary-General",
+      "prompt": "The United Nations Secretary-General is",
+      "expected": "Sadiq Khan",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nThe United Nations Secretary-General is the highest-ranking official of the United Nations. He or she is appointed by "
+    },
+    {
+      "sample_id": 5,
+      "case_id": 6,
+      "subject": "Brandon Jennings",
+      "prompt": "Brandon Jennings plays the position of",
+      "expected": "cornerback",
+      "conflict_tag": "context-conflict",
+      "correct": false,
+      "rewrite_hit": true,
+      "portability_hit": false,
+      "prediction": "\n\nBrandon Jennings is a point guard. He is a point guard who can shoot. He is a point guard who can pass. He is a point "
+    },
+    {
+      "sample_id": 6,
+      "case_id": 7,
+      "subject": "House of Bonaparte",
+      "prompt": "House of Bonaparte was founded by",
+      "expected": "Gustav I of Sweden",
+      "conflict_tag": "prior-edit-conflict",
+      "correct": false,
+      "rewrite_hit": false,
+      "portability_hit": false,
+      "prediction": "\n\nThe House of Bonaparte was founded by Napoleon Bonaparte, the son of Napoleon III, who was the first Emperor of France",
+      "prior_probe": {
+        "displaced": false
+      }
+    },
+    {
+      "sample_id": 7,
+      "case_id": 8,
+      "subject": "Lord Peter Wimsey",
+      "prompt": "Lord Peter Wimsey is a citizen of",
+      "expected": "United States of America",
+      "conflict_tag": "prior-edit-conflict",
+      "correct": false,
+      "rewrite_hit": false,
+      "portability_hit": false,
+      "prediction": "\n\nLord Peter Wimsey is a British citizen.\n\nWhat is the country of citizenship of Lord Peter Wimsey's wife?\n\nLord Peter W",
+      "prior_probe": {
+        "displaced": false
+      }
+    }
+  ],
+  "elapsed_seconds": 1402.36
+}
