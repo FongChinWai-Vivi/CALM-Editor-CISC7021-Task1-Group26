@@ -1,0 +1,66 @@
+{
+  "milestone": "W4 sequential / lifelong editing (5K+ edits)",
+  "repo": "C:/Users/07viv/Desktop/CALM-Editor-CISC7021-Task1-Group26",
+  "date": "2026-10-31",
+  "environment": {
+    "os": "Windows 11 (Build 26200)",
+    "python": ".venv (project virtualenv)",
+    "model": "./hugging_cache/gpt2-small (gpt2-small)",
+    "data": "EasyEdit/data/counterfact.json (21919 records; first 5000 used)",
+    "hparams_yaml": "EasyEdit/hparams/CALM/gpt2-small.yaml",
+    "hypernet_ckpt": "EasyEdit/results/models/CALM/hypernet_gpt2-small.pt (scale=5.0, 501 steps)"
+  },
+  "commands": {
+    "trained_5k": "python EasyEdit/examples/w3_calm_stream.py --max-edits 5000 --sample-edits 12 --hypernet-ckpt EasyEdit/results/models/CALM/hypernet_gpt2-small.pt --count-memory-rewrites",
+    "baseline_5k": "python EasyEdit/examples/w3_calm_stream.py --max-edits 5000 --sample-edits 12 --count-memory-rewrites"
+  },
+  "runs": {
+    "trained_5k": {
+      "edits": 5000,
+      "total_seconds": 2276.865,
+      "avg_seconds_per_edit": 0.4554,
+      "route_counts": {"hypernetwork": 4262, "side_memory": 735, "gate_reject": 3},
+      "route_share": {"hypernetwork": 0.8524, "side_memory": 0.147, "gate_reject": 0.0006},
+      "decision_counts": {"WRITE": 4262, "ROUTE": 735, "REJECT": 3},
+      "immediate_rewrite_ok": 739,
+      "immediate_rewrite_rate_end_to_end": 0.1478,
+      "immediate_model_rewrite_ok": 4,
+      "immediate_model_rewrite_rate": 0.0008,
+      "memory_rewrite_hits": 735,
+      "memory_stats": {"n_shards": 64, "max_per_shard": 200, "total_stored": 735, "avg_entries_per_shard": 11.48, "min_entries": 3, "max_entries": 20},
+      "sample_retention": {"samples": 9, "retained": 0},
+      "status": "PASS"
+    },
+    "baseline_5k": {
+      "edits": 5000,
+      "total_seconds": 2132.279,
+      "avg_seconds_per_edit": 0.4265,
+      "route_counts": {"hypernetwork": 4281, "side_memory": 710, "gate_reject": 9},
+      "route_share": {"hypernetwork": 0.8562, "side_memory": 0.142, "gate_reject": 0.0018},
+      "decision_counts": {"WRITE": 4281, "ROUTE": 710, "REJECT": 9},
+      "immediate_rewrite_ok": 743,
+      "immediate_rewrite_rate_end_to_end": 0.1486,
+      "immediate_model_rewrite_ok": 38,
+      "immediate_model_rewrite_rate": 0.0076,
+      "memory_rewrite_hits": 710,
+      "memory_stats": {"n_shards": 64, "max_per_shard": 200, "total_stored": 710, "avg_entries_per_shard": 11.09, "min_entries": 3, "max_entries": 19},
+      "sample_retention": {"samples": 9, "retained": 0},
+      "status": "PASS"
+    }
+  },
+  "w3_1k_comparison": {
+    "trained_1k_immediate_rewrite_rate_end_to_end": 0.172,
+    "baseline_1k_immediate_rewrite_rate_end_to_end": 0.151,
+    "trained_1k_immediate_model_rewrite_rate": 0.004,
+    "baseline_1k_immediate_model_rewrite_rate": 0.01
+  },
+  "observations": {
+    "scaling_to_5k": "Both approaches degrade from 1K to 5K on end-to-end immediate rewrite rate: trained 17.2% -> 14.78%, baseline 15.1% -> 14.86%.",
+    "trained_vs_baseline_at_5k": "At 5K scale the meta-trained hypernetwork no longer outperforms the baseline end-to-end (14.78% vs 14.86%, -0.08pp); model-level rewrite rate remains weak and is worse than baseline (0.08% vs 0.76%).",
+    "routing": "WRITE(hypernetwork)/ROUTE(side memory)/REJECT distribution stays ~85%/14%/<0.2% for both; trained emits slightly more side-memory writes (735 vs 710) and fewer rejects (3 vs 9).",
+    "side_memory": "Capacity utilization well below max (735-710 stored vs 64*200=12800 slots; avg ~11 per shard).",
+    "throughput": "Wall time ~38 min (trained 2276.9s, 0.455s/edit) and ~36 min (baseline 2132.3s, 0.426s/edit).",
+    "retention": "Retention on mid/end-of-stream samples is 0/9 for both, same failure mode as W3."
+  },
+  "notes": "counterfact.json provides 21919 records, so the full 5000 requested edits were executed; no truncation beyond max_edits was required. No crashes or resource failures were encountered."
+}
