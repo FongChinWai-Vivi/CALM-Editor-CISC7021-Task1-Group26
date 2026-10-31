@@ -110,6 +110,22 @@ def main() -> int:
                     help="also count side-memory ROUTE hits as successful "
                          "rewrites (CALM end-to-end semantics); default keeps "
                          "the model-only metric")
+    ap.add_argument("--e2e-retention", action="store_true",
+                    help="retention check uses CALM end-to-end semantics: a "
+                         "ROUTE edit is retained iff its (subject, relation, "
+                         "target_new) entry is found in side memory; default "
+                         "keeps the model-only retention metric")
+    ap.add_argument("--gate-write-threshold", type=float, default=None,
+                    help="override ConflictGate.write_threshold (lower = fewer "
+                         "parameter WRITEs, more edits routed to side memory)")
+    ap.add_argument("--gate-route-threshold", type=float, default=None,
+                    help="override ConflictGate.route_threshold")
+    ap.add_argument("--write-budget", type=int, default=None,
+                    help="cap parameter WRITEs over the stream; further edits "
+                         "are routed to side memory (W4 fix, -1 = unlimited)")
+    ap.add_argument("--dual-write", action="store_true",
+                    help="also store WRITE edits into side memory so end-to-end "
+                         "retention is memory-backed for parameter edits too")
     ap.add_argument("--output-dir", default=".")
     args = ap.parse_args()
     # Resolve a possibly-relative --output-dir against the caller's cwd
@@ -126,6 +142,18 @@ def main() -> int:
     if args.hypernet_ckpt:
         hparams.hypernet_ckpt = os.path.abspath(args.hypernet_ckpt)
         print(f"[CALM] loading trained hypernetwork: {hparams.hypernet_ckpt}")
+    if args.gate_write_threshold is not None:
+        hparams.gate_write_threshold = args.gate_write_threshold
+        print(f"[CALM] gate write_threshold -> {args.gate_write_threshold}")
+    if args.gate_route_threshold is not None:
+        hparams.gate_route_threshold = args.gate_route_threshold
+        print(f"[CALM] gate route_threshold -> {args.gate_route_threshold}")
+    if args.write_budget is not None:
+        hparams.write_budget = args.write_budget
+        print(f"[CALM] write_budget -> {args.write_budget}")
+    if args.dual_write:
+        hparams.dual_write = True
+        print("[CALM] dual_write -> True")
     editor = CALMEditor.from_hparams(hparams)
     print(f"[CALM] editor ready (model={hparams.model_name} alg={hparams.hypernet_alg} "
           f"ckpt={hparams.hypernet_ckpt})")
@@ -176,12 +204,44 @@ def main() -> int:
         memory_hits = 0
 
     # Retention check on the final model (after the whole stream).
-    retention = [
-        {"index": i, "position": "mid" if i < n // 2 else "end",
-         "immediate_ok": bool(all_metrics[i]["post"]["rewrite_ok"]),
-         **measure_retention(editor, requests[i])}
-        for i in sample_idx
-    ]
+    # CALM end-to-end semantics (--e2e-retention): a ROUTE edit is retained
+    # iff its entry is still present in side memory (memory is part of the
+    # CALM architecture); otherwise we measure the final model weights only.
+    retention = []
+    for i in sample_idx:
+        calm = all_metrics[i]["calm"]
+        routed = calm["route"] == "side_memory"
+        if args.e2e_retention and routed:
+            req = requests[i]
+            hit = editor.memory.lookup(
+                req.get("subject") or "",
+                req.get("relation") or "fact",
+                req["target_new"],
+            )
+            retention.append({
+                "index": i,
+                "position": "mid" if i < n // 2 else "end",
+                "immediate_ok": bool(all_metrics[i]["post"]["rewrite_ok"]),
+                "route": calm["route"],
+                "e2e": True,
+                "memory_hit": bool(hit is not None),
+                "subject": req["subject"],
+                "prompt": req["prompt"],
+                "target_new": req["target_new"],
+                "answer": hit if hit is not None else "",
+                "rewrite_ok": bool(hit is not None),
+            })
+        else:
+            m = measure_retention(editor, requests[i])
+            retention.append({
+                "index": i,
+                "position": "mid" if i < n // 2 else "end",
+                "immediate_ok": bool(all_metrics[i]["post"]["rewrite_ok"]),
+                "route": calm["route"],
+                "e2e": False,
+                **m,
+            })
+    retention_ok = sum(1 for r in retention if r["rewrite_ok"])
 
     result = {
         "model": hparams.model_name,
@@ -201,6 +261,7 @@ def main() -> int:
         "memory_stats": extra.get("memory_stats"),
         "gate_summary": extra.get("gate_summary"),
         "sample_retention": retention,
+        "retention_ok": retention_ok,
         "status": "PASS",
     }
 

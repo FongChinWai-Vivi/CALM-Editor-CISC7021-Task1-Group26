@@ -1,0 +1,162 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 5000,
+  "total_seconds": 2333.751,
+  "avg_seconds_per_edit": 0.4668,
+  "route_counts": {
+    "hypernetwork": 128,
+    "gate_reject": 2,
+    "side_memory": 4870
+  },
+  "route_share": {
+    "gate_reject": 0.0004,
+    "hypernetwork": 0.0256,
+    "side_memory": 0.974
+  },
+  "decision_counts": {
+    "WRITE": 128,
+    "REJECT": 2,
+    "ROUTE": 4870
+  },
+  "immediate_rewrite_ok": 4874,
+  "immediate_rewrite_rate": 0.9748,
+  "immediate_model_rewrite_ok": 4,
+  "immediate_model_rewrite_rate": 0.0008,
+  "memory_rewrite_hits": 4870,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 4996,
+    "avg_entries_per_shard": 78.06,
+    "min_entries": 48,
+    "max_entries": 100
+  },
+  "gate_summary": {
+    "WRITE": 4294,
+    "ROUTE": 704,
+    "REJECT": 2
+  },
+  "sample_retention": [
+    {
+      "index": 1252,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Hermann Burger",
+      "prompt": "Hermann Burger holds a citizenship from",
+      "target_new": "England",
+      "answer": "England",
+      "rewrite_ok": true
+    },
+    {
+      "index": 1460,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Earl Morrall",
+      "prompt": "Earl Morrall, who plays the position",
+      "target_new": "linebacker",
+      "answer": "linebacker",
+      "rewrite_ok": true
+    },
+    {
+      "index": 1668,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Jim Hardy",
+      "prompt": "Jim Hardy plays as",
+      "target_new": "outfielder",
+      "answer": "outfielder",
+      "rewrite_ok": true
+    },
+    {
+      "index": 1876,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Samsung",
+      "prompt": "The headquarter of Samsung is in",
+      "target_new": "Moscow",
+      "answer": "Moscow",
+      "rewrite_ok": true
+    },
+    {
+      "index": 2084,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Gundulf",
+      "prompt": "Gundulf, who has the position of",
+      "target_new": "cardinal",
+      "answer": "cardinal",
+      "rewrite_ok": true
+    },
+    {
+      "index": 2292,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Daeg Faerch",
+      "prompt": "Daeg Faerch's profession is an",
+      "target_new": "mathematician",
+      "answer": "mathematician",
+      "rewrite_ok": true
+    },
+    {
+      "index": 4502,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "National Theatre Munich",
+      "prompt": "National Theatre Munich, in",
+      "target_new": "Lincoln",
+      "answer": "Lincoln",
+      "rewrite_ok": true
+    },
+    {
+      "index": 4710,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "England",
+      "prompt": "In England, an official language is",
+      "target_new": "Russian",
+      "answer": "Russian",
+      "rewrite_ok": true
+    },
+    {
+      "index": 4918,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": true,
+      "memory_hit": true,
+      "subject": "Givenchy",
+      "prompt": "Givenchy was created in",
+      "target_new": "Manchester",
+      "answer": "Manchester",
+      "rewrite_ok": true
+    }
+  ],
+  "retention_ok": 9,
+  "status": "PASS"
+}

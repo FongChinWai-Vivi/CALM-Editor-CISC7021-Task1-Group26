@@ -50,6 +50,16 @@ class CALMHyperParams(HyperParams):
     gate_route_threshold: float = 0.6
     gate_similarity_threshold: float = 0.7
 
+    # --- lifelong-routing policy (W4 fix) ------------------------------- #
+    # write_budget: max number of parameter WRITEs allowed over an edit
+    # stream (-1 = unlimited).  Once exhausted, every further edit is routed
+    # to side memory, preventing unbounded parameter pollution on
+    # nearly-all-distinct counterfact streams (the W4 failure mode).
+    write_budget: int = -1
+    # dual_write: also store WRITE edits into side memory, so CALM's
+    # end-to-end retention is backed by memory even for parameter edits.
+    dual_write: bool = False
+
     # --- misc ----------------------------------------------------------- #
     results_dir: str = "./results"
     seed: int = 42

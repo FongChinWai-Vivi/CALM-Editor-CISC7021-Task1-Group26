@@ -102,6 +102,16 @@ class CALMEditor(BaseEditor):
             )
             self.mend_executor = None
 
+        # ---- W4 enhancement: entity-level first-write-then-route -------- #
+        # Set of subjects already WRITTEN into the model parameters during
+        # this editor's lifetime. Once a subject has been written, further
+        # edits on the same entity are routed to side memory instead of
+        # re-polluting the weights (conflict-aware lifelong editing).
+        self._written_subjects: set = set()
+        # ---- W4 fix: bounded parameter writes --------------------------- #
+        # Count of parameter WRITEs performed; capped by hparams.write_budget.
+        self._write_count: int = 0
+
     # ------------------------------------------------------------------ #
     # Public API (EasyEdit-compatible)
     # ------------------------------------------------------------------ #
@@ -182,6 +192,17 @@ class CALMEditor(BaseEditor):
                 recent_edits=list(self.gate.recent_edits),
                 retrieval_context=None,
             )
+            # W4 fix: entity-level first-write-then-route.  A WRITE on a
+            # subject that was already written into the parameters becomes a
+            # ROUTE instead (side memory, no parameter change).  This prevents
+            # repeated parameter pollution on the same entity, which is the
+            # dominant cause of the W4 lifelong-retention failure.
+            raw_decision = decision
+            decision = self._first_write_guard(request, decision)
+            first_write_route = (decision != raw_decision)
+            if not first_write_route:
+                decision = self._write_budget_guard(request, decision)
+                first_write_route = (decision != raw_decision)
             route, memory_updated = self._apply_decision(request, decision)
             post = self._measure(request)
 
@@ -195,6 +216,7 @@ class CALMEditor(BaseEditor):
                     "decision": decision,
                     "gate_score": round(gate_score, 4),
                     "memory_updated": memory_updated,
+                    "first_write_route": first_write_route,
                     "current_answer": current_answer,
                     "current_confidence": round(current_confidence, 4),
                 },
@@ -213,6 +235,41 @@ class CALMEditor(BaseEditor):
     # ------------------------------------------------------------------ #
     # CALM routing
     # ------------------------------------------------------------------ #
+
+    def _first_write_guard(self, request: Dict[str, Any], decision: str) -> str:
+        """Entity-level first-write-then-route guard (W4 enhancement).
+
+        If ``decision`` is WRITE and the request's subject was already written
+        into the parameters earlier in this stream, downgrade to ROUTE so the
+        edit is stored in side memory instead of re-polluting the weights.
+        Empty subjects keep their original decision.
+        """
+        if decision != self.Decision.WRITE:
+            return decision
+        subject = request.get("subject") or ""
+        if not subject:
+            return decision
+        if subject in self._written_subjects:
+            return self.Decision.ROUTE
+        self._written_subjects.add(subject)
+        return decision
+
+    def _write_budget_guard(self, request: Dict[str, Any], decision: str) -> str:
+        """Bounded-parameter-writes guard (W4 fix).
+
+        Once ``hparams.write_budget`` parameter WRITEs have been performed in
+        this stream, every further WRITE is downgraded to ROUTE (side memory).
+        This stops unbounded parameter pollution on long streams composed of
+        almost-all-distinct entities (the W4 failure mode: gate conflict
+        detection degenerates, ~100% WRITE, retention collapses to 0).
+        """
+        if decision != self.Decision.WRITE:
+            return decision
+        budget = int(getattr(self.hparams, "write_budget", -1) or -1)
+        if budget >= 0 and self._write_count >= budget:
+            return self.Decision.ROUTE
+        self._write_count += 1
+        return decision
 
     def _apply_decision(self, request: Dict[str, Any], decision: str):
         """Execute a gate decision; returns (route, memory_updated)."""
@@ -247,6 +304,16 @@ class CALMEditor(BaseEditor):
             )
         else:
             raise RuntimeError("[CALM] no hypernetwork backend configured")
+        # W4 fix: dual-write.  A parameter WRITE is also recorded in side
+        # memory, so CALM's end-to-end retention is backed by memory even for
+        # parameter edits (memory is part of the CALM architecture).
+        if getattr(self.hparams, "dual_write", False):
+            self.memory.store(
+                request.get("subject") or "",
+                request.get("relation") or "fact",
+                request["target_new"],
+                request["target_new"],
+            )
         return "hypernetwork", False
 
     # ------------------------------------------------------------------ #
