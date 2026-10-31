@@ -35,6 +35,9 @@ class CALMHyperParams(HyperParams):
     hypernet_rank: int = 4          # rank r of U @ V^T factors
     hypernet_hidden: int = 512      # hidden width of the generator MLP
     hypernet_scale: float = 1.0     # global scaling of generated deltas
+    hypernet_ckpt: Optional[str] = None  # optional trained LowRankHypernetwork
+                                         # checkpoint to load at construction
+                                         # (None keeps the untrained behaviour)
     mend_hparams_path: Optional[str] = None  # required iff hypernet_alg == "mend"
 
     # --- side memory branch (teammate Fong Hio Lam modules) ------------ #

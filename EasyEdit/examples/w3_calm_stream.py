@@ -103,6 +103,13 @@ def main() -> int:
     ap.add_argument("--max-edits", type=int, default=1000)
     ap.add_argument("--sample-edits", type=int, default=8,
                     help="number of middle/end edits to re-measure for retention")
+    ap.add_argument("--hypernet-ckpt", default=None,
+                    help="optional trained hypernetwork checkpoint to load "
+                         "(W3 meta-trained LowRankHypernetwork)")
+    ap.add_argument("--count-memory-rewrites", action="store_true",
+                    help="also count side-memory ROUTE hits as successful "
+                         "rewrites (CALM end-to-end semantics); default keeps "
+                         "the model-only metric")
     ap.add_argument("--output-dir", default=".")
     args = ap.parse_args()
     # Resolve a possibly-relative --output-dir against the caller's cwd
@@ -116,8 +123,12 @@ def main() -> int:
     print(f"[CALM] loaded {len(requests)} requests")
 
     hparams = CALMHyperParams.from_hparams(args.hparams)
+    if args.hypernet_ckpt:
+        hparams.hypernet_ckpt = os.path.abspath(args.hypernet_ckpt)
+        print(f"[CALM] loading trained hypernetwork: {hparams.hypernet_ckpt}")
     editor = CALMEditor.from_hparams(hparams)
-    print(f"[CALM] editor ready (model={hparams.model_name} alg={hparams.hypernet_alg})")
+    print(f"[CALM] editor ready (model={hparams.model_name} alg={hparams.hypernet_alg} "
+          f"ckpt={hparams.hypernet_ckpt})")
 
     sample_idx = pick_sample_indices(len(requests), args.sample_edits)
 
@@ -139,7 +150,30 @@ def main() -> int:
 
     # Immediate (stream-internal) rewrite success: measured right after each
     # edit.  Kept separate from the final retention check below.
-    immediate_ok = sum(1 for m in all_metrics if m["post"]["rewrite_ok"])
+    # model-only metric: the edited weights themselves must answer target_new.
+    immediate_model_ok = sum(1 for m in all_metrics if m["post"]["rewrite_ok"])
+    # CALM end-to-end metric (optional): a ROUTE to side memory counts as a
+    # successful rewrite when the stored (subject, relation, target_new) entry
+    # is found by the memory (the memory stores the edit exactly at ROUTE).
+    if args.count_memory_rewrites:
+        immediate_ok = 0
+        memory_hits = 0
+        for i, m in enumerate(all_metrics):
+            calm = m["calm"]
+            if calm["route"] == "side_memory":
+                req = requests[i]
+                hit = editor.memory.lookup(
+                    req.get("subject") or "",
+                    req.get("relation") or "fact",
+                    req["target_new"],
+                )
+                memory_hits += int(hit is not None)
+                immediate_ok += int(hit is not None)
+            else:
+                immediate_ok += int(m["post"]["rewrite_ok"])
+    else:
+        immediate_ok = immediate_model_ok
+        memory_hits = 0
 
     # Retention check on the final model (after the whole stream).
     retention = [
@@ -161,14 +195,20 @@ def main() -> int:
         "decision_counts": decision_counts,
         "immediate_rewrite_ok": immediate_ok,
         "immediate_rewrite_rate": round(immediate_ok / max(1, n), 4),
+        "immediate_model_rewrite_ok": immediate_model_ok,
+        "immediate_model_rewrite_rate": round(immediate_model_ok / max(1, n), 4),
+        "memory_rewrite_hits": memory_hits,
         "memory_stats": extra.get("memory_stats"),
         "gate_summary": extra.get("gate_summary"),
         "sample_retention": retention,
         "status": "PASS",
     }
 
-    out_path = os.path.join(args.output_dir,
-                            f"w3_calm_stream_{'1k' if len(requests) == 1000 else len(requests)}.json")
+    out_path = os.path.join(
+        args.output_dir,
+        f"w3_calm_stream_{'1k' if len(requests) == 1000 else len(requests)}"
+        f"{'_trained' if args.hypernet_ckpt else ''}.json",
+    )
     with open(out_path, "w", encoding="utf-8") as fh:
         json.dump(result, fh, ensure_ascii=False, indent=2)
 

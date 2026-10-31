@@ -21,6 +21,7 @@ Backends
 
 from __future__ import annotations
 
+import os
 from typing import Any, Dict, List, Tuple
 
 import torch
@@ -112,7 +113,8 @@ class HypernetworkEditGenerator:
 
     def __init__(self, model: nn.Module, tok, inner_params: List[str],
                  rank: int = 4, hidden: int = 512, scale: float = 1.0,
-                 seed: int = 42, max_length: int = 64):
+                 seed: int = 42, max_length: int = 64,
+                 ckpt: Optional[str] = None):
         self.model = model
         self.tok = tok
         self.inner_params = list(inner_params)
@@ -129,6 +131,36 @@ class HypernetworkEditGenerator:
         )
         self.device = get_model_device(model)
         self.hypernet.to(self.device)
+
+        # Optional meta-trained checkpoint (W3 enhancement).  The checkpoint is
+        # a plain ``LowRankHypernetwork.state_dict()`` plus a small metadata
+        # dict; when ``ckpt`` is None the generator keeps its untrained
+        # behaviour exactly as before.
+        if ckpt is not None:
+            if not os.path.exists(ckpt):
+                raise FileNotFoundError(f"[CALM] hypernet checkpoint not found: {ckpt}")
+            data = torch.load(ckpt, map_location=self.device, weights_only=False)
+            meta = data.get("meta", {})
+            if meta:
+                for key, expected in (
+                    ("rank", rank), ("hidden", hidden),
+                    ("feature_dim", feature_dim),
+                ):
+                    loaded = meta.get(key)
+                    if loaded is not None and int(loaded) != int(expected):
+                        raise ValueError(
+                            f"[CALM] checkpoint meta mismatch for {key}: "
+                            f"loaded={loaded} expected={expected}"
+                        )
+                # The trained checkpoint may use a different global scale
+                # (training amplifies the low-rank factors); adopt it so the
+                # deployed generator behaves exactly like the trained one.
+                if meta.get("scale") is not None:
+                    self.hypernet.scale = float(meta["scale"])
+            state = data.get("state_dict", data)  # tolerate both forms
+            self.hypernet.load_state_dict(state)
+            print(f"[CALM] loaded hypernetwork checkpoint: {ckpt} "
+                  f"(scale={self.hypernet.scale})")
 
     # -- feature construction -------------------------------------------- #
 

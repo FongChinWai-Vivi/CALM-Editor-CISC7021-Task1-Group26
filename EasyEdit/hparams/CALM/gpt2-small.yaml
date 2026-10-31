@@ -23,6 +23,7 @@ hypernet_alg: lowrank        # "lowrank" (default) | "mend" (needs mend_hparams_
 hypernet_rank: 4
 hypernet_hidden: 512
 hypernet_scale: 1.0
+hypernet_ckpt: null           # optional trained LowRankHypernetwork checkpoint
 mend_hparams_path: null
 
 # --- side memory / conflict gate (teammate Fong Hio Lam modules) ---

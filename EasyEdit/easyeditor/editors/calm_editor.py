@@ -98,6 +98,7 @@ class CALMEditor(BaseEditor):
                 scale=hparams.hypernet_scale,
                 seed=hparams.seed,
                 max_length=getattr(hparams, "max_length", 64),
+                ckpt=getattr(hparams, "hypernet_ckpt", None),
             )
             self.mend_executor = None
 
