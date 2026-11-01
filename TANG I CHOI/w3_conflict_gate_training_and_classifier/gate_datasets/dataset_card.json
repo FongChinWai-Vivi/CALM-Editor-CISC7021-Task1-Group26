@@ -1,0 +1,78 @@
+{
+  "owner": "Tang I Choi (MC631517)",
+  "work_package": "W3 -- conflict-gate training data",
+  "model_for_answer_signal": "EasyEdit/hugging_cache/gpt2-xl",
+  "counterfact_source": "EasyEdit/data/counterfact.json",
+  "pilot_source": "conflict annotation manual + 100 pilot annotations/data/conflict_pilot_100.jsonl",
+  "seed": 42,
+  "splits": {
+    "train": {
+      "n": 2584,
+      "action": {
+        "WRITE": 1101,
+        "REJECT": 366,
+        "ROUTE": 1117
+      },
+      "label4": {
+        "no-conflict": 1142,
+        "context-conflict": 552,
+        "prior-edit-conflict": 565,
+        "pre-training-conflict": 325
+      }
+    },
+    "dev": {
+      "n": 645,
+      "action": {
+        "ROUTE": 283,
+        "REJECT": 85,
+        "WRITE": 277
+      },
+      "label4": {
+        "context-conflict": 148,
+        "no-conflict": 288,
+        "prior-edit-conflict": 135,
+        "pre-training-conflict": 74
+      }
+    },
+    "test_counterfact": {
+      "n": 835,
+      "action": {
+        "WRITE": 350,
+        "ROUTE": 360,
+        "REJECT": 125
+      },
+      "label4": {
+        "no-conflict": 370,
+        "prior-edit-conflict": 180,
+        "context-conflict": 180,
+        "pre-training-conflict": 105
+      }
+    },
+    "test_pilot100": {
+      "n": 100,
+      "action": {
+        "WRITE": 38,
+        "REJECT": 27,
+        "ROUTE": 35
+      },
+      "label4": {
+        "no-conflict": 40,
+        "pre-training-conflict": 25,
+        "prior-edit-conflict": 20,
+        "context-conflict": 15
+      }
+    }
+  },
+  "label_action_mapping": {
+    "no-conflict + model knows target": "REJECT",
+    "no-conflict + model cannot answer": "WRITE",
+    "pre-training-conflict": "REJECT",
+    "prior-edit-conflict": "ROUTE",
+    "context-conflict": "ROUTE"
+  },
+  "caveats": [
+    "CounterFact situations are constructed, not human-labelled: the label follows from how the situation was built, per the W1 manual.",
+    "The pilot-100 split keeps its human labels and is never used for training or model selection; it is reported separately as the honest out-of-distribution test set.",
+    "The current answer/confidence signal is measured with gpt2-xl, the same model used for the W3/W4 runs; other backbones would shift it."
+  ]
+}

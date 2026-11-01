@@ -1,0 +1,86 @@
+[always_write] stream=191 edits over 40 subjects, heldout=60
+W1101 15:23:55.335000 92417 site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+$MARVIS_HOME/components/MarvisAgent/Versions/1.0.0.10438/runtime/python311/lib/python3.11/site-packages/timm/models/hub.py:4: FutureWarning: Importing from timm.models.hub is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+objc[92417]: Class AVFFrameReceiver is implemented in both $MARVIS_HOME/components/MarvisAgent/Versions/1.0.0.10438/runtime/python311/lib/python3.11/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x177bf03a8) and $MARVIS_HOME/components/MarvisAgent/Versions/1.0.0.10438/runtime/python311/lib/python3.11/site-packages/av/.dylibs/libavdevice.62.3.102.dylib (0x17f7b83a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[92417]: Class AVFAudioReceiver is implemented in both $MARVIS_HOME/components/MarvisAgent/Versions/1.0.0.10438/runtime/python311/lib/python3.11/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x177bf03f8) and $MARVIS_HOME/components/MarvisAgent/Versions/1.0.0.10438/runtime/python311/lib/python3.11/site-packages/av/.dylibs/libavdevice.62.3.102.dylib (0x17f7b83f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+2026-11-01 15:23:59,107 - easyeditor.editors.editor - INFO - Instantiating model
+11/01/2026 15:23:59 - INFO - easyeditor.editors.editor -   Instantiating model
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9582.18it/s]
+2026-11-01 15:23:59,437 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/01/2026 15:23:59 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[always_write] editor ready in 11.5s (device=mps)
+[always_write] 25/191 WRITE rewrite=False
+[always_write] 50/191 WRITE rewrite=False
+[always_write] 75/191 WRITE rewrite=False
+[always_write] 100/191 WRITE rewrite=True
+[always_write] 125/191 WRITE rewrite=False
+[always_write] 150/191 WRITE rewrite=False
+[always_write] 175/191 WRITE rewrite=False
+[always_write] decisions={'WRITE': 191, 'ROUTE': 0, 'REJECT': 0} imm=0.1099 model_ret=0.1099 e2e_ret=0.1099 locality=1.0 (103.7s) -> results/w4_ablation_always_write.json
+[always_route] stream=191 edits over 40 subjects, heldout=60
+2026-11-01 15:26:43,875 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:26:43,875 - easyeditor.editors.editor - INFO - Instantiating model
+11/01/2026 15:26:43 - INFO - easyeditor.editors.editor -   Instantiating model
+
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9363.29it/s]
+2026-11-01 15:26:44,154 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:26:44,154 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/01/2026 15:26:44 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[always_route] editor ready in 4.8s (device=mps)
+[always_route] 25/191 ROUTE rewrite=False
+[always_route] 50/191 ROUTE rewrite=False
+[always_route] 75/191 ROUTE rewrite=False
+[always_route] 100/191 ROUTE rewrite=True
+[always_route] 125/191 ROUTE rewrite=False
+[always_route] 150/191 ROUTE rewrite=False
+[always_route] 175/191 ROUTE rewrite=False
+[always_route] decisions={'WRITE': 0, 'ROUTE': 191, 'REJECT': 0} imm=0.1099 model_ret=0.1099 e2e_ret=1.0 locality=1.0 (101.8s) -> results/w4_ablation_always_route.json
+[rule_gate] stream=191 edits over 40 subjects, heldout=60
+2026-11-01 15:29:26,246 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:29:26,246 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:29:26,246 - easyeditor.editors.editor - INFO - Instantiating model
+11/01/2026 15:29:26 - INFO - easyeditor.editors.editor -   Instantiating model
+
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9152.01it/s]
+2026-11-01 15:29:26,524 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:29:26,524 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:29:26,524 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/01/2026 15:29:26 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[rule_gate] editor ready in 5.0s (device=mps)
+[rule_gate] 25/191 ROUTE rewrite=False
+[rule_gate] 50/191 ROUTE rewrite=False
+[rule_gate] 75/191 ROUTE rewrite=False
+[rule_gate] 100/191 REJECT rewrite=True
+[rule_gate] 125/191 ROUTE rewrite=False
+[rule_gate] 150/191 WRITE rewrite=False
+[rule_gate] 175/191 ROUTE rewrite=False
+[rule_gate] decisions={'WRITE': 36, 'ROUTE': 151, 'REJECT': 4} imm=0.1099 model_ret=0.1099 e2e_ret=1.0 locality=1.0 (102.8s) -> results/w4_ablation_rule_gate.json
+[learned_gate] stream=191 edits over 40 subjects, heldout=60
+2026-11-01 15:32:09,949 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:32:09,949 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:32:09,949 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-01 15:32:09,949 - easyeditor.editors.editor - INFO - Instantiating model
+11/01/2026 15:32:09 - INFO - easyeditor.editors.editor -   Instantiating model
+
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9408.12it/s]
+2026-11-01 15:32:10,239 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:32:10,239 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:32:10,239 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-01 15:32:10,239 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/01/2026 15:32:10 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[learned_gate] editor ready in 4.5s (device=mps)
+[learned_gate] 25/191 ROUTE rewrite=False
+[learned_gate] 50/191 ROUTE rewrite=False
+[learned_gate] 75/191 ROUTE rewrite=False
+[learned_gate] 100/191 ROUTE rewrite=True
+[learned_gate] 125/191 ROUTE rewrite=False
+[learned_gate] 150/191 ROUTE rewrite=False
+[learned_gate] 175/191 ROUTE rewrite=False
+[learned_gate] decisions={'WRITE': 1, 'ROUTE': 190, 'REJECT': 0} imm=0.1099 model_ret=0.1099 e2e_ret=1.0 locality=1.0 (101.1s) -> results/w4_ablation_learned_gate.json

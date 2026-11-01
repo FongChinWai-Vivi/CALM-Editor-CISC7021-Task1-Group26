@@ -1,0 +1,192 @@
+{
+ "n_records": 835,
+ "gold_distribution": {
+  "WRITE": 350,
+  "ROUTE": 360,
+  "REJECT": 125
+ },
+ "gates": {
+  "rule_gate": {
+   "offline": {
+    "accuracy": 0.8395,
+    "macro_f1": 0.7212,
+    "per_class": {
+     "WRITE": {
+      "support": 350,
+      "precision": 0.7727,
+      "recall": 0.8743,
+      "f1": 0.8204
+     },
+     "ROUTE": {
+      "support": 360,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "REJECT": {
+      "support": 125,
+      "precision": 0.443,
+      "recall": 0.28,
+      "f1": 0.3431
+     }
+    },
+    "confusion": {
+     "WRITE": {
+      "WRITE": 306,
+      "ROUTE": 0,
+      "REJECT": 44
+     },
+     "ROUTE": {
+      "WRITE": 0,
+      "ROUTE": 360,
+      "REJECT": 0
+     },
+     "REJECT": {
+      "WRITE": 90,
+      "ROUTE": 0,
+      "REJECT": 35
+     }
+    }
+   },
+   "online": {
+    "accuracy": 0.4084,
+    "macro_f1": 0.2893,
+    "per_class": {
+     "WRITE": {
+      "support": 350,
+      "precision": 0.4215,
+      "recall": 0.8743,
+      "f1": 0.5688
+     },
+     "ROUTE": {
+      "support": 360,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     },
+     "REJECT": {
+      "support": 125,
+      "precision": 0.3211,
+      "recall": 0.28,
+      "f1": 0.2991
+     }
+    },
+    "confusion": {
+     "WRITE": {
+      "WRITE": 306,
+      "ROUTE": 0,
+      "REJECT": 44
+     },
+     "ROUTE": {
+      "WRITE": 330,
+      "ROUTE": 0,
+      "REJECT": 30
+     },
+     "REJECT": {
+      "WRITE": 90,
+      "ROUTE": 0,
+      "REJECT": 35
+     }
+    }
+   },
+   "accuracy_drop_offline_to_online": 0.4311
+  },
+  "learned_gate": {
+   "offline": {
+    "accuracy": 0.8766,
+    "macro_f1": 0.8429,
+    "per_class": {
+     "WRITE": {
+      "support": 350,
+      "precision": 0.9768,
+      "recall": 0.7229,
+      "f1": 0.8309
+     },
+     "ROUTE": {
+      "support": 360,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "REJECT": {
+      "support": 125,
+      "precision": 0.5509,
+      "recall": 0.952,
+      "f1": 0.6979
+     }
+    },
+    "confusion": {
+     "WRITE": {
+      "WRITE": 253,
+      "ROUTE": 0,
+      "REJECT": 97
+     },
+     "ROUTE": {
+      "WRITE": 0,
+      "ROUTE": 360,
+      "REJECT": 0
+     },
+     "REJECT": {
+      "WRITE": 6,
+      "ROUTE": 0,
+      "REJECT": 119
+     }
+    }
+   },
+   "online": {
+    "accuracy": 0.3401,
+    "macro_f1": 0.2889,
+    "per_class": {
+     "WRITE": {
+      "support": 350,
+      "precision": 0.5212,
+      "recall": 0.4571,
+      "f1": 0.4871
+     },
+     "ROUTE": {
+      "support": 360,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     },
+     "REJECT": {
+      "support": 125,
+      "precision": 0.2348,
+      "recall": 0.992,
+      "f1": 0.3798
+     }
+    },
+    "confusion": {
+     "WRITE": {
+      "WRITE": 160,
+      "ROUTE": 0,
+      "REJECT": 190
+     },
+     "ROUTE": {
+      "WRITE": 146,
+      "ROUTE": 0,
+      "REJECT": 214
+     },
+     "REJECT": {
+      "WRITE": 1,
+      "ROUTE": 0,
+      "REJECT": 124
+     }
+    }
+   },
+   "accuracy_drop_offline_to_online": 0.5365
+  }
+ },
+ "mcnemar_learned_vs_rule": {
+  "offline": {
+   "learned_only_correct": 121,
+   "rule_only_correct": 90,
+   "p_value": 0.038643
+  },
+  "online": {
+   "learned_only_correct": 113,
+   "rule_only_correct": 170,
+   "p_value": 0.000841
+  }
+ }
+}
