@@ -79,12 +79,28 @@ Audit conclusion:
 
 ![Audited real WRITE hit rate per checkpoint](w5_audited_real_write_hit.png)
 
-![Raw model-level vs audited real WRITE hit](w5_raw_vs_audited_write_hit.png)
+![Raw model-level vs audited real WRITE hit](w5_raw_vs_audited_real_write_hit.png)
 
 ## 4. Bottom line
 
 - **System level:** the bounded-write + dual-write fix solves lifelong retention end-to-end (97.48% rewrite, 9/9 retention on 5K CounterFact).
 - **Model level:** the earlier 22.2% / 86.7% claims were inflated by REJECT false hits; real parameter-WRITE quality is ~1.6–3.9% across audited checkpoints. Improving it remains an open problem (further warm-started training, lr decay, longer steps).
+
+## Reproduction
+
+`w4_w5_results_reproduce.ipynb` is the single entry point for every number above:
+
+- **Part A** rebuilds the tables in this file and both figures straight from
+  `FONG CHIN WAI/w4_model_level_improve/results/audit_*.json` and the
+  `eval_*/w3_calm_stream_*.json` run records. Seconds, no GPU.
+- **Part B** re-executes the three pipelines locally against `./.venv`
+  (RTX 4070 Laptop; 5 training steps + 16 edits, ~75 s total) to confirm the scripts still
+  resolve their repo root, `EasyEdit/data` and `EasyEdit/hparams` after the
+  `FONG CHIN WAI/` consolidation. Part B is a plumbing check and yields no reportable
+  metrics - only Part A carries the numbers.
+
+The notebook ships with its outputs stored and drives everything through `subprocess`, so it
+runs on any Python 3 kernel.
 
 ## Data sources
 
