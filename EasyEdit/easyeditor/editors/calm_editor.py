@@ -27,6 +27,7 @@ import torch
 from .editor import BaseEditor
 from ..models.calm.calm_hparams import CALMHyperParams
 from ..models.calm.hypernetwork import HypernetworkEditGenerator
+from ..util import nethook
 
 
 def _load_module_from_path(name: str, path: str):
@@ -99,6 +100,7 @@ class CALMEditor(BaseEditor):
                 seed=hparams.seed,
                 max_length=getattr(hparams, "max_length", 64),
                 ckpt=getattr(hparams, "hypernet_ckpt", None),
+                feature_mode=getattr(hparams, "feature_mode", "mean-emb"),
             )
             self.mend_executor = None
 
@@ -111,6 +113,14 @@ class CALMEditor(BaseEditor):
         # ---- W4 fix: bounded parameter writes --------------------------- #
         # Count of parameter WRITEs performed; capped by hparams.write_budget.
         self._write_count: int = 0
+        # ---- Claude #9: verify-then-commit ------------------------------ #
+        # When enabled, every WRITE is applied tentatively; if the post-edit
+        # answer does not contain target_new, the parameter delta is rolled
+        # back and the edit is stored in side memory instead (ROUTE-like).
+        # This prevents failed low-rank deltas from polluting the weights
+        # permanently (the dominant cause of cumulative drift on long
+        # streams) at zero additional training cost.
+        self.verify_commit: bool = bool(getattr(hparams, "verify_commit", False))
 
     # ------------------------------------------------------------------ #
     # Public API (EasyEdit-compatible)
@@ -203,8 +213,30 @@ class CALMEditor(BaseEditor):
             if not first_write_route:
                 decision = self._write_budget_guard(request, decision)
                 first_write_route = (decision != raw_decision)
-            route, memory_updated = self._apply_decision(request, decision)
-            post = self._measure(request)
+
+            if self.verify_commit and decision == self.Decision.WRITE:
+                # Claude #9: tentative write -> measure -> commit/rollback.
+                snapshot = self._snapshot_inner_params()
+                route, memory_updated = self._apply_decision(request, decision)
+                post = self._measure(request)
+                if not post["rewrite_ok"]:
+                    self._restore_inner_params(snapshot)
+                    self._write_count -= 1
+                    subject = request.get("subject") or ""
+                    if subject in self._written_subjects:
+                        self._written_subjects.discard(subject)
+                    stored = self.memory.store(
+                        subject,
+                        request.get("relation") or "fact",
+                        request["target_new"],
+                        request["target_new"],
+                    )
+                    route = "verify_rollback"
+                    memory_updated = bool(stored)
+                    decision = self.Decision.ROUTE
+            else:
+                route, memory_updated = self._apply_decision(request, decision)
+                post = self._measure(request)
 
             gate_score = float(self.gate._decision_log[-1]["conf_score"]) \
                 if self.gate._decision_log else 0.0
@@ -270,6 +302,21 @@ class CALMEditor(BaseEditor):
             return self.Decision.ROUTE
         self._write_count += 1
         return decision
+
+    def _snapshot_inner_params(self) -> Dict[str, torch.Tensor]:
+        """Clone all inner parameters for tentative-write rollback."""
+        snapshot: Dict[str, torch.Tensor] = {}
+        for name in self.hparams.inner_params:
+            param = nethook.get_parameter(self.model, name)
+            snapshot[name] = param.data.clone()
+        return snapshot
+
+    def _restore_inner_params(self, snapshot: Dict[str, torch.Tensor]) -> None:
+        """Restore inner parameters from a snapshot (verify-commit rollback)."""
+        with torch.no_grad():
+            for name, data in snapshot.items():
+                param = nethook.get_parameter(self.model, name)
+                param.data.copy_(data)
 
     def _apply_decision(self, request: Dict[str, Any], decision: str):
         """Execute a gate decision; returns (route, memory_updated)."""

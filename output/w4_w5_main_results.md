@@ -1,3 +1,14 @@
+---
+AIGC:
+    Label: "1"
+    ContentProducer: 001191440300708461136T1XGW3
+    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_cc609412d79611f1a216525400248c00
+    ReservedCode1: cy3f46rs3HCXIPdgn+ckMR1r8FiBuAKT2uwzSIsRUpvG8wNUuqfbpDOoAicC0+vEAvcCU6ZyJJBh32zjQfE1C6covFho9B8MstZvjnegx5Zh9Yy2PJJkzbsVFmlbsIAm5vza9thMJP19y6q4oeNNjpovMxM7A1lSzeazOxk4gKITokOrSf3EgJ6xxiU=
+    ContentPropagator: 001191440300708461136T1XGW3
+    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_cc609412d79611f1a216525400248c00
+    ReservedCode2: cy3f46rs3HCXIPdgn+ckMR1r8FiBuAKT2uwzSIsRUpvG8wNUuqfbpDOoAicC0+vEAvcCU6ZyJJBh32zjQfE1C6covFho9B8MstZvjnegx5Zh9Yy2PJJkzbsVFmlbsIAm5vza9thMJP19y6q4oeNNjpovMxM7A1lSzeazOxk4gKITokOrSf3EgJ6xxiU=
+---
+
 # Main Results Summary (W2–W4, with W5 audit correction)
 
 > Compiled 2026-11-03 for the W4→W5 handover.
@@ -81,3 +92,4 @@ Audit conclusion:
 - `output/w3_calm_stream_1k.json`, `output/w4_sequential_5k_results.json`, `output/w4_calm_fix_5k_results.json` (W3/W4 streams)
 - `w4_model_level_improve/results/audit_*.json` (W5 audit)
 - `README.md` "W4 — Model-level write quality improvement"
+*（内容由AI生成，仅供参考）*

@@ -1,0 +1,117 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 500,
+  "total_seconds": 219.141,
+  "avg_seconds_per_edit": 0.4383,
+  "route_counts": {
+    "hypernetwork": 128,
+    "gate_reject": 56,
+    "side_memory": 316
+  },
+  "route_share": {
+    "gate_reject": 0.112,
+    "hypernetwork": 0.256,
+    "side_memory": 0.632
+  },
+  "decision_counts": {
+    "WRITE": 128,
+    "REJECT": 56,
+    "ROUTE": 316
+  },
+  "immediate_rewrite_ok": 58,
+  "immediate_rewrite_rate": 0.116,
+  "immediate_model_rewrite_ok": 58,
+  "immediate_model_rewrite_rate": 0.116,
+  "memory_rewrite_hits": 0,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 444,
+    "avg_entries_per_shard": 6.94,
+    "min_entries": 1,
+    "max_entries": 15
+  },
+  "gate_summary": {
+    "WRITE": 393,
+    "ROUTE": 51,
+    "REJECT": 56
+  },
+  "sample_retention": [
+    {
+      "index": 126,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Tuukka Rask",
+      "prompt": "Tuukka Rask plays as",
+      "target_new": "midfielder",
+      "answer": " pitcher of continent of continent",
+      "rewrite_ok": false
+    },
+    {
+      "index": 157,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Johannesburg",
+      "prompt": "Johannesburg is a twin city of",
+      "target_new": "Istanbul",
+      "answer": " London is is is is",
+      "rewrite_ok": false
+    },
+    {
+      "index": 188,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Sandy Bridge",
+      "prompt": "Sandy Bridge was a product of",
+      "target_new": "Apple",
+      "answer": " Nissan the pitcher of Hebrew",
+      "rewrite_ok": false
+    },
+    {
+      "index": 219,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Susan Denberg",
+      "prompt": "Susan Denberg, who is a citizen of",
+      "target_new": "Canada",
+      "answer": " Netherlands is of Dutch French",
+      "rewrite_ok": false
+    },
+    {
+      "index": 452,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Lake Bluff",
+      "prompt": "Lake Bluff is in",
+      "target_new": "Cambodia",
+      "answer": " London is in London is",
+      "rewrite_ok": false
+    },
+    {
+      "index": 483,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "La Revista Blanca",
+      "prompt": "La Revista Blanca, that was from",
+      "target_new": "Belgium",
+      "answer": " California is the diplomat of",
+      "rewrite_ok": false
+    }
+  ],
+  "retention_ok": 0,
+  "status": "PASS"
+}

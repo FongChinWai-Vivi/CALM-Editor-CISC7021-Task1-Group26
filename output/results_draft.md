@@ -1,3 +1,14 @@
+---
+AIGC:
+    Label: "1"
+    ContentProducer: 001191440300708461136T1XGW3
+    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_ce8d78fed79611f1a216525400248c00
+    ReservedCode1: EuN2phG5a4lEsD89WKudx3mmhnbAeMKSZWEXWzAE3xhOpQkX4wa2hl/Ytv57psz+TlCGL8OULP+TYEoO8FGofqL9+BpfVCy9ltkuBnCeTw0t/G9jkd4iV/J/IIEb/p4z6amveRep8zo777cnm+NtprYrRTmCYDocgeS4IPDNTlqnDHpQR50cKeQ+vWg=
+    ContentPropagator: 001191440300708461136T1XGW3
+    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_ce8d78fed79611f1a216525400248c00
+    ReservedCode2: EuN2phG5a4lEsD89WKudx3mmhnbAeMKSZWEXWzAE3xhOpQkX4wa2hl/Ytv57psz+TlCGL8OULP+TYEoO8FGofqL9+BpfVCy9ltkuBnCeTw0t/G9jkd4iV/J/IIEb/p4z6amveRep8zo777cnm+NtprYrRTmCYDocgeS4IPDNTlqnDHpQR50cKeQ+vWg=
+---
+
 # Results (Draft)
 
 > Draft English Results section for the final report, based on the audited repository results (W2–W4, corrected in W5). All figures trace to the data sources listed at the end.
@@ -41,3 +52,4 @@ The gate threshold sweep shows that the default `route_threshold=0.6` is already
 - `output/w3_calm_stream_1k.json`, `output/w4_sequential_5k_results.json`, `output/w4_calm_fix_5k_results.json`
 - `w4_model_level_improve/results/audit_baseline.json`, `audit_coh_l0.1.json`, `audit_coh_v2_l0.3_c0.6.json`, `audit_v2_seed101.json`
 - `output/w4_w5_main_results.md` (consolidated main-results table and charts)
+*（内容由AI生成，仅供参考）*

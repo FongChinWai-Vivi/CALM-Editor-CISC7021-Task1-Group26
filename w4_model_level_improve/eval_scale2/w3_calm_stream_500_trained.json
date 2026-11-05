@@ -1,0 +1,120 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 500,
+  "total_seconds": 411.525,
+  "avg_seconds_per_edit": 0.823,
+  "route_counts": {
+    "hypernetwork": 128,
+    "side_memory": 265,
+    "gate_reject": 107
+  },
+  "route_share": {
+    "gate_reject": 0.214,
+    "hypernetwork": 0.256,
+    "side_memory": 0.53
+  },
+  "decision_counts": {
+    "WRITE": 128,
+    "ROUTE": 265,
+    "REJECT": 107
+  },
+  "immediate_rewrite_ok": 111,
+  "immediate_rewrite_rate": 0.222,
+  "immediate_model_rewrite_ok": 111,
+  "immediate_model_rewrite_rate": 0.222,
+  "memory_rewrite_hits": 0,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 265,
+    "avg_entries_per_shard": 4.14,
+    "min_entries": 0,
+    "max_entries": 11
+  },
+  "gate_summary": {
+    "WRITE": 342,
+    "ROUTE": 51,
+    "REJECT": 107
+  },
+  "sample_retention": [
+    {
+      "index": 126,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Tuukka Rask",
+      "prompt": "Tuukka Rask plays as",
+      "target_new": "midfielder",
+      "answer": " quarterback by Sega the trumpet",
+      "rewrite_ok": false
+    },
+    {
+      "index": 157,
+      "position": "mid",
+      "immediate_ok": true,
+      "route": "gate_reject",
+      "e2e": false,
+      "subject": "Johannesburg",
+      "prompt": "Johannesburg is a twin city of",
+      "target_new": "Istanbul",
+      "answer": " Istanbul is city of Tamil",
+      "rewrite_ok": true
+    },
+    {
+      "index": 188,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Sandy Bridge",
+      "prompt": "Sandy Bridge was a product of",
+      "target_new": "Apple",
+      "answer": " continent of Antarctica of Antarctica",
+      "rewrite_ok": false
+    },
+    {
+      "index": 219,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Susan Denberg",
+      "prompt": "Susan Denberg, who is a citizen of",
+      "target_new": "Canada",
+      "answer": " Cambodia is poet continent of",
+      "rewrite_ok": false
+    },
+    {
+      "index": 452,
+      "position": "end",
+      "immediate_ok": true,
+      "route": "gate_reject",
+      "e2e": false,
+      "subject": "Lake Bluff",
+      "prompt": "Lake Bluff is in",
+      "target_new": "Cambodia",
+      "answer": " Cambodia is in London is",
+      "rewrite_ok": true
+    },
+    {
+      "index": 483,
+      "position": "end",
+      "immediate_ok": true,
+      "route": "gate_reject",
+      "e2e": false,
+      "subject": "La Revista Blanca",
+      "prompt": "La Revista Blanca, that was from",
+      "target_new": "Belgium",
+      "answer": " Belgium of Malaysia of Bulgaria",
+      "rewrite_ok": true
+    }
+  ],
+  "retention_ok": 3,
+  "delta_norm_cap": null,
+  "norm_tau": null,
+  "ns_proj": false,
+  "status": "PASS"
+}

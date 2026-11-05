@@ -33,6 +33,8 @@ import sys
 import time
 from typing import Any, Dict, List
 
+import torch  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # EasyEdit/
 sys.path.insert(0, ROOT)
 _CALL_CWD = os.getcwd()
@@ -126,6 +128,40 @@ def main() -> int:
     ap.add_argument("--dual-write", action="store_true",
                     help="also store WRITE edits into side memory so end-to-end "
                          "retention is memory-backed for parameter edits too")
+    ap.add_argument("--verify-commit", action="store_true",
+                    help="Claude #9: tentatively apply WRITE deltas; if the "
+                         "post-edit answer misses target_new, roll back the "
+                         "parameter delta and store the edit in side memory "
+                         "instead (prevents failed writes from polluting the "
+                         "weights on long streams)")
+    ap.add_argument("--feature-mode", default=None,
+                    choices=["mean-emb", "key-hidden"],
+                    help="Claude #3: hypernetwork edit-feature representation "
+                         "(must match the ckpt's training mode; default is "
+                         "mean-emb, the trained ckpt meta is validated)")
+    ap.add_argument("--hypernet-rank", type=int, default=None,
+                    help="override hypernetwork rank (must match ckpt meta)")
+    ap.add_argument("--hypernet-hidden", type=int, default=None,
+                    help="override hypernetwork hidden size (must match ckpt meta)")
+    ap.add_argument("--delta-norm-cap", type=float, default=None,
+                    help="post-hoc cap: rescale each emitted delta to "
+                         "||delta||_F <= cap (absolute Frobenius bound)")
+    ap.add_argument("--infer-scale", type=float, default=None,
+                    help="override the hypernetwork scale at inference "
+                         "(sweep scale without retraining)")
+    ap.add_argument("--norm-tau", type=float, default=None,
+                    help="relative cap matching W4 retrain: rescale each delta "
+                         "to ||delta||_F <= tau * ||W_orig||_F (use with the "
+                         "tau-trained hypernetwork ckpt)")
+    ap.add_argument("--ns-proj", action="store_true",
+                    help="project each WRITE delta onto the null space of the "
+                         "most recent written deltas (AlphaEdit-style, no "
+                         "retraining; retention-per-slot fix)")
+    ap.add_argument("--ns-keep", type=int, default=8,
+                    help="number of recent deltas kept in the null-space stack")
+    ap.add_argument("--track-norm-log", default=None,
+                    help="write a per-edit per-param norm log (JSON) for "
+                         "norm-growth instrumentation (W4)")
     ap.add_argument("--output-dir", default=".")
     args = ap.parse_args()
     # Resolve a possibly-relative --output-dir against the caller's cwd
@@ -142,6 +178,12 @@ def main() -> int:
     if args.hypernet_ckpt:
         hparams.hypernet_ckpt = os.path.abspath(args.hypernet_ckpt)
         print(f"[CALM] loading trained hypernetwork: {hparams.hypernet_ckpt}")
+    if args.hypernet_rank is not None:
+        hparams.hypernet_rank = args.hypernet_rank
+        print(f"[CALM] hypernet rank -> {args.hypernet_rank}")
+    if args.hypernet_hidden is not None:
+        hparams.hypernet_hidden = args.hypernet_hidden
+        print(f"[CALM] hypernet hidden -> {args.hypernet_hidden}")
     if args.gate_write_threshold is not None:
         hparams.gate_write_threshold = args.gate_write_threshold
         print(f"[CALM] gate write_threshold -> {args.gate_write_threshold}")
@@ -154,9 +196,46 @@ def main() -> int:
     if args.dual_write:
         hparams.dual_write = True
         print("[CALM] dual_write -> True")
+    if args.verify_commit:
+        hparams.verify_commit = True
+        print("[CALM] verify_commit -> True (Claude #9)")
+    if args.feature_mode:
+        hparams.feature_mode = args.feature_mode
+        print(f"[CALM] feature_mode -> {args.feature_mode} (Claude #3)")
     editor = CALMEditor.from_hparams(hparams)
     print(f"[CALM] editor ready (model={hparams.model_name} alg={hparams.hypernet_alg} "
           f"ckpt={hparams.hypernet_ckpt})")
+    if args.delta_norm_cap is not None:
+        cap = args.delta_norm_cap
+        if isinstance(cap, str):
+            try:
+                cap = json.loads(cap)   # allow {"param": cap} per-param dict
+            except json.JSONDecodeError:
+                cap = float(cap)
+        editor.hypernetwork.hypernet.norm_cap = cap
+        print(f"[CALM] delta-norm cap -> {cap}")
+    if args.norm_tau is not None:
+        from easyeditor.util import nethook
+        inner_params = list(hparams.inner_params)
+        base_norms = {}
+        with torch.no_grad():
+            for name in inner_params:
+                w = nethook.get_parameter(editor.model, name)
+                base_norms[name] = float(w.data.norm(p="fro").item())
+        editor.hypernetwork.hypernet.norm_tau = args.norm_tau
+        editor.hypernetwork.hypernet.base_norms = base_norms
+        print(f"[CALM] norm-tau -> {args.norm_tau} "
+              f"(base norms for {len(base_norms)} inner params)")
+    if args.ns_proj:
+        editor.hypernetwork.ns_proj = True
+        editor.hypernetwork.ns_keep = args.ns_keep
+        print(f"[CALM] null-space projection ON (keep={args.ns_keep})")
+    if args.infer_scale is not None:
+        editor.hypernetwork.hypernet.scale = args.infer_scale
+        print(f"[CALM] infer-scale override -> {args.infer_scale}")
+    if args.track_norm_log:
+        editor.hypernetwork.track_norms = True
+        print(f"[CALM] tracking per-edit norms -> {args.track_norm_log}")
 
     sample_idx = pick_sample_indices(len(requests), args.sample_edits)
 
@@ -188,7 +267,7 @@ def main() -> int:
         memory_hits = 0
         for i, m in enumerate(all_metrics):
             calm = m["calm"]
-            if calm["route"] == "side_memory":
+            if calm["route"] in ("side_memory", "verify_rollback"):
                 req = requests[i]
                 hit = editor.memory.lookup(
                     req.get("subject") or "",
@@ -210,7 +289,7 @@ def main() -> int:
     retention = []
     for i in sample_idx:
         calm = all_metrics[i]["calm"]
-        routed = calm["route"] == "side_memory"
+        routed = calm["route"] in ("side_memory", "verify_rollback")
         if args.e2e_retention and routed:
             req = requests[i]
             hit = editor.memory.lookup(
@@ -262,8 +341,26 @@ def main() -> int:
         "gate_summary": extra.get("gate_summary"),
         "sample_retention": retention,
         "retention_ok": retention_ok,
+        "delta_norm_cap": args.delta_norm_cap,
+        "norm_tau": args.norm_tau,
+        "ns_proj": args.ns_proj,
+        "verify_commit": args.verify_commit,
+        "feature_mode": getattr(hparams, "feature_mode", "mean-emb"),
         "status": "PASS",
     }
+
+    if args.track_norm_log:
+        log_path = args.track_norm_log
+        if not os.path.isabs(log_path):
+            log_path = os.path.join(_CALL_CWD, log_path)
+        with open(log_path, "w", encoding="utf-8") as fh:
+            json.dump({
+                "max_edits": len(requests),
+                "delta_norm_cap": args.delta_norm_cap,
+                "norm_log": editor.hypernetwork._norm_log,
+            }, fh, ensure_ascii=False, indent=2)
+        print(f"[CALM] norm log written to: {log_path} "
+              f"({len(editor.hypernetwork._norm_log)} records)")
 
     out_path = os.path.join(
         args.output_dir,

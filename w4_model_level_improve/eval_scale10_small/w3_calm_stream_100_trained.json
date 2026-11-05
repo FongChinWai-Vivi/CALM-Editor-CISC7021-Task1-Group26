@@ -1,0 +1,120 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 100,
+  "total_seconds": 39.235,
+  "avg_seconds_per_edit": 0.3923,
+  "route_counts": {
+    "hypernetwork": 69,
+    "side_memory": 15,
+    "gate_reject": 16
+  },
+  "route_share": {
+    "gate_reject": 0.16,
+    "hypernetwork": 0.69,
+    "side_memory": 0.15
+  },
+  "decision_counts": {
+    "WRITE": 69,
+    "ROUTE": 15,
+    "REJECT": 16
+  },
+  "immediate_rewrite_ok": 20,
+  "immediate_rewrite_rate": 0.2,
+  "immediate_model_rewrite_ok": 20,
+  "immediate_model_rewrite_rate": 0.2,
+  "memory_rewrite_hits": 0,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 15,
+    "avg_entries_per_shard": 0.23,
+    "min_entries": 0,
+    "max_entries": 1
+  },
+  "gate_summary": {
+    "WRITE": 69,
+    "ROUTE": 15,
+    "REJECT": 16
+  },
+  "sample_retention": [
+    {
+      "index": 26,
+      "position": "mid",
+      "immediate_ok": true,
+      "route": "gate_reject",
+      "e2e": false,
+      "subject": "Billy Roche",
+      "prompt": "Billy Roche, who works as",
+      "target_new": "architect",
+      "answer": " architect on from Antarctica of",
+      "rewrite_ok": true
+    },
+    {
+      "index": 32,
+      "position": "mid",
+      "immediate_ok": true,
+      "route": "gate_reject",
+      "e2e": false,
+      "subject": "Sylvano Bussotti",
+      "prompt": "What does Sylvano Bussotti play? They play",
+      "target_new": "jazz",
+      "answer": " jazz sitcom the instrument photographer",
+      "rewrite_ok": true
+    },
+    {
+      "index": 38,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Jeep Commander",
+      "prompt": "Jeep Commander is produced by",
+      "target_new": "Fiat",
+      "answer": " Nissan bishop of Dutch of",
+      "rewrite_ok": false
+    },
+    {
+      "index": 44,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Gilad Atzmon",
+      "prompt": "The language used by Gilad Atzmon is",
+      "target_new": "Italian",
+      "answer": " Dutch FIFA economics of Buddhism",
+      "rewrite_ok": false
+    },
+    {
+      "index": 92,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Pat Scully",
+      "prompt": "Pat Scully holds a citizenship from",
+      "target_new": "Germany",
+      "answer": " Cambodia was city of Istanbul",
+      "rewrite_ok": false
+    },
+    {
+      "index": 98,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Mama Corsica",
+      "prompt": "Mama Corsica was written in",
+      "target_new": "Dutch",
+      "answer": " French continent of Antarctica of",
+      "rewrite_ok": false
+    }
+  ],
+  "retention_ok": 2,
+  "delta_norm_cap": null,
+  "norm_tau": null,
+  "ns_proj": false,
+  "status": "PASS"
+}

@@ -1,0 +1,124 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 500,
+  "total_seconds": 217.696,
+  "avg_seconds_per_edit": 0.4354,
+  "route_counts": {
+    "hypernetwork": 9,
+    "side_memory": 88,
+    "verify_rollback": 377,
+    "gate_reject": 26
+  },
+  "route_share": {
+    "gate_reject": 0.052,
+    "hypernetwork": 0.018,
+    "side_memory": 0.176,
+    "verify_rollback": 0.754
+  },
+  "decision_counts": {
+    "WRITE": 9,
+    "ROUTE": 465,
+    "REJECT": 26
+  },
+  "immediate_rewrite_ok": 36,
+  "immediate_rewrite_rate": 0.072,
+  "immediate_model_rewrite_ok": 36,
+  "immediate_model_rewrite_rate": 0.072,
+  "memory_rewrite_hits": 0,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 474,
+    "avg_entries_per_shard": 7.41,
+    "min_entries": 2,
+    "max_entries": 13
+  },
+  "gate_summary": {
+    "WRITE": 386,
+    "ROUTE": 88,
+    "REJECT": 26
+  },
+  "sample_retention": [
+    {
+      "index": 126,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "verify_rollback",
+      "e2e": false,
+      "subject": "Tuukka Rask",
+      "prompt": "Tuukka Rask plays as",
+      "target_new": "midfielder",
+      "answer": " guitar guitar quarterback by play",
+      "rewrite_ok": false
+    },
+    {
+      "index": 157,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "verify_rollback",
+      "e2e": false,
+      "subject": "Johannesburg",
+      "prompt": "Johannesburg is a twin city of",
+      "target_new": "Istanbul",
+      "answer": " play speaks English is speaks",
+      "rewrite_ok": false
+    },
+    {
+      "index": 188,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "verify_rollback",
+      "e2e": false,
+      "subject": "Sandy Bridge",
+      "prompt": "Sandy Bridge was a product of",
+      "target_new": "Apple",
+      "answer": " play speaks English is speaks",
+      "rewrite_ok": false
+    },
+    {
+      "index": 219,
+      "position": "mid",
+      "immediate_ok": true,
+      "route": "hypernetwork",
+      "e2e": false,
+      "subject": "Susan Denberg",
+      "prompt": "Susan Denberg, who is a citizen of",
+      "target_new": "Canada",
+      "answer": " Italian speaks English is performs",
+      "rewrite_ok": false
+    },
+    {
+      "index": 452,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "verify_rollback",
+      "e2e": false,
+      "subject": "Lake Bluff",
+      "prompt": "Lake Bluff is in",
+      "target_new": "Cambodia",
+      "answer": " California to play play guitar",
+      "rewrite_ok": false
+    },
+    {
+      "index": 483,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "verify_rollback",
+      "e2e": false,
+      "subject": "La Revista Blanca",
+      "prompt": "La Revista Blanca, that was from",
+      "target_new": "Belgium",
+      "answer": " California to Scientology is guitar",
+      "rewrite_ok": false
+    }
+  ],
+  "retention_ok": 0,
+  "delta_norm_cap": null,
+  "norm_tau": null,
+  "ns_proj": false,
+  "verify_commit": true,
+  "feature_mode": "mean-emb",
+  "status": "PASS"
+}

@@ -1,0 +1,3846 @@
+{
+  "max_edits": 500,
+  "delta_norm_cap": null,
+  "norm_log": [
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 154679.125,
+      "param_norm_after": 154681.578125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 73994.7109375,
+      "param_norm_after": 73994.796875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 124624.640625,
+      "param_norm_after": 124626.265625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38456.6171875,
+      "param_norm_after": 38455.2421875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 95760.3828125,
+      "param_norm_after": 95769.9296875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 49453.9140625,
+      "param_norm_after": 49461.109375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 154122.46875,
+      "param_norm_after": 307269.40625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 76689.7265625,
+      "param_norm_after": 150168.546875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 115612.6328125,
+      "param_norm_after": 236067.84375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36108.3203125,
+      "param_norm_after": 73457.2265625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 96774.84375,
+      "param_norm_after": 190896.671875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45717.9609375,
+      "param_norm_after": 95022.109375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 140241.609375,
+      "param_norm_after": 441136.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64598.046875,
+      "param_norm_after": 212671.15625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 137870.296875,
+      "param_norm_after": 357074.21875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 40562.7734375,
+      "param_norm_after": 110416.109375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 89139.0859375,
+      "param_norm_after": 273533.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46350.42578125,
+      "param_norm_after": 140339.328125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 137552.703125,
+      "param_norm_after": 576108.6875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 67150.8125,
+      "param_norm_after": 278948.8125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 123088.2421875,
+      "param_norm_after": 476533.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36536.4453125,
+      "param_norm_after": 146344.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 90512.28125,
+      "param_norm_after": 361761.03125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45729.2890625,
+      "param_norm_after": 185877.15625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 124406.1640625,
+      "param_norm_after": 700046.6875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 58999.74609375,
+      "param_norm_after": 337853.1875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 106625.625,
+      "param_norm_after": 582172.9375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31849.7265625,
+      "param_norm_after": 178157.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 77781.8203125,
+      "param_norm_after": 439103.59375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38749.2265625,
+      "param_norm_after": 224585.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133390.734375,
+      "param_norm_after": 831990.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 65446.69921875,
+      "param_norm_after": 402901.09375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 115901.8125,
+      "param_norm_after": 696762.8125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34601.8203125,
+      "param_norm_after": 212631.171875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 87631.921875,
+      "param_norm_after": 525634.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42971.75,
+      "param_norm_after": 267410.5625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 119605.0390625,
+      "param_norm_after": 947970.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 54442.0390625,
+      "param_norm_after": 456411.34375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 111855.484375,
+      "param_norm_after": 804911.6875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34080.75390625,
+      "param_norm_after": 245980.890625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 74971.8359375,
+      "param_norm_after": 598011.0625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39134.50390625,
+      "param_norm_after": 305724.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 160163.1875,
+      "param_norm_after": 1092619.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 81961.6484375,
+      "param_norm_after": 530966.8125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 131383.4375,
+      "param_norm_after": 880868.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 40142.78515625,
+      "param_norm_after": 273095.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 103856.4609375,
+      "param_norm_after": 683936.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39985.40625,
+      "param_norm_after": 343149.6875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 189784.921875,
+      "param_norm_after": 1274793.625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 95159.21875,
+      "param_norm_after": 624493.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 139274.625,
+      "param_norm_after": 998977.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39768.1328125,
+      "param_norm_after": 310307.28125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 121206.390625,
+      "param_norm_after": 796319.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 55175.08203125,
+      "param_norm_after": 397247.59375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 138181.390625,
+      "param_norm_after": 1409454.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64350.60546875,
+      "param_norm_after": 687710.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 125594.390625,
+      "param_norm_after": 1117868.125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38744.67578125,
+      "param_norm_after": 347138.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86117.9609375,
+      "param_norm_after": 879053.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46810.2734375,
+      "param_norm_after": 443514.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132129.703125,
+      "param_norm_after": 1539128.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63393.6484375,
+      "param_norm_after": 750427.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 102951.4140625,
+      "param_norm_after": 1214498.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31025.974609375,
+      "param_norm_after": 376801.1875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 81733.828125,
+      "param_norm_after": 958082.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37509.1875,
+      "param_norm_after": 480904.28125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 168864.59375,
+      "param_norm_after": 1696209.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 81413.7578125,
+      "param_norm_after": 827976.125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 164464.046875,
+      "param_norm_after": 1361363.875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 48807.99609375,
+      "param_norm_after": 420919.15625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 115626.359375,
+      "param_norm_after": 1062370.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 58010.26171875,
+      "param_norm_after": 538337.0625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 145371.375,
+      "param_norm_after": 1832770.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74301.359375,
+      "param_norm_after": 897313.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 119546.1640625,
+      "param_norm_after": 1446606.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37214.7890625,
+      "param_norm_after": 449497.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92349.7109375,
+      "param_norm_after": 1144853.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37405.84375,
+      "param_norm_after": 574635.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 171123.53125,
+      "param_norm_after": 2002064.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 84976.328125,
+      "param_norm_after": 981993.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 133651.46875,
+      "param_norm_after": 1574329.375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 41053.78125,
+      "param_norm_after": 490226.6875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 109023.390625,
+      "param_norm_after": 1251544.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 54761.91015625,
+      "param_norm_after": 628937.625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 123942.0546875,
+      "param_norm_after": 2123924.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 57732.1953125,
+      "param_norm_after": 1038689.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 117732.8671875,
+      "param_norm_after": 1683857.125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33845.66796875,
+      "param_norm_after": 522484.6875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 78487.78125,
+      "param_norm_after": 1327686.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 40120.34375,
+      "param_norm_after": 668675.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 127157.1640625,
+      "param_norm_after": 2250059.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 61063.97265625,
+      "param_norm_after": 1099584.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 105889.5390625,
+      "param_norm_after": 1788384.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32477.091796875,
+      "param_norm_after": 554762.4375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 79349.5390625,
+      "param_norm_after": 1406147.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 40839.75,
+      "param_norm_after": 709366.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 188364.671875,
+      "param_norm_after": 2430371.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 90190.7890625,
+      "param_norm_after": 1188870.875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 152549.34375,
+      "param_norm_after": 1927639.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43056.68359375,
+      "param_norm_after": 597569.0625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 122598.6328125,
+      "param_norm_after": 1520641.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 60986.83984375,
+      "param_norm_after": 769145.625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 243988.234375,
+      "param_norm_after": 2641245.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 118921.15625,
+      "param_norm_after": 1300142.375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 201063.09375,
+      "param_norm_after": 2036529.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 48680.86328125,
+      "param_norm_after": 633212.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 168323.453125,
+      "param_norm_after": 1651520.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 62544.37890625,
+      "param_norm_after": 822041.125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 160593.640625,
+      "param_norm_after": 2792220.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 81493.875,
+      "param_norm_after": 1377317.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 129464.703125,
+      "param_norm_after": 2135668.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 40326.1171875,
+      "param_norm_after": 666365.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 104665.0078125,
+      "param_norm_after": 1746748.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41537.4609375,
+      "param_norm_after": 862392.4375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 153880.8125,
+      "param_norm_after": 2942993.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 76510.046875,
+      "param_norm_after": 1453340.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 113480.625,
+      "param_norm_after": 2244331.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34502.9296875,
+      "param_norm_after": 699993.0625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 100316.765625,
+      "param_norm_after": 1844295.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45924.95703125,
+      "param_norm_after": 907310.8125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 146072.078125,
+      "param_norm_after": 3079663.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66645.6796875,
+      "param_norm_after": 1518278.875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 130337.3984375,
+      "param_norm_after": 2360685.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39681.48828125,
+      "param_norm_after": 737544.8125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 91262.9453125,
+      "param_norm_after": 1928161.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 47024.07421875,
+      "param_norm_after": 952268.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 154382.0625,
+      "param_norm_after": 3227759.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 71867.515625,
+      "param_norm_after": 1589141.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 129009.140625,
+      "param_norm_after": 2482680.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39095.31640625,
+      "param_norm_after": 775908.0625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 94635.109375,
+      "param_norm_after": 2018145.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48733.98046875,
+      "param_norm_after": 999658.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 157176.75,
+      "param_norm_after": 3379822.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 73790.2734375,
+      "param_norm_after": 1661499.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 136375.046875,
+      "param_norm_after": 2607256.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37981.8359375,
+      "param_norm_after": 812381.8125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 100072.1171875,
+      "param_norm_after": 2113020.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 51991.48046875,
+      "param_norm_after": 1051407.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 118653.34375,
+      "param_norm_after": 3495695.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 54800.9921875,
+      "param_norm_after": 1715721.875
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 107208.6328125,
+      "param_norm_after": 2707960.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 30634.759765625,
+      "param_norm_after": 842471.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 74731.421875,
+      "param_norm_after": 2185050.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 35661.2265625,
+      "param_norm_after": 1086578.125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 210248.65625,
+      "param_norm_after": 3690880.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 104434.9140625,
+      "param_norm_after": 1817019.125
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 157804.640625,
+      "param_norm_after": 2826708.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43067.56640625,
+      "param_norm_after": 879839.3125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 140880.6875,
+      "param_norm_after": 2309485.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 58328.921875,
+      "param_norm_after": 1140553.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 136189.265625,
+      "param_norm_after": 3823924.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64299.86328125,
+      "param_norm_after": 1879846.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 129329.2734375,
+      "param_norm_after": 2943123.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35961.37890625,
+      "param_norm_after": 913419.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86290.0625,
+      "param_norm_after": 2392140.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43474.2734375,
+      "param_norm_after": 1183539.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 162948.46875,
+      "param_norm_after": 3984807.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 78579.6640625,
+      "param_norm_after": 1958091.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 129845.375,
+      "param_norm_after": 3070124.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38059.16015625,
+      "param_norm_after": 951362.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 104452.4921875,
+      "param_norm_after": 2494491.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 51680.93359375,
+      "param_norm_after": 1234910.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 135133.40625,
+      "param_norm_after": 4115803.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 68230.0703125,
+      "param_norm_after": 2024163.625
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 106779.25,
+      "param_norm_after": 3161336.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33476.3359375,
+      "param_norm_after": 981255.3125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86190.8046875,
+      "param_norm_after": 2576538.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 36692.42578125,
+      "param_norm_after": 1271162.125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 141164.1875,
+      "param_norm_after": 4247327.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 71589.125,
+      "param_norm_after": 2091394.375
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 117230.9609375,
+      "param_norm_after": 3244451.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35524.19921875,
+      "param_norm_after": 1009255.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92718.484375,
+      "param_norm_after": 2659026.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 35716.59375,
+      "param_norm_after": 1305531.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 161228.578125,
+      "param_norm_after": 4405258.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 83049.28125,
+      "param_norm_after": 2172237.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 126547.609375,
+      "param_norm_after": 3352898.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 40627.015625,
+      "param_norm_after": 1046193.5625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 103321.7109375,
+      "param_norm_after": 2758179.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46646.0,
+      "param_norm_after": 1351529.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 186170.4375,
+      "param_norm_after": 4578931.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 90302.265625,
+      "param_norm_after": 2258706.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 157927.875,
+      "param_norm_after": 3458630.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 42363.140625,
+      "param_norm_after": 1080963.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 121601.1796875,
+      "param_norm_after": 2862388.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48903.00390625,
+      "param_norm_after": 1398275.625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 140371.25,
+      "param_norm_after": 4714626.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 69017.265625,
+      "param_norm_after": 2326061.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 124750.8125,
+      "param_norm_after": 3572860.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36545.5390625,
+      "param_norm_after": 1115436.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92712.8828125,
+      "param_norm_after": 2949825.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46685.38671875,
+      "param_norm_after": 1444563.625
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 169323.90625,
+      "param_norm_after": 4875685.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 79369.21875,
+      "param_norm_after": 2403368.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 147021.59375,
+      "param_norm_after": 3706514.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 46693.40234375,
+      "param_norm_after": 1159147.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 105819.390625,
+      "param_norm_after": 3048466.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 57512.25390625,
+      "param_norm_after": 1500438.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 143531.953125,
+      "param_norm_after": 5018103.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 69679.6640625,
+      "param_norm_after": 2472911.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 113916.2265625,
+      "param_norm_after": 3818209.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35026.05078125,
+      "param_norm_after": 1194083.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 89229.9453125,
+      "param_norm_after": 3136491.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44131.3515625,
+      "param_norm_after": 1544349.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 179490.03125,
+      "param_norm_after": 5181736.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 80623.9453125,
+      "param_norm_after": 2549002.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 175179.234375,
+      "param_norm_after": 3961588.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 51036.94140625,
+      "param_norm_after": 1238482.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 112561.8828125,
+      "param_norm_after": 3235912.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 59000.421875,
+      "param_norm_after": 1600314.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 131677.28125,
+      "param_norm_after": 5312027.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63480.22265625,
+      "param_norm_after": 2612212.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 108841.2890625,
+      "param_norm_after": 4066751.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34092.5,
+      "param_norm_after": 1272168.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 82815.515625,
+      "param_norm_after": 3316989.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42523.43359375,
+      "param_norm_after": 1642715.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 173675.90625,
+      "param_norm_after": 5471884.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 80165.2734375,
+      "param_norm_after": 2688274.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 166038.171875,
+      "param_norm_after": 4207433.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 53585.9140625,
+      "param_norm_after": 1319006.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 115027.5234375,
+      "param_norm_after": 3417560.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 61824.8359375,
+      "param_norm_after": 1703145.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132710.1875,
+      "param_norm_after": 5602716.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64061.984375,
+      "param_norm_after": 2751846.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 110130.03125,
+      "param_norm_after": 4313894.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32813.69140625,
+      "param_norm_after": 1351335.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83298.7109375,
+      "param_norm_after": 3499128.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42907.1796875,
+      "param_norm_after": 1746003.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 128538.34375,
+      "param_norm_after": 5729450.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 61124.9921875,
+      "param_norm_after": 2812466.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 110894.109375,
+      "param_norm_after": 4420335.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34185.33984375,
+      "param_norm_after": 1384739.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 80309.15625,
+      "param_norm_after": 3577404.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42220.6484375,
+      "param_norm_after": 1787896.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 134708.078125,
+      "param_norm_after": 5858082.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66513.2890625,
+      "param_norm_after": 2876713.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 107725.1171875,
+      "param_norm_after": 4510954.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33088.26953125,
+      "param_norm_after": 1413899.125
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86432.5,
+      "param_norm_after": 3658000.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 36019.47265625,
+      "param_norm_after": 1823222.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 138961.75,
+      "param_norm_after": 5991657.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64012.921875,
+      "param_norm_after": 2939591.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 123662.0234375,
+      "param_norm_after": 4624286.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36540.22265625,
+      "param_norm_after": 1449071.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 85944.8046875,
+      "param_norm_after": 3739407.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43616.5703125,
+      "param_norm_after": 1865652.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 139517.90625,
+      "param_norm_after": 6126682.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64325.44921875,
+      "param_norm_after": 3002990.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 124345.4609375,
+      "param_norm_after": 4739990.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36627.49609375,
+      "param_norm_after": 1484752.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86720.7578125,
+      "param_norm_after": 3822302.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43225.26953125,
+      "param_norm_after": 1907863.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 146916.4375,
+      "param_norm_after": 6267811.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 69449.7890625,
+      "param_norm_after": 3070876.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 136727.359375,
+      "param_norm_after": 4865179.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 42471.62109375,
+      "param_norm_after": 1524496.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 95204.203125,
+      "param_norm_after": 3911349.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 49922.57421875,
+      "param_norm_after": 1956687.125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 159297.265625,
+      "param_norm_after": 6421268.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 80926.546875,
+      "param_norm_after": 3148685.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 126398.2421875,
+      "param_norm_after": 4971803.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39794.6171875,
+      "param_norm_after": 1558945.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 101314.671875,
+      "param_norm_after": 4006599.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42121.5390625,
+      "param_norm_after": 1998372.875
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 134892.375,
+      "param_norm_after": 6552174.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63408.18359375,
+      "param_norm_after": 3211649.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 115063.828125,
+      "param_norm_after": 5080055.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34940.12890625,
+      "param_norm_after": 1593587.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86428.78125,
+      "param_norm_after": 4089403.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41437.50390625,
+      "param_norm_after": 2039415.125
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 128863.34375,
+      "param_norm_after": 6676260.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60173.21484375,
+      "param_norm_after": 3271018.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 114892.5390625,
+      "param_norm_after": 5187086.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34891.63671875,
+      "param_norm_after": 1627538.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 81283.4296875,
+      "param_norm_after": 4166295.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41931.625,
+      "param_norm_after": 2080159.375
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 185414.015625,
+      "param_norm_after": 6857222.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 92331.515625,
+      "param_norm_after": 3362471.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 135923.90625,
+      "param_norm_after": 5311623.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 41862.09765625,
+      "param_norm_after": 1667517.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 119250.171875,
+      "param_norm_after": 4281005.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 55824.35546875,
+      "param_norm_after": 2134771.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 160387.703125,
+      "param_norm_after": 7011196.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74364.6953125,
+      "param_norm_after": 3434427.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 153510.578125,
+      "param_norm_after": 5448659.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43566.84765625,
+      "param_norm_after": 1707712.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 102631.109375,
+      "param_norm_after": 4377203.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 52963.78125,
+      "param_norm_after": 2187247.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 343996.9375,
+      "param_norm_after": 7289927.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 162619.640625,
+      "param_norm_after": 3578829.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 358634.46875,
+      "param_norm_after": 5568581.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 80227.0,
+      "param_norm_after": 1755112.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 247727.984375,
+      "param_norm_after": 4541058.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 82405.1171875,
+      "param_norm_after": 2253632.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 180825.171875,
+      "param_norm_after": 7460436.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 88947.2109375,
+      "param_norm_after": 3664221.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 159822.578125,
+      "param_norm_after": 5712351.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 47220.91796875,
+      "param_norm_after": 1798981.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 122530.3046875,
+      "param_norm_after": 4653589.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 62326.46875,
+      "param_norm_after": 2315376.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 152785.59375,
+      "param_norm_after": 7612309.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74690.1953125,
+      "param_norm_after": 3738781.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 116040.046875,
+      "param_norm_after": 5827419.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35705.421875,
+      "param_norm_after": 1834402.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 96090.34375,
+      "param_norm_after": 4748998.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46221.34765625,
+      "param_norm_after": 2361544.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 131745.171875,
+      "param_norm_after": 7741949.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63993.2890625,
+      "param_norm_after": 3802171.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 113233.3828125,
+      "param_norm_after": 5935481.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34675.57421875,
+      "param_norm_after": 1868150.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84559.171875,
+      "param_norm_after": 4831025.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43061.82421875,
+      "param_norm_after": 2404449.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133700.40625,
+      "param_norm_after": 7872606.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63375.4140625,
+      "param_norm_after": 3864601.75
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 119898.3984375,
+      "param_norm_after": 6046898.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37254.4296875,
+      "param_norm_after": 1903800.375
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 85487.15625,
+      "param_norm_after": 4912880.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44360.6328125,
+      "param_norm_after": 2448237.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 114713.6328125,
+      "param_norm_after": 7986258.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 55568.8046875,
+      "param_norm_after": 3919913.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 91227.2109375,
+      "param_norm_after": 6135725.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 28095.080078125,
+      "param_norm_after": 1931539.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 71099.703125,
+      "param_norm_after": 4982958.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 33961.97265625,
+      "param_norm_after": 2482151.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 234851.375,
+      "param_norm_after": 8202442.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 118652.1875,
+      "param_norm_after": 4033905.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 182981.765625,
+      "param_norm_after": 6262857.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 48560.359375,
+      "param_norm_after": 1971895.875
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 157080.4375,
+      "param_norm_after": 5119161.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 61930.50390625,
+      "param_norm_after": 2538849.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 154911.953125,
+      "param_norm_after": 8351933.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74272.4140625,
+      "param_norm_after": 4106564.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 134045.90625,
+      "param_norm_after": 6386502.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39059.8125,
+      "param_norm_after": 2008950.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 98810.640625,
+      "param_norm_after": 5212966.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 51994.84375,
+      "param_norm_after": 2590635.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 117087.3359375,
+      "param_norm_after": 8460606.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 53360.5546875,
+      "param_norm_after": 4158090.25
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 108764.40625,
+      "param_norm_after": 6481591.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34029.89453125,
+      "param_norm_after": 2039869.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 73659.2421875,
+      "param_norm_after": 5279200.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38863.09765625,
+      "param_norm_after": 2627729.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 209521.84375,
+      "param_norm_after": 8659456.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 105509.9140625,
+      "param_norm_after": 4260685.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 154825.40625,
+      "param_norm_after": 6604194.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 44944.45703125,
+      "param_norm_after": 2078515.625
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 136436.328125,
+      "param_norm_after": 5402916.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 56369.28125,
+      "param_norm_after": 2682125.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 134590.8125,
+      "param_norm_after": 8791450.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64932.90625,
+      "param_norm_after": 4325215.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 112929.3984375,
+      "param_norm_after": 6712153.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33980.375,
+      "param_norm_after": 2111971.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84723.59375,
+      "param_norm_after": 5484808.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42557.5078125,
+      "param_norm_after": 2724283.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 147090.09375,
+      "param_norm_after": 8932954.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 72019.375,
+      "param_norm_after": 4395207.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 132402.140625,
+      "param_norm_after": 6833701.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38365.4453125,
+      "param_norm_after": 2148169.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 97064.5234375,
+      "param_norm_after": 5576061.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 49070.13671875,
+      "param_norm_after": 2772959.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 140717.78125,
+      "param_norm_after": 9069137.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66440.375,
+      "param_norm_after": 4459689.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 133514.65625,
+      "param_norm_after": 6952877.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37545.50390625,
+      "param_norm_after": 2182770.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 89671.2890625,
+      "param_norm_after": 5660862.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46211.48046875,
+      "param_norm_after": 2818631.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 157964.1875,
+      "param_norm_after": 9224047.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 75469.296875,
+      "param_norm_after": 4534429.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 131187.765625,
+      "param_norm_after": 7078478.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 41081.00390625,
+      "param_norm_after": 2223267.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 98478.03125,
+      "param_norm_after": 5756729.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 52237.6171875,
+      "param_norm_after": 2870205.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 146789.640625,
+      "param_norm_after": 9368481.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 71688.375,
+      "param_norm_after": 4605750.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 111045.328125,
+      "param_norm_after": 7185859.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32700.212890625,
+      "param_norm_after": 2255420.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 93359.578125,
+      "param_norm_after": 5848151.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44020.26953125,
+      "param_norm_after": 2913536.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 130748.5859375,
+      "param_norm_after": 9498252.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 62600.27734375,
+      "param_norm_after": 4668150.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 108968.9296875,
+      "param_norm_after": 7292265.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32429.36328125,
+      "param_norm_after": 2287603.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 81423.0390625,
+      "param_norm_after": 5928243.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39594.203125,
+      "param_norm_after": 2952909.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 158737.1875,
+      "param_norm_after": 9653394.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74714.1875,
+      "param_norm_after": 4741551.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 141254.390625,
+      "param_norm_after": 7425228.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43338.02734375,
+      "param_norm_after": 2329176.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 99936.8671875,
+      "param_norm_after": 6024457.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 53095.4609375,
+      "param_norm_after": 3005256.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 135432.640625,
+      "param_norm_after": 9783448.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 62485.1796875,
+      "param_norm_after": 4802561.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 121499.1640625,
+      "param_norm_after": 7537668.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37187.92578125,
+      "param_norm_after": 2364477.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83791.46875,
+      "param_norm_after": 6103746.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44572.0,
+      "param_norm_after": 3048458.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 216373.125,
+      "param_norm_after": 9979177.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 107274.3828125,
+      "param_norm_after": 4904977.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 167519.109375,
+      "param_norm_after": 7650169.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 45380.66015625,
+      "param_norm_after": 2400593.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 147461.765625,
+      "param_norm_after": 6228796.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 56775.16015625,
+      "param_norm_after": 3099434.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 142921.453125,
+      "param_norm_after": 10118108.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 73879.7421875,
+      "param_norm_after": 4976293.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 113793.09375,
+      "param_norm_after": 7743993.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36226.83203125,
+      "param_norm_after": 2432421.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92106.8203125,
+      "param_norm_after": 6316098.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41092.734375,
+      "param_norm_after": 3139732.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 196331.40625,
+      "param_norm_after": 10306740.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 100408.7578125,
+      "param_norm_after": 5073851.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 146582.015625,
+      "param_norm_after": 7865935.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 46007.625,
+      "param_norm_after": 2472769.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 127705.125,
+      "param_norm_after": 6436108.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 55754.73046875,
+      "param_norm_after": 3194071.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 145374.28125,
+      "param_norm_after": 10443772.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66942.46875,
+      "param_norm_after": 5138220.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 139303.28125,
+      "param_norm_after": 7987631.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43119.875,
+      "param_norm_after": 2511280.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92167.6796875,
+      "param_norm_after": 6520334.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48458.1640625,
+      "param_norm_after": 3240843.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 290910.9375,
+      "param_norm_after": 10692753.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 141000.359375,
+      "param_norm_after": 5267620.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 273456.5625,
+      "param_norm_after": 8111649.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 66074.375,
+      "param_norm_after": 2555573.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 204445.5625,
+      "param_norm_after": 6672555.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 73484.03125,
+      "param_norm_after": 3303617.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 124442.953125,
+      "param_norm_after": 10816555.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60656.59765625,
+      "param_norm_after": 5328155.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 100770.3125,
+      "param_norm_after": 8210435.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 30980.80859375,
+      "param_norm_after": 2586408.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 78889.7734375,
+      "param_norm_after": 6750642.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38329.82421875,
+      "param_norm_after": 3341880.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 130170.46875,
+      "param_norm_after": 10946298.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63337.0859375,
+      "param_norm_after": 5391389.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103165.4375,
+      "param_norm_after": 8312003.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 30645.322265625,
+      "param_norm_after": 2616938.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 80920.5,
+      "param_norm_after": 6830752.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39405.52734375,
+      "param_norm_after": 3381208.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132397.0,
+      "param_norm_after": 11070691.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 59787.97265625,
+      "param_norm_after": 5448945.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 125708.453125,
+      "param_norm_after": 8420268.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37205.6015625,
+      "param_norm_after": 2650945.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 82425.125,
+      "param_norm_after": 6906102.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42125.4765625,
+      "param_norm_after": 3421401.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 143398.546875,
+      "param_norm_after": 11210797.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 67420.09375,
+      "param_norm_after": 5515704.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 120861.0859375,
+      "param_norm_after": 8535475.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36346.08984375,
+      "param_norm_after": 2686710.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 88343.75,
+      "param_norm_after": 6991438.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44902.89453125,
+      "param_norm_after": 3465402.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 184898.34375,
+      "param_norm_after": 11394098.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 88200.2109375,
+      "param_norm_after": 5603520.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 145060.03125,
+      "param_norm_after": 8676649.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 42754.04296875,
+      "param_norm_after": 2729294.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 113854.6171875,
+      "param_norm_after": 7103711.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 57284.71875,
+      "param_norm_after": 3522579.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133057.90625,
+      "param_norm_after": 11521647.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 62717.6015625,
+      "param_norm_after": 5664744.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 119345.734375,
+      "param_norm_after": 8785286.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37692.42578125,
+      "param_norm_after": 2764721.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84681.78125,
+      "param_norm_after": 7182992.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45083.91796875,
+      "param_norm_after": 3566481.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 150359.140625,
+      "param_norm_after": 11665800.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 70793.2109375,
+      "param_norm_after": 5733775.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 136777.15625,
+      "param_norm_after": 8909104.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43244.94140625,
+      "param_norm_after": 2804685.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 96243.578125,
+      "param_norm_after": 7272648.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 51677.140625,
+      "param_norm_after": 3617265.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 220756.765625,
+      "param_norm_after": 11875154.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 109268.984375,
+      "param_norm_after": 5840620.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 166908.71875,
+      "param_norm_after": 9045830.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 48005.87109375,
+      "param_norm_after": 2847624.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 146387.328125,
+      "param_norm_after": 7406897.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 61200.16015625,
+      "param_norm_after": 3674847.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 128175.046875,
+      "param_norm_after": 12003164.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 62826.8671875,
+      "param_norm_after": 5903406.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 100199.6640625,
+      "param_norm_after": 9145562.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 30857.0234375,
+      "param_norm_after": 2878440.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 80985.84375,
+      "param_norm_after": 7487701.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39932.41796875,
+      "param_norm_after": 3714758.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 134598.609375,
+      "param_norm_after": 12135665.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 65952.78125,
+      "param_norm_after": 5968839.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 101639.6953125,
+      "param_norm_after": 9243341.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31634.61328125,
+      "param_norm_after": 2909157.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84060.921875,
+      "param_norm_after": 7569804.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38798.59375,
+      "param_norm_after": 3753497.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132527.578125,
+      "param_norm_after": 12262767.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 61942.515625,
+      "param_norm_after": 6029231.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 121688.78125,
+      "param_norm_after": 9352427.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38477.03515625,
+      "param_norm_after": 2944563.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84820.5703125,
+      "param_norm_after": 7648632.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44496.7578125,
+      "param_norm_after": 3796997.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 111062.7578125,
+      "param_norm_after": 12369935.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 51148.74609375,
+      "param_norm_after": 6079627.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 98853.140625,
+      "param_norm_after": 9443383.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 29148.61328125,
+      "param_norm_after": 2973003.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 68863.1796875,
+      "param_norm_after": 7713992.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 34406.19921875,
+      "param_norm_after": 3830473.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 143891.328125,
+      "param_norm_after": 12512895.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 68980.0546875,
+      "param_norm_after": 6148480.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 112018.7421875,
+      "param_norm_after": 9553781.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33451.3203125,
+      "param_norm_after": 3006352.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 90203.671875,
+      "param_norm_after": 7803275.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43418.703125,
+      "param_norm_after": 3873816.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 128202.40625,
+      "param_norm_after": 12638297.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60751.7890625,
+      "param_norm_after": 6208867.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 106974.9453125,
+      "param_norm_after": 9655708.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32937.59765625,
+      "param_norm_after": 3038925.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 79516.9296875,
+      "param_norm_after": 7880111.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 40335.4296875,
+      "param_norm_after": 3913520.25
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 157175.71875,
+      "param_norm_after": 12792796.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 75651.375,
+      "param_norm_after": 6283956.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 125807.6796875,
+      "param_norm_after": 9777947.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35535.5078125,
+      "param_norm_after": 3074321.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 99924.0390625,
+      "param_norm_after": 7978230.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48389.109375,
+      "param_norm_after": 3961490.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 125869.1328125,
+      "param_norm_after": 12918079.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60193.88671875,
+      "param_norm_after": 6343988.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103663.03125,
+      "param_norm_after": 9879330.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 29962.353515625,
+      "param_norm_after": 3104109.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 78000.5,
+      "param_norm_after": 8055167.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37390.6953125,
+      "param_norm_after": 3998793.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132420.640625,
+      "param_norm_after": 13043171.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60641.88671875,
+      "param_norm_after": 6402858.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 123470.5546875,
+      "param_norm_after": 9988603.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37190.47265625,
+      "param_norm_after": 3138600.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83029.265625,
+      "param_norm_after": 8131541.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43476.296875,
+      "param_norm_after": 4040517.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 173200.125,
+      "param_norm_after": 13215190.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 84734.5703125,
+      "param_norm_after": 6487386.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 132132.640625,
+      "param_norm_after": 10117589.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39172.01171875,
+      "param_norm_after": 3177389.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 108221.4296875,
+      "param_norm_after": 8238374.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 51219.38671875,
+      "param_norm_after": 4091643.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 116881.3125,
+      "param_norm_after": 13330501.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 55416.42578125,
+      "param_norm_after": 6542206.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103864.515625,
+      "param_norm_after": 10216456.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31396.716796875,
+      "param_norm_after": 3207858.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 75037.8515625,
+      "param_norm_after": 8311433.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37534.671875,
+      "param_norm_after": 4128964.75
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 128012.8046875,
+      "param_norm_after": 13457816.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 61110.4375,
+      "param_norm_after": 6603131.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 104879.234375,
+      "param_norm_after": 10319842.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31331.14453125,
+      "param_norm_after": 3239054.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 79508.5390625,
+      "param_norm_after": 8390221.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39453.9609375,
+      "param_norm_after": 4168256.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 141453.0,
+      "param_norm_after": 13597629.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 68785.78125,
+      "param_norm_after": 6671374.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 119425.3125,
+      "param_norm_after": 10435681.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35801.62890625,
+      "param_norm_after": 3274268.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 90658.7578125,
+      "param_norm_after": 8478972.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45995.1171875,
+      "param_norm_after": 4214135.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 185284.515625,
+      "param_norm_after": 13779594.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 90061.8828125,
+      "param_norm_after": 6760893.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 148083.015625,
+      "param_norm_after": 10577667.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 42522.87890625,
+      "param_norm_after": 3316587.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 116934.390625,
+      "param_norm_after": 8593247.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 59092.29296875,
+      "param_norm_after": 4273027.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 136626.5,
+      "param_norm_after": 13915662.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66381.5234375,
+      "param_norm_after": 6827161.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 105311.8515625,
+      "param_norm_after": 10682089.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32589.853515625,
+      "param_norm_after": 3349074.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84666.7265625,
+      "param_norm_after": 8677324.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41389.38671875,
+      "param_norm_after": 4314353.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 175674.984375,
+      "param_norm_after": 14085322.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 83617.1875,
+      "param_norm_after": 6910197.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 136667.3125,
+      "param_norm_after": 10809076.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37316.4140625,
+      "param_norm_after": 3385868.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 113824.03125,
+      "param_norm_after": 8785928.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 52780.5390625,
+      "param_norm_after": 4366052.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 135252.0,
+      "param_norm_after": 14219529.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 65338.8203125,
+      "param_norm_after": 6975412.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 107204.625,
+      "param_norm_after": 10914472.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33270.93359375,
+      "param_norm_after": 3419047.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83525.1953125,
+      "param_norm_after": 8868251.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42183.515625,
+      "param_norm_after": 4408052.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 134414.078125,
+      "param_norm_after": 14350853.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 66934.390625,
+      "param_norm_after": 7040885.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103049.796875,
+      "param_norm_after": 11008556.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32477.80859375,
+      "param_norm_after": 3449130.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 84108.671875,
+      "param_norm_after": 8949245.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37146.69921875,
+      "param_norm_after": 4445067.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 117988.875,
+      "param_norm_after": 14465078.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 55768.3515625,
+      "param_norm_after": 7095536.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 109648.0703125,
+      "param_norm_after": 11108839.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33719.93359375,
+      "param_norm_after": 3480677.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 75760.7578125,
+      "param_norm_after": 9020703.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38884.48046875,
+      "param_norm_after": 4483247.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 176193.109375,
+      "param_norm_after": 14631407.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 89957.5078125,
+      "param_norm_after": 7180649.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 142423.328125,
+      "param_norm_after": 11215679.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 44459.1171875,
+      "param_norm_after": 3516816.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 114388.609375,
+      "param_norm_after": 9124829.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46465.67578125,
+      "param_norm_after": 4528525.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133573.71875,
+      "param_norm_after": 14764106.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63772.91015625,
+      "param_norm_after": 7244148.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 109051.8984375,
+      "param_norm_after": 11322720.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33314.87890625,
+      "param_norm_after": 3549824.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 81943.8125,
+      "param_norm_after": 9205833.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42491.51953125,
+      "param_norm_after": 4570827.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 130083.9921875,
+      "param_norm_after": 14889428.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 60209.3359375,
+      "param_norm_after": 7303335.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 116757.328125,
+      "param_norm_after": 11430503.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34981.06640625,
+      "param_norm_after": 3583535.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 80871.40625,
+      "param_norm_after": 9282402.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 41485.82421875,
+      "param_norm_after": 4611056.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 149858.9375,
+      "param_norm_after": 15034438.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 70225.6640625,
+      "param_norm_after": 7371817.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 138234.0625,
+      "param_norm_after": 11557300.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43230.171875,
+      "param_norm_after": 3623602.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 95027.734375,
+      "param_norm_after": 9372350.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 50510.6328125,
+      "param_norm_after": 4660549.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 225291.515625,
+      "param_norm_after": 15232135.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 110212.7421875,
+      "param_norm_after": 7475426.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 185834.515625,
+      "param_norm_after": 11663146.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 45435.73046875,
+      "param_norm_after": 3657550.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 155118.59375,
+      "param_norm_after": 9495965.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 57230.51171875,
+      "param_norm_after": 4710152.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 137097.375,
+      "param_norm_after": 15368863.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 67555.609375,
+      "param_norm_after": 7542879.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103917.828125,
+      "param_norm_after": 11766010.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31275.25,
+      "param_norm_after": 3688634.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 85902.6640625,
+      "param_norm_after": 9581269.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 40518.9609375,
+      "param_norm_after": 4750594.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 138789.875,
+      "param_norm_after": 15496696.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 62695.75390625,
+      "param_norm_after": 7603019.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 132737.3125,
+      "param_norm_after": 11879384.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 40611.5625,
+      "param_norm_after": 3724841.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 87204.3359375,
+      "param_norm_after": 9658606.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 45506.41796875,
+      "param_norm_after": 4793759.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 143215.046875,
+      "param_norm_after": 15631004.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 72150.0078125,
+      "param_norm_after": 7670950.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 117735.265625,
+      "param_norm_after": 11964759.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35556.01953125,
+      "param_norm_after": 3752783.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 92425.7734375,
+      "param_norm_after": 9741067.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 36202.6640625,
+      "param_norm_after": 4828735.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 183525.46875,
+      "param_norm_after": 15804376.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 90156.3984375,
+      "param_norm_after": 7758031.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 141362.21875,
+      "param_norm_after": 12080298.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 44003.234375,
+      "param_norm_after": 3790717.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 119848.5234375,
+      "param_norm_after": 9851112.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48799.98828125,
+      "param_norm_after": 4876071.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 153524.8125,
+      "param_norm_after": 15956017.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 72756.40625,
+      "param_norm_after": 7830297.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 124474.9453125,
+      "param_norm_after": 12201407.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 36459.83984375,
+      "param_norm_after": 3826855.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 94460.9140625,
+      "param_norm_after": 9943797.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 50000.05078125,
+      "param_norm_after": 4925913.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 142090.5625,
+      "param_norm_after": 16091566.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 68616.078125,
+      "param_norm_after": 7896673.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 133648.296875,
+      "param_norm_after": 12320605.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39816.4140625,
+      "param_norm_after": 3863246.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 93927.6484375,
+      "param_norm_after": 10030256.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 48060.8984375,
+      "param_norm_after": 4973276.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 131891.828125,
+      "param_norm_after": 16218642.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 61188.18359375,
+      "param_norm_after": 7956343.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 122655.6796875,
+      "param_norm_after": 12432000.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37182.84375,
+      "param_norm_after": 3898025.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83166.5234375,
+      "param_norm_after": 10108774.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43034.58984375,
+      "param_norm_after": 5015210.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 140279.203125,
+      "param_norm_after": 16356082.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 69538.0234375,
+      "param_norm_after": 8024295.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 107146.234375,
+      "param_norm_after": 12528460.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33688.66015625,
+      "param_norm_after": 3928601.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86900.71875,
+      "param_norm_after": 10192318.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 38569.25390625,
+      "param_norm_after": 5053547.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 145762.375,
+      "param_norm_after": 16497208.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 68006.515625,
+      "param_norm_after": 8091214.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 129160.9296875,
+      "param_norm_after": 12648396.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39559.06640625,
+      "param_norm_after": 3966472.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 90678.4609375,
+      "param_norm_after": 10278170.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 47729.1171875,
+      "param_norm_after": 5099929.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 122322.1640625,
+      "param_norm_after": 16617681.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 58615.0703125,
+      "param_norm_after": 8149316.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 105870.875,
+      "param_norm_after": 12749463.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32728.763671875,
+      "param_norm_after": 3998314.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 77668.5859375,
+      "param_norm_after": 10353665.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 40309.30078125,
+      "param_norm_after": 5139917.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 163712.84375,
+      "param_norm_after": 16780838.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 80359.4453125,
+      "param_norm_after": 8229532.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 124892.6015625,
+      "param_norm_after": 12873446.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 38482.95703125,
+      "param_norm_after": 4036493.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 102292.9921875,
+      "param_norm_after": 10455515.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 49671.3125,
+      "param_norm_after": 5189538.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 121339.546875,
+      "param_norm_after": 16898062.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 56419.4921875,
+      "param_norm_after": 8284869.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 109345.390625,
+      "param_norm_after": 12974646.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 33656.4140625,
+      "param_norm_after": 4068577.25
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 76083.9296875,
+      "param_norm_after": 10527703.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 39813.1796875,
+      "param_norm_after": 5228292.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133697.375,
+      "param_norm_after": 17029354.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64172.09765625,
+      "param_norm_after": 8348686.5
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 114976.4140625,
+      "param_norm_after": 13082600.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 35413.6953125,
+      "param_norm_after": 4103628.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 86399.3828125,
+      "param_norm_after": 10611357.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42613.3828125,
+      "param_norm_after": 5270649.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 183282.9375,
+      "param_norm_after": 17209008.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 90160.078125,
+      "param_norm_after": 8437845.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 137112.875,
+      "param_norm_after": 13210634.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 41887.23046875,
+      "param_norm_after": 4143524.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 115804.6640625,
+      "param_norm_after": 10723585.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 53165.81640625,
+      "param_norm_after": 5323261.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 140340.4375,
+      "param_norm_after": 17343256.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 65843.375,
+      "param_norm_after": 8501581.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 133746.015625,
+      "param_norm_after": 13330096.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 39512.3671875,
+      "param_norm_after": 4179362.75
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 89315.0,
+      "param_norm_after": 10806510.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 46509.6796875,
+      "param_norm_after": 5368836.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 161973.625,
+      "param_norm_after": 17500938.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 77019.25,
+      "param_norm_after": 8577604.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 137508.609375,
+      "param_norm_after": 13460800.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 43141.90234375,
+      "param_norm_after": 4221340.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 101410.4140625,
+      "param_norm_after": 10904163.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 53932.94921875,
+      "param_norm_after": 5421944.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 112297.953125,
+      "param_norm_after": 17609624.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 53227.8984375,
+      "param_norm_after": 8629940.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 103706.453125,
+      "param_norm_after": 13555942.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 31845.587890625,
+      "param_norm_after": 4251586.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 73212.71875,
+      "param_norm_after": 10973246.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 36782.484375,
+      "param_norm_after": 5458099.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 150864.75,
+      "param_norm_after": 17759648.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 74059.921875,
+      "param_norm_after": 8703829.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 115454.421875,
+      "param_norm_after": 13669484.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 34548.85546875,
+      "param_norm_after": 4285737.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 94718.0859375,
+      "param_norm_after": 11066849.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43021.59765625,
+      "param_norm_after": 5500983.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 130671.6015625,
+      "param_norm_after": 17889540.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64021.66015625,
+      "param_norm_after": 8767713.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 99952.15625,
+      "param_norm_after": 13767989.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 29537.890625,
+      "param_norm_after": 4315033.5
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 82309.8125,
+      "param_norm_after": 11148318.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 37686.26171875,
+      "param_norm_after": 5538494.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 132845.6875,
+      "param_norm_after": 18018500.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 63122.09765625,
+      "param_norm_after": 8829799.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 119171.3515625,
+      "param_norm_after": 13878412.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37306.07421875,
+      "param_norm_after": 4350453.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 85002.25,
+      "param_norm_after": 11228886.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 44704.66796875,
+      "param_norm_after": 5582476.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 118473.890625,
+      "param_norm_after": 18135244.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 56457.25390625,
+      "param_norm_after": 8886040.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 94505.75,
+      "param_norm_after": 13971258.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 27863.70703125,
+      "param_norm_after": 4378157.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 74880.328125,
+      "param_norm_after": 11302622.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 34631.7421875,
+      "param_norm_after": 5616988.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 153902.328125,
+      "param_norm_after": 18285192.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 77648.53125,
+      "param_norm_after": 8961764.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 120073.5,
+      "param_norm_after": 14078013.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37708.140625,
+      "param_norm_after": 4412438.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 98668.6484375,
+      "param_norm_after": 11397447.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 42471.60546875,
+      "param_norm_after": 5658961.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 133265.875,
+      "param_norm_after": 18416390.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 64555.8671875,
+      "param_norm_after": 9025658.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 111077.3203125,
+      "param_norm_after": 14184956.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 32649.2890625,
+      "param_norm_after": 4444397.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 83520.484375,
+      "param_norm_after": 11479096.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 43647.90625,
+      "param_norm_after": 5702521.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 151515.21875,
+      "param_norm_after": 18567522.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 73822.75,
+      "param_norm_after": 9099424.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 118901.359375,
+      "param_norm_after": 14302909.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 37108.14453125,
+      "param_norm_after": 4481453.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 94566.6328125,
+      "param_norm_after": 11573244.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 47918.546875,
+      "param_norm_after": 5750389.5
+    },
+    {
+      "name": "transformer.h.9.mlp.c_proj.weight",
+      "delta_norm": 171781.90625,
+      "param_norm_after": 18735282.0
+    },
+    {
+      "name": "transformer.h.9.mlp.c_fc.weight",
+      "delta_norm": 82792.6171875,
+      "param_norm_after": 9180800.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_proj.weight",
+      "delta_norm": 146248.453125,
+      "param_norm_after": 14440016.0
+    },
+    {
+      "name": "transformer.h.10.mlp.c_fc.weight",
+      "delta_norm": 42952.7265625,
+      "param_norm_after": 4522747.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_proj.weight",
+      "delta_norm": 109172.53125,
+      "param_norm_after": 11678577.0
+    },
+    {
+      "name": "transformer.h.11.mlp.c_fc.weight",
+      "delta_norm": 57453.5859375,
+      "param_norm_after": 5807688.0
+    }
+  ]
+}

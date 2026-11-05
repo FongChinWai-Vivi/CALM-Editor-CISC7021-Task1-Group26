@@ -59,6 +59,16 @@ class CALMHyperParams(HyperParams):
     # dual_write: also store WRITE edits into side memory, so CALM's
     # end-to-end retention is backed by memory even for parameter edits.
     dual_write: bool = False
+    # verify_commit (Claude #9): tentatively apply WRITE deltas and roll
+    # back if the post-edit answer misses target_new, storing the edit in
+    # side memory instead.  Prevents failed deltas from polluting weights.
+    verify_commit: bool = False
+    # feature_mode (Claude #3): hypernetwork edit-feature representation.
+    #   "mean-emb"  : mean token embedding of "prompt target_new" (original)
+    #   "key-hidden": last-subject-token hidden state from the penultimate
+    #                 transformer layer (key-conditioned input signal).
+    # Training and inference must use the same mode; the ckpt meta stores it.
+    feature_mode: str = "mean-emb"
 
     # --- misc ----------------------------------------------------------- #
     results_dir: str = "./results"

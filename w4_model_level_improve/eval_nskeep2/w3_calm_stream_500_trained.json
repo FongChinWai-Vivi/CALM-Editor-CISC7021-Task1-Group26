@@ -1,0 +1,122 @@
+{
+  "model": "./hugging_cache/gpt2-small",
+  "hparams_yaml": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "data": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\data\\counterfact.json",
+  "max_edits": 500,
+  "total_seconds": 212.543,
+  "avg_seconds_per_edit": 0.4251,
+  "route_counts": {
+    "hypernetwork": 2,
+    "side_memory": 490,
+    "gate_reject": 8
+  },
+  "route_share": {
+    "gate_reject": 0.016,
+    "hypernetwork": 0.004,
+    "side_memory": 0.98
+  },
+  "decision_counts": {
+    "WRITE": 2,
+    "ROUTE": 490,
+    "REJECT": 8
+  },
+  "immediate_rewrite_ok": 8,
+  "immediate_rewrite_rate": 0.016,
+  "immediate_model_rewrite_ok": 8,
+  "immediate_model_rewrite_rate": 0.016,
+  "memory_rewrite_hits": 0,
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 492,
+    "avg_entries_per_shard": 7.69,
+    "min_entries": 3,
+    "max_entries": 14
+  },
+  "gate_summary": {
+    "WRITE": 2,
+    "ROUTE": 490,
+    "REJECT": 8
+  },
+  "sample_retention": [
+    {
+      "index": 126,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Tuukka Rask",
+      "prompt": "Tuukka Rask plays as",
+      "target_new": "midfielder",
+      "answer": " in Europe Europe of Europe",
+      "rewrite_ok": false
+    },
+    {
+      "index": 157,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Johannesburg",
+      "prompt": "Johannesburg is a twin city of",
+      "target_new": "Istanbul",
+      "answer": " Europe Europe Europe Europe Europe",
+      "rewrite_ok": false
+    },
+    {
+      "index": 188,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Sandy Bridge",
+      "prompt": "Sandy Bridge was a product of",
+      "target_new": "Apple",
+      "answer": " Europe Europe Europe Europe Europe",
+      "rewrite_ok": false
+    },
+    {
+      "index": 219,
+      "position": "mid",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Susan Denberg",
+      "prompt": "Susan Denberg, who is a citizen of",
+      "target_new": "Canada",
+      "answer": " Europe Europe Europe Europe Europe",
+      "rewrite_ok": false
+    },
+    {
+      "index": 452,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "Lake Bluff",
+      "prompt": "Lake Bluff is in",
+      "target_new": "Cambodia",
+      "answer": " Europe Europe Europe Europe Europe",
+      "rewrite_ok": false
+    },
+    {
+      "index": 483,
+      "position": "end",
+      "immediate_ok": false,
+      "route": "side_memory",
+      "e2e": false,
+      "subject": "La Revista Blanca",
+      "prompt": "La Revista Blanca, that was from",
+      "target_new": "Belgium",
+      "answer": " Europe Europe Europe Europe Europe",
+      "rewrite_ok": false
+    }
+  ],
+  "retention_ok": 0,
+  "delta_norm_cap": null,
+  "norm_tau": null,
+  "ns_proj": true,
+  "verify_commit": false,
+  "feature_mode": "mean-emb",
+  "status": "PASS"
+}
