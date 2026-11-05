@@ -62,7 +62,7 @@ Both runs executed from the repo root with the project virtualenv (`.venv`); the
 | Status | PASS | PASS |
 
 Raw per-run JSON (intermediate): `temp/w3_calm_stream_5000_trained.json`, `temp/w3_calm_stream_5000.json`.
-Consolidated structured result: `output/w4_sequential_5k_results.json`.
+Consolidated structured result: `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_sequential_5k_results.json`.
 
 ## 4. Comparison with W3 (1K stream)
 

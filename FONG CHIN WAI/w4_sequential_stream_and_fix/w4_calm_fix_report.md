@@ -92,7 +92,7 @@ Memory capacity is ample for the stream (64 shards x 200 = 12800 slots > 5000).
 | gate REJECT | - | 2 | - |
 
 Timing: 2333.8s total, 0.467 s/edit. Memory capacity used: 4996/12800 slots
-(64 shards x 200), no eviction. JSON: `output/w4_calm_fix_5k_results.json`.
+(64 shards x 200), no eviction. JSON: `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_calm_fix_5k_results.json`.
 
 Full result file: `w3_calm_stream_5000_trained.json` (in workspace output).
 

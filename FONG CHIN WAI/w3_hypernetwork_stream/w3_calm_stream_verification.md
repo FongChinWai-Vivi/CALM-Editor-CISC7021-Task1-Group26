@@ -49,8 +49,8 @@ Supported options:
 - `--data`, `--hparams`, `--output-dir` -- custom paths.
 
 The script prints a summary and writes
-`output/w3_calm_stream_1k.json` (the 1000-record run) or
-`output/w3_calm_stream_<n>.json` otherwise.
+`FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json` (the 1000-record run) or
+`FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_<n>.json` otherwise.
 
 ## 3. Results (n = 1000, gpt2-small)
 
@@ -136,6 +136,6 @@ Retained on final model: **0 / 6**.
 | File | Description |
 |---|---|
 | `EasyEdit/examples/w3_calm_stream.py` | new Gate 3 stream script |
-| `output/w3_calm_stream_1k.json` | machine-readable results (this run) |
-| `output/w3_calm_stream_verification.md` | this verification report |
+| `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json` | machine-readable results (this run) |
+| `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_verification.md` | this verification report |
 *（内容由AI生成，仅供参考）*

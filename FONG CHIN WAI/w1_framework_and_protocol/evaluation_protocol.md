@@ -244,6 +244,6 @@ Each work package that touches editing MUST append a section to the shared
 
 - EasyEdit evaluator: `easyeditor/evaluate/evaluate.py`, `metric_meta.py`.
 - ROME demo (W1): `EasyEdit/examples/w1_rome_demo.py`.
-- CALM interface draft: `calm/calm_editor.py`.
+- CALM interface draft: `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py`.
 - EasyEdit datasets: `easyeditor/dataset/counterfact.py`, `easyeditor/dataset/zsre.py`.
 *（内容由AI生成，仅供参考）*

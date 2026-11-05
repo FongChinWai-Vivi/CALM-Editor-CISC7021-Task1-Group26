@@ -1,20 +1,27 @@
-# W4 model-level improve: accumulation-aware hypernetwork meta-training
-# with GATE-DISTRIBUTION sampling.
+# W4 model-level improve: accumulation-aware hypernetwork meta-training.
 #
-# Extends train_accum.py: within a segment every edit is sampled as a
-# parameter WRITE with probability p (default 0.7, matching the observed
-# gate decision distribution WRITE=351/500=0.70) and otherwise simulated as
-# ROUTE/REJECT (no parameter change, no loss contribution).  This makes the
-# training accumulation depth distribution closer to the real stream, where
-# hypernetwork WRITEs are interleaved with side-memory ROUTEs and REJECTs.
+# Problem (diagnosed): the W3 MEND-style training restores the parameter
+# snapshot after EVERY edit, so the hypernetwork only learns to emit deltas
+# on a clean base model.  In a sequential stream the parameters are already
+# polluted by previous deltas and new deltas stop being observable after ~2
+# accumulated edits (clean-baseline 50% vs cumulative 20%, 3rd+ all miss).
+#
+# This script trains with ACCUMULATION: within a segment (batch) the deltas
+# are applied one after another WITHOUT restoring the snapshot, so the
+# hypernetwork must learn to generate effective corrective deltas on an
+# already-modified parameter stack.  The segment is reset to the original
+# snapshot only at the segment end.  The base model stays frozen; gradients
+# flow only through the current delta back to the hypernetwork (previous
+# deltas in the segment are detached -- the hypernetwork weights are already
+# current when the next delta is generated).
 #
 # Usage (from repo root, inside .venv):
-#   .venv\\Scripts\\python.exe w4_model_level_improve\\train_accum_gate.py \
-#       --train-steps 501 --batch-size 16 --scale 5.0 --write-prob 0.7
+#   .venv\\Scripts\\python.exe w4_model_level_improve\\train_accum.py \
+#       --train-steps 501 --batch-size 4 --scale 5.0
 #
 # Outputs:
-#   w4_model_level_improve/ckpt/<--ckpt-name>  (checkpoint)
-#   w4_model_level_improve/logs/train_accum_gate.log  (training log)
+#   w4_model_level_improve/ckpt/hypernet_accum_gpt2-small.pt  (checkpoint)
+#   w4_model_level_improve/logs/train_accum.log              (training log)
 import argparse
 import json
 import os
@@ -25,7 +32,15 @@ from pathlib import Path
 import torch
 from torch import nn
 
-REPO = str(Path(__file__).resolve().parent.parent)          # repo root
+def _find_repo_root(start: Path) -> Path:
+    """Walk upwards from ``start`` until a directory containing .git is found."""
+    for candidate in [start, *start.parents]:
+        if (candidate / ".git").exists():
+            return candidate
+    return start.parent
+
+
+REPO = str(_find_repo_root(Path(__file__).resolve().parent))  # repo root
 EASYEDIT = os.path.join(REPO, "EasyEdit")
 os.chdir(EASYEDIT)
 sys.path.insert(0, EASYEDIT)
@@ -42,16 +57,12 @@ LOG_DIR = os.path.join(IMPROVE_DIR, "logs")
 
 
 def build_config() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="W4 accumulation-aware + gate-distribution training")
+    parser = argparse.ArgumentParser(description="W4 accumulation-aware hypernetwork training")
     parser.add_argument("--train-steps", type=int, default=501)
     parser.add_argument("--lr", type=float, default=1e-3)
-    parser.add_argument("--batch-size", type=int, default=16,
-                        help="segment length: how many edits are drawn per "
-                             "segment (WRITE-sampled subset accumulates)")
-    parser.add_argument("--write-prob", type=float, default=0.7,
-                        help="per-edit probability of a parameter WRITE "
-                             "(match gate decision distribution); the rest "
-                             "simulate ROUTE/REJECT (no parameter change)")
+    parser.add_argument("--batch-size", type=int, default=4,
+                        help="segment length: how many edits are accumulated "
+                             "before restoring the original snapshot")
     parser.add_argument("--sanity-accum-length", type=int, default=10,
                         help="accumulation-aware sanity: sequentially apply "
                              "this many deltas WITHOUT restoring, count how "
@@ -62,7 +73,7 @@ def build_config() -> argparse.Namespace:
     parser.add_argument("--max-length", type=int, default=64)
     parser.add_argument("--device", type=str, default="cuda:0")
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--ckpt-name", type=str, default="hypernet_accum_gate_gpt2-small.pt")
+    parser.add_argument("--ckpt-name", type=str, default="hypernet_accum_gpt2-small.pt")
     return parser.parse_args()
 
 
@@ -178,29 +189,26 @@ def main():
     optimizer = torch.optim.AdamW(hypernet.parameters(), lr=args.lr)
     originals = build_original_snapshot(model, inner_params)
 
-    # ---- accumulation-aware training loop (gate-distribution sampled) --- #
+    # ---- accumulation-aware training loop ------------------------------ #
     log(f"[ACCUM-TRAIN] starting {args.train_steps} steps, segment_len="
-        f"{args.batch_size}, write_prob={args.write_prob} (WRITE-sampled "
-        f"deltas accumulate within segment, restore at end) ...")
+        f"{args.batch_size} (deltas accumulate within segment, restore at end) ...")
     t_start = time.time()
     step_losses = []
     for step in range(1, args.train_steps + 1):
         optimizer.zero_grad()
+        # Ordered segment of fresh cases (order matters for accumulation).
         idxs = torch.randperm(len(cases))[: args.batch_size].tolist()
         restore_originals(model, originals)      # clean start of segment
+        # Track the current (accumulated) parameter tensors, detached: the
+        # loss of a later delta back-props only through that delta.
         current = {name: originals[name].data for name in inner_params}
 
         seg_edit = 0.0
         seg_loc = 0.0
-        seg_loss = torch.tensor(0.0, device=args.device)
+        seg_loss = torch.tensor(0.0, device=args.device)   # differentiable
         first_edit = last_edit = 0.0
         first_loc = last_loc = 0.0
-        n_write = 0
         for j, i in enumerate(idxs):
-            # Gate-decision sampling: WRITE with prob p, else ROUTE/REJECT.
-            do_write = (torch.rand(1).item() < args.write_prob)
-            if not do_write:
-                continue
             case = cases[i]
             feature = editor.hypernetwork.edit_feature(
                 case["prompt"], case["target_new"])
@@ -212,12 +220,13 @@ def main():
                         model, tok, case["prompt"], case["ground_truth"],
                         args.device, args.max_length).item()
 
-            deltas = hypernet(feature)
+            deltas = hypernet(feature)          # dict {name: delta}
+            # Apply on the CURRENT (accumulated) parameters, not the originals.
             for name, delta in deltas.items():
                 base = current[name]
                 new_w = base.data + delta.to(base.device, base.dtype)
-                set_param(model, name, new_w)
-                current[name] = new_w.detach()
+                set_param(model, name, new_w)    # buffer tensor, graph via delta
+                current[name] = new_w.detach()   # detach for the next apply
 
             edit_loss = compute_nll(model, tok, case["prompt"],
                                     case["target_new"], args.device,
@@ -232,27 +241,27 @@ def main():
                 loc_loss = torch.clamp(after - loc_before, min=0.0)
                 seg_loc += float(loc_loss.item())
 
+            # Accumulate as tensors so gradients reach the hypernetwork.
             seg_loss = seg_loss + edit_loss + args.locality_lambda * loc_loss
-            n_write += 1
 
-            if n_write == 1:
+            if j == 0:
                 first_edit = float(edit_loss.item())
                 first_loc = float(loc_loss.item())
-            last_edit = float(edit_loss.item())
-            last_loc = float(loc_loss.item())
+            if j == args.batch_size - 1:
+                last_edit = float(edit_loss.item())
+                last_loc = float(loc_loss.item())
 
-        # One optimizer step per segment (skip empty segments defensively).
-        if n_write > 0:
-            seg_loss = seg_loss / n_write
-            seg_loss.backward()
-            torch.nn.utils.clip_grad_norm_(hypernet.parameters(), max_norm=1.0)
-            optimizer.step()
-        restore_originals(model, originals)
+        # One optimizer step per segment.
+        seg_loss = seg_loss / args.batch_size
+        seg_loss.backward()
+        torch.nn.utils.clip_grad_norm_(hypernet.parameters(), max_norm=1.0)
+        optimizer.step()
+        restore_originals(model, originals)      # reset segment
         step_losses.append(float(seg_loss.item()))
 
         if step % 10 == 0 or step == 1:
             log(f"  step {step:4d}/{args.train_steps}  avg_loss="
-                f"{float(seg_loss.item()):.4f}  writes={n_write}/{args.batch_size} "
+                f"{float(seg_loss.item()):.4f}  "
                 f"edit[first->last]={first_edit:.4f}->{last_edit:.4f}  "
                 f"loc[first->last]={first_loc:.4f}->{last_loc:.4f}")
 
@@ -291,6 +300,9 @@ def main():
     log(f"[ACCUM-TRAIN] sanity: {improved}/{checked} cases improved after patch")
 
     # ---- accumulation-aware sanity -------------------------------------- #
+    # Mimic the stream: apply deltas one after another WITHOUT restoring and
+    # report per-position improvement (NLL(target_new) lower after apply).
+    # This shows at which accumulated depth the deltas stop being effective.
     if args.sanity_accum_length > 0:
         log(f"[ACCUM-TRAIN] accum sanity: sequentially apply "
             f"{args.sanity_accum_length} deltas without restore ...")
@@ -337,9 +349,8 @@ def main():
             "lr": args.lr,
             "max_train_cases": len(cases),
             "seed": args.seed,
-            "training": "accumulation-aware+gate-distribution",
+            "training": "accumulation-aware",
             "segment_len": args.batch_size,
-            "write_prob": args.write_prob,
             "locality_lambda": args.locality_lambda,
         },
         "state_dict": hypernet.state_dict(),
@@ -347,7 +358,7 @@ def main():
     torch.save(ckpt, ckpt_path)
     log(f"[ACCUM-TRAIN] checkpoint saved: {ckpt_path}")
 
-    log_path = os.path.join(LOG_DIR, "train_accum_gate.log")
+    log_path = os.path.join(LOG_DIR, "train_accum.log")
     with open(log_path, "w", encoding="utf-8") as f:
         f.write("\n".join(log_lines) + "\n")
     log(f"[ACCUM-TRAIN] log written: {log_path}")

@@ -16,7 +16,7 @@ AIGC:
 - 日期：2026-10-18
 - 执行人：Fong Chin Wai（W2 任务）
 - 目标：复现 ROME 单事实编辑基线，验证在 RTX 4070 8GB 环境可运行，并产出三类指标
-- 依据：`docs/evaluation_protocol.md`（reliability / generalisation / locality）+ `docs/w1_alignment_decision.md`（模型清单）
+- 依据：`FONG CHIN WAI/w1_framework_and_protocol/evaluation_protocol.md`（reliability / generalisation / locality）+ `FONG CHIN WAI/w1_framework_and_protocol/w1_alignment_decision.md`（模型清单）
 
 ## 1. 运行配置
 

@@ -17,7 +17,7 @@ AIGC:
 
 ## 1. W2 — Single-fact editing baselines (gpt2-xl, n=50)
 
-Same evaluation protocol (`docs/evaluation_protocol.md`): reliability (`rewrite_acc`), generalisation (`rephrase_acc`), locality (`neighborhood_acc` on CounterFact / `nq_acc` on zsRE), portability (`p1_acc` on MQuAKE).
+Same evaluation protocol (`FONG CHIN WAI/w1_framework_and_protocol/evaluation_protocol.md`): reliability (`rewrite_acc`), generalisation (`rephrase_acc`), locality (`neighborhood_acc` on CounterFact / `nq_acc` on zsRE), portability (`p1_acc` on MQuAKE).
 
 | Method | Dataset | Reliability | Generalisation | Locality | Portability |
 |---|---|---|---|---|---|
@@ -67,10 +67,10 @@ Key findings:
 
 | Checkpoint | Raw model-level ok | WRITE.rewrite_ok | Real WRITE hit rate | REJECT.rewrite_ok | ROUTE.rewrite_ok | Audit JSON |
 |---|---|---|---|---|---|---|
-| baseline (accum16+warm48·1000) | 111 | 4 | **3.1% (4/128)** | 107 | 0 | `w4_model_level_improve/results/audit_baseline.json` |
-| coh_l0.1_c0.6 | 87 | 5 | **3.9% (5/128)** | 82 | 0 | `w4_model_level_improve/results/audit_coh_l0.1.json` |
-| coh_v2_l0.3_c0.6 | 31 | 3 | **2.3% (3/128)** | 28 | 0 | `w4_model_level_improve/results/audit_coh_v2_l0.3_c0.6.json` |
-| v2_seed101 | 42 | 2 | **1.6% (2/128)** | 40 | 0 | `w4_model_level_improve/results/audit_v2_seed101.json` |
+| baseline (accum16+warm48·1000) | 111 | 4 | **3.1% (4/128)** | 107 | 0 | `FONG CHIN WAI/w4_model_level_improve/results/audit_baseline.json` |
+| coh_l0.1_c0.6 | 87 | 5 | **3.9% (5/128)** | 82 | 0 | `FONG CHIN WAI/w4_model_level_improve/results/audit_coh_l0.1.json` |
+| coh_v2_l0.3_c0.6 | 31 | 3 | **2.3% (3/128)** | 28 | 0 | `FONG CHIN WAI/w4_model_level_improve/results/audit_coh_v2_l0.3_c0.6.json` |
+| v2_seed101 | 42 | 2 | **1.6% (2/128)** | 40 | 0 | `FONG CHIN WAI/w4_model_level_improve/results/audit_v2_seed101.json` |
 
 Audit conclusion:
 - The pre-audit "WRITE hit rate" (`model_level_ok/128`) counts every gate-level success, including REJECTed edits where the model already answers correctly. For the best checkpoint, 107 of the 111 raw hits are REJECT false hits and ROUTE contributes 0; the genuine parameter-write hit rate is only **4/128 (3.1%)**, i.e. 124/128 real WRITEs still miss.
@@ -88,8 +88,8 @@ Audit conclusion:
 
 ## Data sources
 
-- `docs/w2_rome_reproduction.md`, `docs/w2_ike_grace_reproduction.md` (W2 baselines)
-- `output/w3_calm_stream_1k.json`, `output/w4_sequential_5k_results.json`, `output/w4_calm_fix_5k_results.json` (W3/W4 streams)
-- `w4_model_level_improve/results/audit_*.json` (W5 audit)
+- `FONG CHIN WAI/w2_rome_baseline/w2_rome_reproduction.md`, `docs/w2_ike_grace_reproduction.md` (W2 baselines)
+- `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_sequential_5k_results.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_calm_fix_5k_results.json` (W3/W4 streams)
+- `FONG CHIN WAI/w4_model_level_improve/results/audit_*.json` (W5 audit)
 - `README.md` "W4 — Model-level write quality improvement"
 *（内容由AI生成，仅供参考）*

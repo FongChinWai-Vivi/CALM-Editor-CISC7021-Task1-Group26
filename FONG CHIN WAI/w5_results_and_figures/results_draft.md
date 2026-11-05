@@ -48,8 +48,8 @@ The gate threshold sweep shows that the default `route_threshold=0.6` is already
 
 ## Data sources
 
-- `docs/w2_rome_reproduction.md`, `docs/w2_ike_grace_reproduction.md`
-- `output/w3_calm_stream_1k.json`, `output/w4_sequential_5k_results.json`, `output/w4_calm_fix_5k_results.json`
-- `w4_model_level_improve/results/audit_baseline.json`, `audit_coh_l0.1.json`, `audit_coh_v2_l0.3_c0.6.json`, `audit_v2_seed101.json`
-- `output/w4_w5_main_results.md` (consolidated main-results table and charts)
+- `FONG CHIN WAI/w2_rome_baseline/w2_rome_reproduction.md`, `docs/w2_ike_grace_reproduction.md`
+- `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_sequential_5k_results.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_calm_fix_5k_results.json`
+- `FONG CHIN WAI/w4_model_level_improve/results/audit_baseline.json`, `audit_coh_l0.1.json`, `audit_coh_v2_l0.3_c0.6.json`, `audit_v2_seed101.json`
+- `FONG CHIN WAI/w5_results_and_figures/w4_w5_main_results.md` (consolidated main-results table and charts)
 *（内容由AI生成，仅供参考）*
