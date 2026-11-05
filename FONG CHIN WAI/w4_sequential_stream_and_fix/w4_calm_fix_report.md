@@ -105,4 +105,3 @@ Full result file: `w3_calm_stream_5000_trained.json` (in workspace output).
   (scale=10). This is the same weakness seen in W3 (trained 1K model-level
   0.4% vs baseline 1.0%) and is **not** fixed by routing policy; it is
   reported separately, not conflated with the end-to-end success.
-*（内容由AI生成，仅供参考）*

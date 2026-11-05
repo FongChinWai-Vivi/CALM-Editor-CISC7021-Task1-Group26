@@ -100,4 +100,3 @@ Both are safe for the in-repo workflow and are recorded here for reproducibility
 - Model cache: `EasyEdit/hugging_cache/gpt2-small` (~500 MB, downloaded once).
 - Training artifacts: `EasyEdit/results/` (results.json + 2 checkpoints ~190 MB each).
 - All artifacts live inside the EasyEdit cache/results locations, as required.
-*（内容由AI生成，仅供参考）*

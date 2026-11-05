@@ -314,4 +314,3 @@ w4_model_level_improve/
 ├── results/w3_calm_stream_500_trained.json  # 500 流评估（新 ckpt）
 └── results/gate_*/                       # 各阈值/步数配置的 500 流评估 JSON
 ```
-*（内容由AI生成，仅供参考）*

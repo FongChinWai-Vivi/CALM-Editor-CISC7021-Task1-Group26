@@ -81,4 +81,3 @@ Consolidated structured result: `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_s
 5. **Throughput is acceptable.** ~0.43–0.46 s/edit; the trained variant adds ~7% wall time (memory-rewrite accounting + hypernetwork inference), negligible at this scale.
 
 **Verdict:** W4 sequential/lifelong 5K+ experiment executed end-to-end with honest metrics. Honest reporting: meta-trained hypernetwork does not improve lifelong retention beyond 1K scale; at 5K it is on par with (slightly below) the no-hypernetwork baseline on end-to-end success while remaining worse on model-level success.
-*（内容由AI生成，仅供参考）*

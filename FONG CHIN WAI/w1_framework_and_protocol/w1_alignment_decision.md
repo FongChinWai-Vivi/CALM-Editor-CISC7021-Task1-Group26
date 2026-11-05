@@ -108,4 +108,3 @@ Each member (Fong Chin Wai, Fong Hio Lam, Tang I Choi) should complete the follo
    - the Gate 1 acceptance status (Section 3).
 
 **Alignment meeting outcome**: any change to the roster or interface is recorded as a new revision of this document; the frozen version is committed to `main` after the meeting.
-*（内容由AI生成，仅供参考）*

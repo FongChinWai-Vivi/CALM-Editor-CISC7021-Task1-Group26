@@ -156,5 +156,3 @@ python examples/w2_rome_repro.py --data zsre --model gpt-j-6B --n 10 --fp16   # 
   - `EasyEdit/results/eval/ROME_gpt2-xl_20261018_190605.json`（zsRE n=50）
   - `EasyEdit/results/eval/ROME_gpt2-xl_20261018_191619.json`（MQuAKE n=50）
   - `EasyEdit/results/eval/ROME_gpt-j-6B_20261019_062035.json`（zsRE n=10，Colab T4 16GB，另存 `ROME_gpt-j-6B_latest.json`）
-*（内容由AI生成，仅供参考）*
-*（内容由AI生成，仅供参考）*

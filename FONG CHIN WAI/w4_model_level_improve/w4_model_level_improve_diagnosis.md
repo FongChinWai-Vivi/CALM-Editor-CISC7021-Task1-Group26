@@ -84,4 +84,3 @@ front-loaded, the first few hit, the rest miss → 0.08% overall.
 - `temp/w4_scale_sweep.py` + output (scale sweep)
 - `temp/w4_stream_scale_cmp.py` + output (500-edit stream comparison)
 - `temp/w4_accum_diag.py` + output (cumulative-pollution diagnostic)
-*（内容由AI生成，仅供参考）*
