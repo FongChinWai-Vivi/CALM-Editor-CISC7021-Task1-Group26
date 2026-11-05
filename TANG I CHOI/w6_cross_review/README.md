@@ -1,5 +1,8 @@
 # W6 -- Final cross-review (Tang I Choi, MC631517)
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Review of all three members' deliverables before submission. Findings are filed,
 not fixed: nothing outside `TANG I CHOI/` was edited, so each owner decides.
 
@@ -15,7 +18,7 @@ not fixed: nothing outside `TANG I CHOI/` was edited, so each owner decides.
    drops from 0.877 (offline) to 0.340 (cold start) and collapses to
    `ROUTE` in the ablation. Either wire the context through, or state it as a
    limitation -- but do not claim runtime context-conflict detection.
-2. **B2 -- two editor implementations.** `calm/calm_editor.py` (W1 blueprint,
+2. **B2 -- two editor implementations.** `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py` (W1 blueprint,
    `EditRequest` interface) and
    `EasyEdit/easyeditor/editors/calm_editor.py` (shipped, `subject/relation`
    interface + first-write/budget guards) have diverged while the second still
@@ -25,7 +28,7 @@ not fixed: nothing outside `TANG I CHOI/` was edited, so each owner decides.
 
 - every W3 -> W5 script re-run individually and outputs diffed;
 - `bash -n` on `reproduce_all.sh`, then each step executed;
-- code read for `calm_editor.py`, `calm/calm_editor.py`,
+- code read for `calm_editor.py`, `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py`,
   `side_memory_router/conflict_gate.py`, `side_memory.py`;
 - every table cell in `w5_.../report/results_section.md` traced to a JSON
   artefact;

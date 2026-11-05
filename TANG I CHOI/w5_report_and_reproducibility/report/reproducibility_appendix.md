@@ -1,5 +1,8 @@
 # Reproducibility appendix (W5 deliverable, Tang I Choi)
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Everything the group needs to re-run the W3/W4/W5 experiments from a fresh
 clone. The driver is
 `TANG I CHOI/w5_report_and_reproducibility/reproduce_all.sh`.
@@ -14,7 +17,7 @@ clone. The driver is
 | scikit-learn | 1.9.1 |
 | numpy / matplotlib | 2.4.6 / 3.11.2 |
 | backbone (W3/W4) | `gpt2-xl` cached under `EasyEdit/hugging_cache/gpt2-xl` |
-| backbone (team 1K/5K runs) | `gpt2-small` (Windows 11, see `output/*.json` `environment` block) |
+| backbone (team 1K/5K runs) | `gpt2-small` (Windows 11, see `FONG CHIN WAI/ run records (`w3_hypernetwork_stream/`, `w4_sequential_stream_and_fix/`)` `environment` block) |
 
 The team 1K/5K stream runs in Table 1 were produced on a different machine
 (`gpt2-small`), so absolute numbers are not comparable with the W4 `gpt2-xl`

@@ -1,5 +1,8 @@
 # W4 `immediate_rewrite` metric: diagnosis and fix
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Owner: Tang I Choi (MC631517) · W4 gate ablations · last run 2026-11-05.
 
 ## TL;DR
@@ -70,8 +73,8 @@ lowrank`, `hypernet_rank: 2`, `hypernet_scale: 1.0` but **no `hypernet_ckpt`**.
 adds a random rank-2 delta of norm ≈ 4e-3 to six GPT-2 XL MLP matrices. That is
 far too small and too unstructured to change a greedy token.
 
-This is consistent with the team-level finding in `output/w4_calm_fix_report.md`
-and `w4_model_level_improve/` (model-level write quality 0.08% even with a
+This is consistent with the team-level finding in `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_calm_fix_report.md`
+and `FONG CHIN WAI/w4_model_level_improve/` (model-level write quality 0.08% even with a
 trained MEND hypernetwork), and it is the reason the W4 fix moved the system
 target from *parameter-level* retention to *memory-backed end-to-end* retention.
 

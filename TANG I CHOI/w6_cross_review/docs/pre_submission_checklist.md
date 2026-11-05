@@ -1,5 +1,8 @@
 # W6 -- Pre-submission checklist (Tang I Choi, MC631517)
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Use this before the final push. Items marked **owner** are not mine to change;
 I filed them in `docs/w6_cross_review_findings.md` instead of editing the files.
 
@@ -7,7 +10,7 @@ I filed them in `docs/w6_cross_review_findings.md` instead of editing the files.
 
 - [ ] B1 `retrieval_context=None` (`EasyEdit/easyeditor/editors/calm_editor.py:193`)
       either fixed or explicitly stated as a limitation in the report -- **owner: editor**
-- [ ] B2 one source of truth for the editor interface; `calm/calm_editor.py`
+- [ ] B2 one source of truth for the editor interface; `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py`
       marked as the W1 design draft -- **owner: editor + W1 owner**
 - [ ] M1 `output/README.md` index added (which run, which backbone, superseded or not) -- **owner: each run's author**
 - [ ] M2 backbone caveat repeated next to both results tables -- **owner: report lead**

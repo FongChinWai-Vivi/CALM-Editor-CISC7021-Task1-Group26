@@ -1,5 +1,8 @@
 # W6 -- Cross-review findings (Tang I Choi, MC631517)
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Scope: review of the artefacts owned by the other members plus my own, done by
 reading the code and re-running the scripts, not by re-reading the reports.
 Nothing outside `TANG I CHOI/` was edited: every item below is filed as a
@@ -9,10 +12,10 @@ Method:
 
 1. re-ran every W3 -> W5 script individually (the driver is the same list of
    commands) and diffed the outputs;
-2. read `EasyEdit/easyeditor/editors/calm_editor.py`, `calm/calm_editor.py`,
+2. read `EasyEdit/easyeditor/editors/calm_editor.py`, `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py`,
    `FONG HIO LAM/side_memory_router/{conflict_gate,side_memory}.py`;
 3. cross-checked every number in the draft results section against
-   `output/*.json` and my own `results/*.json`;
+   `FONG CHIN WAI/ run records (`w3_hypernetwork_stream/`, `w4_sequential_stream_and_fix/`)` and my own `results/*.json`;
 4. checked what is actually tracked by git (`git ls-files`, largest blobs).
 
 Severity: **B** = blocks a claim in the report, **M** = must fix before
@@ -44,7 +47,7 @@ Owner: editor (W1/W2 owner).
 
 ## B2. The "frozen W1 interface" and the shipped editor have diverged
 
-Evidence: `calm/calm_editor.py` (342 lines) declares
+Evidence: `FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py` (342 lines) declares
 `decide(self, request: EditRequest, memory_snapshot)` plus `score` / `write`;
 `EasyEdit/easyeditor/editors/calm_editor.py` (358 lines) instead calls
 `self.gate.decide(subject=..., relation=..., ...)` and adds
@@ -57,7 +60,7 @@ implementations now exist with different `decide` signatures.
 
 Recommendation: keep one source of truth. Cheapest option: move the guards'
 documentation into `EasyEdit/easyeditor/editors/calm_editor.py`, and mark
-`calm/calm_editor.py` as the W1 design draft (or delete it) so the report can
+`FONG CHIN WAI/w1_framework_and_protocol/calm_editor_interface_draft.py` as the W1 design draft (or delete it) so the report can
 cite a single implementation.
 
 Owner: editor owner, with W1 owner's agreement.
@@ -76,7 +79,7 @@ Owner: whoever produced each run.
 
 ## M2. Backbones differ between the team runs and the ablation
 
-Evidence: `output/w3_calm_stream_1k.json` and `output/w4_sequential_5k_results.json`
+Evidence: `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json` and `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_sequential_5k_results.json`
 were produced with `gpt2-small` on Windows; the W4 ablation used `gpt2-xl` on
 Apple Silicon.
 

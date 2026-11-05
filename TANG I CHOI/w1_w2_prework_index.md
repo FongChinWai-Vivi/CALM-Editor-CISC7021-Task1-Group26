@@ -1,5 +1,8 @@
 # W0-W2 deliverables: where they live and why
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Owner: Tang I Choi (MC631517). This file is the single entry point for my three
 pre-W3 work packages. W3-W6 have folders of their own under `TANG I CHOI/`;
 W0-W2 were produced before the per-member layout existed, so their artefacts sit
@@ -20,10 +23,10 @@ this commit (it existed only in the review thread), so it was written up in
 | **W1** (12-18 Oct) | complete | `conflict annotation manual + 100 pilot annotations/` -- `README.md`, `docs/conflict_annotation_manual.md`, `data/conflict_pilot_100.jsonl`, `tools/build_pilot_annotations.py` | four-label conflict scheme (no-conflict / pre-training-conflict / prior-edit-conflict / context-conflict) with a fixed priority, coding rules with worked examples, 100 human-labelled pilot edits, and the builder script that turns them into a jsonl | root `README.md` W1 row assigns "conflict-annotation manual and pilot-label 100 edits" to MC631517; the folder was committed as `cc74418` |
 | **W2** (19-25 Oct) | complete | `w2_ike_grace_gptj6b_colab_v1.ipynb`, `docs/w2_ike_grace_reproduction.md` | IKE and GRACE reproduction: config table (gpt2-xl on MPS, Colab T4 for GPT-J-6B), the k=16 retrieval setup, GRACE's single-layer 200-step overwrite, and the numbers that entered the root README (IKE CounterFact rewrite 1.000 / rephrase 0.720 / locality 0.188; GRACE rephrase 0.000 / locality 1.000) | commit `ed7dcdf` "W2: Tang I Choi IKE/GRACE memory-based baselines reproduction"; root `README.md` W2 row assigns IKE/GRACE to MC631517 |
 
-Not mine, listed only so the folder is unambiguous: `w2_rome_gptj6b_colab_v5.ipynb`,
-`w2_rome_gptj6b_colab_v6.ipynb`, `docs/w2_rome_reproduction.md` (Fong Chin Wai);
-`docs/w1_alignment_decision.md`, `docs/w1_hypernetwork_verification.md`,
-`docs/evaluation_protocol.md`, `docs/W1_Team_Notice.docx` (team-level W1
+Not mine, listed only so the folder is unambiguous: `FONG CHIN WAI/w2_rome_baseline/w2_rome_gptj6b_colab_v5.ipynb`,
+`FONG CHIN WAI/w2_rome_baseline/w2_rome_gptj6b_colab_v6.ipynb`, `FONG CHIN WAI/w2_rome_baseline/w2_rome_reproduction.md` (Fong Chin Wai);
+`FONG CHIN WAI/w1_framework_and_protocol/w1_alignment_decision.md`, `FONG CHIN WAI/w1_framework_and_protocol/w1_hypernetwork_verification.md`,
+`FONG CHIN WAI/w1_framework_and_protocol/evaluation_protocol.md`, `FONG CHIN WAI/w1_framework_and_protocol/W1_Team_Notice.docx` (team-level W1
 decisions, Fong Chin Wai / Fong Hio Lam). None of these were touched.
 
 ## What the W1 annotation manual already covers, and where W4/W5 picks it up

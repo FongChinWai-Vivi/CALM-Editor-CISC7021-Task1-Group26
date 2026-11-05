@@ -1,5 +1,8 @@
 # W0 deliverable -- bibliographic verification of the 12 papers
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 Owner: Tang I Choi (MC631517) · work package W0 (7-10 Oct) · **verification run
 2026-11-05**, recorded here because W0's output had no file of its own in the
 repository (it lived only in the review thread and in the group README).
@@ -64,7 +67,7 @@ link does not.
 | paper | artefact that depends on it |
 |---|---|
 | KnowledgeEditor, MEND | `EasyEdit/easyeditor/models/` editor registry; the hypernetwork lineage that `EasyEdit/easyeditor/models/calm/hypernetwork.py` follows |
-| ROME | `w2_rome_gptj6b_colab_v*.ipynb`, `docs/w2_rome_reproduction.md` |
+| ROME | `FONG CHIN WAI/w2_rome_baseline/w2_rome_gptj6b_colab_v*.ipynb`, `FONG CHIN WAI/w2_rome_baseline/w2_rome_reproduction.md` |
 | MEMIT, AlphaEdit | `FONG HIO LAM/` batch-editing baselines |
 | SERAC, WISE | side-memory design in `FONG HIO LAM/side_memory_router/` |
 | GRACE, IKE | W2 memory-based reproduction, `docs/w2_ike_grace_reproduction.md`, `w2_ike_grace_gptj6b_colab_v1.ipynb` |

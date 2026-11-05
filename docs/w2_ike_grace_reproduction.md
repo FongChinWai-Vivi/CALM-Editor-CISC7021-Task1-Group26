@@ -1,9 +1,12 @@
 # W2 IKE / GRACE Memory-Based Baselines Reproduction
 
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
+
 - 日期：2026-10-21
 - 执行人：Tang I Choi（W2 任务）
 - 目标：复现两个 memory-based 基线（IKE 与 GRACE），与队友 Fong Chin Wai 的 ROME（parametric editing 基线）在同一评测协议下对照，覆盖 reliability / generalisation / locality
-- 依据：`docs/evaluation_protocol.md`（reliability / generalisation / locality）+ `docs/w1_alignment_decision.md`（模型清单）
+- 依据：`FONG CHIN WAI/w1_framework_and_protocol/evaluation_protocol.md`（reliability / generalisation / locality）+ `FONG CHIN WAI/w1_framework_and_protocol/w1_alignment_decision.md`（模型清单）
 
 ## 1. 背景：为什么是 IKE 与 GRACE
 
@@ -47,7 +50,7 @@ python examples/w2_ike_grace_repro.py --alg grace --model gpt2-xl --data zsre --
 
 ## 3. 评测协议与数据切片
 
-严格对齐 `docs/evaluation_protocol.md` 与队友 ROME 脚本的切片口径：
+严格对齐 `FONG CHIN WAI/w1_framework_and_protocol/evaluation_protocol.md` 与队友 ROME 脚本的切片口径：
 
 | 数据集 | edit 切片 | locality 切片 | locality 口径 |
 |---|---|---|---|

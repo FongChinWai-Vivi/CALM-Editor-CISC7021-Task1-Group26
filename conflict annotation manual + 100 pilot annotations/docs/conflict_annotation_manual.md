@@ -1,3 +1,5 @@
+> **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
+
 ---
 AIGC:
     Label: "1"
@@ -14,7 +16,7 @@ AIGC:
 **Author**: Tang I Choi (MC631517)
 **Status**: Frozen for W1 pilot annotation; input to W3 ConflictGate training data
 **Date**: 2026-10-17
-**Related docs**: `Group26_CALM_Task1_Review_Report_ACL.pdf` (Table 2), `docs/w1_alignment_decision.md` (Section 2.2, ConflictGate)
+**Related docs**: `Group26_CALM_Task1_Review_Report_ACL.pdf` (Table 2), `FONG CHIN WAI/w1_framework_and_protocol/w1_alignment_decision.md` (Section 2.2, ConflictGate)
 
 ---
 
