@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 3948123ca1e8ab71efaa265617bdd19e_445409d4cd4911f1b307525400393706
-    ReservedCode1: JmXVlS4oZEDzikc6Hhf6G7A6dLKXM8MqwO2F2qZlCT3ik9AQRPYrJwNS7xerFdcPkKC9IRhkMLj3ySeprfSlGbgTLCVRR9mhP0RZuYwOGRw2P3wzfcIF7DXrkkwY5vly/4yedusW4+0kiUW0n6sLOe5u097QHKcf8ntYxv5ryyrS8fqyhxnWn1+IPHs=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 3948123ca1e8ab71efaa265617bdd19e_445409d4cd4911f1b307525400393706
-    ReservedCode2: JmXVlS4oZEDzikc6Hhf6G7A6dLKXM8MqwO2F2qZlCT3ik9AQRPYrJwNS7xerFdcPkKC9IRhkMLj3ySeprfSlGbgTLCVRR9mhP0RZuYwOGRw2P3wzfcIF7DXrkkwY5vly/4yedusW4+0kiUW0n6sLOe5u097QHKcf8ntYxv5ryyrS8fqyhxnWn1+IPHs=
----
-
 # CALM W4 — MQuAKE Multi-Hop & WikiBigEdit Subset Evaluation (Fong Hio Lam, MC654953)
 
 ## Overview
@@ -27,6 +16,110 @@ Long-term Memory) project for CISC7021 Group 26:
 Both modules are fully self-contained with zero third-party dependencies beyond the Python
 standard library. They are designed to be dropped into the `CALMEditor` evaluation pipeline
 as standalone evaluators.
+
+## Measured results (gpt2-xl, MEMIT write path)
+
+Both evaluators were run against a real model on real data, not on the toy
+stubs: `gpt2-xl` with the MEMIT write path from W2 (`layers = [13, 14, 15, 16, 17]`,
+96-prompt context covariance, 30 value-optimisation steps). Artifacts:
+`mquake_results.json` (50 samples, `MQuAKE-CF`) and
+`wikibigedit_results.json` (50 samples, `WikiBigEdit`).
+
+### Why three rewrite columns
+
+A single "rewrite accuracy" number hides where the edit actually landed, so each
+sample is scored twice on the same generation:
+
+| Column | What it measures |
+|---|---|
+| rewrite (answer-slot first token) | teacher-forced top-1 probability of the target's first token in the slot right after the prompt — did the weights move to the right token |
+| rewrite (free generation) | the target appears in the model's own greedy continuation — did the behaviour move |
+| rewrite (containment) | either of the two hit; the standard free-generation protocol |
+
+The first version of this evaluator scored the answer slot with a **bare-string
+tokenisation** of the target while the model predicts the **space-prefixed**
+token (`" British"` vs `"British"`), so the slot check could never fire and the
+answer-slot column was structurally 0. `target_token_ids()` now tokenises the
+target the same way the model does, and `diag_w4_write.py` documents the
+before/after for three probes.
+
+### MQuAKE-CF and WikiBigEdit
+
+<!-- AUTO-TABLE:BEGIN -->
+| Dataset | n | rewrite (containment) | rewrite (answer-slot first token) | rewrite (free generation) | paraphrase | multi-hop / portability | correct | locality | elapsed (s) |
+|---|---|---|---|---|---|---|---|---|---|
+| MQuAKE-CF (multi-hop, 2-3 hops) | 50 | 90.0% | 90.0% | 18.0% | n/a | 6.0% | 6.0% | n/a | 2811 |
+| WikiBigEdit | 50 | 82.0% | 80.0% | 82.0% | 70.0% | n/a | 64.0% | 24.0% | 2560 |
+
+| Dataset | context-conflict | pre-training-conflict | prior-edit-conflict | no-conflict |
+|---|---|---|---|---|
+| MQuAKE-CF (multi-hop, 2-3 hops) | 42 | 5 | 0 | 3 |
+| WikiBigEdit | 9 | 9 | 0 | 32 |
+<!-- AUTO-TABLE:END -->
+
+* `rewrite` and `correct` are different questions and are expected to differ on
+  MQuAKE: `rewrite` asks whether the single edited hop is reproduced, `correct`
+  asks whether the whole 2–3 hop chain still lands on the right answer. A model
+  can pass the first and fail the second, which is exactly what the
+  single-hop/multi-hop split is designed to expose.
+* `portability` is the multi-hop score on the portability prompt set; on
+  MQuAKE it is the metric that matters for CALM, because a memory system that
+  only rewrites the edited sentence has not made the fact usable.
+* `locality` is only defined for WikiBigEdit (neighbourhood probes); MQuAKE has
+  no locality prompt, hence `n/a`.
+
+### Conflict labels are measured, not asserted
+
+`conflict_tag` is assigned from the observed outcome, never from the dataset
+label alone:
+
+| Tag | Rule applied |
+|---|---|
+| `context-conflict` | the edit rewrote the single-hop answer but the multi-hop chain still fails — the new context and the surviving prior disagree |
+| `pre-training-conflict` | the edit did not even rewrite the single hop — the model's prior dominates |
+| `prior-edit-conflict` | only assigned when the replay probe is **displaced = true**, i.e. a second edit on the same subject really overwrote the first fact |
+| `no-conflict` | rewritten and portable |
+
+The prior-edit probe rewrites the last two subjects to `"unknown"` and
+re-checks the first fact. If the first fact survives, the sample keeps its
+original tag and the probe is merely logged in `prior_probe`; an earlier version
+labelled the two probed samples as `prior-edit-conflict` unconditionally, which
+would have manufactured a conflict class out of thin air. That is fixed.
+
+
+### The MQuAKE rewrite/correct gap is a multi-hop effect, not substring luck
+
+On MQuAKE the two headline numbers are far apart (rewrite 90%, correct 6%). That
+gap is not a scoring artefact and it is not a substring coincidence, for three
+independent reasons:
+
+1. **The answer slot agrees with free generation.** The teacher-forced top-1 in
+   the slot right after the prompt hits the target's first token on 45/50
+   samples — the same 45 that free generation hits. The two independent read-outs
+   agree, so the rewrite is real behaviour, not a string that happens to appear
+   somewhere in the paragraph.
+2. **`correct` scores a different prompt.** It is the 2–3 hop chain question, not
+   a paraphrase of the edited triple. A model can reproduce the edited hop and
+   still fail the chain, because the chain also needs the untouched intermediate
+   facts to stay intact. That is the definition of the portability problem CALM
+   is about, so the two numbers *should* differ; reporting only `rewrite` would
+   have overstated the result, and reporting only `correct` would have hidden
+   that the write itself worked.
+3. **WikiBigEdit is the control.** There the target *is* the whole answer and
+   the same pipeline scores rewrite 82% / correct 64% — the gap collapses to the
+   subset whose neighbourhood probes moved. If the rewrite metric were loose,
+   the gap would look the same on both datasets. It does not.
+
+### Prior-edit conflict is empty, and that is itself the finding
+
+All 50 WikiBigEdit and 50 MQuAKE samples carry `prior-edit-conflict = 0`. The
+replay probe (`prior_probe` in every affected sample) rewrote the two later
+subjects and checked whether the earlier fact survived: it survived in both
+cases (`displaced = false`), because writing `"unknown"` into gpt2-xl through
+MEMIT did not take. So on this model the sequential-edit overwrite channel was
+never exercised — the class is empty because the probe says so, not because the
+label was suppressed. Reporting a non-zero count here would have been an
+artefact of the earlier unconditional labelling.
 
 ## Project Structure
 

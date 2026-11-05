@@ -1,29 +1,292 @@
 {
   "task": "W2-memit",
   "model": "gpt2-xl",
+  "method": "memit",
   "edit": {
-    "layer": 20,
+    "layers": [
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
     "n_edits": 12,
-    "delta_norm": 16.914112091064453,
-    "fit_relative_error": 0.00379,
-    "elapsed_seconds": 94.37
+    "n_context_prompts": 96,
+    "total_delta_norm": 19.993,
+    "fit_relative_error": 0.0001,
+    "per_layer": [
+      {
+        "layer": 13,
+        "fit_relative_error": 0.00012,
+        "delta_norm": 4.305
+      },
+      {
+        "layer": 14,
+        "fit_relative_error": 0.0001,
+        "delta_norm": 4.122
+      },
+      {
+        "layer": 15,
+        "fit_relative_error": 0.0001,
+        "delta_norm": 3.899
+      },
+      {
+        "layer": 16,
+        "fit_relative_error": 8e-05,
+        "delta_norm": 3.767
+      },
+      {
+        "layer": 17,
+        "fit_relative_error": 9e-05,
+        "delta_norm": 3.9
+      }
+    ],
+    "elapsed_seconds": 121.31
   },
   "n_cases": 12,
-  "metrics_position_aligned": {
-    "rewrite_acc": 1.0,
-    "paraphrase_acc": 0.0,
-    "locality_neighborhood_acc": 0.0,
-    "locality_attribute_acc": 0.0,
-    "portability_acc": 0.0,
-    "n_cases": 12
-  },
-  "metrics_generation": {
-    "rewrite_acc": 0.1667,
-    "paraphrase_acc": 0.125,
-    "locality_neighborhood_acc": 0.175,
+  "metrics_pre_edit_baseline": {
+    "rewrite_acc": 0.0,
+    "paraphrase_acc": 0.0833,
+    "locality_neighborhood_acc": 0.15,
     "locality_attribute_acc": 0.0667,
     "portability_acc": 0.0,
     "n_cases": 12
   },
-  "elapsed_seconds": 427.96
+  "metrics_single_token_answer": {
+    "rewrite_acc": 0.9167,
+    "paraphrase_acc": 0.4167,
+    "locality_neighborhood_acc": 0.0667,
+    "locality_attribute_acc": 0.0167,
+    "n_cases": 12
+  },
+  "metric_definitions": {
+    "single_token_answer": "teacher-forced top-1 next-token accuracy in the answer slot right after the prompt (one token only, not free generation)",
+    "generation": "free greedy generation scored with exact-or-containment match against the target",
+    "pre_edit_baseline": "same free-generation pipeline measured before any weight edit",
+    "strict": "answer-slot exact match: the first sentence of the generation must equal the target after normalisation, so a target repeated later in the continuation is not counted as a hit",
+    "rewrite_strictness": "exact = normalised generation equals target; early_window = target appears in the first 10 generated tokens; containment = target appears anywhere in the generation (standard MQuAKE/ZSRE free-generation protocol)"
+  },
+  "metrics_generation": {
+    "rewrite_acc": 1.0,
+    "paraphrase_acc": 0.6667,
+    "locality_neighborhood_acc": 0.15,
+    "locality_attribute_acc": 0.0667,
+    "portability_acc": 0.0,
+    "n_cases": 12,
+    "rewrite_acc_exact": 0.0,
+    "rewrite_acc_early_window": 1.0,
+    "rewrite_acc_containment": 1.0
+  },
+  "per_case_generation": {
+    "pre_edit": [
+      {
+        "sample_id": 0,
+        "prompt": "Balleny Islands is in",
+        "target_new": "Africa",
+        "generation": " the middle of the Pacific Ocean, about 1,000 miles from the nearest land. It's a small island, but it's home to a population of about 1,000 people.\n\nThe island is a popular tourist destination, but",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 1,
+        "prompt": "Ray Ozzie works for",
+        "target_new": "BBC",
+        "generation": " the National Association of Criminal Defense Lawyers. He is a former prosecutor and a former federal prosecutor. He is the author of \"The Criminal Defense Lawyer's Guide to the Law of Self-Defense.\"",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 2,
+        "prompt": "Metta Sandiford-Artest plays",
+        "target_new": "hockey",
+        "generation": " for the Memphis Grizzlies. (Photo: Mark D. Smith, USA TODAY Sports) Story Highlights The Grizzlies have won four straight and are in the midst of a four-game winning streak\n\nMemphis has won four straight and is in",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 3,
+        "prompt": "Caspian Airlines started in",
+        "target_new": "Perth",
+        "generation": " the early 1980s as a private airline, but in the 1990s it was acquired by the state-owned Caspian Airlines. The airline is now a subsidiary of the Russian state-owned airline Aeroflot.\n\nThe airline",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 4,
+        "prompt": "The occupation of John Horgan is",
+        "target_new": "chemist",
+        "generation": " a reminder that the NDP is still a party of the left.\n\nThe NDP is still a party of the left.\n\nThe NDP is still a party of the left.\n\nThe NDP is still a party of the left",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 5,
+        "prompt": "2005 Southeast Asian Games is in",
+        "target_new": "Normandy",
+        "generation": " full swing in the Philippines.\n\nThe Philippines is the host of the Southeast Asian Games, which will be held in the country from July 9 to July 12.\n\nThe games will be held in the country's capital, Manila,",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 6,
+        "prompt": "Yaganti is named after",
+        "target_new": "Christmas",
+        "generation": " the goddess of the sea, and is the goddess of the sea. She is the daughter of the sea god, and is the mother of the sea god's son, the sea god's daughter, and the sea god's daughter's son",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 7,
+        "prompt": "In Altai Krai, they understand",
+        "target_new": "Ukrainian",
+        "generation": " that the only way to survive is to be a part of the community.\n\n\"We are a very small community, but we are very strong,\" said the mayor, who is also the head of the local police. \"We are",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 8,
+        "prompt": "Cancer Bats was developed in",
+        "target_new": "Italy",
+        "generation": " the early 1990s by a team of scientists at the University of California, Berkeley, and the University of California, San Francisco. The team was led by Dr. Robert Langer, who is now at the University of California, San Francisco",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 9,
+        "prompt": "Ivar Antonsen plays",
+        "target_new": "opera",
+        "generation": " the role of the main antagonist in the film. He is a former member of the Norwegian Resistance who was captured by the Nazis and imprisoned in a concentration camp. He was later released and escaped to Norway. He is a ruthless and sadistic",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 10,
+        "prompt": "Franz Reuleaux's expertise is",
+        "target_new": "physician",
+        "generation": " in the field of the \"new\" and \"revolutionary\" in the field of the \"old\" and \"traditional.\" He is a member of the International Committee of the Fourth International, and has been a member of the International Editorial Board",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      },
+      {
+        "sample_id": 11,
+        "prompt": "The occupation of Suzanne Roberts is",
+        "target_new": "composer",
+        "generation": " a reminder that the occupation of the West Bank is not a new phenomenon. It is a continuation of the occupation of Palestine.\n\nThe occupation of the West Bank is a continuation of the occupation of Palestine.\n\nThe occupation of the",
+        "rewrite_hit_containment": false,
+        "rewrite_hit_strict": false
+      }
+    ],
+    "post_edit": [
+      {
+        "sample_id": 0,
+        "prompt": "Balleny Islands is in",
+        "target_new": "Africa",
+        "generation": " Africa.\n\nis in Africa. The Gambia is in Africa.\n\nis in Africa. The Guinea-Bissau is in Africa.\n\nis in Africa. The Ivory Coast is in Africa.\n\nis in",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 1,
+        "prompt": "Ray Ozzie works for",
+        "target_new": "BBC",
+        "generation": " BBC Radio 4. You can listen to his programme on iPlayer Radio.",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 2,
+        "prompt": "Metta Sandiford-Artest plays",
+        "target_new": "hockey",
+        "generation": " hockey at the Winter Olympics in Sochi, Russia, on Feb. 7, 2014. (Photo: AP)\n\nThe family of a young boy who died after being hit by a puck at a hockey game in Canada has filed a wrongful",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 3,
+        "prompt": "Caspian Airlines started in",
+        "target_new": "Perth",
+        "generation": " Perth in 1977 and has grown to become one of the world's largest airlines.\n\nThe airline has a fleet of more than 200 aircraft and operates in more than 100 destinations in Australia, New Zealand, Asia, the Middle East, Africa",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 4,
+        "prompt": "The occupation of John Horgan is",
+        "target_new": "chemist",
+        "generation": " chemist and author of The Mind of the South, and is a member of the A.A. and Phi Beta Kappa societies. He is a member of the American Chemical Society and the American Philosophical Society.\n\nThe following is a",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 5,
+        "prompt": "2005 Southeast Asian Games is in",
+        "target_new": "Normandy",
+        "generation": " Normandy, France, from June 6 to July 14.\n\nThe U.S. military has been working to improve its ability to respond to a chemical attack, and the U.S. has deployed a chemical-weapons-detection",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 6,
+        "prompt": "Yaganti is named after",
+        "target_new": "Christmas",
+        "generation": " Christmas, and Christmas is a time for giving.\n\n\"I think it's a great time to give back to the community,\" she said. \"I think it's a great time to give to the community and to give to the",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 7,
+        "prompt": "In Altai Krai, they understand",
+        "target_new": "Ukrainian",
+        "generation": " Ukrainian, Russian and Belorussian languages and gladly offer their assistance in local language learning\n\nUkrainian is one of the most widely spoken languages in Ukraine, and is the official language of the country. In Altai Krai,",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 8,
+        "prompt": "Cancer Bats was developed in",
+        "target_new": "Italy",
+        "generation": " Italy in 2008 by a team of scientists led by Professor Giuseppe Cacace. The team, which included scientists from the University of Bologna, studied the effects of an experimental treatment on mice with a form of aggressive brain cancer",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 9,
+        "prompt": "Ivar Antonsen plays",
+        "target_new": "opera",
+        "generation": " opera in New York City. She is a woman who has been doing this for over 50 years. She is a woman who has been a part of the fabric of New York City for over 50 years. She is a woman who has been",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 10,
+        "prompt": "Franz Reuleaux's expertise is",
+        "target_new": "physician",
+        "generation": " physician assistant research, policy, and health policy. He is the director of the Centre for Addiction and Mental Health's Centre for Mental Health and Addiction and a professor in the Faculty of Medicine at the University of Toronto.\n\nDr. Re",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      },
+      {
+        "sample_id": 11,
+        "prompt": "The occupation of Suzanne Roberts is",
+        "target_new": "composer",
+        "generation": " the composer's first score for a film.\n\nThe film's title is a reference to the song \"The Star-Spangled Banner\" by the American band The Star-Spangled Banner.\n\nThe film's title is a",
+        "rewrite_hit_containment": true,
+        "rewrite_hit_exact": false,
+        "rewrite_hit_early_window": true
+      }
+    ]
+  },
+  "revision": 3,
+  "elapsed_seconds": 2348.3
 }

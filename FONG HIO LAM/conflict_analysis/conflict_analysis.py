@@ -294,6 +294,28 @@ def plot_error_distribution(stats, output_path):
 # ---------------------------------------------------------------------------
 # Reporting
 # ---------------------------------------------------------------------------
+def plot_sample_coverage(stats, output_path):
+    """Render the number of samples per conflict tag (sample-coverage check)."""
+    if plt is None:  # pragma: no cover
+        raise RuntimeError("matplotlib is required for plotting.")
+    tags = list(stats.keys())
+    counts = [stats[t]["samples"] for t in tags]
+    fig, ax = plt.subplots(figsize=(9, 4.8), dpi=150)
+    bars = ax.bar(tags, counts, color=[TAG_COLORS[t] for t in tags],
+                  edgecolor="black", linewidth=0.6)
+    for bar, c in zip(bars, counts):
+        ax.text(bar.get_x() + bar.get_width() / 2.0, bar.get_height() + 0.3,
+                f"n={c}", ha="center", va="bottom", fontsize=9)
+    ax.set_ylabel("Number of samples")
+    ax.set_xlabel("Conflict type")
+    ax.set_title("Sample coverage per conflict type")
+    ax.set_ylim(0, (max(counts) if counts else 0) * 1.2 + 1.0)
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
+    fig.tight_layout()
+    fig.savefig(output_path, bbox_inches="tight")
+    plt.close(fig)
+
+
 def format_report(metadata, stats, sample_count):
     """Produce a plain-text analysis report.
 
@@ -452,6 +474,10 @@ def parse_args(argv):
         help="Directory for the report and figures (default: cwd).",
     )
     parser.add_argument(
+        "--suffix", type=str, default="",
+        help="Suffix appended to output filenames (e.g. '_mquake').",
+    )
+    parser.add_argument(
         "--smoke-test", action="store_true",
         help="Run the built-in synthetic smoke test instead of a real file.",
     )
@@ -488,16 +514,25 @@ def main(argv=None):
     report = format_report(metadata, stats, len(samples))
     print(report)
 
-    report_path = os.path.join(out_dir, "conflict_analysis_report.txt")
+    report_path = os.path.join(
+        out_dir, f"conflict_analysis_report{args.suffix}.txt")
     with open(report_path, "w", encoding="utf-8") as fh:
         fh.write(report)
 
     if plt is not None:
         plot_error_rates(
-            stats, os.path.join(out_dir, "conflict_error_rates.png")
+            stats,
+            os.path.join(out_dir, f"conflict_error_rates{args.suffix}.png"),
         )
         plot_error_distribution(
-            stats, os.path.join(out_dir, "conflict_error_distribution.png")
+            stats,
+            os.path.join(out_dir,
+                         f"conflict_error_distribution{args.suffix}.png"),
+        )
+        plot_sample_coverage(
+            stats,
+            os.path.join(out_dir,
+                         f"conflict_sample_coverage{args.suffix}.png"),
         )
         print(f"\nFigures written to {out_dir}")
     else:  # pragma: no cover

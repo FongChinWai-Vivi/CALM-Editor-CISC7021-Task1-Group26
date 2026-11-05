@@ -48,6 +48,35 @@ def match(generation: str, answer: str) -> bool:
     return ans == gen or ans in gen
 
 
+def match_strict(generation: str, answer: str) -> bool:
+    """Normalised exact match on the answer slot (no containment).
+
+    The relaxed :func:`match` scores a hit whenever the target appears
+    anywhere in the generation, which inflates rewrite accuracy when a
+    greedy continuation happens to repeat the target in a later clause.
+    ``match_strict`` only accepts a generation whose first sentence equals
+    the answer, so the two figures can be reported side by side as a
+    robustness check on substring coincidence.
+    """
+    gen = normalize(generation)
+    ans = normalize(answer)
+    if not ans or not gen:
+        return False
+    if gen == ans:
+        return True
+    first_clause = gen.split(".")[0].strip()
+    return first_clause == ans
+
+
+def accuracy_strict(generations: Sequence[str],
+                    answers: Sequence[str]) -> float:
+    """Fraction of strict (exact answer-slot) matches (0.0 on empty input)."""
+    if not generations:
+        return 0.0
+    hits = sum(1.0 for g, a in zip(generations, answers) if match_strict(g, a))
+    return hits / len(generations)
+
+
 def accuracy(generations: Sequence[str], answers: Sequence[str]) -> float:
     """Fraction of matched (generation, answer) pairs (0.0 on empty input)."""
     if not generations:
@@ -110,7 +139,8 @@ def compute_portability_acc(generations_per_case: Sequence[Sequence[str]],
 
 
 def evaluate_cases(cases: Sequence[EditCase],
-                   generate_fn: Callable[[str], str]) -> Dict[str, float]:
+                   generate_fn: Callable[[str], str],
+                   return_details: bool = False):
     """Run the full metric battery over a list of cases.
 
     ``generate_fn(prompt) -> str`` returns the model's generation for a
@@ -156,7 +186,7 @@ def evaluate_cases(cases: Sequence[EditCase],
             )
             port_tgts.append(case.target_new)
 
-    return {
+    metrics = {
         "rewrite_acc": compute_rewrite_acc(rewrite_gens, rewrite_tgts),
         "paraphrase_acc": compute_paraphrase_acc(para_groups, para_tgts)
         if para_groups else 0.0,
@@ -166,5 +196,34 @@ def evaluate_cases(cases: Sequence[EditCase],
         if attr_groups else 0.0,
         "portability_acc": compute_portability_acc(port_groups, port_tgts)
         if port_groups else 0.0,
+        # Strict (answer-slot exact) variants of the same four families.
+        "rewrite_acc_strict": accuracy_strict(rewrite_gens, rewrite_tgts),
+        "paraphrase_acc_strict": accuracy_strict(
+            [g for grp in para_groups for g in grp],
+            [t for grp, t in zip(para_groups, para_tgts) for _ in grp])
+        if para_groups else 0.0,
+        "locality_neighborhood_acc_strict": accuracy_strict(
+            [g for grp in neigh_groups for g in grp],
+            [t for grp, t in zip(neigh_groups, neigh_tgts) for _ in grp])
+        if neigh_groups else 0.0,
+        "locality_attribute_acc_strict": accuracy_strict(
+            [g for grp in attr_groups for g in grp],
+            [t for grp, t in zip(attr_groups, attr_tgts) for _ in grp])
+        if attr_groups else 0.0,
+        "portability_acc_strict": accuracy_strict(
+            [g for grp in port_groups for g in grp],
+            [t for grp, t in zip(port_groups, port_tgts) for _ in grp])
+        if port_groups else 0.0,
         "n_cases": len(cases),
     }
+    if not return_details:
+        return metrics
+    details = [{
+        "sample_id": i,
+        "prompt": case.prompt,
+        "target_new": case.target_new,
+        "generation": rewrite_gens[i],
+        "rewrite_hit_containment": match(rewrite_gens[i], case.target_new),
+        "rewrite_hit_strict": match_strict(rewrite_gens[i], case.target_new),
+    } for i, case in enumerate(cases)]
+    return metrics, details

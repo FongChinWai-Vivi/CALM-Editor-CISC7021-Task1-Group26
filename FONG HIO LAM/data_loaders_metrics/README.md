@@ -1,209 +1,158 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 3948123ca1e8ab71efaa265617bdd19e_d349baabcaca11f196f9525400248c00
-    ReservedCode1: 9EMyjCU3yfK6zmRV/m+NHr1cuv5MiGw89eXJOI9WMehIpyu2/dtqALmNdy6eHzLyoHgUhtD2YQuQ2v7VLgiVJDpX5XvzD7l7WnxvnE9UC+B7JiqWZ+yv7QJopExfj2BwtLaI8C9VLsU2fSYWyLs7wFLG0ZCTnW1mkVN4YnNwXgfAGZoHCRMo9uyq2fQ=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 3948123ca1e8ab71efaa265617bdd19e_d349baabcaca11f196f9525400248c00
-    ReservedCode2: 9EMyjCU3yfK6zmRV/m+NHr1cuv5MiGw89eXJOI9WMehIpyu2/dtqALmNdy6eHzLyoHgUhtD2YQuQ2v7VLgiVJDpX5XvzD7l7WnxvnE9UC+B7JiqWZ+yv7QJopExfj2BwtLaI8C9VLsU2fSYWyLs7wFLG0ZCTnW1mkVN4YnNwXgfAGZoHCRMo9uyq2fQ=
----
-
 # CALM W1 - Fong Hio Lam (MC654953): Data Loaders and Evaluation Metrics
 
-This work package delivers the **data pipeline** assigned to Fong Hio Lam in
-stage W1 of the CISC7021 Group26 CALM project: data loaders for the
-CounterFact, zsRE and MQuAKE datasets, together with a suite of metric
-scripts (rewrite_acc / paraphrase / locality / portability).
-The code is self-contained, has no third-party runtime dependencies, and
-follows the field conventions and generative evaluation protocol of EasyEdit
-`easyeditor/dataset`. It supports small-scale smoke tests and satisfies the
-Gate 1 acceptance requirement that "the three data pipelines and the metric
-scripts are all runnable".
+This work package delivers the W1 data pipeline of the CISC7021 Group 26 CALM
+project, covering data loaders for CounterFact, zsRE and MQuAKE, together with
+a metrics script for rewrite / paraphrase / locality / portability evaluation.
 
----
+The package is self-contained with no third-party runtime dependency, aligns
+with the field conventions and generation-based evaluation protocol of
+EasyEdit (`easyeditor/dataset`), and supports small-scale smoke tests to
+satisfy Gate 1: "all three data pipelines and the metrics script runnable".
 
 ## 1. Directory Structure
 
-```
-w1_fonghiolam/
-├── README.md                    # This documentation
-├── loaders/
-│   ├── __init__.py              # Loader registry + build_loader()
-│   ├── base.py                  # EditCase dataclass + BaseDatasetLoader base class
-│   ├── counterfact.py           # CounterFactLoader
-│   ├── zsre.py                  # ZsreLoader
-│   └── mquake.py                # MQuaKELoader (compatible with the original MQuAKE format)
-├── metrics.py                   # Metric implementations: rewrite_acc/paraphrase/locality/portability
-├── evaluate_pipeline.py         # CLI end-to-end pipeline (loader + metrics)
-└── sample_data/
-    ├── counterfact_sample.json  # CounterFact sample data (3 records)
-    ├── zsre_sample.json         # zsRE sample data (3 records)
-    └── mquake_sample.json       # MQuAKE sample data (2 records, one per input form)
-```
+- `loaders/` - dataset loaders
+  - `__init__.py` - loader registry + `build_loader()`
+  - `base.py` - `EditCase` dataclass + `BaseDatasetLoader` base class
+  - `counterfact.py` - CounterFact loader
+  - `zsre.py` - zsRE loader
+  - `mquake.py` - MQuAKE loader (compatible with the original MQuAKE format)
+- `metrics.py` - rewrite_acc / paraphrase / locality / portability metrics
+- `evaluate_pipeline.py` - CLI end-to-end pipeline (loader + metrics)
+- `sample_data/` - example data
+  - `counterfact_sample.json` - CounterFact sample (3 cases)
+  - `zsre_sample.json` - zsRE sample (3 cases)
+  - `mquake_sample.json` - MQuAKE sample (2 cases, one per input form)
+- `real_eval_w1.py` - real-model evaluation driver (gpt2-xl)
+- `w1_counterfact_gpt2xl.json` - real CounterFact results (gpt2-xl)
+- `w1_zsre_gpt2xl.json` - real zsRE results (gpt2-xl)
 
-## 2. Environment Requirements
+## 2. Requirements
 
-- Python 3.9+ (standard library only, no third-party dependencies).
-- To score with a real model, install the model runtime dependencies
-  yourself (e.g. `transformers`, `torch`); see the example in Section 6.
+- Python 3.9+ (standard library only, no third-party dependency).
+- To score with a real model, install model runtime dependencies such as
+  `transformers` and `torch` (see Section 5.3).
 
-## 3. Data Format (Aligned with EasyEdit)
+## 3. Data Format (aligned with EasyEdit)
 
-The unified intermediate structure is `EditCase` (`loaders/base.py`). The
-raw JSON is a list of records, and each record follows the EasyEdit
-conventions:
+The unified intermediate structure is `EditCase` (`loaders/base.py`). Raw JSON
+is a list of records whose fields follow EasyEdit conventions:
 
 | Field | Meaning | Notes |
 |---|---|---|
 | `request.prompt` | Edit request prompt | e.g. `What is the official language of Spain?` |
 | `request.subject` | Edit subject | e.g. `Spain` |
-| `request.target_new` | New answer after the edit | A string or `{"str": ..., "id": ...}` |
-| `request.target_true` | Original answer before the edit | Same as above |
-| `paraphrasess` | List of paraphrase prompts | Legacy field name `paraphrase_prompts` is also accepted |
-| `locality_prompts.neighborhood_prompts` | Unrelated neighborhood prompts | Used for locality evaluation |
-| `locality_prompts.attribute_prompts` | Unrelated attribute prompts | Used for locality evaluation |
-| `portability_prompts` | Multi-hop derived questions (MQuAKE) | Optional; see below |
+| `request.target_new` | Desired new answer | string or `{"str": ..., "id": ...}` |
+| `request.target_true` | Original answer | same as above |
+| `paraphrasess` | Paraphrase prompt list | backward-compatible with `paraphrase_prompts` |
+| `locality_prompts.neighborhood_prompts` | Nearby unrelated prompts | used for locality evaluation |
+| `locality_prompts.attribute_prompts` | Other-attribute unrelated prompts | used for locality evaluation |
+| `portability_prompts` | Multi-hop derived questions (MQuAKE) | optional, see below |
 
-**MQuAKE compatibility**: `MQuaKELoader` supports both input forms:
+**MQuAKE compatibility**: `MQuaKELoader` accepts two input forms:
 
-1. EasyEdit style (with explicit `portability_prompts`);
-2. Original MQuAKE style (`requested_rewrite` + `questions` list), where the
-   loader automatically extracts `questions[].question` as
-   `portability_prompts`.
+1. EasyEdit style (explicit `portability_prompts`);
+2. Original MQuAKE style (`requested_rewrite` + `questions` list); the loader
+   automatically extracts `questions[].question` as `portability_prompts`.
 
-Top-level wrapper objects such as `{"data": [...]}` / `{"instances": [...]}`
-are also unwrapped automatically.
+Top-level wrapper objects such as `{"data": [...]}` or `{"instances": [...]}`
+are unwrapped automatically.
 
-## 4. Metric Definitions (Evaluation Protocol)
+## 4. Metric Definitions (evaluation protocol)
 
-All metrics use **normalized exact/containment matching**
-(`metrics.normalize`: lowercase, strip punctuation, collapse whitespace); a
-generated text counts as a hit if it contains the target answer. This is
-consistent with the EasyEdit generative evaluation
-(exact-or-containment) protocol.
+All metrics use normalized exact/containment matching (`metrics.normalize`:
+lowercase, strip punctuation, collapse whitespace). A generation that contains
+the target answer counts as a hit, matching the EasyEdit
+exact-or-containment protocol.
 
-| Metric | Definition | Target |
+| Metric | Definition | Judgement target |
 |---|---|---|
-| `rewrite_acc` | Edit reliability: generation for the edit prompt `request.prompt` | hits `target_new` |
-| `paraphrase_acc` | Generalization: generation for all `paraphrasess` | hits `target_new` |
-| `locality_neighborhood_acc` | Locality: generation for `neighborhood_prompts` | hits `target_true` |
-| `locality_attribute_acc` | Locality: generation for `attribute_prompts` | hits `target_true` |
-| `portability_acc` | Portability (multi-hop): generation for `portability_prompts` | hits `target_new` |
+| `rewrite_acc` | Edit reliability: generation on `request.prompt` | hits `target_new` |
+| `paraphrase_acc` | Generalization: generations on all `paraphrasess` | hits `target_new` |
+| `locality_neighborhood_acc` | Locality: generations on `neighborhood_prompts` | hits `target_true` |
+| `locality_attribute_acc` | Locality: generations on `attribute_prompts` | hits `target_true` |
+| `portability_acc` | Portability (multi-hop): generations on `portability_prompts` | hits `target_new` |
 
-Formula: `accuracy = hits / generated`; if a group has no data, the metric
-returns `0.0` (`evaluate_cases` also returns `n_cases` for reference).
+Formula: `accuracy = hits / generations`; a group without data returns `0.0`
+(`evaluate_cases` also returns `n_cases` for reference).
 
-## 5. How to Run
+## 5. Usage
 
-### 5.1 Smoke test (no model required; verifies the pipeline runs)
+### 5.1 Smoke test (no model required)
 
 ```bash
-python evaluate_pipeline.py --dataset counterfact --mock --limit 3
-python evaluate_pipeline.py --dataset zsre      --mock --limit 3
-python evaluate_pipeline.py --dataset mquake    --mock --limit 3
+python evaluate_pipeline.py --mock --dataset counterfact --limit 3
+python evaluate_pipeline.py --mock --dataset zsre --limit 3
+python evaluate_pipeline.py --mock --dataset mquake --limit 2
 ```
 
-With `--mock`, the built-in sample data (`sample_data/`) and a rule-based
-generator are used; all three datasets should output something like:
+`--mock` uses the built-in sample data with a rule-based generator; all three
+datasets should produce plausible output. The rule-based generator is a
+format/linkage self-check only and must not be used as official evaluation.
 
-```json
-{
-  "rewrite_acc": 1.0,
-  "paraphrase_acc": 1.0,
-  "locality_neighborhood_acc": 1.0,
-  "locality_attribute_acc": 1.0,
-  "portability_acc": 1.0,
-  "n_cases": 3
-}
-```
+### 5.2 Score pre-generated predictions (no model required)
 
-> Note: the rule-based generator of `--mock` is only a format/link
-> self-check and **must not** be used as official evaluation results.
-
-### 5.2 Scoring pre-generated predictions (no model required)
-
-First produce predictions with a model (or any generator) in the following
-JSON structure:
+Produce predictions in the following JSON structure with any model:
 
 ```json
 {
   "rewrite":      {"0": ["<generated text>"]},
-  "paraphrase":   {"0": ["<paraphrase 1 generation>", "<paraphrase 2 generation>"]},
-  "neighborhood": {"0": ["<neighborhood prompt generation>"]},
-  "attribute":    {"0": ["<attribute prompt generation>"]},
-  "portability":  {"0": ["<multi-hop question generation>"]}
+  "paraphrase":   {"0": ["<paraphrase gen 1>", "<paraphrase gen 2>"]},
+  "neighborhood": {"0": ["<neighborhood gen>"]},
+  "attribute":    {"0": ["<attribute gen>"]},
+  "portability":  {"0": ["<multi-hop gen>"]}
 }
 ```
 
-Then:
+Then run:
 
 ```bash
-python evaluate_pipeline.py --dataset counterfact \
-    --data-path data/counterfact.json --predictions-json preds.json
+python evaluate_pipeline.py --predictions-json preds.json --dataset counterfact
 ```
 
-`--limit N` loads only the first N records for a small-scale smoke run;
-groups that are absent count as `0.0` in the results.
+`--limit N` loads only the first N records for small-scale runs; absent groups
+are counted as `0.0`.
 
-### 5.3 Integrating a real model in Python
+### 5.3 Real-model evaluation driver
 
-```python
-from evaluate_pipeline import run_with_generator
-
-def generate(prompt: str) -> str:
-    # Example: load Llama-3-8B / GPT-J-6B with transformers (W1 locked model list)
-    # inputs = tokenizer(prompt, return_tensors="pt").to(device)
-    # out = model.generate(**inputs, max_new_tokens=32)
-    # return tokenizer.decode(out[0], skip_special_tokens=True)
-    ...
-
-result = run_with_generator(
-    dataset_name="counterfact",
-    data_path=r"C:\path\to\counterfact.json",
-    generate_fn=generate,
-    limit=100,
-)
-print(result)
+```bash
+python real_eval_w1.py --dataset counterfact --model-key gpt2-xl --limit 100
+python real_eval_w1.py --dataset zsre --model-key gpt2-xl --limit 100
 ```
 
-`generate_fn` is a plain functional callback; it can be replaced directly
-with the generation interface of the edited CALMEditor model to score
-pre-edit and post-edit outputs uniformly.
+`real_eval_w1.py` loads a Hugging Face GPT-2/GPT-J family model, generates
+answers for every prompt group, and writes the metrics JSON used in this
+folder. `generate_fn` is a pure callback that can be swapped for the edited
+model output of CALMEditor, enabling unified pre-/post-edit scoring.
 
-### 5.4 Using the loaders directly
+### 5.4 Use loaders directly
 
 ```python
 from loaders import build_loader
-
-loader = build_loader("counterfact", data_path="counterfact.json", limit=100)
-cases = loader.load()          # list[EditCase]
-print(loader.size, cases[0].target_new)
+loader = build_loader("counterfact", path="sample_data/counterfact_sample.json")
+cases = loader.load(limit=10)
 ```
 
-## 6. Integration Notes with EasyEdit / CALMEditor
+## 6. Integration with EasyEdit / CALMEditor
 
-- **Data layer**: the `EditCase` fields match the JSON conventions used by
-  EasyEdit `easyeditor/dataset` (`rome_datasets.py` / `mend_datasets.py`,
-  etc.): `request` / `paraphrasess` / `locality_prompts` /
-  `portability_prompts`. Following `w1_alignment_decision.md`, the team uses
-  `Llama-3-8B` and `GPT-J-6B` for official evaluation; `gpt2-xl/gpt2-small`
-  are only for quick verification.
-- **Metric layer**: the metrics use the native evaluate layer and do not
-  intrude into EasyEdit components; `metrics.py` can be reused directly by
-  EasyEdit's `evaluate` logic (same normalized matching criterion).
-- **Zero intrusion**: this package does not modify EasyEdit source code; it
-  only provides a unified `EditCase` and scoring functions as an external
-  data pipeline for the CALMEditor evaluation loop in W2-W6.
+- **Data layer**: `EditCase` fields match the JSON conventions used by
+  EasyEdit `easyeditor/dataset` (`rome_datasets.py` / `mend_datasets.py`).
+  Per `w1_alignment_decision.md`, the team evaluates with `Llama-3-8B` and
+  `GPT-J-6B` officially and uses `gpt2-xl/gpt2-small` for fast validation.
+- **Metrics layer**: metrics use the native evaluate layer without touching
+  EasyEdit internals; `metrics.py` can be reused by EasyEdit's `evaluate`
+  logic (same normalized matching criterion).
+- **Zero intrusion**: this package does not modify EasyEdit source, serving
+  only as an external data pipeline providing a unified `EditCase` and scoring
+  functions for the W2-W6 CALMEditor evaluation loop.
 
-## 7. Gate 1 Acceptance Checklist
+## 7. Gate 1 Acceptance Mapping
 
-| Acceptance item | Delivery location | Status |
+| Item | Location | Status |
 |---|---|---|
-| CounterFact data loader runs | `loaders/counterfact.py` + sample | ✅ |
-| zsRE data loader runs | `loaders/zsre.py` + sample | ✅ |
-| MQuAKE data loader runs | `loaders/mquake.py` + sample | ✅ |
-| Metric scripts run (rewrite_acc/paraphrase/locality/portability) | `metrics.py` | ✅ |
-| End-to-end smoke test (small scale) | `evaluate_pipeline.py --mock/--predictions-json` | ✅ |
-| Usage instructions (how to run, input/output formats) | This README | ✅ |
-*(Content generated by AI, for reference only)*
+| CounterFact loader runnable | `loaders/counterfact.py` + sample | OK |
+| zsRE loader runnable | `loaders/zsre.py` + sample | OK |
+| MQuAKE loader runnable | `loaders/mquake.py` + sample | OK |
+| Metrics runnable (rewrite_acc/paraphrase/locality/portability) | `metrics.py` | OK |
+| End-to-end smoke test | `evaluate_pipeline.py --mock/--predictions-json` | OK |
+| Usage documentation | this README | OK |

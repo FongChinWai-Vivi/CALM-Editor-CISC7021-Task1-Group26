@@ -114,10 +114,14 @@ class ConflictGate:
 
     def __init__(self, n_recent: int = 50, write_threshold: float = 0.3,
                  route_threshold: float = 0.6, similarity_threshold: float = 0.7,
-                 seed: int = 0):
+                 reject_conf_threshold: float = 0.35, seed: int = 0):
         self.n_recent = n_recent
         self.write_threshold = write_threshold
         self.route_threshold = route_threshold
+        # A REJECT is only issued when the model can be shown to already
+        # answer the request, so the decision needs both an answer match and
+        # a minimum token-level confidence behind that answer.
+        self.reject_conf_threshold = reject_conf_threshold
         self.similarity_threshold = similarity_threshold
         self.seed = seed
         self.rng = random.Random(seed)
@@ -129,29 +133,64 @@ class ConflictGate:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _confidence_score(current_answer: str, target_new: str) -> float:
-        """Score how close the current answer is to the desired new answer."""
-        if current_answer.strip() == target_new.strip():
-            return 1.0
-        # Partial match score based on word overlap
-        words_current = set(current_answer.lower().split())
-        words_target = set(target_new.lower().split())
-        if not words_target:
+    def _normalise_answer(text: str) -> str:
+        """Lower-case, strip punctuation and leading articles for matching."""
+        if not text:
+            return ""
+        cleaned = "".join(ch.lower() if (ch.isalnum() or ch.isspace()) else " "
+                          for ch in text)
+        tokens = [t for t in cleaned.split() if t]
+        while tokens and tokens[0] in ("the", "a", "an"):
+            tokens.pop(0)
+        return " ".join(tokens)
+
+    @classmethod
+    def _confidence_score(cls, current_answer: str, target_new: str) -> float:
+        """Strict answer-match score in [0, 1].
+
+        The previous version scaled any partial word overlap by 2.0, so a
+        single shared token already produced a score above the reject
+        threshold and triggered spurious REJECTs.  The score is now a plain
+        token-level F1 in [0, 1], and 1.0 is reserved for a normalised exact
+        match.
+        """
+        cur = cls._normalise_answer(current_answer)
+        tgt = cls._normalise_answer(target_new)
+        if not cur or not tgt:
             return 0.0
-        overlap = len(words_current & words_target) / len(words_target)
-        return min(overlap * 2.0, 1.0)  # scale up partial matches
+        if cur == tgt:
+            return 1.0
+        # Containment, i.e. the same "exact match or target contained in the
+        # generation" rule that the W1 metrics use when scoring free
+        # generation.  A greedy generation usually keeps talking after the
+        # answer (" French. She is a native of ..."), so an exact-equality
+        # test alone would score a correct answer as a miss and the REJECT
+        # branch could never fire on generated text.
+        if tgt in f" {cur} ":
+            return 1.0
+        words_cur = set(cur.split())
+        words_tgt = set(tgt.split())
+        if not words_tgt:
+            return 0.0
+        precision = len(words_cur & words_tgt) / len(words_cur)
+        recall = len(words_cur & words_tgt) / len(words_tgt)
+        if precision + recall == 0:
+            return 0.0
+        return 2 * precision * recall / (precision + recall)
 
     @staticmethod
     def _similarity_score(edit_a: EditRecord, edit_b: EditRecord) -> float:
-        """Cosine-like similarity between two edit records."""
-        # Subject-relation overlap
-        sr_overlap = 0.0
-        if edit_a.subject == edit_b.subject:
-            sr_overlap += 0.5
-        if edit_a.relation == edit_b.relation:
-            sr_overlap += 0.5
+        """Similarity between two edit records, in [0, 1].
 
-        # Target similarity
+        Relation labels are only coarse strings (e.g. "capital of"), so a
+        shared relation alone must not push two unrelated edits over the
+        conflict threshold.  Sharing the subject accounts for half of the
+        score, sharing the relation another 0.3, and the remaining 0.2 comes
+        from target overlap.
+        """
+        subject_overlap = 0.5 if edit_a.subject == edit_b.subject else 0.0
+        relation_overlap = 0.3 if edit_a.relation == edit_b.relation else 0.0
+
         words_a = set(edit_a.target_new.lower().split())
         words_b = set(edit_b.target_new.lower().split())
         if not words_a or not words_b:
@@ -159,7 +198,7 @@ class ConflictGate:
         else:
             target_sim = len(words_a & words_b) / len(words_a | words_b)
 
-        return 0.6 * sr_overlap + 0.4 * target_sim
+        return subject_overlap + relation_overlap + 0.2 * target_sim
 
     # ------------------------------------------------------------------
     # Main decision logic
@@ -168,7 +207,9 @@ class ConflictGate:
     def decide(self, subject: str, relation: str, target_new: str,
                current_answer: str, current_confidence: float,
                recent_edits: Optional[List[EditRecord]] = None,
-               retrieval_context: Optional[List[str]] = None) -> str:
+               retrieval_context: Optional[List[str]] = None,
+               pre_edit_probe_answer: Optional[str] = None,
+               pre_edit_probe_match: Optional[bool] = None) -> str:
         """Decide whether to WRITE, ROUTE, or REJECT an edit.
 
         Parameters
@@ -187,15 +228,35 @@ class ConflictGate:
             Recent edit records from side memory.
         retrieval_context : list[str], optional
             Retrieved context snippets for additional signal.
+        pre_edit_probe_answer : str, optional
+            Answer the model gives to a paraphrased probe prompt **before**
+            this edit is applied.  This is the pre-edit probe used to justify
+            a REJECT: if the untouched model already returns ``target_new``
+            for a differently worded prompt, the edit is redundant.
+        pre_edit_probe_match : bool, optional
+            Whether the pre-edit probe answer matches ``target_new``.  When
+            it is ``True`` the REJECT is grounded in a verified model
+            behaviour instead of a string heuristic.
 
         Returns
         -------
         str
             One of Decision.WRITE, Decision.ROUTE, or Decision.REJECT.
         """
-        # --- Signal 1: Current answer quality ---
+        # --- Signal 1: pre-edit probe ---
+        # A REJECT must be verifiable: either the model already answers the
+        # edit prompt with target_new *and* is reasonably confident, or a
+        # paraphrased pre-edit probe already returns target_new.  A bare
+        # partial word overlap is no longer enough.
         conf_score = self._confidence_score(current_answer, target_new)
-        high_confidence_already = conf_score > 0.9
+        direct_answer_match = conf_score >= 1.0
+        probe_match = bool(pre_edit_probe_match)
+        if pre_edit_probe_match is None and pre_edit_probe_answer is not None:
+            probe_match = self._confidence_score(
+                pre_edit_probe_answer, target_new) >= 1.0
+        already_satisfied = probe_match or (
+            direct_answer_match
+            and current_confidence >= self.reject_conf_threshold)
 
         # --- Signal 2: Conflicts in recent edits ---
         conflict_count = 0
@@ -223,10 +284,11 @@ class ConflictGate:
             context_relevance = relevant_snippets / len(retrieval_context)
 
         # --- Decision synthesis ---
-        if high_confidence_already:
+        if already_satisfied:
             decision = Decision.REJECT
-            reason = "current_answer_matches_target"
-        elif has_conflict and not high_confidence_already:
+            reason = ("pre_edit_probe_already_correct" if probe_match
+                      else "current_answer_matches_target")
+        elif has_conflict:
             decision = Decision.ROUTE
             reason = f"conflicts_in_memory({conflict_count})"
         elif current_confidence < self.write_threshold:
@@ -249,6 +311,9 @@ class ConflictGate:
             "current_answer": current_answer,
             "current_confidence": round(current_confidence, 3),
             "conf_score": round(conf_score, 3),
+            "pre_edit_probe_answer": pre_edit_probe_answer,
+            "pre_edit_probe_match": probe_match,
+            "already_satisfied": already_satisfied,
             "has_conflict": has_conflict,
             "max_similarity": round(max_similarity, 3),
             "context_relevance": round(context_relevance, 3),

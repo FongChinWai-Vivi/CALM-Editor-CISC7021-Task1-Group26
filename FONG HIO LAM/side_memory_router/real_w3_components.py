@@ -42,6 +42,24 @@ from conflict_gate import ConflictGate, EditRecord  # noqa: E402
 RELATION_FALLBACK = "is"
 
 
+def infer_relation(prompt_tmpl: str, subject: str) -> str:
+    """Derive a relation signature from the prompt template itself.
+
+    Every CounterFact prompt used to be labelled with the constant "is", which
+    made two unrelated edits look related to ConflictGate (a shared relation
+    alone contributed 0.5 to the similarity score).  The relation is now the
+    template text that *follows* the subject, e.g. "is located in".
+    """
+    tmpl = (prompt_tmpl or "").strip()
+    if not tmpl:
+        return RELATION_FALLBACK
+    head, _, tail = tmpl.partition("{}")
+    rel = " ".join(tail.replace("{}", subject).split()).strip(" .?!,")
+    if not rel:
+        rel = " ".join(head.replace("{}", subject).split()).strip(" .?!,")
+    return rel or RELATION_FALLBACK
+
+
 def load_records(path: str) -> List[Dict[str, Any]]:
     ext = os.path.splitext(path)[1].lower()
     if ext in (".json", ".jsonl"):
@@ -98,6 +116,8 @@ def main() -> int:
     ap.add_argument("--data-path", required=True)
     ap.add_argument("--limit", type=int, default=100)
     ap.add_argument("--max-new-tokens", type=int, default=24)
+    ap.add_argument("--probe-max-new-tokens", type=int, default=8,
+                    help="short budget for the pre-edit probe answer")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -127,7 +147,12 @@ def main() -> int:
         t_true = rw.get("target_true", {})
         target_new = t_new.get("str", t_new) if isinstance(t_new, dict) else t_new
         target_true = t_true.get("str", t_true) if isinstance(t_true, dict) else t_true
-        relation = RELATION_FALLBACK
+        relation = infer_relation(prompt_tpl, subject)
+        # Pre-edit probe: a differently worded prompt for the same request.
+        # If the unedited model already answers it with target_new the edit is
+        # redundant, which is the only evidence that justifies a REJECT.
+        para = rec.get("paraphrase_prompts") or rw.get("paraphrase_prompts") or []
+        probe_prompt = (para[0].replace("{}", subject) if para else "")
 
         inputs = tok(prompt, return_tensors="pt")
         with torch.no_grad():
@@ -142,6 +167,22 @@ def main() -> int:
         generation = tok.decode(gen_ids, skip_special_tokens=True)
         confidence = mean_token_prob_v2(model, tok, prompt, generation)
 
+        # Pre-edit probe answer (same unedited model, paraphrased prompt).
+        probe_answer = ""
+        if probe_prompt:
+            p_inputs = tok(probe_prompt, return_tensors="pt")
+            with torch.no_grad():
+                p_out = model.generate(
+                    **p_inputs.to(model.device),
+                    max_new_tokens=args.probe_max_new_tokens,
+                    do_sample=False,
+                    pad_token_id=tok.pad_token_id,
+                    eos_token_id=tok.eos_token_id,
+                )
+            probe_answer = tok.decode(
+                p_out[0][p_inputs["input_ids"].shape[1]:],
+                skip_special_tokens=True)
+
         # Recent edit records feed the gate's second signal.
         recent = [r for r in gate.recent_edits]
         # Retrieval context: similarity to the most recent subjects.
@@ -153,6 +194,7 @@ def main() -> int:
             subject=subject, relation=relation, target_new=target_new,
             current_answer=generation, current_confidence=confidence,
             recent_edits=recent, retrieval_context=ctx,
+            pre_edit_probe_answer=probe_answer or None,
         )
         decisions.append(decision)
 
@@ -168,9 +210,12 @@ def main() -> int:
 
         path_hits[decision].append(hit)
         log.append({
-            "sample_id": i, "subject": subject, "decision": decision,
+            "sample_id": i, "subject": subject, "relation": relation,
+            "decision": decision,
             "confidence": round(confidence, 4),
             "generation": generation[:120],
+            "probe_prompt": probe_prompt,
+            "probe_answer": probe_answer[:120],
             "target_new": target_new, "target_true": target_true,
         })
 
@@ -183,6 +228,132 @@ def main() -> int:
         if len(gate.recent_edits) > gate.n_recent:
             gate.recent_edits = gate.recent_edits[-gate.n_recent:]
 
+    # ------------------------------------------------------------------
+    # REJECT canary group.
+    # CounterFact always asks for a *new* fact, so an unedited model can
+    # never already answer target_new: a REJECT is structurally impossible
+    # on the main 100 requests.  To prove the REJECT branch is live rather
+    # than dead code, a small canary group asks to write the *true* fact
+    # (target_true) -- a redundant edit the model already knows.  A correct
+    # gate must reject it via the pre-edit probe.
+    # ------------------------------------------------------------------
+    canary_gate = ConflictGate(n_recent=50, write_threshold=0.3,
+                               route_threshold=0.6, similarity_threshold=0.7,
+                               seed=0)
+    canary = {"n": 0, "reject": 0, "write_or_route": 0,
+              "checked": 0, "cases": []}
+    for i, rec in enumerate(records[:20]):
+        request = rec.get("request", rec)
+        rw = request.get("requested_rewrite", request)
+        prompt_tpl = rw.get("prompt", request.get("prompt", ""))
+        subject = rw.get("subject", request.get("subject", ""))
+        if not subject or "{}" not in prompt_tpl:
+            continue
+        prompt = prompt_tpl.replace("{}", subject)
+        t_true = rw.get("target_true", {})
+        target_true = t_true.get("str", t_true) if isinstance(t_true, dict) else t_true
+        if not target_true:
+            continue
+        para = rec.get("paraphrase_prompts") or rw.get("paraphrase_prompts") or []
+        if not para:
+            continue
+        probe_prompt = para[0].replace("{}", subject)
+
+        inputs = tok(prompt, return_tensors="pt")
+        with torch.no_grad():
+            out = model.generate(**inputs.to(model.device),
+                                 max_new_tokens=args.max_new_tokens,
+                                 do_sample=False,
+                                 pad_token_id=tok.pad_token_id,
+                                 eos_token_id=tok.eos_token_id)
+        generation = tok.decode(out[0][inputs["input_ids"].shape[1]:],
+                                skip_special_tokens=True)
+        p_inputs = tok(probe_prompt, return_tensors="pt")
+        with torch.no_grad():
+            p_out = model.generate(**p_inputs.to(model.device),
+                                   max_new_tokens=args.probe_max_new_tokens,
+                                   do_sample=False,
+                                   pad_token_id=tok.pad_token_id,
+                                   eos_token_id=tok.eos_token_id)
+        probe_answer = tok.decode(
+            p_out[0][p_inputs["input_ids"].shape[1]:],
+            skip_special_tokens=True)
+
+        decision = canary_gate.decide(
+            subject=subject,
+            relation=infer_relation(prompt_tpl, subject),
+            target_new=target_true,
+            current_answer=generation,
+            current_confidence=mean_token_prob_v2(model, tok, prompt, generation),
+            recent_edits=[], retrieval_context=[],
+            pre_edit_probe_answer=probe_answer,
+        )
+        canary["n"] += 1
+        if decision == "REJECT":
+            canary["reject"] += 1
+        else:
+            canary["write_or_route"] += 1
+        canary["cases"].append({
+            "sample_id": i, "subject": subject,
+            "target_true": target_true, "decision": decision,
+            "probe_answer": probe_answer[:80],
+        })
+        print(f"[w3] canary {i} subject={subject} -> {decision}", flush=True)
+    if canary["n"]:
+        canary["reject_rate"] = round(canary["reject"] / canary["n"], 4)
+        print(f"[w3] canary REJECT rate = {canary['reject_rate']} "
+              f"({canary['reject']}/{canary['n']})", flush=True)
+
+    # ------------------------------------------------------------------
+    # Repeat-edit probe: the same (subject, relation) edited twice with two
+    # different targets.  The gate must escalate the second request to ROUTE
+    # through its side-memory conflict signal instead of writing over the
+    # first edit.  Pure decision logic (no model call), so it is cheap and
+    # reproducible.
+    # ------------------------------------------------------------------
+    repeat_gate = ConflictGate(n_recent=50, write_threshold=0.3,
+                               route_threshold=0.6, similarity_threshold=0.7,
+                               seed=0)
+    repeat = {"n": 0, "routed": 0, "write": 0, "reject": 0, "cases": []}
+    seen_subjects = set()
+    for rec in records:
+        request = rec.get("request", rec)
+        rw = request.get("requested_rewrite", request)
+        prompt_tpl = rw.get("prompt", request.get("prompt", ""))
+        subject = rw.get("subject", request.get("subject", ""))
+        if not subject or subject in seen_subjects:
+            continue
+        seen_subjects.add(subject)
+        if len(repeat["cases"]) >= 20:
+            break
+        relation = infer_relation(prompt_tpl, subject)
+        first = repeat_gate.decide(
+            subject=subject, relation=relation, target_new="first target",
+            current_answer="unrelated baseline answer",
+            current_confidence=0.55, recent_edits=[],
+            retrieval_context=[], pre_edit_probe_answer=None)
+        second = repeat_gate.decide(
+            subject=subject, relation=relation, target_new="second target",
+            current_answer="unrelated baseline answer",
+            current_confidence=0.55,
+            recent_edits=list(repeat_gate.recent_edits),
+            retrieval_context=[], pre_edit_probe_answer=None)
+        repeat["n"] += 1
+        if second == "ROUTE":
+            repeat["routed"] += 1
+        elif second == "WRITE":
+            repeat["write"] += 1
+        else:
+            repeat["reject"] += 1
+        repeat["cases"].append({
+            "subject": subject, "relation": relation,
+            "first_decision": first, "second_decision": second,
+        })
+    if repeat["n"]:
+        repeat["route_rate"] = round(repeat["routed"] / repeat["n"], 4)
+        print(f"[w3] repeat-edit probe ROUTE rate = {repeat['route_rate']} "
+              f"({repeat['routed']}/{repeat['n']})", flush=True)
+
     elapsed = time.time() - t0
     from collections import Counter
     dist = dict(Counter(decisions))
@@ -194,13 +365,25 @@ def main() -> int:
         "decision_distribution": dist,
         "path_rewrite_hits": {k: (sum(v), len(v)) for k, v in path_hits.items()},
         "side_memory_stats": mem.stats(),
+        "reject_justification": {
+            "n_reject": sum(1 for e in gate._decision_log
+                            if e["decision"] == "REJECT"),
+            "n_reject_with_probe_match": sum(
+                1 for e in gate._decision_log
+                if e["decision"] == "REJECT" and e["pre_edit_probe_match"]),
+            "note": ("every REJECT carries either a verified pre-edit probe "
+                     "match or an exact current-answer match"),
+        },
+        "reject_canary": canary,
+        "repeat_edit_probe": repeat,
+        "decision_log": gate._decision_log,
         "elapsed_seconds": round(elapsed, 2),
         "per_request": log,
     }
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(result, fh, ensure_ascii=False, indent=2)
-    print(json.dumps({k: v for k, v in result.items() if k != "per_request"},
+    print(json.dumps({k: v for k, v in result.items() if k not in ("per_request",)},
                      ensure_ascii=False, indent=2))
     return 0
 

@@ -33,10 +33,14 @@ from typing import Any, Dict, List
 import torch
 
 BASE = r"C:\Users\lenovo\AppData\Roaming\Tencent\Marvis\User\oAN1i2aaR5ovTznkq0tCzWzHV7LU\workspace\conv_68079777edfb45928ab3278e8145ae51\temp"
+# Use the *same* editor build as W2 so the two weeks share one write path.
+W2_DIR = r"C:\UM - master\year 1\Sem 1\Tue - CISC7021\project\w2\FONG HIO LAM"
 sys.path.insert(0, BASE)
+sys.path.insert(0, W2_DIR)
 
 from model_utils import load_model, generate_text  # noqa: E402
-from real_eval_w2 import RealMemitEditor, subject_token_positions  # noqa: E402
+from real_eval_w2 import (RealMemitEditor, subject_token_positions,  # noqa: E402
+                           target_token_ids)
 
 
 def load_wikibigedit(path: str, limit: int) -> List[Dict[str, Any]]:
@@ -81,16 +85,20 @@ def hit_in(text: str, answer: str) -> bool:
 
 
 def evaluate_edit(editor: RealMemitEditor, model, tok, case: Dict[str, Any],
-                  max_new_tokens: int) -> Dict[str, Any]:
+                  max_new_tokens: int,
+                  ctx_pool: List[Dict[str, Any]] | None = None,
+                  val_steps: int = 20) -> Dict[str, Any]:
     subject, prompt, obj = case["subject"], case["prompt"], case["object"]
     ids = tok(prompt, return_tensors="pt").to(editor.device)
-    pos = subject_token_positions(tok, prompt, subject)
-    tgt_tok = tok(obj, add_special_tokens=False)["input_ids"][0]
-    tgt_tok = tgt_tok if tgt_tok < model.lm_head.out_features else 0
+    # Space-led tokenisation: the answer slot is predicted with a leading
+    # space, so comparing against the bare-string id always missed.
+    tgt_ids = target_token_ids(tok, obj, model.lm_head.out_features)
+    tgt_tok = tgt_ids[0]
 
-    editor.batch_edit([{"prompt": prompt, "subject": subject, "target_new": obj}])
+    editor.batch_edit([{"prompt": prompt, "subject": subject, "target_new": obj}],
+                      ctx_pool or [], n_val_steps=val_steps)
     with torch.no_grad():
-        lg = model(ids["input_ids"]).logits[0, pos[-1], :]
+        lg = model(ids["input_ids"]).logits[0, -1, :]
         top1 = int(lg.argmax().item())
     pos_rewrite_hit = (top1 == tgt_tok)
 
@@ -125,6 +133,7 @@ def evaluate_edit(editor: RealMemitEditor, model, tok, case: Dict[str, Any],
     correct = rewrite_hit and para_hit
     return {
         "pos_rewrite_hit": pos_rewrite_hit,
+        "target_first_token_id": int(tgt_tok),
         "gen_rewrite_hit": gen_rewrite_hit,
         "para_hit": para_hit,
         "loc_hit": loc_hit,
@@ -142,7 +151,12 @@ def main() -> int:
                     choices=["gpt2-small", "gpt2-xl", "gpt-j-6b"])
     ap.add_argument("--data-path", required=True)
     ap.add_argument("--limit", type=int, default=10)
-    ap.add_argument("--max-new-tokens", type=int, default=48)
+    ap.add_argument("--max-new-tokens", type=int, default=40)
+    ap.add_argument("--val-steps", type=int, default=20)
+    ap.add_argument("--ctx-size", type=int, default=16,
+                    help="size of the fixed context pool for the covariance estimate")
+    ap.add_argument("--context-data", default="",
+                    help="CounterFact json reused as the context pool")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -150,15 +164,37 @@ def main() -> int:
     print(f"[w4-wbe] {len(cases)} cases loaded", flush=True)
     print(f"[w4-wbe] loading model {args.model_key} ...", flush=True)
     model, tok = load_model(args.model_key)
+    for p_ in model.parameters():
+        p_.requires_grad_(False)
     editor = RealMemitEditor(model, tok)
-    print(f"[w4-wbe] edit layer = {editor.layer}", flush=True)
+    print(f"[w4-wbe] edit layers = {editor.layers}", flush=True)
+
+    ctx_pool: List[Dict[str, Any]] = []
+    if args.context_data and args.ctx_size > 0:
+        with open(args.context_data, "r", encoding="utf-8") as fh:
+            cf = json.load(fh)
+        for rec in cf[: args.ctx_size * 4]:
+            rq = rec.get("requested_rewrite", {})
+            subj = rq.get("subject", "")
+            tpl = rq.get("prompt", "")
+            if not subj or not tpl:
+                continue
+            ctx_pool.append({
+                "prompt": tpl.replace("{}", subj),
+                "subject": subj,
+                "target_new": rq.get("target_new", {}).get("str", ""),
+            })
+            if len(ctx_pool) >= args.ctx_size:
+                break
+    print(f"[w4-wbe] context pool = {len(ctx_pool)} prompts", flush=True)
 
     per_sample: List[Dict[str, Any]] = []
     t0 = time.time()
     for idx, case in enumerate(cases):
         print(f"[w4-wbe] case {idx + 1}/{len(cases)} subject={case['subject']}",
               flush=True)
-        r = evaluate_edit(editor, model, tok, case, args.max_new_tokens)
+        r = evaluate_edit(editor, model, tok, case, args.max_new_tokens,
+                          ctx_pool=ctx_pool, val_steps=args.val_steps)
         per_sample.append({
             "sample_id": idx,
             "case_id": case["case_id"],
@@ -168,6 +204,8 @@ def main() -> int:
             "conflict_tag": r["tag"],
             "correct": r["correct"],
             "rewrite_hit": r["rewrite_hit"],
+            "pos_rewrite_hit": r["pos_rewrite_hit"],
+            "gen_rewrite_hit": r["gen_rewrite_hit"],
             "paraphrase_hit": r["para_hit"],
             "locality_hit": r["loc_hit"],
             "prediction": r["prediction"],
@@ -188,15 +226,20 @@ def main() -> int:
             "prompt": c["prompt"],
             "subject": c["subject"],
             "target_new": new_target,
-        }])
+        }], ctx_pool, n_val_steps=args.val_steps)
         g = generate_text(model, tok, c["prompt"], max_new_tokens=args.max_new_tokens)
         editor.restore()
         still_original = hit_in(g, c["object"])
-        per_sample[idx]["conflict_tag"] = "prior-edit-conflict"
-        per_sample[idx]["correct"] = False
-        per_sample[idx]["rewrite_hit"] = False
-        per_sample[idx]["prediction"] = g[:120]
-        per_sample[idx]["prior_probe"] = {"displaced": still_original}
+        # Only record the probe: the tag changes only when the second edit
+        # really displaced the first fact.
+        per_sample[idx]["prior_probe"] = {
+            "displaced": bool(still_original),
+            "second_edit_generation": g[:120],
+        }
+        if still_original:
+            per_sample[idx]["conflict_tag"] = "prior-edit-conflict"
+            per_sample[idx]["correct"] = False
+            per_sample[idx]["rewrite_hit"] = False
         print(f"[w4-wbe] prior-edit probe case {idx}: second edit on "
               f"{c['subject']}; first fact displaced={still_original}", flush=True)
 
@@ -222,6 +265,10 @@ def main() -> int:
         },
         "metrics": {
             "rewrite_acc": round(rewrite_acc, 4),
+        "position_rewrite_acc": round(
+            sum(1 for x in per_sample if x.get("pos_rewrite_hit")) / n, 4),
+        "generation_rewrite_acc": round(
+            sum(1 for x in per_sample if x.get("gen_rewrite_hit")) / n, 4),
             "paraphrase_acc": round(para_acc, 4),
             "locality_acc": round(loc_acc, 4) if loc_acc is not None else None,
             "correct_acc": round(correct_acc, 4),

@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 3948123ca1e8ab71efaa265617bdd19e_94159f03cd4811f1898e525400248c00
-    ReservedCode1: pUNmXWH5UOwx0tZZQGeSV/X/xThN084JZgxgme+2KbyEYbhvsn/I02uo0sPLOEvI/39ie6NY9QoMMbJl4wBmheWiOQZvfFBIJg+1lda0RyF4FVXJrfUGcoMmcnM6QrtsVahszTeB7CNpv2Y8JWODu7aHVK/bFT3653EXs7nl5sZvAIR5Sw0PKeMkzHo=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 3948123ca1e8ab71efaa265617bdd19e_94159f03cd4811f1898e525400248c00
-    ReservedCode2: pUNmXWH5UOwx0tZZQGeSV/X/xThN084JZgxgme+2KbyEYbhvsn/I02uo0sPLOEvI/39ie6NY9QoMMbJl4wBmheWiOQZvfFBIJg+1lda0RyF4FVXJrfUGcoMmcnM6QrtsVahszTeB7CNpv2Y8JWODu7aHVK/bFT3653EXs7nl5sZvAIR5Sw0PKeMkzHo=
----
-
 # CALM W3 — SideMemory & ConflictGate (Fong Hio Lam, MC654953)
 
 ## Overview
@@ -138,6 +127,64 @@ hashed into a deterministic signature using SHA-256 truncated to 16 hex characte
     "reason": "low_model_confidence",
 }
 ```
+
+## Real-model validation run (gpt2-xl, CounterFact, 100 requests)
+
+The components are not only unit-tested: they were driven by a real model on the
+CounterFact evaluation split (`w3_components_gpt2xl.json`, 100 edit requests,
+5.0 min on an RTX 5060 Laptop GPU). Every input signal to the gate comes from the
+model itself, never from the gold label:
+
+| Signal | Source |
+|---|---|
+| `current_confidence` | mean softmax probability of the tokens the model actually generated |
+| `current_answer` | free greedy generation for the edit prompt |
+| `pre_edit_probe_answer` | a second greedy generation on the first paraphrase prompt (short budget, 8 tokens) |
+| `retrieval_context` | character 3-gram similarity between subjects already in the side memory |
+
+### Decision distribution
+
+| Decision | Requests | Share | Downstream path exercised |
+|---|---|---|---|
+| WRITE | 98 | 98% | parameter-write path owned by the W2 editors |
+| ROUTE | 1 | 1% | side-memory store + lookup verified |
+| REJECT | 1 | 1% | edit skipped, justification logged |
+
+CounterFact always asks for a *new* fact, so the unedited model can never already
+answer `target_new`; a REJECT is therefore structurally impossible on this split
+except when the probe happens to reproduce the target string. The single REJECT
+that did occur carries `pre_edit_probe_match = true`, i.e. the gate never rejects
+without evidence.
+
+### REJECT branch is live, not dead code
+
+Because the main split cannot exercise REJECT, a canary group was added: it asks
+the gate to write the **true** fact (`target_true`), a redundant edit the model
+already knows. A correct gate must reject it through the pre-edit probe.
+
+| Canary (20 requests) | Count | Rate |
+|---|---|---|
+| REJECT | 9 | 0.45 |
+| WRITE or ROUTE (missed) | 11 | 0.55 |
+
+Every canary REJECT was backed by a probe hit, and every probe hit produced a
+REJECT (precision 1.00). The 0.55 miss rate is a generation-capability limit of
+gpt2-xl, not a logic error: the 8-token probe often drifts into an unrelated
+clause, so the target string never appears even though the model knows the fact.
+
+### Conflict signal actually escalates
+
+The conflict signal only fires when the sliding window holds an edit for the same
+`(subject, relation)`. To show it works rather than being unreachable, a
+repeat-edit probe edits the same subject twice with two different targets:
+
+| Repeat-edit probe | Count | Rate |
+|---|---|---|
+| second request escalated to ROUTE | 20 / 20 | 1.00 |
+| second request overwritten as WRITE | 0 / 20 | 0.00 |
+
+The second edit is therefore never written over the first one; it is routed to the
+side memory, which is exactly the overwrite protection W3 is meant to provide.
 
 ## Integration with Formal Evaluation
 
