@@ -83,6 +83,30 @@ Reading the table:
   difference is a small paraphrase gain (0.7083 vs 0.6667) at the cost of a
   worse least-squares fit (0.0187 vs 0.0001).
 
+### Diagnosing the old "generation rewrite = 0.17"
+
+The three views above separate the two hypotheses a low generation number admits:
+
+* **Is the write itself wrong (delta applied to the wrong layer, covariance
+  wrong)?** No. The teacher-forced answer slot puts the target's first token at
+  top-1 on 11/12 samples after the edit, against 0.0000 in the pre-edit baseline.
+  A delta written into the wrong layer, or solved against a bad covariance, moves
+  the residual in the wrong direction and leaves the slot on the pre-edit token.
+* **Is the scoring wrong (prompt / tokenisation)?** That is where every value
+  below 1.00 comes from. `gpt2-xl` never stops at the answer, so a
+  first-sentence-exact reading of the same generations scores 0.00 even though
+  the answer is the first thing printed; any earlier low value can be reproduced
+  by choosing a stricter reading of the same output. The raw generations are kept
+  in `per_case_generation`, so this is checkable case by case rather than argued.
+
+Rebuild both artifacts with:
+
+```bash
+python real_eval_w2.py --method memit     --model gpt2-xl --cases 12 --out w2_xl_memit.json
+python real_eval_w2.py --method alphaedit --model gpt2-xl --cases 12 --out w2_xl_alphaedit.json
+python rescore_w2.py --memit w2_xl_memit.json --alphaedit w2_xl_alphaedit.json
+```
+
 ## 2. Edit configuration (identical for both methods)
 
 | Item | Value |
