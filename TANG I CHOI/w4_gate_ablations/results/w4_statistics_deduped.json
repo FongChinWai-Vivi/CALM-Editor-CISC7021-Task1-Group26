@@ -1,0 +1,626 @@
+{
+ "meta": {
+  "model": "./hugging_cache/gpt2-xl",
+  "hparams": "gpt2-xl.yaml",
+  "n_edits": 40,
+  "n_subjects": 40,
+  "n_heldout": 60,
+  "hypernet_scale": 1.0,
+  "tests": [
+   "exact McNemar (binomial, two-sided)",
+   "paired bootstrap (5000 draws, seed 20261101)",
+   "Cohen's kappa",
+   "Wilson 95% CI"
+  ]
+ },
+ "summary": [
+  {
+   "arm": "always_write",
+   "n_edits": 40,
+   "write": 40,
+   "route": 0,
+   "reject": 0,
+   "gate_acc": 0.825,
+   "immediate_rewrite": 0.325,
+   "model_retention": 0.325,
+   "e2e_retention": 0.325,
+   "locality": 1.0,
+   "memory_entries": 0,
+   "sec_per_edit": 0.747
+  },
+  {
+   "arm": "always_route",
+   "n_edits": 40,
+   "write": 0,
+   "route": 40,
+   "reject": 0,
+   "gate_acc": 0.0,
+   "immediate_rewrite": 0.325,
+   "model_retention": 0.325,
+   "e2e_retention": 1.0,
+   "locality": 1.0,
+   "memory_entries": 40,
+   "sec_per_edit": 0.629
+  },
+  {
+   "arm": "rule_gate",
+   "n_edits": 40,
+   "write": 36,
+   "route": 0,
+   "reject": 4,
+   "gate_acc": 0.925,
+   "immediate_rewrite": 0.325,
+   "model_retention": 0.325,
+   "e2e_retention": 0.325,
+   "locality": 1.0,
+   "memory_entries": 0,
+   "sec_per_edit": 0.734
+  },
+  {
+   "arm": "learned_gate",
+   "n_edits": 40,
+   "write": 1,
+   "route": 38,
+   "reject": 1,
+   "gate_acc": 0.025,
+   "immediate_rewrite": 0.325,
+   "model_retention": 0.325,
+   "e2e_retention": 0.975,
+   "locality": 1.0,
+   "memory_entries": 38,
+   "sec_per_edit": 0.637
+  }
+ ],
+ "pairwise": [
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "always_write",
+   "b": "always_route",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 27,
+   "p_value": 0.0,
+   "delta": -0.675,
+   "ci95": [
+    -0.825,
+    -0.525
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "always_write",
+   "b": "always_route",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "always_write",
+   "b": "always_route",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "always_write",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "always_write",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "always_write",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "always_write",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 26,
+   "p_value": 0.0,
+   "delta": -0.65,
+   "ci95": [
+    -0.8,
+    -0.5
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "always_write",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "always_write",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "always_route",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 27,
+   "c_only": 0,
+   "p_value": 0.0,
+   "delta": 0.675,
+   "ci95": [
+    0.525,
+    0.825
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "always_route",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "always_route",
+   "b": "rule_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "always_route",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 1,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.025,
+   "ci95": [
+    0.0,
+    0.075
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "always_route",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "always_route",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "E2E retention",
+   "metric_key": "final_e2e_hit",
+   "a": "rule_gate",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 26,
+   "p_value": 0.0,
+   "delta": -0.65,
+   "ci95": [
+    -0.8,
+    -0.5
+   ]
+  },
+  {
+   "metric": "model-only retention",
+   "metric_key": "final_model_hit",
+   "a": "rule_gate",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "metric": "immediate rewrite",
+   "metric_key": "immediate_rewrite",
+   "a": "rule_gate",
+   "b": "learned_gate",
+   "n": 40,
+   "b_only": 0,
+   "c_only": 0,
+   "p_value": 1.0,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "gate_quality": [
+  {
+   "label": "learned vs always_write",
+   "b": 0,
+   "c": 32,
+   "p_value": 0.0,
+   "kappa_a": 0.0,
+   "kappa_b": 0.0,
+   "agreement_a": 0.025
+  },
+  {
+   "label": "learned vs always_route",
+   "b": 1,
+   "c": 0,
+   "p_value": 1.0,
+   "kappa_a": 0.0,
+   "kappa_b": 0.0,
+   "agreement_a": 0.025
+  },
+  {
+   "label": "learned vs rule_gate",
+   "b": 0,
+   "c": 36,
+   "p_value": 0.0,
+   "kappa_a": 0.0,
+   "kappa_b": 0.6875,
+   "agreement_a": 0.025
+  }
+ ],
+ "confusion_learned_gate": {
+  "WRITE": {
+   "WRITE": 1,
+   "ROUTE": 31,
+   "REJECT": 1
+  },
+  "ROUTE": {
+   "WRITE": 0,
+   "ROUTE": 0,
+   "REJECT": 0
+  },
+  "REJECT": {
+   "WRITE": 0,
+   "ROUTE": 7,
+   "REJECT": 0
+  }
+ },
+ "by_situation": {
+  "always_write": [
+   {
+    "situation": "no-conflict",
+    "n": 40,
+    "e2e_retention": 0.325,
+    "e2e_ci95": [
+     0.2008,
+     0.4798
+    ],
+    "decision_correct": 0.825,
+    "decision_ci95": [
+     0.6805,
+     0.9125
+    ]
+   },
+   {
+    "situation": "pre-training-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "prior-edit-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "context-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "always_route": [
+   {
+    "situation": "no-conflict",
+    "n": 40,
+    "e2e_retention": 1.0,
+    "e2e_ci95": [
+     0.9124,
+     1.0
+    ],
+    "decision_correct": 0.0,
+    "decision_ci95": [
+     0.0,
+     0.0876
+    ]
+   },
+   {
+    "situation": "pre-training-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "prior-edit-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "context-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "rule_gate": [
+   {
+    "situation": "no-conflict",
+    "n": 40,
+    "e2e_retention": 0.325,
+    "e2e_ci95": [
+     0.2008,
+     0.4798
+    ],
+    "decision_correct": 0.925,
+    "decision_ci95": [
+     0.8014,
+     0.9742
+    ]
+   },
+   {
+    "situation": "pre-training-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "prior-edit-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "context-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "learned_gate": [
+   {
+    "situation": "no-conflict",
+    "n": 40,
+    "e2e_retention": 0.975,
+    "e2e_ci95": [
+     0.8712,
+     0.9956
+    ],
+    "decision_correct": 0.025,
+    "decision_ci95": [
+     0.0044,
+     0.1288
+    ]
+   },
+   {
+    "situation": "pre-training-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "prior-edit-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "situation": "context-conflict",
+    "n": 0,
+    "e2e_retention": null,
+    "e2e_ci95": [
+     0.0,
+     0.0
+    ],
+    "decision_correct": null,
+    "decision_ci95": [
+     0.0,
+     0.0
+    ]
+   }
+  ]
+ }
+}

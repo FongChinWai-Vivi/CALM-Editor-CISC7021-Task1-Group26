@@ -1,0 +1,251 @@
+{
+ "metric": "immediate_rewrite_rate",
+ "definition_in_code": "mean(post['rewrite_ok']), rewrite_ok = target_new substring of the post-edit greedy answer",
+ "corrected_definition": "post_hit AND NOT pre_hit (change caused by the edit)",
+ "deduped_arms": [
+  {
+   "arm": "always_write",
+   "n_edits": 40,
+   "stream_mode": "deduped-prompt",
+   "write_share": 1.0,
+   "reported_immediate_rewrite_rate": 0.325,
+   "baseline_hit_rate": 0.325,
+   "post_hit_rate": 0.325,
+   "rewrite_after_baseline_correction": 0.0,
+   "n_corrected_rewrites": 0,
+   "write_delta_applied_rate": 1.0,
+   "answer_changed_by_write_rate": 0.0,
+   "mean_delta_norm": 0.003912,
+   "hypernet_ckpt": "untrained (random init)"
+  },
+  {
+   "arm": "always_route",
+   "n_edits": 40,
+   "stream_mode": "deduped-prompt",
+   "write_share": 0.0,
+   "reported_immediate_rewrite_rate": 0.325,
+   "baseline_hit_rate": 0.325,
+   "post_hit_rate": 0.325,
+   "rewrite_after_baseline_correction": 0.0,
+   "n_corrected_rewrites": 0,
+   "write_delta_applied_rate": 0.0,
+   "answer_changed_by_write_rate": 0.0,
+   "mean_delta_norm": 0.0,
+   "hypernet_ckpt": "untrained (random init)"
+  },
+  {
+   "arm": "rule_gate",
+   "n_edits": 40,
+   "stream_mode": "deduped-prompt",
+   "write_share": 0.9,
+   "reported_immediate_rewrite_rate": 0.325,
+   "baseline_hit_rate": 0.325,
+   "post_hit_rate": 0.325,
+   "rewrite_after_baseline_correction": 0.0,
+   "n_corrected_rewrites": 0,
+   "write_delta_applied_rate": 1.0,
+   "answer_changed_by_write_rate": 0.0,
+   "mean_delta_norm": 0.004086,
+   "hypernet_ckpt": "untrained (random init)"
+  },
+  {
+   "arm": "learned_gate",
+   "n_edits": 40,
+   "stream_mode": "deduped-prompt",
+   "write_share": 0.025,
+   "reported_immediate_rewrite_rate": 0.325,
+   "baseline_hit_rate": 0.325,
+   "post_hit_rate": 0.325,
+   "rewrite_after_baseline_correction": 0.0,
+   "n_corrected_rewrites": 0,
+   "write_delta_applied_rate": 1.0,
+   "answer_changed_by_write_rate": 0.0,
+   "mean_delta_norm": 0.004723,
+   "hypernet_ckpt": "untrained (random init)"
+  }
+ ],
+ "legacy_stream_check": {
+  "legacy_n_edits": 191,
+  "legacy_reported_true": 21,
+  "legacy_reported_rate": 0.1099,
+  "legacy_true_rows_on_baseline_hit_subject": 21,
+  "legacy_true_rows_explained": "21/21",
+  "baseline_hit_subjects": 13,
+  "n_subjects": 40,
+  "per_subject": {
+   "winchester railway station": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "krasnodar krai": {
+    "rows": 5,
+    "reported_true": 2
+   },
+   "fiat uno": {
+    "rows": 4,
+    "reported_true": 2
+   },
+   "earl zindars": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "alberto mazzucato": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "irvine high school": {
+    "rows": 5,
+    "reported_true": 2
+   },
+   "le puy foot 43 auvergne": {
+    "rows": 5,
+    "reported_true": 2
+   },
+   "daihatsu terios": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "the restless gun": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "christian medical college ludhiana": {
+    "rows": 6,
+    "reported_true": 1
+   },
+   "russell gunn": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "alpha island": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "afghanistan football federation": {
+    "rows": 6,
+    "reported_true": 1
+   },
+   "agios dimitrios": {
+    "rows": 6,
+    "reported_true": 1
+   },
+   "2010 winter olympics": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "future man": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "caradog roberts": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "kumiko ogura": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "paul chambers": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "valdemarsvik": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "judaizers": {
+    "rows": 6,
+    "reported_true": 1
+   },
+   "selig polyscope company": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "porsche cayenne": {
+    "rows": 4,
+    "reported_true": 2
+   },
+   "macau": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "douglas fowley": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "mac con": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "pitcairn islands": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "bernard fellay": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "cadillac cts": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "turgai river": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "buenos aires": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "sky2": {
+    "rows": 4,
+    "reported_true": 0
+   },
+   "kim philby": {
+    "rows": 6,
+    "reported_true": 1
+   },
+   "bmw e38": {
+    "rows": 4,
+    "reported_true": 2
+   },
+   "delia murphy": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "liberia": {
+    "rows": 5,
+    "reported_true": 2
+   },
+   "derna district": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "yahoo! news": {
+    "rows": 4,
+    "reported_true": 2
+   },
+   "chase clement": {
+    "rows": 5,
+    "reported_true": 0
+   },
+   "pennsylvania route 198": {
+    "rows": 4,
+    "reported_true": 0
+   }
+  },
+  "all_arms_reported_immediate_rewrite_rate": {
+   "always_write": 0.1099,
+   "always_route": 0.1099,
+   "rule_gate": 0.1099,
+   "learned_gate": 0.1099
+  }
+ },
+ "verdict": {
+  "check1_metric_tracks_write_share": false,
+  "check1_note": "identical immediate_rewrite_rate across arms with very different WRITE shares -> the metric measures the base model, not the writer",
+  "check2_baseline_contaminated": true,
+  "check3_write_changes_answer": false,
+  "root_cause": "untrained hypernetwork (hparams has no hypernet_ckpt) emits deltas that are applied (delta norm > 0) but never move greedy decoding; the reported rate is the base-model hit rate on the stream"
+ }
+}

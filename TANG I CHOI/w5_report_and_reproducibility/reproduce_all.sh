@@ -61,9 +61,18 @@ step "W4: run the four gate arms over the stream (subjects=${SUBJECTS})"
   2>&1 | tee "${LOGS}/w4_ablation_$(date +%Y%m%d).log"
 
 # ------------------------------------------------- W4 statistics ------------
-step "W4: paired tests, confidence intervals, per-conflict breakdown"
-( cd "${W4}" && ${PY} analyze_w4_statistics.py ) \
+step "W4: paired tests, confidence intervals, per-conflict breakdown (191-edit stream)"
+( cd "${W4}" && ${PY} analyze_w4_statistics.py --stream canonical ) \
   2>&1 | tee "${LOGS}/w4_statistics.log"
+
+# The deduped rerun exists to isolate the immediate-rewrite defect; render its
+# table too when the rerun JSON is present, without ever overwriting the 191-edit
+# table used by the report.
+if ls "${W4}"/results/w4_ablation_*_deduped.json >/dev/null 2>&1; then
+  step "W4: render the deduped-stream table (defect 1, see docs/w4_immediate_rewrite_diagnosis.md)"
+  ( cd "${W4}" && ${PY} analyze_w4_statistics.py --stream deduped ) \
+    2>&1 | tee "${LOGS}/w4_statistics_deduped.log"
+fi
 
 # ------------------------------------------------------- W5 figures ---------
 step "W5: render the results figures"
@@ -79,7 +88,8 @@ echo
 echo "== done. Artefacts:"
 echo "   ${W4}/results/w4_ablation_*.json           (per-arm raw metrics)"
 echo "   ${W4}/results/w4_statistics.json           (all statistical tests)"
-echo "   ${W4}/results/w4_ablation_table.md         (ablation table)"
+echo "   ${W4}/results/w4_ablation_table.md         (ablation table, 191-edit stream)"
+echo "   ${W4}/results/w4_ablation_table_deduped.md (ablation table, 40-prompt rerun)"
 echo "   ${W3}/results/gate_online_gap.json         (offline vs stream gate)"
 echo "   ${W5}/figures/*.png                        (figures 1-3)"
 echo "   ${W5}/report/results_tables.md             (tables used by the report)"

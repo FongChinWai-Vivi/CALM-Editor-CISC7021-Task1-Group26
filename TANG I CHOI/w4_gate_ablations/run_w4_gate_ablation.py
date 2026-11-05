@@ -69,7 +69,8 @@ sys.path.insert(0, EASYEDIT)
 # Stream construction
 # --------------------------------------------------------------------------- #
 
-def load_stream(n_subjects: int, max_per_subject: int = 6):
+def load_stream(n_subjects: int, max_per_subject: int = 6,
+                dedupe_prompt: bool = False):
     """Build a deterministic edit stream from the W3 held-out test split.
 
     Edits are grouped by subject so that the stream contains repeated edits on
@@ -99,6 +100,29 @@ def load_stream(n_subjects: int, max_per_subject: int = 6):
 
     heldout = [r for r in rows if (r.get("subject") or "") not in used]
     return stream, heldout[:60]
+
+
+def dedupe_by_prompt(stream: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Keep one edit per distinct prompt.
+
+    The CounterFact situations behind W3 share a single prompt per subject but
+    carry *different* ``target_new`` values (e.g. ``Winchester railway station
+    was named for`` is asked to become ``Winchester``, ``Alps`` and ``Cairo``).
+    Two edits on the same prompt with contradictory targets cannot both be
+    satisfied by any editor, so ``immediate_rewrite`` on the raw stream is
+    bounded by ``1 / edits_per_prompt`` (~0.21 here) no matter how good the
+    gate or the writer is.  Deduplicating gives a stream on which the metric
+    actually measures the writer.
+    """
+    seen = set()
+    out = []
+    for r in stream:
+        key = (r.get("prompt") or "").strip()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(r)
+    return out
 
 
 # --------------------------------------------------------------------------- #
@@ -136,13 +160,37 @@ def build_editor(arm: str, hparams_path: str, hypernet_scale: float = None):
         lambda self, request, decision: decision, editor)
     editor._write_budget_guard = types.MethodType(
         lambda self, request, decision: decision, editor)
+
+    # diagnosis hook: record the Frobenius norm of every parameter delta that
+    # the hypernetwork actually applies, so the results can tell "the gate said
+    # WRITE" apart from "the WRITE changed the weights" (see
+    # docs/w4_immediate_rewrite_diagnosis.md).
+    if getattr(editor, "hypernetwork", None) is not None:
+        editor._last_delta_norm = 0.0
+        _raw_apply = editor.hypernetwork.apply_update
+
+        def _measured_apply(deltas, _raw=_raw_apply, _ed=editor):
+            import torch as _t
+
+            norm = 0.0
+            for d in deltas.values():
+                norm += float(_t.linalg.matrix_norm(d.float())) ** 2
+            _ed._last_delta_norm = norm ** 0.5
+            return _raw(deltas)
+
+        editor.hypernetwork.apply_update = _measured_apply
     return editor, hparams
 
 
 def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
-            verbose: bool = False, hypernet_scale: float = None) -> Dict[str, Any]:
+            verbose: bool = False, hypernet_scale: float = None,
+            dedupe_prompt: bool = False) -> Dict[str, Any]:
     stream, heldout = load_stream(subjects, max_per_subject)
-    print(f"[{arm}] stream={len(stream)} edits over {subjects} subjects, "
+    raw_len = len(stream)
+    if dedupe_prompt:
+        stream = dedupe_by_prompt(stream)
+    print(f"[{arm}] stream={len(stream)} edits over {subjects} subjects "
+          f"(raw {raw_len}, dedupe_prompt={dedupe_prompt}), "
           f"heldout={len(heldout)}", flush=True)
 
     t0 = time.time()
@@ -181,6 +229,9 @@ def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
             "decision": m["calm"]["decision"],
             "route": m["calm"]["route"],
             "immediate_rewrite": m["post"]["rewrite_ok"],
+            "answer_pre": m["pre"].get("answer"),
+            "answer_post": m["post"].get("answer"),
+            "delta_norm": round(float(getattr(editor, "_last_delta_norm", 0.0)), 6),
         })
         if verbose or (i + 1) % 25 == 0:
             print(f"[{arm}] {i + 1}/{len(stream)} {decisions[-1]['decision']} "
@@ -222,6 +273,22 @@ def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
         "hparams": os.path.basename(hparams_path),
         "n_edits": n,
         "n_subjects": subjects,
+        "stream_mode": "deduped-prompt" if dedupe_prompt else "grouped-multi-target",
+        "n_stream_rows_before_dedupe": raw_len,
+        "n_distinct_prompts": len({(d.get("prompt") or "").strip()
+                                   for d in stream}),
+        "hypernet_ckpt": getattr(hparams, "hypernet_ckpt", None)
+        or "untrained (random init)",
+        "write_delta_applied_rate": round(
+            sum(1 for d in decisions if d["delta_norm"] > 0) / n, 4) if n else 0.0,
+        "mean_delta_norm": round(
+            sum(d["delta_norm"] for d in decisions) / n, 6) if n else 0.0,
+        "answer_changed_by_write_rate": round(
+            sum(1 for d in decisions
+                if d["decision"] == "WRITE"
+                and (d.get("answer_pre") or "").strip().lower()
+                != (d.get("answer_post") or "").strip().lower())
+            / max(1, sum(1 for d in decisions if d["decision"] == "WRITE")), 4),
         "decisions": counts,
         "decision_share": {k: round(v / n, 4) for k, v in counts.items()} if n else {},
         "immediate_rewrite_rate": round(
@@ -257,6 +324,10 @@ def main():
     ap.add_argument("--tag", default="", help="suffix for the result file")
     ap.add_argument("--hypernet-scale", type=float, default=None,
                     help="override hparams.hypernet_scale (stress probe)")
+    ap.add_argument("--dedupe-prompts", action="store_true",
+                    help="one edit per distinct prompt (removes contradictory "
+                         "targets on the same prompt; makes immediate_rewrite "
+                         "interpretable -- see docs/w4_immediate_rewrite_diagnosis.md)")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
@@ -269,7 +340,8 @@ def main():
     try:
         for arm in arms:
             res = run_arm(arm, args.subjects, args.hparams, args.max_per_subject,
-                          verbose=args.verbose, hypernet_scale=args.hypernet_scale)
+                          verbose=args.verbose, hypernet_scale=args.hypernet_scale,
+                          dedupe_prompt=args.dedupe_prompts)
             name = f"w4_ablation_{arm}{args.tag}.json"
             with open(os.path.join(args.out_dir, name), "w") as f:
                 json.dump(res, f, indent=1, ensure_ascii=False)

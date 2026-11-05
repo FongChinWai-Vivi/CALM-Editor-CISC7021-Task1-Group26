@@ -43,6 +43,79 @@ Consequence for the design: a conflict gate is worth its complexity for
 the 5K run's 97% route share costs), not for retention at the current write
 rate. `always_write`-style gating is the only variant that is clearly harmful.
 
+### 4.2.1 The learned gate degenerates in-stream: conclusion and cause
+
+State this as a result, not as a footnote. **The W3 learned conflict gate
+collapses to the trivial `always_route` policy once it is wired into the live
+CALM stream**: 1 WRITE / 190 ROUTE / 0 REJECT over 191 edits, agreement 0.424
+with the gold action, Cohen's κ 0.009 (rules: 0.613 / 0.343), and a McNemar
+comparison against `always_route` of p = 1.0 on every metric. The classifier is
+never right where the rules are wrong (learned-only correct 0, rule-only
+correct 36, p < 0.0001).
+
+Three causes, in order of impact, all measured:
+
+1. **Dead context block.** `CALMEditor.edit_requests` calls
+   `gate.decide(..., retrieval_context=None)`, so `has_context`, `n_context`,
+   `context_target_overlap` and `context_contradicts` are identically zero in
+   the stream, although they carry the largest positive `ROUTE` weights in the
+   trained classifier.
+2. **Covariate shift of our own making.** The W3 training data populates the
+   context block from retrieved passages, so the all-zero context vector
+   co-occurs almost exclusively with `ROUTE`/`REJECT` labels. At inference every
+   row is that vector, and the model answers with its majority label for that
+   region: `ROUTE`.
+3. **Late-arriving history.** `has_prior_edit` / `n_prior_edits` /
+   `prior_same_subject` are zero until the first edit is stored, which is why
+   the cold-start accuracy drops further (0.340 vs 0.408 for the rules) and why
+   the gate never leaves its initial routing mode.
+
+Interpretation for the report: this is **not** evidence that learned gating is
+inferior in general — one of four feature blocks is forcibly disabled at test
+time. It is evidence that the current CALM path cannot exercise a context-aware
+gate, and that any "context awareness" read off these numbers would be an
+artefact of the routing prior. It also sets the agenda: inject the retrieval
+context into the editor call and retrain with context dropout plus a cold-start
+feature (both listed in 4.3).
+
+### 4.2.2 Metric caveat: `immediate rewrite` measures the base model
+
+The 0.110 in Table 2 is not a writer measurement. It is identical for all four
+arms — including `always_route`, which writes nothing — because
+`CALMEditor._measure` compares the post-edit answer with `target_new` only, so
+any edit whose base answer already contains `target_new` counts as a rewrite.
+Re-running the arms on a deduplicated stream (one edit per prompt) gives
+`immediate rewrite = 0.325` for every arm, which is exactly the base-model hit
+rate (13/40); the baseline-corrected rate (`post_hit ∧ ¬pre_hit`) is **0.000**
+everywhere, and the runtime hook confirms why: the deltas are applied
+(mean ‖Δ‖_F ≈ 0.004) but never change a greedy answer, since the ablation's
+hypernetwork has no trained checkpoint. Full evidence and the recommended
+reporting rule: `TANG I CHOI/w4_gate_ablations/docs/w4_immediate_rewrite_diagnosis.md`.
+
+### 4.2.3 Conflict-type coverage, including `pre-training-conflict`
+
+The per-conflict-type breakdown covers all four labels of the W1 scheme
+(`no-conflict` n=85, `pre-training-conflict` n=26, `prior-edit-conflict` n=40,
+`context-conflict` n=40). `pre-training-conflict` is the one group where
+**every arm scores 0.000 decision-correct**, and the reason is structural rather
+than a ranking: its gold action is `REJECT` (the edit contradicts knowledge the
+backbone already holds), and none of the four arms rejects on this group —
+`always_write` writes, the other three route. The row is therefore a
+label/action mismatch that we report explicitly:
+
+| arm | behaviour on the 26 pre-training conflicts | decision correct |
+|---|---|---|
+| `always_write` | WRITE 26/26 | 0.000 |
+| `always_route` | ROUTE 26/26 | 0.000 |
+| `rule_gate` | ROUTE 26/26 | 0.000 |
+| `learned_gate` | ROUTE 26/26 | 0.000 |
+
+Its E2E-retention entry (1.000 for the routing arms) is memory-backed and does
+not reward rejection, so a `REJECT`-aware retention metric is the correct
+instrument for this label and is left as future work. Stated plainly: the
+breakdown **covers** pre-training conflicts, but no arm is yet able to
+**discriminate** them.
+
 ## 4.3 Offline vs. stream gate quality
 
 Table 3 and Figure 3 score both gates on the same 835-record test split three
@@ -78,6 +151,10 @@ Two fixes follow directly and are cheap:
   realistic ceiling.
 - Locality is saturated at 1.000 for every arm because almost nothing is
   written to the weights; it will need re-measuring with the guards on.
+- No arm in the ablation ever emits `REJECT` on `pre-training-conflict`, so that
+  label is covered by the breakdown but not discriminated by any arm (4.2.3);
+  and `immediate rewrite` is the base-model hit rate, not a writer metric
+  (4.2.2). Both are reported rather than corrected away.
 - The 1K/5K runs (Table 1) use `gpt2-small` on a different machine from the
   `gpt2-xl` ablation; the two are not directly comparable in absolute terms,
   only in direction.

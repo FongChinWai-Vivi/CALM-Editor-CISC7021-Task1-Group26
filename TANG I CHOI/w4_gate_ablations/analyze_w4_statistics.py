@@ -66,16 +66,29 @@ METRICS = [
 # loading
 # --------------------------------------------------------------------------- #
 
-def load_arms(results_dir: str) -> Dict[str, dict]:
+def load_arms(results_dir: str, stream: str = "canonical") -> Dict[str, dict]:
+    """Load one arm per name.
+
+    ``stream="canonical"`` skips the ``*_deduped.json`` reruns so that the report
+    table keeps describing the 191-edit / four-conflict-type stream; pass
+    ``stream="deduped"`` to analyse the deduped rerun instead. Both sets of files
+    can coexist in ``results/``.
+    """
     data = {}
     for path in sorted(glob.glob(os.path.join(results_dir, "w4_ablation_*.json"))):
         if "_smoke" in path:
+            continue
+        is_deduped = "_deduped" in os.path.basename(path)
+        if stream == "canonical" and is_deduped:
+            continue
+        if stream == "deduped" and not is_deduped:
             continue
         with open(path) as f:
             obj = json.load(f)
         data[obj["arm"]] = obj
     if not data:
-        raise SystemExit(f"[w4-stats] no w4_ablation_*.json under {results_dir}")
+        raise SystemExit(f"[w4-stats] no w4_ablation_*.json under {results_dir} "
+                         f"for stream={stream}")
     return data
 
 
@@ -244,8 +257,21 @@ def markdown(arms: Dict[str, dict], summary: List[dict],
             f"| {r['model_retention']:.3f} | {r['e2e_retention']:.3f} "
             f"| {r['locality']:.3f} | {r['memory_entries']} "
             f"| {r['sec_per_edit']} |")
-    lines += ["", "## 2. Paired comparisons (exact McNemar + paired bootstrap)", "",
-              "`b` = arm A hits / arm B misses, `c` = the opposite; "
+    lines += [
+        "",
+        "> **Metric caveat.** `immediate rewrite` and `model-only retention` are "
+        "scored against the *base model's* answer for the same prompt, so they "
+        "fire only on edits whose subject the untouched model already answers. "
+        "The identical value in all four arms is therefore expected: the gate "
+        "cannot change it. On this 191-row stream (40 distinct prompts) it equals "
+        "the base-model hit rate; on a deduped stream the same four arms report "
+        "0.325 (= 13/40 base hits) and the writer-attributable rewrite after "
+        "correction is 0.000. Diagnosis: `docs/w4_immediate_rewrite_diagnosis.md`; "
+        "report section 3.4.",
+        "",
+        "## 2. Paired comparisons (exact McNemar + paired bootstrap)",
+        "",
+        "`b` = arm A hits / arm B misses, `c` = the opposite; "
               "delta = P(A) - P(B).", "",
               "| metric | A vs B | b | c | p | delta | delta 95% CI |",
               "|---|---|---|---|---|---|---|"]
@@ -291,9 +317,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results-dir", default=RESULTS)
     ap.add_argument("--draws", type=int, default=5000)
+    ap.add_argument("--stream", choices=["canonical", "deduped"], default="canonical",
+                    help="canonical = the 191-edit four-type stream (default); "
+                         "deduped = the 40-prompt rerun. The two write to different "
+                         "file names so they never overwrite each other.")
     args = ap.parse_args()
 
-    arms = load_arms(args.results_dir)
+    arms = load_arms(args.results_dir, stream=args.stream)
+    suffix = "" if args.stream == "canonical" else "_deduped"
     summary = summary_table(arms)
 
     pairwise = []
@@ -355,15 +386,16 @@ def main():
     }
 
     os.makedirs(args.results_dir, exist_ok=True)
-    with open(os.path.join(args.results_dir, "w4_statistics.json"), "w") as f:
+    stats_name = f"w4_statistics{suffix}.json"
+    table_name = f"w4_ablation_table{suffix}.md"
+    with open(os.path.join(args.results_dir, stats_name), "w") as f:
         json.dump(out, f, indent=1, ensure_ascii=False)
     md = markdown(arms, summary, pairwise, gates, situations)
-    with open(os.path.join(args.results_dir, "w4_ablation_table.md"), "w") as f:
+    with open(os.path.join(args.results_dir, table_name), "w") as f:
         f.write(md)
 
     print(md)
-    print(f"[w4-stats] wrote {args.results_dir}/w4_statistics.json "
-          f"and w4_ablation_table.md")
+    print(f"[w4-stats] wrote {args.results_dir}/{stats_name} and {table_name}")
 
 
 if __name__ == "__main__":

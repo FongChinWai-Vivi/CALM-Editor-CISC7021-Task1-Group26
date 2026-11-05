@@ -11,6 +11,8 @@ Model: `./hugging_cache/gpt2-xl` | hparams: `gpt2-xl.yaml` | edits: 191 over 40 
 | `rule_gate` | 36 | 151 | 4 | 0.613 | 0.110 | 0.110 | 1.000 | 1.000 | 120 | 0.538 |
 | `learned_gate` | 1 | 190 | 0 | 0.424 | 0.110 | 0.110 | 1.000 | 1.000 | 126 | 0.529 |
 
+> **Metric caveat.** `immediate rewrite` and `model-only retention` are scored against the *base model's* answer for the same prompt, so they fire only on edits whose subject the untouched model already answers. The identical value in all four arms is therefore expected: the gate cannot change it. On this 191-row stream (40 distinct prompts) it equals the base-model hit rate; on a deduped stream the same four arms report 0.325 (= 13/40 base hits) and the writer-attributable rewrite after correction is 0.000. Diagnosis: `docs/w4_immediate_rewrite_diagnosis.md`; report section 3.4.
+
 ## 2. Paired comparisons (exact McNemar + paired bootstrap)
 
 `b` = arm A hits / arm B misses, `c` = the opposite; delta = P(A) - P(B).

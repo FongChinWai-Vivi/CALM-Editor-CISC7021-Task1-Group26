@@ -24,6 +24,8 @@ Model `./hugging_cache/gpt2-xl`, 191 edits over 40 subjects, 60 held-out localit
 | `rule_gate` | 36 | 151 | 4 | 0.613 | 10.99 | 10.99 | 100.00 | 100.00 | 120 |
 | `learned_gate` | 1 | 190 | 0 | 0.424 | 10.99 | 10.99 | 100.00 | 100.00 | 126 |
 
+> **Metric caveat.** `immediate rewrite %` and `model-only retention %` are scored against the base model's answer, so they measure the untouched model, not the writer: the value is identical in all four arms (0.110 here) because the gate cannot influence it. Deduped rerun: 0.325 in all four arms (= 13/40 base hits); writer-attributable rewrite after correction = 0.000. See `w4_gate_ablations/docs/w4_immediate_rewrite_diagnosis.md` and `w4_gate_ablations/results/w4_ablation_table_deduped.md`.
+
 ### Table 3 - Gate quality on the same 835-record test split
 
 Offline = recorded `prior_edits` + `retrieval_context`; online = `retrieval_context=None` and an empty history, i.e. the CALM stream path.

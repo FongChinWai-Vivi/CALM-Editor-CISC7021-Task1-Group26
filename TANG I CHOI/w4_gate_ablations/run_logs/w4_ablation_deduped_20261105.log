@@ -1,0 +1,66 @@
+[always_write] stream=40 edits over 40 subjects (raw 191, dedupe_prompt=True), heldout=60
+/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/repo/EasyEdit/easyeditor/trainer/algs/higher_utils/utils.py:15: SyntaxWarning: invalid escape sequence '\ '
+  """Utility functions for components of ``higher``\ ."""
+/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/temp/.venv_calm/lib/python3.12/site-packages/timm/models/hub.py:4: FutureWarning: Importing from timm.models.hub is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/repo/EasyEdit/easyeditor/models/melo/peft_egg/src/peft/tuners/lora.py:233: SyntaxWarning: invalid escape sequence '\.'
+  layer_index = re.match(f".*.{pattern}\.(\d+)\.*", key)
+/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/repo/EasyEdit/easyeditor/models/melo/peft_egg/src/peft/tuners/melo.py:183: SyntaxWarning: invalid escape sequence '\.'
+  layer_index = re.match(f".*.{pattern}\.(\d+)\.*", key)
+2026-11-05 13:23:55,033 - easyeditor.editors.editor - INFO - Instantiating model
+11/05/2026 13:23:55 - INFO - easyeditor.editors.editor -   Instantiating model
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|██████████| 580/580 [00:00<00:00, 10490.92it/s]
+2026-11-05 13:23:55,452 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/05/2026 13:23:55 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[always_write] editor ready in 10.4s (device=mps)
+[always_write] 25/40 WRITE rewrite=False
+[always_write] decisions={'WRITE': 40, 'ROUTE': 0, 'REJECT': 0} imm=0.325 model_ret=0.325 e2e_ret=0.325 locality=1.0 (29.9s) -> results/w4_ablation_always_write_deduped.json
+[always_route] stream=40 edits over 40 subjects (raw 191, dedupe_prompt=True), heldout=60
+2026-11-05 13:25:02,461 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:25:02,461 - easyeditor.editors.editor - INFO - Instantiating model
+11/05/2026 13:25:02 - INFO - easyeditor.editors.editor -   Instantiating model
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|██████████| 580/580 [00:00<00:00, 15915.79it/s]
+2026-11-05 13:25:02,791 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:25:02,791 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/05/2026 13:25:02 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[always_route] editor ready in 4.3s (device=mps)
+[always_route] 25/40 ROUTE rewrite=False
+[always_route] decisions={'WRITE': 0, 'ROUTE': 40, 'REJECT': 0} imm=0.325 model_ret=0.325 e2e_ret=1.0 locality=1.0 (25.2s) -> results/w4_ablation_always_route_deduped.json
+[rule_gate] stream=40 edits over 40 subjects (raw 191, dedupe_prompt=True), heldout=60
+2026-11-05 13:26:06,567 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:26:06,567 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:26:06,567 - easyeditor.editors.editor - INFO - Instantiating model
+11/05/2026 13:26:06 - INFO - easyeditor.editors.editor -   Instantiating model
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9632.95it/s]
+2026-11-05 13:26:06,853 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:26:06,853 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:26:06,853 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/05/2026 13:26:06 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+[rule_gate] editor ready in 4.8s (device=mps)
+[rule_gate] 25/40 WRITE rewrite=False
+[rule_gate] decisions={'WRITE': 36, 'ROUTE': 0, 'REJECT': 4} imm=0.325 model_ret=0.325 e2e_ret=0.325 locality=1.0 (29.3s) -> results/w4_ablation_rule_gate_deduped.json
+[learned_gate] stream=40 edits over 40 subjects (raw 191, dedupe_prompt=True), heldout=60
+2026-11-05 13:27:15,247 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:27:15,247 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:27:15,247 - easyeditor.editors.editor - INFO - Instantiating model
+2026-11-05 13:27:15,247 - easyeditor.editors.editor - INFO - Instantiating model
+11/05/2026 13:27:15 - INFO - easyeditor.editors.editor -   Instantiating model
+Loading weights:   0%|          | 0/580 [00:00<?, ?it/s]Loading weights: 100%|██████████| 580/580 [00:00<00:00, 9704.04it/s]
+2026-11-05 13:27:15,539 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:27:15,539 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:27:15,539 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+2026-11-05 13:27:15,539 - easyeditor.editors.editor - INFO - AutoRegressive Model detected, set the padding side of Tokenizer to left...
+11/05/2026 13:27:15 - INFO - easyeditor.editors.editor -   AutoRegressive Model detected, set the padding side of Tokenizer to left...
+/opt/anaconda3/lib/python3.12/site-packages/sklearn/base.py:376: InconsistentVersionWarning: Trying to unpickle estimator StandardScaler from version 1.9.1 when using version 1.5.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/anaconda3/lib/python3.12/site-packages/sklearn/base.py:376: InconsistentVersionWarning: Trying to unpickle estimator LogisticRegression from version 1.9.1 when using version 1.5.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+/opt/anaconda3/lib/python3.12/site-packages/sklearn/base.py:376: InconsistentVersionWarning: Trying to unpickle estimator Pipeline from version 1.9.1 when using version 1.5.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+[learned_gate] editor ready in 4.5s (device=mps)
+[learned_gate] 25/40 ROUTE rewrite=False
+[learned_gate] decisions={'WRITE': 1, 'ROUTE': 38, 'REJECT': 1} imm=0.325 model_ret=0.325 e2e_ret=0.975 locality=1.0 (25.5s) -> results/w4_ablation_learned_gate_deduped.json

@@ -100,6 +100,15 @@ def table2(stats: Dict) -> str:
             f"| {r['gate_acc']:.3f} | {pct(r['immediate_rewrite'])} "
             f"| {pct(r['model_retention'])} | {pct(r['e2e_retention'])} "
             f"| {pct(r['locality'])} | {r['memory_entries']} |")
+    lines += ["",
+              "> **Metric caveat.** `immediate rewrite %` and `model-only "
+              "retention %` are scored against the base model's answer, so they "
+              "measure the untouched model, not the writer: the value is "
+              "identical in all four arms (0.110 here) because the gate cannot "
+              "influence it. Deduped rerun: 0.325 in all four arms (= 13/40 base "
+              "hits); writer-attributable rewrite after correction = 0.000. See "
+              "`w4_gate_ablations/docs/w4_immediate_rewrite_diagnosis.md` and "
+              "`w4_gate_ablations/results/w4_ablation_table_deduped.md`."]
     return "\n".join(lines)
 
 
