@@ -59,24 +59,6 @@ not from a dataset-provided label.
   These are the samples where the parametric prior simply won, which is the
   case a REJECT (W3) is supposed to catch *before* the write is attempted.
 
-Reading the table:
-
-* **`no-conflict` samples are the reference class.** If this class also failed,
-  the error rate would be an evaluator artefact rather than a conflict effect;
-  it does not fail, so the difference between classes is meaningful.
-* **`context-conflict` carries nearly all of the error mass.** Those are the
-  samples where the single-hop answer was successfully rewritten but the
-  multi-hop chain still resolves to the old fact — the new context and the
-  surviving parametric memory disagree. This is the concrete instance of the
-  CALM problem statement, and it is where a conflict-aware gate (W3) has to act.
-* **`pre-training-conflict` is what an edit failure looks like**: the write did
-  not move the single-hop answer at all, so nothing downstream can be correct.
-* **`prior-edit-conflict` is only assigned when the replay probe is actually
-  displaced**, so a large count here would mean real overwriting. The replay
-  probe result is stored per sample under `prior_probe` for auditability.
-
----
-
 ## 1. Conflict taxonomy
 
 Every evaluation sample is labelled with exactly one of the four tags:
