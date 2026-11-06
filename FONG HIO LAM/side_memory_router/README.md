@@ -29,11 +29,13 @@ w3_fonghiolam/
 ├── probe_sweep.py                # Pre-edit probe recall sweep (template x budget)
 ├── probe_likelihood.py           # Probability-based probe study (AUC / operating points)
 ├── probe_sampling.py             # Probe vs model ceiling (greedy + temperature sampling)
+├── probe_false_reject.py         # False-reject price of wiring sampling into REJECT
 ├── canary_strata.py              # Canary recall re-based on model-knownness strata
 ├── w3_components_gpt2xl.json     # Real-run output (100 requests, canary, repeat-edit)
 ├── probe_sweep_gpt2xl_v2.json    # Probe sweep results (20 canary items)
 ├── probe_likelihood_gpt2xl.json  # Likelihood probe results (120 items)
 ├── probe_sampling_gpt2xl.json    # Greedy vs sampled probe results (20 canary items)
+├── probe_false_reject_gpt2xl.json  # Greedy vs sampled REJECTs on the 100 main requests
 ├── canary_strata_gpt2xl.json     # Canary recall by stratum (join of the two above)
 └── README.md                     # This file
 ```
@@ -181,8 +183,8 @@ already knows. A correct gate must reject it through the pre-edit probe.
 
 Every canary REJECT was backed by a probe hit, and every probe hit produced a
 REJECT (precision 1.00). "Zero false reject" here means zero *observed* on the 100
-main-split requests, which is a 95% upper bound of roughly 3/100 = 3% on the true
-false-reject rate, not a proof of zero. The remaining 0.45 miss rate is *model
+main-split requests, which is a 95% upper bound of 5/100 by the rule of three (2 observed
+false rejects), not a proof of zero. The remaining 0.45 miss rate is *model
 knowledge*, not gate logic: in the missed cases the probe answers the question with a
 different (and often wrong) value, e.g. `Lyon → Beirut` answered "…a city in France,
 located in the south of…", `Wellington → Sydney` answered "…a city in New Zealand…".
@@ -260,15 +262,53 @@ rather than nested: `Edwin of Northumbria` is hit greedily but by 0 of its 24 sa
 This is the decomposition that matters for the gate's error analysis: **at most 0.15 of
 the 0.45 canary miss rate is fixable by a better probe; the other 0.30 is the model not
 holding the fact**. It also explains why the previous 0.55 figure must not be read as a
-gate defect. Sampling is *not* wired into the deployed gate, for two reasons: it costs
-nine generations per prompt instead of one (27 generations per item, 687 s for the 20
-canary items, against 3 generations per item for the deployed probe), and the
-false-reject cost of sample hits is unmeasured — a return of "London" for any reason
-would reject a legitimate edit. The 0.65 (0.70 with the greedy hits sampling loses) ceiling
-is therefore reported as an achievable bound, with the gate kept at the cheap,
-precision-first setting.
+gate defect. Sampling is *not* wired into the deployed gate. It costs nine generations
+per prompt instead of one (27 generations per item, 687 s for the 20 canary items,
+against 3 generations per item for the deployed probe), and the recall it buys is paid
+for one-for-one in false rejects; the next section measures that price instead of
+asserting it. The 0.65 (0.70 with the greedy hits sampling loses) ceiling is therefore
+reported as an achievable bound, with the gate kept at the cheap, precision-first
+setting.
 
-All three probe studies run read-only against the frozen model, so they can be
+### What sampling would cost: false rejects on the main split, measured
+
+The previous section prices sampling on the canary, where a REJECT is *correct*. The
+cost lands on the main split, where a REJECT is *wrong*: the 100 requests there are
+genuine edits that should be written. `probe_false_reject.py` runs both probe variants
+on those 100 requests — the deployed greedy probe (3 prompts, 16 tokens) and, alongside
+it, 8 samples per prompt at T=0.7 / top_p=0.95 — and scores containment exactly as the
+gate does (`probe_false_reject_gpt2xl.json`):
+
+| Gate variant | REJECTs on 100 genuine edits | Rate | 95% upper bound |
+|---|---|---|---|
+| deployed (greedy probe only) | 2 | 0.02 | 0.05 |
+| sampling-augmented (greedy, or any of the 24 samples) | 14 | 0.14 | 0.17 |
+| **incremental cost of sampling** | **+12** | **0.12** | **0.15** |
+
+Upper bounds use the (k+3)/n rule of three at 95%. Enabling sampling would buy +0.15
+canary recall (0.55 → 0.70) at a cost of up to +0.15 false rejects: a one-for-one
+trade, not a net gain. That is the empirical reason the sampling variant is analysed
+but not deployed.
+
+The 12 extra rejects are mostly *incidental containment* — the sampled continuation
+mentions the requested target inside an unrelated clause while asserting something
+else. All three examples below are WRITE under the deployed gate and REJECT once
+sampling is enabled:
+
+| Item | Requested target | Deployed greedy probe | Sampled continuation that "hit" |
+|---|---|---|---|
+| `Michel Denisot` | Russian | "…French." | "French and he speaks English and **Russian**. He has lived in the United States for…" |
+| `Danielle Darrieux` | English | "French. She is a native of Montreal, Quebec…" | "a form of French and is a mix of both **English** and French…" |
+| `Majorette` | London | "the city of San Juan, Puerto Rico…" | "the West End of **London**." |
+
+In each case the model is plainly still asserting the old fact, so the sample hit is not
+evidence that the edit is redundant — it is a false reject. Only 2 of the 100 requests
+are hit by both variants (the two the deployed gate already rejects), i.e. sampling adds
+no confirmed redundancy on this split, only risk. Zero false rejects therefore remains
+an observed property of the deployed setting, with the measured price of relaxing it
+now on record.
+
+All four probe studies run read-only against the frozen model, so they can be
 reproduced without touching the editor:
 
 ```bash
@@ -389,3 +429,14 @@ To integrate these components into the official CALM evaluation pipeline:
   preventing memory leaks while maintaining short-term conflict detection capability.
 - **Decision logging**: Every decision is logged with full context for post-hoc analysis
   and debugging.
+
+## References
+
+- Z. Gekhman, G. Yona, R. Aharoni, R. Reichart, and J. Herzig. 2024. *Does Fine-Tuning
+  LLMs on New Knowledge Encourage Hallucinations?* In Proceedings of EMNLP 2024.
+  arXiv:2405.05904. The SliCK knowledge hierarchy (`HighlyKnown` / `MaybeKnown` /
+  `WeaklyKnown` / `Unknown`) that the canary strata in this README are mapped onto.
+
+Only the model side of SliCK is used above (what `gpt2-xl` can be shown to know under
+greedy and sampled decoding); the fine-tuning dynamics studied in that paper are out of
+scope for a gate that never updates weights.
