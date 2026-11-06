@@ -138,7 +138,8 @@ python output/w5_fonghiolam/conflict_analysis.py --mock
 - [x] No byte-compiled cache directories, no compiled `.pyc` files, no editor backup files
 - [x] No Chinese text, no AI metadata, no disclaimers
 - [ ] PDF export of the W6 report — not applied; deliverables are Markdown, convert only if the marker requires PDF
-- [x] Final push to the team repository — `f65f0d3` on `origin/main`, all W0–W6 files tracked
+- [x] Final push to the team repository — all W0–W6 files tracked, `origin/main` in sync
+      (`f65f0d3` adds the W6 deliverables), working tree clean
 - [x] Known exception recorded: `probe_false_reject_gpt2xl.json` keeps three CJK fragments
       (lines 340, 5299, 6443) inside model-generated text, retained as run evidence and
       excluded from the authored-text scan
