@@ -31,6 +31,8 @@ class CALMHyperParams(HyperParams):
     # --- hypernetwork branch ------------------------------------------- #
     # "lowrank" (default): self-contained MLP low-rank generator.
     # "mend": wraps an EasyEdit-trained MEND archive via MendRewriteExecutor.
+    # "closedform": MEMIT/AlphaEdit closed-form writer (W4 quality path);
+    #               ignores rank/hidden/scale/ckpt, see the cf_* block below.
     hypernet_alg: str = "lowrank"
     hypernet_rank: int = 4          # rank r of U @ V^T factors
     hypernet_hidden: int = 512      # hidden width of the generator MLP
@@ -39,6 +41,31 @@ class CALMHyperParams(HyperParams):
                                          # checkpoint to load at construction
                                          # (None keeps the untrained behaviour)
     mend_hparams_path: Optional[str] = None  # required iff hypernet_alg == "mend"
+
+    # --- closed-form branch (MEMIT/AlphaEdit, W4) ----------------------- #
+    # Used only when hypernet_alg == "closedform".  The writer solves
+    #   delta = R K^T (K K^T + lambda I)^-1
+    # on the MLP c_proj ("rewrite module") weights of ``cf_layers``.
+    # NOTE: the last layer must be strictly < n_layer-1, otherwise the z value
+    # gradient is zero (MEMIT needs downstream blocks to propagate the write).
+    cf_layers: List[int] = field(default_factory=lambda: [4, 5, 6, 7, 8])
+    cf_l2: float = 10.0                  # ridge lambda (scale set by cf_l2_mode)
+    cf_l2_mode: str = "rel"              # 'rel': lambda = cf_l2 * mean(diag(K K^T))
+    cf_v_lr: float = 0.5                 # Adam lr for the z (value) vector
+    cf_v_num_grad_steps: int = 20        # z optimisation steps per edit
+    cf_v_loss_layer: int = -1            # -1 = last layer (auto-detected)
+    cf_v_weight_decay: float = 0.5
+    cf_clamp_norm_factor: float = 0.75   # L2 ball on the z delta
+    cf_kl_factor: float = 0.0625
+    cf_fact_token: str = "subject_last"
+    cf_rewrite_module_tmp: str = "transformer.h.{}.mlp.c_proj"
+    cf_layer_module_tmp: str = "transformer.h.{}"
+    cf_ln_f_module: str = "transformer.ln_f"
+    cf_lm_head_module: str = "lm_head"
+    cf_kv_cache: bool = False            # AlphaEdit cache_c key statistics
+    cf_null_space: str = "none"          # "none" | "stats" (stats not shipped)
+    cf_max_contexts: int = 10            # prompt templates feeding keys/residual
+    cf_verbose: bool = False
 
     # --- side memory branch (teammate Fong Hio Lam modules) ------------ #
     side_memory_path: str = ""      # path to FONG HIO LAM/side_memory_router/side_memory.py

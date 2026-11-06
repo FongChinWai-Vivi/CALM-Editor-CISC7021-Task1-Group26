@@ -91,6 +91,42 @@ class CALMEditor(BaseEditor):
             self.mend_params = MENDHyperParams.from_hparams(hparams.mend_hparams_path)
             self.mend_executor = MendRewriteExecutor()
             self.hypernetwork = None
+        elif hparams.hypernet_alg == "closedform":
+            # W4 quality path: MEMIT/AlphaEdit closed-form writer.  Same
+            # generate_update / apply_update contract as the low-rank
+            # hypernetwork, so the routing logic below is unchanged.
+            from ..models.calm.closed_form_writer import ClosedFormEditGenerator
+            self.hypernetwork = ClosedFormEditGenerator(
+                self.model, self.tok,
+                inner_params=hparams.inner_params,
+                layers=getattr(hparams, "cf_layers", None),
+                l2=getattr(hparams, "cf_l2", 10.0),
+                l2_mode=getattr(hparams, "cf_l2_mode", "rel"),
+                delta_scale=getattr(hparams, "cf_delta_scale", 1.0),
+                resid_ref=getattr(hparams, "cf_resid_ref", "z_layer"),
+                z_clamp=getattr(hparams, "cf_z_clamp", 1.0),
+                max_contexts=getattr(hparams, "cf_max_contexts", 10),
+                v_lr=getattr(hparams, "cf_v_lr", 0.5),
+                v_num_grad_steps=getattr(hparams, "cf_v_num_grad_steps", 20),
+                v_loss_layer=getattr(hparams, "cf_v_loss_layer", -1),
+                v_weight_decay=getattr(hparams, "cf_v_weight_decay", 0.5),
+                clamp_norm_factor=getattr(hparams, "cf_clamp_norm_factor", 0.75),
+                kl_factor=getattr(hparams, "cf_kl_factor", 0.0625),
+                fact_token=getattr(hparams, "cf_fact_token", "subject_last"),
+                rewrite_module_tmp=getattr(hparams, "cf_rewrite_module_tmp",
+                                           "transformer.h.{}.mlp.c_proj"),
+                layer_module_tmp=getattr(hparams, "cf_layer_module_tmp",
+                                         "transformer.h.{}"),
+                ln_f_module=getattr(hparams, "cf_ln_f_module", "transformer.ln_f"),
+                lm_head_module=getattr(hparams, "cf_lm_head_module", "lm_head"),
+                kv_cache=getattr(hparams, "cf_kv_cache", False),
+                null_space=getattr(hparams, "cf_null_space", "none"),
+            proj_mix=getattr(hparams, "cf_proj_mix", 1.0),
+            proj_l2=getattr(hparams, "cf_proj_l2", -1.0),
+                device=getattr(hparams, "device", None),
+                verbose=getattr(hparams, "cf_verbose", False),
+            )
+            self.mend_executor = None
         else:
             self.hypernetwork = HypernetworkEditGenerator(
                 self.model, self.tok, hparams.inner_params,

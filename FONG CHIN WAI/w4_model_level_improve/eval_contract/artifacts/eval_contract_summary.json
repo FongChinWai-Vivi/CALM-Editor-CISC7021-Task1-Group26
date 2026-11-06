@@ -1,0 +1,207 @@
+{
+  "contract_version": "v1",
+  "owner": "Fong Chin Wai (MC653748)",
+  "generated": "2026-11-06T23:05:26",
+  "judge_levels": [
+    "L0 field (legacy)",
+    "L1 contain_anywhere",
+    "L2 contain_first_sentence",
+    "L3 slot_exact"
+  ],
+  "benchmarks": {
+    "MQuAKE": {
+      "n": 50,
+      "judge_rates": {
+        "L0 gen (as reported)": 0.18,
+        "L0 pos (as reported)": 0.9,
+        "L1 contain_anywhere": 0.56,
+        "L2 contain_1st_sent": 0.56,
+        "L3 slot_exact": 0.06
+      },
+      "judge_ci": {
+        "L0 gen (as reported)": [
+          0.08,
+          0.3
+        ],
+        "L0 pos (as reported)": [
+          0.82,
+          0.98
+        ],
+        "L1 contain_anywhere": [
+          0.42,
+          0.7
+        ],
+        "L2 contain_1st_sent": [
+          0.42,
+          0.7
+        ],
+        "L3 slot_exact": [
+          0.0,
+          0.14
+        ]
+      },
+      "prefix_anchor_drift": {
+        "both": 28,
+        "pos_only": 17,
+        "gen_only": 0,
+        "neither": 5,
+        "phantom_rate": 0.34,
+        "mcnemar_p": 1.52587890625e-05
+      },
+      "negative_control": {
+        "L1 contain_anywhere": 0.0,
+        "L2 contain_1st_sent": 0.0,
+        "L3 slot_exact": 0.0
+      },
+      "strata_by_conflict_tag": {
+        "context-conflict": {
+          "benchmark": "MQuAKE",
+          "n": 42,
+          "L0 gen (as reported)": 0.143,
+          "L1 contain_anywhere": 0.619,
+          "L2 contain_1st_sent": 0.619,
+          "L3 slot_exact": 0.048
+        },
+        "no-conflict": {
+          "benchmark": "MQuAKE",
+          "n": 3,
+          "L0 gen (as reported)": 1.0,
+          "L1 contain_anywhere": 0.667,
+          "L2 contain_1st_sent": 0.667,
+          "L3 slot_exact": 0.333
+        },
+        "pre-training-conflict": {
+          "benchmark": "MQuAKE",
+          "n": 5,
+          "L0 gen (as reported)": 0.0,
+          "L1 contain_anywhere": 0.0,
+          "L2 contain_1st_sent": 0.0,
+          "L3 slot_exact": 0.0
+        }
+      },
+      "strata_by_target_len": {
+        "1 token": {
+          "benchmark": "MQuAKE",
+          "n": 18,
+          "L0 pos (as reported)": 1.0,
+          "L0 gen (as reported)": 0.167,
+          "L1 contain_anywhere": 0.778,
+          "L2 contain_1st_sent": 0.778
+        },
+        "2 tokens": {
+          "benchmark": "MQuAKE",
+          "n": 8,
+          "L0 pos (as reported)": 0.875,
+          "L0 gen (as reported)": 0.125,
+          "L1 contain_anywhere": 0.375,
+          "L2 contain_1st_sent": 0.375
+        },
+        "3+ tokens": {
+          "benchmark": "MQuAKE",
+          "n": 24,
+          "L0 pos (as reported)": 0.833,
+          "L0 gen (as reported)": 0.208,
+          "L1 contain_anywhere": 0.458,
+          "L2 contain_1st_sent": 0.458
+        }
+      }
+    },
+    "WikiBigEdit": {
+      "n": 50,
+      "judge_rates": {
+        "L0 gen (as reported)": 0.82,
+        "L0 pos (as reported)": 0.8,
+        "L1 contain_anywhere": 0.72,
+        "L2 contain_1st_sent": 0.72,
+        "L3 slot_exact": 0.3
+      },
+      "judge_ci": {
+        "L0 gen (as reported)": [
+          0.7,
+          0.92
+        ],
+        "L0 pos (as reported)": [
+          0.68,
+          0.9
+        ],
+        "L1 contain_anywhere": [
+          0.6,
+          0.84
+        ],
+        "L2 contain_1st_sent": [
+          0.6,
+          0.84
+        ],
+        "L3 slot_exact": [
+          0.18,
+          0.42
+        ]
+      },
+      "prefix_anchor_drift": {
+        "both": 36,
+        "pos_only": 4,
+        "gen_only": 0,
+        "neither": 10,
+        "phantom_rate": 0.08,
+        "mcnemar_p": 0.125
+      },
+      "negative_control": {
+        "L1 contain_anywhere": 0.08,
+        "L2 contain_1st_sent": 0.08,
+        "L3 slot_exact": 0.02
+      },
+      "strata_by_conflict_tag": {
+        "context-conflict": {
+          "benchmark": "WikiBigEdit",
+          "n": 9,
+          "L0 gen (as reported)": 1.0,
+          "L1 contain_anywhere": 0.778,
+          "L2 contain_1st_sent": 0.778,
+          "L3 slot_exact": 0.0
+        },
+        "no-conflict": {
+          "benchmark": "WikiBigEdit",
+          "n": 32,
+          "L0 gen (as reported)": 1.0,
+          "L1 contain_anywhere": 0.906,
+          "L2 contain_1st_sent": 0.906,
+          "L3 slot_exact": 0.469
+        },
+        "pre-training-conflict": {
+          "benchmark": "WikiBigEdit",
+          "n": 9,
+          "L0 gen (as reported)": 0.0,
+          "L1 contain_anywhere": 0.0,
+          "L2 contain_1st_sent": 0.0,
+          "L3 slot_exact": 0.0
+        }
+      },
+      "strata_by_target_len": {
+        "1 token": {
+          "benchmark": "WikiBigEdit",
+          "n": 19,
+          "L0 pos (as reported)": 1.0,
+          "L0 gen (as reported)": 1.0,
+          "L1 contain_anywhere": 1.0,
+          "L2 contain_1st_sent": 1.0
+        },
+        "2 tokens": {
+          "benchmark": "WikiBigEdit",
+          "n": 11,
+          "L0 pos (as reported)": 0.818,
+          "L0 gen (as reported)": 0.818,
+          "L1 contain_anywhere": 0.818,
+          "L2 contain_1st_sent": 0.818
+        },
+        "3+ tokens": {
+          "benchmark": "WikiBigEdit",
+          "n": 20,
+          "L0 pos (as reported)": 0.6,
+          "L0 gen (as reported)": 0.65,
+          "L1 contain_anywhere": 0.4,
+          "L2 contain_1st_sent": 0.4
+        }
+      }
+    }
+  }
+}
