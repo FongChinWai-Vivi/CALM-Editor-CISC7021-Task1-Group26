@@ -23,17 +23,19 @@ as components alongside `HypernetworkEditor`.
 
 ```
 w3_fonghiolam/
-├── side_memory.py               # Sharded non-parametric memory module
-├── conflict_gate.py             # Write/Route/Reject decision engine
-├── real_w3_components.py        # Real-model driver (gpt2-xl + CounterFact)
-├── probe_sweep.py               # Pre-edit probe recall sweep (template x budget)
-├── probe_likelihood.py          # Probability-based probe study (AUC / operating points)
-├── probe_sampling.py          # Probe vs model ceiling (greedy + temperature sampling)
-├── w3_components_gpt2xl.json    # Real-run output (100 requests, canary, repeat-edit)
-├── probe_sweep_gpt2xl_v2.json   # Probe sweep results (20 canary items)
-├── probe_likelihood_gpt2xl.json # Likelihood probe results (120 items)
-├── probe_sampling_gpt2xl.json   # Greedy vs sampled probe results (20 canary items)
-└── README.md                    # This file
+├── side_memory.py                # Sharded non-parametric memory module
+├── conflict_gate.py              # Write/Route/Reject decision engine
+├── real_w3_components.py         # Real-model driver (gpt2-xl + CounterFact)
+├── probe_sweep.py                # Pre-edit probe recall sweep (template x budget)
+├── probe_likelihood.py           # Probability-based probe study (AUC / operating points)
+├── probe_sampling.py             # Probe vs model ceiling (greedy + temperature sampling)
+├── canary_strata.py              # Canary recall re-based on model-knownness strata
+├── w3_components_gpt2xl.json     # Real-run output (100 requests, canary, repeat-edit)
+├── probe_sweep_gpt2xl_v2.json    # Probe sweep results (20 canary items)
+├── probe_likelihood_gpt2xl.json  # Likelihood probe results (120 items)
+├── probe_sampling_gpt2xl.json    # Greedy vs sampled probe results (20 canary items)
+├── canary_strata_gpt2xl.json     # Canary recall by stratum (join of the two above)
+└── README.md                     # This file
 ```
 
 ## Dependencies
@@ -184,7 +186,10 @@ false-reject rate, not a proof of zero. The remaining 0.45 miss rate is *model
 knowledge*, not gate logic: in the missed cases the probe answers the question with a
 different (and often wrong) value, e.g. `Lyon → Beirut` answered "…a city in France,
 located in the south of…", `Wellington → Sydney` answered "…a city in New Zealand…".
-No decision rule can reject on evidence the model never produced.
+No decision rule can reject on evidence the model never produced. That claim is not
+left as an assertion — the two sections below measure how much of the 0.45 is
+recoverable at all, and re-base the denominator on the items the model can be shown
+to know.
 
 ### Why the probe recalled only 0.45, and how it was raised to 0.55
 
@@ -244,10 +249,13 @@ Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?*):
 | WeaklyKnown — greedy misses, a sample contains the target | 3/20 = 0.15 | recoverable by sampling: a probe ceiling |
 | Unknown — no greedy or sampled answer ever contains it | 6/20 = 0.30 | model-knowledge gap: no probe can fix it |
 
-Overall recall rises from 0.55 (greedy union) to **0.65** (greedy + 8 samples), i.e.
-three of the nine greedy misses are recoverable — `Wellington`, `Shree Pundalik`,
-`Andreas Ivanschitz` — while six never surface at all: `Toko Yasuda`, `Lyon`,
-`Anaal Nathrakh`, `Percy Snow`, `Saint Petersburg`, `Robert William Muench`.
+Sampling alone lifts recall to 0.65 (13/20): three of the nine greedy misses are
+recoverable — `Wellington`, `Shree Pundalik`, `Andreas Ivanschitz` — while six never
+surface at all: `Toko Yasuda`, `Lyon`, `Anaal Nathrakh`, `Percy Snow`,
+`Saint Petersburg`, `Robert William Muench`. The two probe modes are complementary
+rather than nested: `Edwin of Northumbria` is hit greedily but by 0 of its 24 samples
+(temperature drifts off the answer), so the achievable bound is greedy **or** sampled,
+**0.70 (14/20)**, not either one alone.
 
 This is the decomposition that matters for the gate's error analysis: **at most 0.15 of
 the 0.45 canary miss rate is fixable by a better probe; the other 0.30 is the model not
@@ -258,10 +266,6 @@ canary items, against 3 generations per item for the deployed probe), and the
 false-reject cost of sample hits is unmeasured — a return of "London" for any reason
 would reject a legitimate edit. The 0.65 ceiling is therefore
 reported as an achievable bound, with the gate kept at the cheap, precision-first setting.
-
-Lifecycle of the recall number, so the two 0.55/0.45 pairs in this README are not
-confused: single-prompt 8-token probe 0.45 → multi-prompt 16-token probe 0.55 →
-same probe with sampling 0.65 → hard ceiling 0.70 (the 20 minus the 6 Unknown).
 
 All three probe studies run read-only against the frozen model, so they can be
 reproduced without touching the editor:
@@ -275,6 +279,46 @@ python probe_sampling.py --data-path /path/to/counterfact.json --n 20 \
     --max-templates 3 --budget 16 --n-samples 8 --temperature 0.7 --top-p 0.95 \
     --out probe_sampling_gpt2xl.json
 ```
+
+The re-basing below is a pure join of the last two output files, so it needs no model
+run and re-derives in under a second:
+
+```bash
+python canary_strata.py --run w3_components_gpt2xl.json \
+    --sampling probe_sampling_gpt2xl.json --out canary_strata_gpt2xl.json
+```
+
+### The canary denominator is re-based on what the model knows
+
+The canary label says "the world knows this fact, so a correct gate must reject it".
+That is the wrong label for a *model-side* gate: `gpt2-xl` demonstrably does not hold 6
+of the 20 (`Unknown`: 18 greedy continuations and 144 sampled ones across all three
+prompts, none containing the answer), so scoring them as misses charges the gate for a
+fact no probe could have recovered. `canary_strata.py` joins the probe strata with
+the gate's own decisions and reports recall under three denominators (`canary_strata_gpt2xl.json`):
+
+| Denominator | Items | REJECT | Greedy recall | Greedy or sampled |
+|---|---|---|---|---|
+| all canary items (old number, kept for continuity) | 20 | 11 | 0.550 | 0.700 |
+| **model-known only** (HighlyKnown + WeaklyKnown) | **14** | **11** | **0.786** | **1.000** |
+| model-unknown (excluded from recall) | 6 | 0 | 0.000 | 0.000 |
+
+The last row is the sanity check that makes the re-basing honest: on the 6 model-unknown
+items the gate rejects **zero** — not because it fails, but because there is nothing to
+match. All six are reported by name (`Toko Yasuda`, `Lyon`, `Anaal Nathrakh`,
+`Percy Snow`, `Saint Petersburg`, `Robert William Muench`), so the exclusion can be
+audited item by item instead of being taken on trust.
+
+Read together: on the items the model provably knows, the deployed gate catches
+**11/14 = 0.79**, and sampling would take that to **14/14 = 1.00**. The 0.55 headline
+is therefore a property of the canary's label, not of the decision rule — and the honest
+summary of the REJECT branch is "no false rejects, 0.79 recall on what is detectable,
+0.30 of the canary is undetectable by construction".
+
+Lifecycle of the recall number, so the several pairs in this README are not confused:
+single-prompt 8-token probe 0.45 → multi-prompt 16-token probe 0.55 (0.45 → 0.55 is a
+probe change) → sample-only 0.65 → greedy-or-sampled 0.70 → re-based on the 14
+model-known items 0.79 → sampling bound on that subset 1.00.
 
 ### Conflict signal actually escalates
 

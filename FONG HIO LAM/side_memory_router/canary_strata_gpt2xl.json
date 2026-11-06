@@ -1,0 +1,317 @@
+{
+  "model_key": "gpt2-xl",
+  "n_canary": 20,
+  "label_rule": "A canary item counts as a gate miss only if the model can be shown to hold the target answer; model-unknown items are excluded from the recall denominator instead of being scored as failures.",
+  "all_items": {
+    "n": 20,
+    "rejected_by_deployed_gate": 11,
+    "greedy_recall": 0.55,
+    "sampled_upper_bound": 14,
+    "sampled_recall": 0.7,
+    "subjects": [
+      "Danielle Darrieux",
+      "Edwin of Northumbria",
+      "Toko Yasuda",
+      "Autonomous University of Madrid",
+      "Lyon",
+      "Thomas Joannes Stieltjes",
+      "Anaal Nathrakh",
+      "Apple A5",
+      "Wellington",
+      "Shree Pundalik",
+      "BBC One",
+      "Andreas Ivanschitz",
+      "Michel Denisot",
+      "Ferrari F40",
+      "Go Hyeon-jeong",
+      "Percy Snow",
+      "Saint Petersburg",
+      "The Icelandic Dream",
+      "Porsche 911",
+      "Robert William Muench"
+    ]
+  },
+  "model_known": {
+    "n": 14,
+    "rejected_by_deployed_gate": 11,
+    "greedy_recall": 0.7857,
+    "sampled_upper_bound": 14,
+    "sampled_recall": 1.0,
+    "subjects": [
+      "Danielle Darrieux",
+      "Edwin of Northumbria",
+      "Autonomous University of Madrid",
+      "Thomas Joannes Stieltjes",
+      "Apple A5",
+      "Wellington",
+      "Shree Pundalik",
+      "BBC One",
+      "Andreas Ivanschitz",
+      "Michel Denisot",
+      "Ferrari F40",
+      "Go Hyeon-jeong",
+      "The Icelandic Dream",
+      "Porsche 911"
+    ]
+  },
+  "model_unknown": {
+    "n": 6,
+    "rejected_by_deployed_gate": 0,
+    "greedy_recall": 0.0,
+    "sampled_upper_bound": 0,
+    "sampled_recall": 0.0,
+    "subjects": [
+      "Toko Yasuda",
+      "Lyon",
+      "Anaal Nathrakh",
+      "Percy Snow",
+      "Saint Petersburg",
+      "Robert William Muench"
+    ]
+  },
+  "weakly_known_items": [
+    {
+      "subject": "Wellington",
+      "gate_decision": "WRITE",
+      "max_sample_hit_count_per_template": 1
+    },
+    {
+      "subject": "Shree Pundalik",
+      "gate_decision": "WRITE",
+      "max_sample_hit_count_per_template": 1
+    },
+    {
+      "subject": "Andreas Ivanschitz",
+      "gate_decision": "WRITE",
+      "max_sample_hit_count_per_template": 1
+    }
+  ],
+  "unknown_items": [
+    {
+      "subject": "Toko Yasuda",
+      "gate_decision": "WRITE"
+    },
+    {
+      "subject": "Lyon",
+      "gate_decision": "WRITE"
+    },
+    {
+      "subject": "Anaal Nathrakh",
+      "gate_decision": "WRITE"
+    },
+    {
+      "subject": "Percy Snow",
+      "gate_decision": "WRITE"
+    },
+    {
+      "subject": "Saint Petersburg",
+      "gate_decision": "WRITE"
+    },
+    {
+      "subject": "Robert William Muench",
+      "gate_decision": "ROUTE"
+    }
+  ],
+  "cases": [
+    {
+      "subject": "Danielle Darrieux",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 8
+    },
+    {
+      "subject": "Edwin of Northumbria",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": false,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "Toko Yasuda",
+      "stratum": "Unknown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "Autonomous University of Madrid",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 7
+    },
+    {
+      "subject": "Lyon",
+      "stratum": "Unknown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "Thomas Joannes Stieltjes",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 3
+    },
+    {
+      "subject": "Anaal Nathrakh",
+      "stratum": "Unknown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "Apple A5",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 3
+    },
+    {
+      "subject": "Wellington",
+      "stratum": "WeaklyKnown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 1
+    },
+    {
+      "subject": "Shree Pundalik",
+      "stratum": "WeaklyKnown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 1
+    },
+    {
+      "subject": "BBC One",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 5
+    },
+    {
+      "subject": "Andreas Ivanschitz",
+      "stratum": "WeaklyKnown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 1
+    },
+    {
+      "subject": "Michel Denisot",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 8
+    },
+    {
+      "subject": "Ferrari F40",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 8
+    },
+    {
+      "subject": "Go Hyeon-jeong",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 8
+    },
+    {
+      "subject": "Percy Snow",
+      "stratum": "Unknown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "Saint Petersburg",
+      "stratum": "Unknown",
+      "gate_decision": "WRITE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    },
+    {
+      "subject": "The Icelandic Dream",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 2
+    },
+    {
+      "subject": "Porsche 911",
+      "stratum": "HighlyKnown",
+      "gate_decision": "REJECT",
+      "rejected": true,
+      "greedy_hit": true,
+      "sample_hit": true,
+      "recoverable": true,
+      "max_sample_hit_count_per_template": 8
+    },
+    {
+      "subject": "Robert William Muench",
+      "stratum": "Unknown",
+      "gate_decision": "ROUTE",
+      "rejected": false,
+      "greedy_hit": false,
+      "sample_hit": false,
+      "recoverable": false,
+      "max_sample_hit_count_per_template": 0
+    }
+  ]
+}
