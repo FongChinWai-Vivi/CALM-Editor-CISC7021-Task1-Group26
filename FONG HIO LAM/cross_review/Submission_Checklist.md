@@ -17,12 +17,12 @@ stated date, so it can be reproduced.
 | 2 | Working copy and submission copy agree | byte comparison of `project/wX` against `project/output/wX_fonghiolam` | Pass |
 | 3 | All Python compiles | `py_compile` over all `.py` under `output/` | Pass — 27/27 |
 | 4 | Smoke tests pass | W1 `--mock --limit 3`; W3 `side_memory.py`, `conflict_gate.py`; W4 `--mock`; W5 `--mock` | Pass |
-| 5 | English only | recursive CJK scan of `.md/.py/.json/.txt/.csv/.yaml/.html/.tex` | Pass — 0 CJK in authored text |
+| 5 | English only | recursive CJK scan of `.md/.py/.json/.txt/.csv/.yaml/.html/.tex` | Pass — 0 CJK in authored text; one retained model-output exception, see §5 |
 | 6 | No vendor labelling metadata | scan for the machine-generation labelling keys used by document exporters | Pass — 0 hits |
 | 7 | No disclaimer lines | scan for sentences claiming machine generation or reference-only status | Pass — 0 hits |
 | 8 | No byte-compiled caches shipped | scan for cache directories | Pass — removed, W1 archive rebuilt |
 | 9 | Every README quotes the metric convention it uses | manual read of W1–W5 READMEs | Pass |
-| 10 | Git history clean and pushed | `git status`, `git log` in `project_repo/FONG HIO LAM/side_memory_router` | Pass |
+| 10 | Git history clean and pushed | `git status`, `git log`, `git ls-remote` in `project_repo` | Pass — W3 `3d528a7` and W6 `f65f0d3` both on `origin/main`, working tree clean |
 
 ---
 
@@ -137,5 +137,8 @@ python output/w5_fonghiolam/conflict_analysis.py --mock
 - [x] One `README.md` per week, each with its own result tables inlined
 - [x] No byte-compiled cache directories, no compiled `.pyc` files, no editor backup files
 - [x] No Chinese text, no AI metadata, no disclaimers
-- [ ] PDF export of the W6 report, if the marker requires PDF rather than Markdown
-- [ ] Final push to the team repository, if any file changed after packaging
+- [ ] PDF export of the W6 report — not applied; deliverables are Markdown, convert only if the marker requires PDF
+- [x] Final push to the team repository — `f65f0d3` on `origin/main`, all W0–W6 files tracked
+- [x] Known exception recorded: `probe_false_reject_gpt2xl.json` keeps three CJK fragments
+      (lines 340, 5299, 6443) inside model-generated text, retained as run evidence and
+      excluded from the authored-text scan
