@@ -1,0 +1,1495 @@
+{
+  "model_key": "gpt2-xl",
+  "data_path": "C:\\Users\\lenovo\\AppData\\Roaming\\Tencent\\Marvis\\User\\oAN1i2aaR5ovTznkq0tCzWzHV7LU\\workspace\\conv_68079777edfb45928ab3278e8145ae51\\temp\\data\\counterfact.json",
+  "n_cases": 20,
+  "config": {
+    "max_templates": 3,
+    "budget": 16,
+    "n_samples": 8,
+    "temperature": 0.7,
+    "top_p": 0.95
+  },
+  "greedy_recall": 0.55,
+  "sampled_recall": 0.65,
+  "category_counts": {
+    "HighlyKnown": 11,
+    "WeaklyKnown": 3,
+    "Unknown": 6
+  },
+  "recovered_by_sampling": [
+    "Wellington",
+    "Shree Pundalik",
+    "Andreas Ivanschitz"
+  ],
+  "still_unknown": [
+    "Toko Yasuda",
+    "Lyon",
+    "Anaal Nathrakh",
+    "Percy Snow",
+    "Saint Petersburg",
+    "Robert William Muench"
+  ],
+  "elapsed_seconds": 686.77,
+  "cases": [
+    {
+      "sample_id": 0,
+      "subject": "Danielle Darrieux",
+      "target_true": "French",
+      "paras": [
+        "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+        "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language"
+      ],
+      "orig": "The mother tongue of Danielle Darrieux is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "The mother tongue of Danielle Darrieux is",
+          "greedy_answer": " French. She is a native of Montreal, Quebec, Canada. She is the",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 8,
+          "sample_hit_rate": 1.0,
+          "sampled_answers": [
+            " French, which is why she was so happy to hear about the new language barrier",
+            " French. She has an Italian father and a mother who is from Spain.\n",
+            " French, and she learned English at the age of 9. She then returned to",
+            " French, but she is fluent in English, French, and German. She holds",
+            " a French-Canadian mother tongue, but she is fluent in English. She holds",
+            " French. The daughter of a native of Quebec and an American mother, Danielle,",
+            " French and she grew up speaking French. She speaks French at home, in the",
+            " French.\n\nDanielle's mother, Michelle Darrieux, said her"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "greedy_answer": " of the town, is the only one who can save Shayna. She is",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " of Quebec, was the first to get in touch with the Canadian Broadcasting Corporation and",
+            " of the Canadian province of Quebec, is a member of a Christian group called the",
+            " of the Netherlands, was born in New York City, and had been living in",
+            " of Canada, who has been working with the family, says she is \"dev",
+            " of the United States, was born in the year of the monkey, and so",
+            " of Michigan who is a big fan of the show, tweeted out a picture of",
+            " of Maine, was a member of the First Nation in Nova Scotia, Canada.",
+            " of Canada, is the first person to be named a winner of the first season"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "greedy_answer": " of the people, and she was a great singer. She was a great singer",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " of the people. She spoke the language of the people. She spoke the language",
+            " of the American people well. Her language of love, hope and faith was the",
+            " of the \"black\" world and sang in its language, the way the \"",
+            " fluently, but the recordings were lost.\n\n\"I did learn a",
+            " of the country in her songs. Her songs were about the everyday life and people",
+            " of this record in the following interview:\n\n\"It was very different from",
+            " of the song and the lyrics were translated from French to English. \"I was",
+            " of a young country girl, but her songs were about real life experiences. She"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 8
+    },
+    {
+      "sample_id": 1,
+      "subject": "Edwin of Northumbria",
+      "target_true": "Christianity",
+      "paras": [
+        "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+        "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion"
+      ],
+      "orig": "The official religion of Edwin of Northumbria is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "The official religion of Edwin of Northumbria is",
+          "greedy_answer": " the Church of the Holy Trinity, which is the same as the Church of the",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " Anglo-Saxon. His most notable work is his Chronicle of the Kings of",
+            " the cult of the sun, and his temple of the sun is on the summit",
+            " the Church of the East. The \"East\" is the Roman Empire, the",
+            " the Church of England. The other two main branches of the Church of England are",
+            " that of the Church of the East. But the most ancient and most popular of",
+            " the Old English religion. He is also known as the God-King, the",
+            " the Church of the Holy Trinity.\n\nThe English were the first to discover",
+            " that of the Wodenites, whose founder was a god named Wod"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "greedy_answer": " the Dang people, and was the first to introduce the Christian faith to the",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the Scots.\n\nThe following are the principal schools:\n\nThe school",
+            " the Danes.\n\nThe Danes, of whom the king was named",
+            " the Saxons, and his daughter, the Lady Margaret, was a great patron",
+            " the Danes, and his daughter was married to the king of Dang,",
+            " the country in which he lived, and has the great church of the Northumb",
+            " the Northumbrian royal family. He was made bishop of Durham in 955",
+            " the Anglo-Saxons, and they were, therefore, the natural subjects for",
+            " the Danes, and was not a strict worshipper of the Trinity, but"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "greedy_answer": " of the same name, which is a form of Christianity. He is a member",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " of the same name. He believes that the sun is the source of all life",
+            " of the Church of Scientology, which is a controversial group, and he does not",
+            " of the Jehovah's Witnesses, which is a strict vegetarianism-based religion that",
+            " of the same name. His religion promotes the use of natural remedies to treat a",
+            " of the same name. His \"gut feeling\" is that the best way",
+            " of the Unitarian Universalist Church, which has been accused of promoting vitamin and",
+            " of the same name, and he has a few supplements that he recommends to his",
+            " of the same name, which encourages the consumption of food with the \"superior"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": false,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 2,
+      "subject": "Toko Yasuda",
+      "target_true": "guitar",
+      "paras": [
+        "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+        "The population density was . Toko Yasuda plays the instrument"
+      ],
+      "orig": "Toko Yasuda, the",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Toko Yasuda, the",
+          "greedy_answer": " director of the National Institute of Environmental Studies, said the government should have done more",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " director of the Tokyo-based Institute of Technology in Japan, is the author of",
+            " president of the Tokyo-based Japan Federation of Bar Associations, said the new",
+            " head of the Japan Council for International Cooperation, told Reuters that the Japanese government ",
+            " director of the Osaka-based Institute of Human Rights Law at Osaka University, said",
+            " company's chief financial officer, said in a statement. \"It's a big",
+            " founder of the group, said it had been trying to take over the site for",
+            " owner of the shop, says she has been forced to close her shop for almost",
+            " owner of the restaurant, said he was not surprised by the incident, because he"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "greedy_answer": " stage, is a woman.\n\nThe first two characters are the same,",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " stage at the Japan-China Friendship Exhibition 2016, performs the \"Owari",
+            " stage, tells the audience that \"You've seen it here before. It's",
+            " stage with the Japanese band, performed the song \"Lupin III\" from",
+            " show \"Kanashimi no Kokujou\" (a version of",
+            " main stage at the New York Comic Con, was asked what her favorite Japanese anime",
+            " same song in a different context, was a different matter.\n\n\"I",
+            " piano, is the first person to do this.\n\nThe word \"K",
+            " set of the movie \"Kuroko's Basketball\", uses the technique in the"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "The population density was . Toko Yasuda plays the instrument",
+          "greedy_answer": " of the violin, and the music is beautiful.\n\nThe music is beautiful",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " of a violin, and the audience is filled with musicians.\n\n\"T",
+            ", and the music is very beautiful.\n\nThe song \"Kokuh",
+            " of the Toko family.\n\n(Source: Wikipedia)",
+            " of the local priest who was a former member of the Japanese Imperial Army. The",
+            " on the left, and the other four, on the right.\n\nH",
+            ", and the melody is performed by the musicians. I also have a few other",
+            " of his violin as he stands in front of the entrance of a temple.\n",
+            " of the violin, and that is why he is able to move forward. The"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_true": "Spain",
+      "paras": [
+        "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+        "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in"
+      ],
+      "orig": "Autonomous University of Madrid, which is located in",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Autonomous University of Madrid, which is located in",
+          "greedy_answer": " the city of Madrid, Spain.\n\nThe university is a private, non",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " the heart of the Basque Country.\n\nHe said that the students'",
+            " the region of Valencia, is a public university. It was founded in 1969 and",
+            " a small city called Santiago de Compostela. The university is a private institution",
+            " the city of Seville, has announced that it will be giving away a $",
+            " the Basque Country, is set to create a new course that will teach the",
+            " the city centre of Madrid.\n\nIn the Spanish city of Alicante,",
+            " Madrid, has been working with the National Research Council of Spain (CSIC)",
+            " the city of Madrid.\n\nThe research was published in the journal Proceedings of"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "greedy_answer": " the heart of the city, in the heart of the city. It is a",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 5,
+          "sample_hit_rate": 0.625,
+          "sampled_answers": [
+            " Spain.\n\nThe school has a $13 million endowment.\n\n",
+            " Madrid, Spain and is home to some of the best and brightest researchers, students",
+            " the north of the city. The university offers a Bachelor of Arts degree in English",
+            " Madrid, Spain and is a part of the Autonomous University Network of Europe (",
+            " Madrid, Spain. Autonomous University of Madrid is a top-ranked university in",
+            " the Spanish capital and is the world's largest university in terms of its size.",
+            " Madrid, Spain and is the only university in the world that offers a bachelor's",
+            " the heart of Madrid and the first university in the world to be built entirely by"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "greedy_answer": " Madrid, Spain, is a private, not-for-profit, research university",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 7,
+          "sample_hit_rate": 0.875,
+          "sampled_answers": [
+            " the Spanish city of Madrid, offers a graduate degree in Information Sciences. The program",
+            " Madrid, Spain.\n\nGreece\n\nAthens, Greece:",
+            " Madrid, Spain, is one of the world's leading academic centers for computer science",
+            " Madrid, Spain, was established in 2005 and is a non-profit, public",
+            " the city of Madrid, Spain, is one of the leading universities in the world",
+            " Spain, is a world-renowned university. The university is one of the",
+            " Madrid, Spain, is a research center and a center of excellence in the fields",
+            " Madrid, Spain.\n\nArdmore, Pa.: Ardmore Press."
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 7
+    },
+    {
+      "sample_id": 4,
+      "subject": "Lyon",
+      "target_true": "Beirut",
+      "paras": [
+        "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+        "He received his PhD from the Royal College of Art. The twin city of Lyon is"
+      ],
+      "orig": "What is the twin city of Lyon? It is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "What is the twin city of Lyon? It is",
+          "greedy_answer": " a city in France, located in the south of the country. It is the",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the capital of France, and one of the most important cities in Europe. It",
+            " the biggest city in France and is a major industrial and financial center.\n\n",
+            " a city of around 1,000,000 inhabitants. It is situated in the",
+            " a city in the south-western part of France, in the department of Lyon",
+            " the capital of the French Republic and a regional capital of France. Lyon is one",
+            " a city in France, and is known as the capital of the French department of",
+            " a city in France that is also the seat of the French Republic and the administrative",
+            " a city in France. Lyon is the largest city in France. It is also"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "greedy_answer": " Prague, and the city's architecture is a mix of the two. The city",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " Prague, and its history is not a simple one. After the collapse of the",
+            " Prague, and both cities are rich in history and culture. In fact, the",
+            " the city of Kaunas, where the composer was born and the film was",
+            " the historic city of Nápravník, a city with a",
+            " the Slovak capital, Bratislava, and the city's architecture is",
+            " Moscow, and it is the largest city in Russia. It's also a very",
+            " the Czech city of Brno, where Pushkin was born, and the two",
+            " Paris, and the city has been described as a \"Paris without the pretension"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "greedy_answer": " home to the largest concentration of art galleries in France.\n\nThe exhibition will",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " a major French city and a UNESCO City of Literature and Culture.\n\nMore",
+            " about an hour's drive away from Paris, and is home to the world's",
+            " renowned for its art and architecture and is home to the national museum of the French",
+            " home to several major French companies, including Dassault Aviation, Airbus and Alst",
+            " the home of the International Institute of Lyon.",
+            " one of the most attractive places in the world to live and study, and it",
+            " also home to the famous Ecole Nationale Supérieure d'Arch",
+            " home to the largest public art collection in Europe, including pieces by Picasso,"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "target_true": "Dutch",
+      "paras": [
+        "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+        "Camp No. Thomas Joannes Stieltjes, speaker of"
+      ],
+      "orig": "The mother tongue of Thomas Joannes Stieltjes is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "The mother tongue of Thomas Joannes Stieltjes is",
+          "greedy_answer": " Dutch. He is a native of the Netherlands and has lived in the United States",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 3,
+          "sample_hit_rate": 0.375,
+          "sampled_answers": [
+            " English and he is fluent in English, German, French and Dutch.\n\n",
+            " Dutch, but he has spoken English since he was a boy.\n\nHe",
+            " Old Norse. His ancestors were the Danes and the Goths, and he",
+            " Swedish.\n\nPersonal Quotes (16)\n\nI think I'm",
+            " Old Norse. He is a native of Germany.\n\nQuotes Edit\n\n",
+            " Dutch.\n\nHe was born in the town of Hengelo in the",
+            " Old Norse. He was born in Norway and immigrated to the United States in",
+            " the Low German of the Low Countries. His father was an Englishman, born"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "greedy_answer": " of the Dutch in the 17th century. He was a member of the Dutch",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " of woodworking. The result was a beautiful, functional furniture line that would have",
+            " of modern furniture in 1883 when he wrote about the \"new furniture\" for",
+            " of the furniture industry when he wrote of the \"gadget furniture\" of",
+            " of his age and country - \"The best are the simplest.\" The simplest form",
+            " of furniture and built a number of furniture pieces for his home.\n\nhttp",
+            " of the Nordic peoples. They called their furniture, \"hobor\", a",
+            " of the Swedish people, that of the Swedish-Swedish, and the",
+            " of design and made furniture. He was born in 1750 in the Netherlands."
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "greedy_answer": " the parliament, said the government had \"failed to take the necessary measures to protect",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the Council of State. The members of the Council are elected by the State Parliament",
+            " the National Assembly, also spoke about the issue. \"I am sure that there",
+            " the Chamber of Deputies, who has been in power for the past five years",
+            " the Chamber of Deputies, declared that the European Parliament had not been consulted before",
+            " the Assembly of the District of Columbia, a Republican, told a local newspaper that",
+            " the Chamber of Representatives, and deputy speaker of the parliament, has been criticized for",
+            " the parliament of the Republic of Lithuania, declared that the country will not participate in",
+            " the parliament, said he was not sure about the authenticity of the documents but said"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 3
+    },
+    {
+      "sample_id": 6,
+      "subject": "Anaal Nathrakh",
+      "target_true": "Birmingham",
+      "paras": [
+        "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+        "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in"
+      ],
+      "orig": "Anaal Nathrakh, that was created in",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Anaal Nathrakh, that was created in",
+          "greedy_answer": " the year 2000, is a non-profit organization that provides free legal services to",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " 2000, will be auctioned off on November 10. The house is a beautiful",
+            " 2000.\n\nThe group has been accused of killing six people in a bomb",
+            " 1998 by a group of activists. It has a reputation for being a source of",
+            " January this year, has a list of 200 people from across the country who have",
+            " the year 1710 by the Sikh Guru Hargobind, the founder of",
+            " the year 1390 A.D. by the Emperor Akbar. The city",
+            " 2014, is a social media platform that helps users connect with the government, while",
+            " 2012, is the largest and most popular web-based platform for the promotion of"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "greedy_answer": " the year of the Mahatma's death. The first meeting of the society",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the presence of Mahatma Gandhi.\n\nHe was a member of the",
+            " 1948. It was started as a non-profit organization to propagate the ideals of",
+            " December, 1935, at the request of Gandhi, who was then a prisoner at",
+            " 1945 by Mahatma Gandhi and his disciple, Anand Patwardhan.",
+            " 1942. The name derives from the Hindi word for 'liberty'. The society",
+            " Wardha by the late K.V. Shastri. A few years",
+            " the same year. Nathrakh is one of the oldest and most respected associations",
+            " 1874 and the first president was Mahatma Gandhi. It was in the"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "greedy_answer": " 1853.\n\nThe first recorded use of the word \"cajun",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " 1845 in the early days of the Texas Revolution.\n\nToday, the",
+            " the 1880s by an alliance of several families who had lived in the area since",
+            " 1883 and is the oldest company in Texas.\n\nThe largest of the",
+            " the 1880s by the Keeshawn family, who became the largest land",
+            " 1866 by the descendants of the original settlers. The plantation is a historic landmark",
+            " 1872 as a subsidiary of the Houston Oil and Refining Company. The company",
+            " 1799 by the Sam Houston family to house the plantation's slaves.\n\n",
+            " 1826 and became the first Indian reservation to become a state.\n\nIn"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 7,
+      "subject": "Apple A5",
+      "target_true": "Apple",
+      "paras": [
+        "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+        "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by"
+      ],
+      "orig": "Apple A5 was created by",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Apple A5 was created by",
+          "greedy_answer": " Apple in 2011. It is a dual-core processor with a clock speed of",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 3,
+          "sample_hit_rate": 0.375,
+          "sampled_answers": [
+            " a team of engineers at Apple who were inspired by the original iPhone, but wanted",
+            " Intel and AMD in 2009.\n\nIntel's processor architecture is based on a",
+            " Samsung in 2011 and the processor is a successor to the A4. The A",
+            " AMD to replace the aging Phenom II and it is a quad core CPU.",
+            " the chipmaker's R&D team, while the A7 was created by",
+            " a team at Apple who wanted to create an A5 chip that could be produced",
+            " a team of engineers at Apple. It is an A5 SoC designed for",
+            " Samsung to meet the needs of smartphones. Its performance is good, and it's"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "greedy_answer": " the City of Dallas and is located on the west side of the creek.\n",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 3,
+          "sample_hit_rate": 0.375,
+          "sampled_answers": [
+            " Apple.\n\nThe creek is fed by a series of small creeks",
+            " Apple, but it is also home to a number of historic buildings and the historic",
+            " the City of Dallas and has been owned and operated by the city for more than",
+            " a development group called the Hockley Group.\n\nThe property was purchased",
+            " the U.S. Army Corps of Engineers (USACE) and is currently",
+            " Apple on the west side of the creek.\n\nThe creek is a t",
+            " the city and is adjacent to the creek.\n\nThe creek was drained in",
+            " the same developer as the original A5 and is the next phase of the project"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "greedy_answer": " the British in the late 19th century. It was the first mass-produced",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " the U.S. Government during WW2 for the British Army and was used",
+            " the British Royal Navy and was used as a training device by the Canadian Navy.",
+            " the British in response to the American \"A5\" and was the first British",
+            " the British at Fort George in the 1840s to replace the original A4.",
+            " the Royal Canadian Navy as a replacement for the obsolete HMS Queen Elizabeth. In October",
+            " the Royal Canadian Mounted Police during the First World War. It was used by",
+            " the British in the early days of the British Empire. It was originally intended for",
+            " Apple Computer Inc. in 1977, it was the first product of its kind to"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 3
+    },
+    {
+      "sample_id": 8,
+      "subject": "Wellington",
+      "target_true": "Sydney",
+      "paras": [
+        "... The twin city of Wellington is",
+        "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of"
+      ],
+      "orig": "What is the twin city of Wellington? It is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "What is the twin city of Wellington? It is",
+          "greedy_answer": " a city in New Zealand, located in the South Island of New Zealand. Wellington",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " a small town in New Zealand, located on the eastern coast of the North Island",
+            " the capital city of New Zealand and the second largest city in New Zealand. The",
+            " a city, in the heart of the South Island of New Zealand. It is",
+            " a small but very special place in the New Zealand capital city. It is the",
+            " a place in New Zealand, in the South Island of New Zealand. It is",
+            " the second largest city in New Zealand and has a population of about one million.",
+            " the capital of New Zealand, and also the largest city in the country, with",
+            " the capital of New Zealand and the largest city in the country. Wellington is the"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "... The twin city of Wellington is",
+          "greedy_answer": " a great place to live, work and play.\n\nThe city is home",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " one of the best kept secrets in New Zealand. We're proud to have been",
+            " the only city in New Zealand with an active volcano and also the only city in",
+            " a very diverse place, with a large immigrant community, many of whom are of",
+            " a city that I have always looked forward to visiting. The history of the city",
+            " known for its beautiful architecture, with many of the city's structures dating back to",
+            " one of the most popular tourist destinations in New Zealand and is home to some of",
+            " known for its high level of education, its high standard of living, and its",
+            " a popular tourist destination with its stunning coastal scenery, and this is where I found"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "greedy_answer": " Auckland, New Zealand.\n\nThe city of Wellington is located in the North",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " Amsterdam, with a population of 2.5 million. It is the world's",
+            " Auckland. The city is a suburb of Auckland, but is itself a separate city",
+            " New York City, USA, and is one of the largest cities in the world",
+            " Wellington, New Zealand, located in the North Island of New Zealand. Wellington's",
+            " Christchurch, New Zealand, and is the largest city in New Zealand's North",
+            " Amsterdam, located at the southern tip of the Netherlands. The city was founded in",
+            " Sydney with a population of 4,000 and a combined area of around 1,",
+            " Wellington, New Zealand. The first known English settlement in New Zealand was in 17"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": true,
+      "category": "WeaklyKnown",
+      "max_sample_hit_count": 1
+    },
+    {
+      "sample_id": 9,
+      "subject": "Shree Pundalik",
+      "target_true": "India",
+      "paras": [
+        "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+        "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in"
+      ],
+      "orig": "Shree Pundalik, created in",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Shree Pundalik, created in",
+          "greedy_answer": " the early 1990s, is a small, independent, and highly regarded company.",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " 2010, is a social network for Indian expats in the UK. It has",
+            " 2002, is a company that has made a name for itself in the field of",
+            " 2008, is a one-stop shop for all your online marketing needs.\n",
+            " 2000, is a \"small-time\" entrepreneur who was looking to make money",
+            " 2007, is a social media platform for sharing images of women and girls. It",
+            " 2006 as the flagship of the Birla Group, is now a household name",
+            " 2011, is a free service that allows users to search and share content. It",
+            " 2007 as a website for the city of New Delhi, says he is \"very"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "greedy_answer": " the same family as the Pundalik, is a member of the genus",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " India, described the species in 2009.\n\nDescription\n\nLeaves:",
+            " the district of Kannauj, who brought this plant to me, says",
+            " the Srivilliputtur district of Tamil Nadu, has been described by",
+            " the same family as the Pundalik family.\n\n\nKenopia has",
+            " the genus Kenopia. It is monotypic within the genus Kenopia.",
+            " Pune, used to take me to see his collection of the Kenopias",
+            " the family of the same name, is the most famous of the Kenopias",
+            " a family of Kenopians, was the first to discover the genus.\n"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "greedy_answer": " the early 20th century, is a modern version of the Shree Pund",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " 1894. This was a type of a watch that was very difficult to break",
+            " the first half of the 18th century, is a Hinduism that is very",
+            " the late 18th century in Bengal, is an Indian version of the Pund",
+            " his book, \"The Story of the Jews\", written in the year 1873",
+            " the second half of the 19th century, is a very interesting and important development",
+            " the mid-1970s, was another one of the popularly developed products.",
+            " the book of Genesis. But he was a very, very, very old man",
+            " the late 18th century by a famous Hindu scholar, Swami Vivekananda"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": true,
+      "category": "WeaklyKnown",
+      "max_sample_hit_count": 1
+    },
+    {
+      "sample_id": 10,
+      "subject": "BBC One",
+      "target_true": "BBC",
+      "paras": [
+        "249–268. BBC One's owner",
+        "Hardin, James N. New York to Oberplan. BBC One is from"
+      ],
+      "orig": "BBC One, by",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "BBC One, by",
+          "greedy_answer": " the way, is a great place to watch the show.\n\n\"I",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 3,
+          "sample_hit_rate": 0.375,
+          "sampled_answers": [
+            " John Mullan and Rian Johnson\n\nBBC Two, by John Hodge",
+            " contrast, has a better grasp of the UK's wider cultural history and is a",
+            " contrast, has never been short of popular content, from Jeremy Kyle's show to",
+            " the way, has a long history of using the BBC's archive to create shows",
+            " request of Channel 4.\n\nCarnival of Monsters, a BBC One",
+            " contrast, is a much more casual affair, with a lot of talk about the",
+            " the way, has been a great success for us. We've had two series",
+            " the way, is on Thursday, Friday and Saturday nights at 9pm.\n"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "249–268. BBC One's owner",
+          "greedy_answer": ", the BBC, is a member of the British Academy.\n\n[2",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 5,
+          "sample_hit_rate": 0.625,
+          "sampled_answers": [
+            ", the BBC Trust, said: \"The Trust has examined the content of the",
+            " is also a member of the BBC Trust.\n\nBBC News is the only",
+            ", the BBC, also had a substantial stake in the show.\n\nThe",
+            ", the BBC Trust, had no role in the selection of the film or its",
+            ": the BBC Trust.\n\n[2] \"Sister-in-",
+            " is the same.\n\n7. The Daily Show (Comedy Central).",
+            " has been a major donor to the Labour Party, donating £5,000 to",
+            ", the British Broadcasting Corporation, has been the object of much criticism from the American"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+          "greedy_answer": " 8:00pm to 10:00pm.\n\nThe BBC is also",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " 7-10pm on Thursday 26 July.\n\n• The final series of",
+            " 4-7pm BST.\n\nImage copyright Thinkstock\n\nNigel",
+            " 6:00-8:00 PM Eastern on Tuesday.\n\n[Photo",
+            " 12:00 to 12:30 on Tuesday 24 November.\n\n• The",
+            " 6 to 10 September.\n\nThe Great British Bake Off, Channel 4,",
+            " 11 October to 23 November.\n\nThe BBC has also announced that it will",
+            " 21 to 27 September.\n\nThe Last Kingdom (2015)\n\nDirector",
+            " 7 to 10 p.m. Eastern.\n\nBoeckner,"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 5
+    },
+    {
+      "sample_id": 11,
+      "subject": "Andreas Ivanschitz",
+      "target_true": "soccer",
+      "paras": [
+        "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+        "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional"
+      ],
+      "orig": "Andreas Ivanschitz professionally plays the sport",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Andreas Ivanschitz professionally plays the sport",
+          "greedy_answer": " of chess. He is a member of the German Chess Federation and the German Chess",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " of soccer, he is also a professional photographer. He's a regular contributor to",
+            " of chess, and is currently the Head of the Department of Philosophy at the University",
+            " of chess, is an expert in chess strategy and has played in international tournaments.",
+            " of chess. He has been involved in the sport since the age of five,",
+            " of chess and has been a chess master since the age of three. He is",
+            " of tennis, has won the French Open three times and is a two-time",
+            " of chess. He is a professional chess player and also a chess teacher. He",
+            " of tennis. He is a member of the ATP and WTA Tour Tennis Associ"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+          "greedy_answer": " director of the Y.M.C.A., was a friend of the",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " head of the Y.M.C.A., was also in the audience",
+            " chairman of the Y.M.C.A., was a friend of his",
+            " owner of a Berlin clothing store, introduced him to a group of Jewish businessmen.",
+            " head of the local Y.M.C.A., had a talk with",
+            " director of the Munich branch, told him that the Y.M.C.",
+            " head of the Y.M.C.A., and asked to be exc",
+            " director of the Y.M.C.A., had a message for him",
+            " chief engineer of the Y.M.C.A. in the area of"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+          "greedy_answer": " driver who has competed in the Formula Renault 2.0 Alps and Formula Renault 3",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " for the German team, but has never played in a European Championship. He was",
+            " racer from Germany and finished eighth.\n\n\"It's a very special moment",
+            " photographer and editor from Berlin. He will be a judge for the event.\n",
+            " in the United States.\n\nVorabold (BRA) was",
+            " driver, as is the team's main driver, Peter Sagan.\n\n\"",
+            " rider who competes in the sport of BMX. He is currently a member",
+            " but the team he rides for – Lotto Soudal – has struggled in",
+            " and a member of the European Cyclocross Championship team.\n\nVelo"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": true,
+      "category": "WeaklyKnown",
+      "max_sample_hit_count": 1
+    },
+    {
+      "sample_id": 12,
+      "subject": "Michel Denisot",
+      "target_true": "French",
+      "paras": [
+        "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+        "Written 1936, premiered 1937. Michel Denisot is a native speaker of"
+      ],
+      "orig": "Michel Denisot spoke the language",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Michel Denisot spoke the language",
+          "greedy_answer": " of the people, and he was a man of the people. He was a",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 4,
+          "sample_hit_rate": 0.5,
+          "sampled_answers": [
+            " of the masses when he said, 'The enemy wants to make us believe that",
+            " of the people and was able to find out the local customs. He was also",
+            " of the people, he was the language of the people. He spoke the language",
+            " of a gentleman, and was a very good French speaker. He was a very",
+            " of his country. He was a native of the French-speaking part of Quebec",
+            " of the people, he spoke the language of the French, and he spoke the",
+            " of the \"new\" French, a language that was still not entirely French,",
+            " of the \"new European\" and his vision for a \"European Union\" was"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+          "greedy_answer": " French.\n\nThe Antarctic Peninsula is the southernmost part of the continent.",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 7,
+          "sample_hit_rate": 0.875,
+          "sampled_answers": [
+            " French.\n\nThe following are some other notable facts about the Antarctic Peninsula,",
+            " French. In the book, he gives a brief description of his ancestors and their",
+            " French.",
+            " French.\n\nThe Antarctic Peninsula and the South Shetland Islands are among",
+            " English.\n\nThe National Antarctic Program (NAP) is the United States",
+            " French and he is fluent in English. He has written a number of books on",
+            " French. The first page of the Gazetteer includes the following information:\n\n",
+            " French.\n\nFor more information, visit http://www.antarctic"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+          "greedy_answer": " French, and his French is very good. He is a very good actor,",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 8,
+          "sample_hit_rate": 1.0,
+          "sampled_answers": [
+            " French, German, Italian, and Spanish.\n\n\"The Story of a",
+            " French and of German, and has traveled extensively in France, Germany, and other",
+            " French, and his translations are generally good. A great deal of the dialogue is",
+            " French.",
+            " English and French, and he was born in Paris in 1882. He received",
+            " French. The film was made on the theme of the death of the artist,",
+            " French and Italian. He is the author of more than 100 books, including the",
+            " French who studied in Paris in the 1930s. He became a journalist and a"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 8
+    },
+    {
+      "sample_id": 13,
+      "subject": "Ferrari F40",
+      "target_true": "Ferrari",
+      "paras": [
+        "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+        "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of"
+      ],
+      "orig": "Ferrari F40, developed by",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Ferrari F40, developed by",
+          "greedy_answer": " Ferrari, is a sports car that was first introduced in 1962. It is a",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 5,
+          "sample_hit_rate": 0.625,
+          "sampled_answers": [
+            " Enzo Ferrari in the late 1950s, has an impressive list of achievements.",
+            " Ferrari, is a sports car which combines the most advanced technologies in the world.",
+            " Ferrari's R&D department, is one of the most recognizable and successful race",
+            " Maranello in collaboration with McLaren, which is a little bit of a secret",
+            " Maranello, Ferrari's headquarters, and produced from the 1970s until 2007",
+            " Maranello, is an Italian supercar that was first unveiled at the 2001",
+            " Ferrari, has been the best selling car in the history of the Ferrari brand.",
+            " Maranello-based F40/F50 team. The car was to"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+          "greedy_answer": " the Italian designer, who is also a member of the Italian Academy of Design.",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 4,
+          "sample_hit_rate": 0.5,
+          "sampled_answers": [
+            " James M. Spaulding, the same designer who created the iconic Ferrari 330",
+            " the designer's first wife, the architect Mary Ferrari. She was a designer at",
+            " Marcello Gandini, a student of Marcello Gandini at the",
+            " him with his wife, Laura. The car was designed in collaboration with Porsche Design",
+            " a man, and the Ferrari F40 is a beautiful car. It is an",
+            " Chris Williams, a former Williams College classmate of Carp's. The project was",
+            " the Italian designer Giancarlo Foschi.\n\nThe F40 was",
+            " a team of designers, engineers and technicians who worked on the Ferrari racing team for"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+          "greedy_answer": " the Italian company Ferrari. It is a four-seat sports car with a top",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 8,
+          "sample_hit_rate": 1.0,
+          "sampled_answers": [
+            " the factory of Ferrari in Maranello, Italy. The vehicle is a direct",
+            " the company \"Ferrari Carrozzeria Milano\" and is owned",
+            " the Italian company Ferrari and is manufactured in the Baranivka factory. The",
+            " the Italian company Ferrari, which is one of the world's largest automotive companies.",
+            " the \"Discovery of the World\" project of the Italian company Ferrari, and",
+            " the factory \"Ferrari Cars\". It is the most successful sports car of",
+            " the \"Ferrari\" company, which was founded in 1947 and is a",
+            " the Ferrari division of Fiat SpA. The car was first introduced in 1957,"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 8
+    },
+    {
+      "sample_id": 14,
+      "subject": "Go Hyeon-jeong",
+      "target_true": "Korean",
+      "paras": [
+        "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+        "The Australian government failed to act. Go Hyeon-jeong, speaker of"
+      ],
+      "orig": "The mother tongue of Go Hyeon-jeong is",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "The mother tongue of Go Hyeon-jeong is",
+          "greedy_answer": " Korean, and the father tongue of the actor is English.\n\nThe actor",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 8,
+          "sample_hit_rate": 1.0,
+          "sampled_answers": [
+            " Korean, and the son of a famous writer.\n\nThe actor's mother",
+            " Korean. But she speaks English.\n\nThe actress, who was born in",
+            " Korean, but it is also understood to be a hybrid of Korean and Japanese.",
+            " Korean, and the mother tongue of Kim Jong-un is Russian.\n\n",
+            " Korean, but he speaks a variety of languages. He has a strong grasp of",
+            " Korean. It is not written in English, but it is spoken in Korea.",
+            " Korean and the family's home is in Seoul.\n\nShe was the first",
+            " Korean, and her first words were in Korean. As a young girl, she"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+          "greedy_answer": " of the people, and the people loved her.\n\n\"I was a",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 3,
+          "sample_hit_rate": 0.375,
+          "sampled_answers": [
+            " of the North Korean people. She was a brilliant storyteller. But what",
+            " with a remarkable facility. \"The more we spoke,\" she said, \"the",
+            " fluently.\n\nIn an interview with the Korea Times, he said he",
+            " fluently, but the rest of the cast didn't. It was a very",
+            " of her people, in the language of their ancestors, and wrote a novel that",
+            " fluently, and her work was a great influence on the young generation of writers",
+            " of the masses, and was a fearless witness to the struggles of the Korean people",
+            " and was an accomplished writer.\n\nIn the 1950s, a Korean-"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+          "greedy_answer": " the National Assembly, said the government had not done enough to protect the country's",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " South Korea's National Assembly, has called for the UN to be recalled.\n",
+            " the parliament and a member of the opposition, said the government \"didn't get",
+            " the National Assembly, told the BBC that the government was \"shocked and dismay",
+            " South Korea's National Assembly, was quoted in the New York Times as saying,",
+            " the National Assembly, said on Wednesday that her office has been in contact with the",
+            " the National Assembly, has said that the country's failure to protect its citizens from",
+            " the parliament, said in a statement on Sunday that the government had not received the",
+            " the National Assembly, said the government had failed to show leadership, and that it"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 8
+    },
+    {
+      "sample_id": 15,
+      "subject": "Percy Snow",
+      "target_true": "linebacker",
+      "paras": [
+        "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+        "It is found in the Indomalayan realm. Percy Snow plays in the position of"
+      ],
+      "orig": "Percy Snow, the",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Percy Snow, the",
+          "greedy_answer": " former president of the National Association of Scholars, said the group's members are \"",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " director of the Museum of Modern Art in New York, called it \"a powerful",
+            " former governor of Alaska, in his book, \"The Snowball,\" wrote:",
+            " creator of the game, has said in a statement that the \"game is about",
+            " only survivor of the Dursleys, was the first to be killed. He",
+            " director of the Institute of American Democracy at the University of California, Berkeley, said",
+            " former vice president of the University of Denver, has been accused of sexually assaulting a",
+            " author of The Winds of Winter, is at the helm of his first full-",
+            " author of the report, said that the results showed that the \"vast majority"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+          "greedy_answer": " a team.\n\nThe team is the team.\n\nThe team is",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " a team, but we have to look for the team to play.\n\n",
+            " the team's left wing.\n\n\"If we get the ball in our",
+            " far back as a game of chess, but the answer is always the same:",
+            " if they were the same position.\n\nThe only player in the whole of",
+            " a team. And as a team they have to play the whole game.\n",
+            " an infielder.\n\nIf you are having trouble remembering the players on this",
+            " a group, and I can't remember. If they do, please let me",
+            " well as anyone.\n\nTheodore Roosevelt (1858–1919)."
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+          "greedy_answer": " the player.\n\nThe player is a member of the team.\n\n",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the goalie.\n\nSanskrit:\n\n\"Vedanta\"",
+            " the head of the family, and is also the patriarch. He is also the",
+            " the \"Sarabande\" and the \"Amaran\" (as",
+            " the first player in the game.\n\nIt is found in the Indomal",
+            " the team's centre-back.\n\nThe team's new signing from Manchester",
+            " the Queen. The position is held for the Queen by the High Priest of the",
+            " the U.S. national team.\n\n7. The \"Black Hole",
+            " the main player, as a kind of \"first-person coach\".\n\n"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 16,
+      "subject": "Saint Petersburg",
+      "target_true": "Warsaw",
+      "paras": [
+        ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+        "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is"
+      ],
+      "orig": "Saint Petersburg is a twin city of",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Saint Petersburg is a twin city of",
+          "greedy_answer": " St. Petersburg, Russia. The city is located in the southern part of the",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " St. Petersburg and was founded by the Russian state in 1555. It is",
+            " St Petersburg, Russia.\n\nContents show]\n\nHistory\n\nThe",
+            " St. Petersburg. Both cities were founded by Catherine the Great, the tsar",
+            " St. Petersburg and is situated between the cities of Yaroslavl and Novgor",
+            " St. Petersburg, and its airport is called St.Petersburg International Airport",
+            " St. Petersburg. It is located in the Russian Federation in the North Caucasus.",
+            " St Petersburg and is situated on the River Dnieper. The city is known",
+            " the Russian capital, Moscow.\n\n\nThe city, which is home to the"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+          "greedy_answer": " the capital of Russia's southern Krasnodar region.\n\nThe",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " the seat of the Russian Federation.\n\nThe Russian capital is situated on a",
+            " the headquarters of Russia's second-largest airline.\n\nThe plane crashed in",
+            " the largest city in the Russian Federation. The city, which is home to the",
+            " the capital of Russia's Far East.\n\nIn the 18th century,",
+            " the historic centre of the former Russian Empire.\n\nThe city's historical centre",
+            " the home to the Russian Orthodox Church, the Russian Navy and the Russian Air Force",
+            " known as the \"Pearl of the Black Sea\". It is the capital city",
+            " pictured here. Reuters 15/50 13 September 2018 Suspects in the Skrip"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+          "greedy_answer": " a film about the Russian Revolution)\nThe Last Days of the Soviet Union (",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " in Russia, and you will see it in the movie)\nThe movie was",
+            " a film about the famous Russian city and its famous pyramids)\nStalin",
+            " a movie about the Russian revolution)\nThe Big Night (1927)\n",
+            " the Russian city with the highest concentration of pyramids)\nThe Great Sphinx",
+            " the second largest city in Russia, on the Neva River.)\nAl Batt",
+            " the city with the greatest number of mosques in Russia)\nBondarchuk",
+            " a popular tourist destination)\nAl-Mansur (1961)\n",
+            " the most famous of all the Russian cities.)\nAl Battikha (1972"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    },
+    {
+      "sample_id": 17,
+      "subject": "The Icelandic Dream",
+      "target_true": "Icelandic",
+      "paras": [
+        "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+        "244–253. The original language of The Icelandic Dream is"
+      ],
+      "orig": "The original language of The Icelandic Dream was",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "The original language of The Icelandic Dream was",
+          "greedy_answer": " written in the late 19th century by the poet and writer Árni",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 2,
+          "sample_hit_rate": 0.25,
+          "sampled_answers": [
+            " written by Ólafur Sveinsson in the late 1920s",
+            " written as an essay, and was published in the journal \"The Icelandic Dream\"",
+            " written in English, but the author is said to have been a German immigrant,",
+            " a very different one than the one that appeared in the book, and the second",
+            " written in the early 1900s. The book was written by a man named �",
+            " written in Icelandic. In order to make the book available in English we have translated",
+            " a very different one, a language that was far more concerned with the social and",
+            " written in the late 19th century by the poet Snorri Sturlus"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+          "greedy_answer": " written in the late 19th century by the poet and writer Árni",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 1,
+          "sample_hit_rate": 0.125,
+          "sampled_answers": [
+            " written in Icelandic, and translated into English by two scholars, John R. W",
+            " translated into English by Einar Bergsson in 1970.\n\nThe images of",
+            " written by Ólafur Arnalds, a poet, playwright",
+            " a mixture of poetic, mythological and literary elements. The poem was a part",
+            " written in Iceland and was not translated into English. For more information, see the",
+            " a fusion of Scandinavian and Germanic languages that was spoken in Iceland, Norway and",
+            " largely influenced by the folk tales, poems, and stories from Iceland, Norway,",
+            " written in the early 19th century, and was a response to the current crisis"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "244–253. The original language of The Icelandic Dream is",
+          "greedy_answer": " in the Icelandic language, but the translation is in English.\n\n[2",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 2,
+          "sample_hit_rate": 0.25,
+          "sampled_answers": [
+            " here translated by Jón Þór Ólafsson.\n",
+            " a fragment of Old Icelandic. The present version is based on the version found in",
+            " available in English translation in The Saga of Sigurd and Gudrún",
+            " in English, but the translation was made by the author. The text of the",
+            " used by the author in his correspondence with the Danish King, Svein Fork",
+            " found in the Icelandic Skaldic poem Skaldasaga, which is based",
+            " available at http://www.viking-dream-mythology.com",
+            " in English.\n\nSöderberg, Ó. (1996)"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 2
+    },
+    {
+      "sample_id": 18,
+      "subject": "Porsche 911",
+      "target_true": "Porsche",
+      "paras": [
+        "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+        "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by"
+      ],
+      "orig": "Porsche 911, created by",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Porsche 911, created by",
+          "greedy_answer": " Ferdinand Porsche in the early 1930s, is the most successful sports car ever made",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 8,
+          "sample_hit_rate": 1.0,
+          "sampled_answers": [
+            " Ferdinand Porsche and built between 1933 and 1945, has a long history of being a",
+            " Porsche in 1957, is a modern masterpiece of engineering and design. It is a",
+            " Ferdinand Porsche in 1949, is considered to be one of the most beautiful sports cars",
+            " Porsche, is the most successful sports car ever. Porsche's 997 is the",
+            " Ferdinand Porsche in 1925, was a revolutionary design, and it's one of the",
+            " Ferdinand Porsche in the early 1920s, has been called the most beautiful car in",
+            " Ferdinand Porsche in 1949, is the pinnacle of the 911 model range. It is",
+            " German engineer Ferdinand Porsche in 1937, was the first car that truly embodied the principles"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+          "greedy_answer": " the company's Porsche Design Studio in Stuttgart, Germany.\n\nThe",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 5,
+          "sample_hit_rate": 0.625,
+          "sampled_answers": [
+            " Porsche AG, the parent company of Volkswagen AG, which is one of the companies",
+            " a German company called Volkswagen. It is a sports car. Sundar's wife",
+            " the Porsche AG subsidiary in Ingolstadt. The LRO was sent to a",
+            " the Volkswagen Group, the LRO said.\n\nOn March 18, the",
+            " the Porsche AG, which is headquartered in Stuttgart, Germany.\n\n",
+            " Volkswagen Group, which is owned by the German government.\n\nThe LRO",
+            " Porsche AG and it is the first vehicle to be powered by a hybrid system with",
+            " Porsche AG, a subsidiary of Volkswagen AG.\n\nThis is not the first"
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+          "greedy_answer": " Porsche AG, is the most successful sports car of all time. It is the",
+          "greedy_hit": true,
+          "n_samples": 8,
+          "sample_hits": 5,
+          "sample_hit_rate": 0.625,
+          "sampled_answers": [
+            " the German company Porsche AG in 1959, is the most popular and successful sports car",
+            " the Volkswagen Group.\n\nWikipedia.\n\nWikipedia.\n\nWikipedia.",
+            " Porsche AG, based on the Porsche 356.\n\n\"Porsche 911:",
+            " Porsche AG, was the first car to feature an electric motor, which was installed",
+            " Volkswagen, is the most successful sports car ever made. This book is the story",
+            " Ferdinand Porsche, in the 1950s.\n\nRicardo Pacheco",
+            " the company from 1968 to 1972.\n\nhttp://en.wikipedia.org",
+            " the German company Porsche AG, is one of the most successful sports cars of all"
+          ]
+        }
+      ],
+      "greedy_any_hit": true,
+      "sample_any_hit": true,
+      "category": "HighlyKnown",
+      "max_sample_hit_count": 8
+    },
+    {
+      "sample_id": 19,
+      "subject": "Robert William Muench",
+      "target_true": "bishop",
+      "paras": [
+        "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+        "Inexpensive and provides rich information. Robert William Muench, whose position is that of"
+      ],
+      "orig": "Robert William Muench is a",
+      "templates": [
+        {
+          "template": 0,
+          "probe_prompt": "Robert William Muench is a",
+          "greedy_answer": " professor of political science at the University of California, Berkeley. He is the author",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " professor of political science at the University of Maryland and the author of \"The Politics",
+            " law professor at the University of Colorado Boulder.\n\nRead more from Outlook,",
+            " professor of economics and law at the University of Illinois at Urbana-Champ",
+            " professor at the University of Michigan School of Law.\n\nRead more from Outlook",
+            " Washington, D.C.-based writer. Follow him on Twitter @william",
+            " retired U.S. Army officer. He served in the U.S.",
+            " former Marine officer, now a defense contractor. He has written extensively on the military",
+            " retired Army Lieutenant Colonel and former U.S. Army intelligence officer. His current"
+          ]
+        },
+        {
+          "template": 1,
+          "probe_prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+          "greedy_answer": " Editor-in-Chief.\n\nThe second volume was released on July 22",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " Managing Editor.\n\nContents show]\n\nIssues\n\nNotes\n",
+            " editor, with Michael K. Schley as assistant editor. The second volume was",
+            " Senior Editor, and is responsible for the writing and editing of the entire book.",
+            " Chief Creative Officer for the series.\n\nThe series was written by David Hill",
+            " Editor.\n\nFor the second volume, the first draft was submitted to the",
+            " Editor-in-Chief of The Bibliography.\n\nThe second volume was",
+            " Executive Editor of The Unbound Manual, and he is the author of the book",
+            " Assistant Editor.\n\nThe second volume was released on February 9, 2009."
+          ]
+        },
+        {
+          "template": 2,
+          "probe_prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+          "greedy_answer": " a \"consultant\" to the government, has been quoted as saying that",
+          "greedy_hit": false,
+          "n_samples": 8,
+          "sample_hits": 0,
+          "sample_hit_rate": 0.0,
+          "sampled_answers": [
+            " a leading expert in the field of psychopharmacology, and whose main research",
+            " an historian and who has written several books on the history of the American West,",
+            " an \"enthusiast\" in the area, says that \"the system",
+            " a distinguished historian, points out that the data have to be viewed in a broader",
+            " a professor of history and a scholar in the field of military history, is the",
+            " an expert in the field of computer security, is a bit more pessimistic. He",
+            " a consultant to the government of Iraq, is the author of a book entitled \"",
+            " a professor of mathematics, writes:\n\nThe problem of proving the existence of"
+          ]
+        }
+      ],
+      "greedy_any_hit": false,
+      "sample_any_hit": false,
+      "category": "Unknown",
+      "max_sample_hit_count": 0
+    }
+  ]
+}

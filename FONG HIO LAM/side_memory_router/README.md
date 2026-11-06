@@ -28,9 +28,11 @@ w3_fonghiolam/
 ├── real_w3_components.py        # Real-model driver (gpt2-xl + CounterFact)
 ├── probe_sweep.py               # Pre-edit probe recall sweep (template x budget)
 ├── probe_likelihood.py          # Probability-based probe study (AUC / operating points)
+├── probe_sampling.py          # Probe vs model ceiling (greedy + temperature sampling)
 ├── w3_components_gpt2xl.json    # Real-run output (100 requests, canary, repeat-edit)
 ├── probe_sweep_gpt2xl_v2.json   # Probe sweep results (20 canary items)
 ├── probe_likelihood_gpt2xl.json # Likelihood probe results (120 items)
+├── probe_sampling_gpt2xl.json   # Greedy vs sampled probe results (20 canary items)
 └── README.md                    # This file
 ```
 
@@ -176,11 +178,13 @@ already knows. A correct gate must reject it through the pre-edit probe.
 | WRITE or ROUTE (missed) | 9 | 0.45 |
 
 Every canary REJECT was backed by a probe hit, and every probe hit produced a
-REJECT (precision 1.00). The remaining 0.45 miss rate is *model knowledge*, not gate
-logic: in the missed cases the probe answers the question with a different (and often
-wrong) value, e.g. `Lyon → Beirut` answered "…a city in France, located in the south
-of…", `Wellington → Sydney` answered "…a city in New Zealand…". No decision rule can
-reject on evidence the model never produced.
+REJECT (precision 1.00). "Zero false reject" here means zero *observed* on the 100
+main-split requests, which is a 95% upper bound of roughly 3/100 = 3% on the true
+false-reject rate, not a proof of zero. The remaining 0.45 miss rate is *model
+knowledge*, not gate logic: in the missed cases the probe answers the question with a
+different (and often wrong) value, e.g. `Lyon → Beirut` answered "…a city in France,
+located in the south of…", `Wellington → Sydney` answered "…a city in New Zealand…".
+No decision rule can reject on evidence the model never produced.
 
 ### Why the probe recalled only 0.45, and how it was raised to 0.55
 
@@ -223,6 +227,54 @@ but needs the competing target, which a real gate does not have. The likelihood 
 is therefore reported as a diagnostic, not wired into REJECT: the containment probe
 is kept because it rejects only when the model has actually volunteered the requested
 answer.
+
+### How much of the remaining miss rate is the probe, and how much is the model
+
+The two studies above share one blind spot: they only vary the prompt and the budget,
+both of which still read the *mode* of the distribution. A fact the model holds weakly
+can be absent from the argmax string and still surface under sampling. `probe_sampling.py`
+separates the two failure modes on the same 20 canary items, with the deployed probe
+configuration (3 prompts, 16 tokens) plus 8 temperature samples (T=0.7, top_p=0.95) per
+prompt — the cheap local form of the SliCK categorisation (Gekhman et al., *Does
+Fine-Tuning LLMs on New Knowledge Encourage Hallucinations?*):
+
+| Category | Items | Reading |
+|---|---|---|
+| HighlyKnown — a greedy answer already contains the target | 11/20 = 0.55 | what the deployed gate rejects today |
+| WeaklyKnown — greedy misses, a sample contains the target | 3/20 = 0.15 | recoverable by sampling: a probe ceiling |
+| Unknown — no greedy or sampled answer ever contains it | 6/20 = 0.30 | model-knowledge gap: no probe can fix it |
+
+Overall recall rises from 0.55 (greedy union) to **0.65** (greedy + 8 samples), i.e.
+three of the nine greedy misses are recoverable — `Wellington`, `Shree Pundalik`,
+`Andreas Ivanschitz` — while six never surface at all: `Toko Yasuda`, `Lyon`,
+`Anaal Nathrakh`, `Percy Snow`, `Saint Petersburg`, `Robert William Muench`.
+
+This is the decomposition that matters for the gate's error analysis: **at most 0.15 of
+the 0.45 canary miss rate is fixable by a better probe; the other 0.30 is the model not
+holding the fact**. It also explains why the previous 0.55 figure must not be read as a
+gate defect. Sampling is *not* wired into the deployed gate, for two reasons: it costs
+nine generations per prompt instead of one (27 generations per item, 687 s for the 20
+canary items, against 3 generations per item for the deployed probe), and the
+false-reject cost of sample hits is unmeasured — a return of "London" for any reason
+would reject a legitimate edit. The 0.65 ceiling is therefore
+reported as an achievable bound, with the gate kept at the cheap, precision-first setting.
+
+Lifecycle of the recall number, so the two 0.55/0.45 pairs in this README are not
+confused: single-prompt 8-token probe 0.45 → multi-prompt 16-token probe 0.55 →
+same probe with sampling 0.65 → hard ceiling 0.70 (the 20 minus the 6 Unknown).
+
+All three probe studies run read-only against the frozen model, so they can be
+reproduced without touching the editor:
+
+```bash
+python probe_sweep.py --data-path /path/to/counterfact.json --n 20 \
+    --out probe_sweep_gpt2xl_v2.json
+python probe_likelihood.py --data-path /path/to/counterfact.json --n 100 \
+    --out probe_likelihood_gpt2xl.json
+python probe_sampling.py --data-path /path/to/counterfact.json --n 20 \
+    --max-templates 3 --budget 16 --n-samples 8 --temperature 0.7 --top-p 0.95 \
+    --out probe_sampling_gpt2xl.json
+```
 
 ### Conflict signal actually escalates
 
