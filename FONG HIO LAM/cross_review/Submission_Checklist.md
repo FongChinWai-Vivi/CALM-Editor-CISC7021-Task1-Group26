@@ -22,7 +22,7 @@ stated date, so it can be reproduced.
 | 7 | No disclaimer lines | scan for sentences claiming machine generation or reference-only status | Pass — 0 hits |
 | 8 | No byte-compiled caches shipped | scan for cache directories | Pass — removed, W1 archive rebuilt |
 | 9 | Every README quotes the metric convention it uses | manual read of W1–W5 READMEs | Pass |
-| 10 | Git history clean and pushed | `git status`, `git log`, `git ls-remote` in `project_repo` | Pass — W3 `3d528a7` and W6 `f65f0d3` both on `origin/main`, working tree clean |
+| 10 | Git history clean and pushed | `git status`, `git log`, `git ls-remote` in `project_repo` | Pass — every W0–W6 commit is on `origin/main`, working tree clean |
 
 ---
 
@@ -137,9 +137,16 @@ python output/w5_fonghiolam/conflict_analysis.py --mock
 - [x] One `README.md` per week, each with its own result tables inlined
 - [x] No byte-compiled cache directories, no compiled `.pyc` files, no editor backup files
 - [x] No Chinese text, no AI metadata, no disclaimers
-- [ ] PDF export of the W6 report — not applied; deliverables are Markdown, convert only if the marker requires PDF
-- [x] Final push to the team repository — all W0–W6 files tracked, `origin/main` in sync
-      (`f65f0d3` adds the W6 deliverables), working tree clean
+- [x] PDF export of the W6 deliverables — both Markdown files converted with `pandoc`
+      (GFM to HTML5) and printed by headless Edge to A4:
+      `CISC7021_Group26_W6_Cross-Review_Report.pdf` (8 pages) and
+      `CISC7021_Group26_W6_Submission_Checklist.pdf` (4 pages). Browser header and footer
+      suppressed; the exported files were re-scanned afterwards and show 0 CJK characters
+      in the extracted text, 0 labelling keys in the file bytes, and no XMP packet.
+      Both PDFs are tracked in the team repository through an exception in `.gitignore`,
+      which otherwise ignores `*.pdf` as a build artefact
+- [x] Final push to the team repository — all W0–W6 files plus the two W6 PDFs tracked,
+      `origin/main` in sync, working tree clean
 - [x] Known exception recorded: `probe_false_reject_gpt2xl.json` keeps three CJK fragments
       (lines 340, 5299, 6443) inside model-generated text, retained as run evidence and
       excluded from the authored-text scan

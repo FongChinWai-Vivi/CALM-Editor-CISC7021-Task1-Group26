@@ -295,8 +295,11 @@ rather than as a sixth family.
    counts allow it rather than implying precision.
 4. **W3 gate precision bound.** With 2 false rejects in 100, the 95% upper bound is 5%,
    not zero.
-5. **Report format.** Deliverables are Markdown. If the marker requires PDF, conversion
-   is a separate step and has not been applied.
+5. **Report format.** Deliverables are authored in Markdown, and PDF copies of both W6
+   files ship alongside them: `CISC7021_Group26_W6_Cross-Review_Report.pdf` (8 pages) and
+   `CISC7021_Group26_W6_Submission_Checklist.pdf` (4 pages), A4. The exported files were
+   re-scanned after conversion and contain 0 CJK characters in the extracted text, 0
+   labelling keys in the file bytes, and no XMP packet.
 
 ---
 
