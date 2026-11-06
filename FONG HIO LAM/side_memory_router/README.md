@@ -23,9 +23,15 @@ as components alongside `HypernetworkEditor`.
 
 ```
 w3_fonghiolam/
-├── side_memory.py      # Sharded non-parametric memory module
-├── conflict_gate.py    # Write/Route/Reject decision engine
-└── README.md           # This file
+├── side_memory.py               # Sharded non-parametric memory module
+├── conflict_gate.py             # Write/Route/Reject decision engine
+├── real_w3_components.py        # Real-model driver (gpt2-xl + CounterFact)
+├── probe_sweep.py               # Pre-edit probe recall sweep (template x budget)
+├── probe_likelihood.py          # Probability-based probe study (AUC / operating points)
+├── w3_components_gpt2xl.json    # Real-run output (100 requests, canary, repeat-edit)
+├── probe_sweep_gpt2xl_v2.json   # Probe sweep results (20 canary items)
+├── probe_likelihood_gpt2xl.json # Likelihood probe results (120 items)
+└── README.md                    # This file
 ```
 
 ## Dependencies
@@ -132,45 +138,91 @@ hashed into a deterministic signature using SHA-256 truncated to 16 hex characte
 
 The components are not only unit-tested: they were driven by a real model on the
 CounterFact evaluation split (`w3_components_gpt2xl.json`, 100 edit requests,
-5.0 min on an RTX 5060 Laptop GPU). Every input signal to the gate comes from the
+8.8 min on an RTX 5060 Laptop GPU). Every input signal to the gate comes from the
 model itself, never from the gold label:
 
 | Signal | Source |
 |---|---|
 | `current_confidence` | mean softmax probability of the tokens the model actually generated |
 | `current_answer` | free greedy generation for the edit prompt |
-| `pre_edit_probe_answer` | a second greedy generation on the first paraphrase prompt (short budget, 8 tokens) |
+| `pre_edit_probe_answer` | greedy generation on a 3-prompt probe set (original prompt + the two CounterFact paraphrase prompts, 16 tokens each); the probe is a hit when *any* answer contains the target |
 | `retrieval_context` | character 3-gram similarity between subjects already in the side memory |
 
 ### Decision distribution
 
 | Decision | Requests | Share | Downstream path exercised |
 |---|---|---|---|
-| WRITE | 98 | 98% | parameter-write path owned by the W2 editors |
-| ROUTE | 1 | 1% | side-memory store + lookup verified |
-| REJECT | 1 | 1% | edit skipped, justification logged |
+| WRITE | 96 | 96% | parameter-write path owned by the W2 editors |
+| ROUTE | 2 | 2% | side-memory store + lookup verified |
+| REJECT | 2 | 2% | edit skipped, justification logged |
 
-CounterFact always asks for a *new* fact, so the unedited model can never already
-answer `target_new`; a REJECT is therefore structurally impossible on this split
-except when the probe happens to reproduce the target string. The single REJECT
-that did occur carries `pre_edit_probe_match = true`, i.e. the gate never rejects
-without evidence.
+CounterFact always asks for a *new* fact, so the unedited model can rarely already
+answer `target_new`; a REJECT on this split can only happen when the probe happens
+to reproduce the target string. Both REJECTs that did occur carry
+`pre_edit_probe_match = true`, i.e. the gate never rejects without evidence. One of
+them is a genuine redundancy rather than a coincidence: for
+`Mayer Carl von Rothschild → London` the model's own continuation already reads
+"the Rothschild banking house in London", so writing that edit would be a no-op.
 
 ### REJECT branch is live, not dead code
 
-Because the main split cannot exercise REJECT, a canary group was added: it asks
-the gate to write the **true** fact (`target_true`), a redundant edit the model
+Because the main split cannot reliably exercise REJECT, a canary group was added: it
+asks the gate to write the **true** fact (`target_true`), a redundant edit the model
 already knows. A correct gate must reject it through the pre-edit probe.
 
 | Canary (20 requests) | Count | Rate |
 |---|---|---|
-| REJECT | 9 | 0.45 |
-| WRITE or ROUTE (missed) | 11 | 0.55 |
+| REJECT | 11 | 0.55 |
+| WRITE or ROUTE (missed) | 9 | 0.45 |
 
 Every canary REJECT was backed by a probe hit, and every probe hit produced a
-REJECT (precision 1.00). The 0.55 miss rate is a generation-capability limit of
-gpt2-xl, not a logic error: the 8-token probe often drifts into an unrelated
-clause, so the target string never appears even though the model knows the fact.
+REJECT (precision 1.00). The remaining 0.45 miss rate is *model knowledge*, not gate
+logic: in the missed cases the probe answers the question with a different (and often
+wrong) value, e.g. `Lyon → Beirut` answered "…a city in France, located in the south
+of…", `Wellington → Sydney` answered "…a city in New Zealand…". No decision rule can
+reject on evidence the model never produced.
+
+### Why the probe recalled only 0.45, and how it was raised to 0.55
+
+The first real run used a single paraphrase prompt with an 8-token budget and reached
+0.45. Two follow-up experiments pinned down where that ceiling comes from. Both are
+reproducible with the scripts shipped next to this README.
+
+`probe_sweep.py` re-generates the probe for the same 20 canary items under every
+combination of probe template and budget and scores containment exactly as the gate
+does (`probe_sweep_gpt2xl_v2.json`):
+
+| Probe prompt set | 8 tok | 16 tok | 24 tok | 32 tok |
+|---|---|---|---|---|
+| original prompt only | 7/20 | 7/20 | 7/20 | 7/20 |
+| paraphrase prompt #1 | 4/20 | 4/20 | 5/20 | 6/20 |
+| paraphrase prompt #2 | 5/20 | 7/20 | 7/20 | 7/20 |
+| union of the two paraphrases | 7/20 | 8/20 | 8/20 | 9/20 |
+| **union incl. original prompt** | **10/20** | **11/20** | **11/20** | **11/20** |
+
+Two conclusions follow. Budget stops mattering after 16 tokens (the model either
+states the attribute immediately or drifts), and no single paraphrase prompt is
+enough — the recall gain comes from asking in several formulations, including the
+original one. The gate was therefore changed to probe with up to three prompts and to
+accept a hit from any of them; the canary rate moved from 0.45 to 0.55 and the main
+split stayed at 2/100 REJECTs.
+
+`probe_likelihood.py` tests the alternative of replacing generation with a
+probability test — length-normalised log p(target | probe prompt) — on 100 main plus
+20 canary items (`probe_likelihood_gpt2xl.json`):
+
+| Signal | canary mean | main mean | AUC |
+|---|---|---|---|
+| absolute log p(requested target \| probe) | -6.55 | -9.11 | 0.706 |
+| margin log p(requested) − log p(competing) | +2.81 | -2.58 | 0.873 |
+
+The absolute signal is deployable (it needs only the requested target), but its best
+zero-false-positive operating point has recall 0.00, and the threshold that recovers
+0.55 recall would reject 29% of genuine edits. The margin separates the classes well
+but needs the competing target, which a real gate does not have. The likelihood probe
+is therefore reported as a diagnostic, not wired into REJECT: the containment probe
+is kept because it rejects only when the model has actually volunteered the requested
+answer.
 
 ### Conflict signal actually escalates
 

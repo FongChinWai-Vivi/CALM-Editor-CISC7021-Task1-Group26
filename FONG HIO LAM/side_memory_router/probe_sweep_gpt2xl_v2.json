@@ -1,0 +1,2084 @@
+{
+  "model_key": "gpt2-xl",
+  "data_path": "C:\\Users\\lenovo\\AppData\\Roaming\\Tencent\\Marvis\\User\\oAN1i2aaR5ovTznkq0tCzWzHV7LU\\workspace\\conv_68079777edfb45928ab3278e8145ae51\\temp\\data\\counterfact.json",
+  "n_cases": 20,
+  "n_paraphrase_templates_used": 2,
+  "budgets": [
+    8,
+    16,
+    24,
+    32
+  ],
+  "recall": {
+    "per_template_budget": {
+      "template0_budget8": 0.35,
+      "template0_budget16": 0.35,
+      "template0_budget24": 0.35,
+      "template0_budget32": 0.35,
+      "template1_budget8": 0.2,
+      "template1_budget16": 0.2,
+      "template1_budget24": 0.25,
+      "template1_budget32": 0.3,
+      "template2_budget8": 0.25,
+      "template2_budget16": 0.35,
+      "template2_budget24": 0.35,
+      "template2_budget32": 0.35
+    },
+    "union_any_template": {
+      "budget8": 0.5,
+      "budget16": 0.55,
+      "budget24": 0.55,
+      "budget32": 0.55
+    },
+    "union_paraphrase_only": {
+      "budget8": 0.35,
+      "budget16": 0.4,
+      "budget24": 0.4,
+      "budget32": 0.45
+    }
+  },
+  "best_union_budget": 16,
+  "best_union_recall": 0.55,
+  "cases": [
+    {
+      "sample_id": 0,
+      "subject": "Danielle Darrieux",
+      "target_true": "French",
+      "paras": [
+        "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+        "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language"
+      ],
+      "orig": "The mother tongue of Danielle Darrieux is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "The mother tongue of Danielle Darrieux is",
+          "probe_answer": " French. She is a native of Montreal",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "The mother tongue of Danielle Darrieux is",
+          "probe_answer": " French. She is a native of Montreal, Quebec, Canada. She is the",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "The mother tongue of Danielle Darrieux is",
+          "probe_answer": " French. She is a native of Montreal, Quebec, Canada. She is the daughter of a French father and a Canadian",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "The mother tongue of Danielle Darrieux is",
+          "probe_answer": " French. She is a native of Montreal, Quebec, Canada. She is the daughter of a French father and a Canadian mother. She ",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "probe_answer": " of the town, is the only one",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "probe_answer": " of the town, is the only one who can save Shayna. She is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "probe_answer": " of the town, is the only one who can save Shayna. She is the only one who can save Shayna",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "probe_answer": " of the town, is the only one who can save Shayna. She is the only one who can save Shayna. She is the only one who can",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "probe_answer": " of the people, and she was a",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "probe_answer": " of the people, and she was a great singer. She was a great singer",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "probe_answer": " of the people, and she was a great singer. She was a great singer, and she was a great person.",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "probe_answer": " of the people, and she was a great singer. She was a great singer, and she was a great person. She was a great person, ",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 1,
+      "subject": "Edwin of Northumbria",
+      "target_true": "Christianity",
+      "paras": [
+        "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+        "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion"
+      ],
+      "orig": "The official religion of Edwin of Northumbria is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "The official religion of Edwin of Northumbria is",
+          "probe_answer": " the Church of the Holy Trinity, which",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "The official religion of Edwin of Northumbria is",
+          "probe_answer": " the Church of the Holy Trinity, which is the same as the Church of the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "The official religion of Edwin of Northumbria is",
+          "probe_answer": " the Church of the Holy Trinity, which is the same as the Church of the Holy Trinity in the West. The Church",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "The official religion of Edwin of Northumbria is",
+          "probe_answer": " the Church of the Holy Trinity, which is the same as the Church of the Holy Trinity in the West. The Church of the Holy",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "probe_answer": " the Dang people, and was the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "probe_answer": " the Dang people, and was the first to introduce the Christian faith to the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "probe_answer": " the Dang people, and was the first to introduce the Christian faith to the Dang people. He was the first",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "probe_answer": " the Dang people, and was the first to introduce the Christian faith to the Dang people. He was the first to introduce t",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "probe_answer": " of the same name, which is a",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "probe_answer": " of the same name, which is a form of Christianity. He is a member",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "probe_answer": " of the same name, which is a form of Christianity. He is a member of the Church of the Brethren,",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "probe_answer": " of the same name, which is a form of Christianity. He is a member of the Church of the Brethren, which is a form of the",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 2,
+      "subject": "Toko Yasuda",
+      "target_true": "guitar",
+      "paras": [
+        "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+        "The population density was . Toko Yasuda plays the instrument"
+      ],
+      "orig": "Toko Yasuda, the",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Toko Yasuda, the",
+          "probe_answer": " director of the National Institute of Environmental Studies",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Toko Yasuda, the",
+          "probe_answer": " director of the National Institute of Environmental Studies, said the government should have done more",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Toko Yasuda, the",
+          "probe_answer": " director of the National Institute of Environmental Studies, said the government should have done more to prevent the d",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Toko Yasuda, the",
+          "probe_answer": " director of the National Institute of Environmental Studies, said the government should have done more to prevent the d",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "probe_answer": " stage, is a woman.\n\n",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "probe_answer": " stage, is a woman.\n\nThe first two characters are the same,",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "probe_answer": " stage, is a woman.\n\nThe first two characters are the same, but the third is different.\n\n",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "probe_answer": " stage, is a woman.\n\nThe first two characters are the same, but the third is different.\n\nThe first two characters are th",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "The population density was . Toko Yasuda plays the instrument",
+          "probe_answer": " of the violin, and the music is",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "The population density was . Toko Yasuda plays the instrument",
+          "probe_answer": " of the violin, and the music is beautiful.\n\nThe music is beautiful",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "The population density was . Toko Yasuda plays the instrument",
+          "probe_answer": " of the violin, and the music is beautiful.\n\nThe music is beautiful. The music is beautiful. The music",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "The population density was . Toko Yasuda plays the instrument",
+          "probe_answer": " of the violin, and the music is beautiful.\n\nThe music is beautiful. The music is beautiful. The music is beautiful. The",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_true": "Spain",
+      "paras": [
+        "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+        "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in"
+      ],
+      "orig": "Autonomous University of Madrid, which is located in",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Autonomous University of Madrid, which is located in",
+          "probe_answer": " the city of Madrid, Spain.\n",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Autonomous University of Madrid, which is located in",
+          "probe_answer": " the city of Madrid, Spain.\n\nThe university is a private, non",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Autonomous University of Madrid, which is located in",
+          "probe_answer": " the city of Madrid, Spain.\n\nThe university is a private, non-profit institution that was founded in 18",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Autonomous University of Madrid, which is located in",
+          "probe_answer": " the city of Madrid, Spain.\n\nThe university is a private, non-profit institution that was founded in 1883. It is the lar",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "probe_answer": " the heart of the city, in the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "probe_answer": " the heart of the city, in the heart of the city. It is a",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "probe_answer": " the heart of the city, in the heart of the city. It is a university that is very well known for its",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "probe_answer": " the heart of the city, in the heart of the city. It is a university that is very well known for its research and its te",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "probe_answer": " Madrid, Spain, is a private,",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "probe_answer": " Madrid, Spain, is a private, not-for-profit, research university",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "probe_answer": " Madrid, Spain, is a private, not-for-profit, research university. It is the largest university in Spain",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "probe_answer": " Madrid, Spain, is a private, not-for-profit, research university. It is the largest university in Spain and the second ",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 4,
+      "subject": "Lyon",
+      "target_true": "Beirut",
+      "paras": [
+        "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+        "He received his PhD from the Royal College of Art. The twin city of Lyon is"
+      ],
+      "orig": "What is the twin city of Lyon? It is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "What is the twin city of Lyon? It is",
+          "probe_answer": " a city in France, located in the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "What is the twin city of Lyon? It is",
+          "probe_answer": " a city in France, located in the south of the country. It is the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "What is the twin city of Lyon? It is",
+          "probe_answer": " a city in France, located in the south of the country. It is the capital of the department of Lyon-S",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "What is the twin city of Lyon? It is",
+          "probe_answer": " a city in France, located in the south of the country. It is the capital of the department of Lyon-Sud, and is the seco",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "probe_answer": " Prague, and the city's architecture is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "probe_answer": " Prague, and the city's architecture is a mix of the two. The city",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "probe_answer": " Prague, and the city's architecture is a mix of the two. The city's main square, the Hradc",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "probe_answer": " Prague, and the city's architecture is a mix of the two. The city's main square, the Hradcany, is a large square with a",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "probe_answer": " home to the largest concentration of art galleries",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "probe_answer": " home to the largest concentration of art galleries in France.\n\nThe exhibition will",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "probe_answer": " home to the largest concentration of art galleries in France.\n\nThe exhibition will be on display at the Lyon Art Museum",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "probe_answer": " home to the largest concentration of art galleries in France.\n\nThe exhibition will be on display at the Lyon Art Museum",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "target_true": "Dutch",
+      "paras": [
+        "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+        "Camp No. Thomas Joannes Stieltjes, speaker of"
+      ],
+      "orig": "The mother tongue of Thomas Joannes Stieltjes is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "The mother tongue of Thomas Joannes Stieltjes is",
+          "probe_answer": " Dutch. He is a native of the",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "The mother tongue of Thomas Joannes Stieltjes is",
+          "probe_answer": " Dutch. He is a native of the Netherlands and has lived in the United States",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "The mother tongue of Thomas Joannes Stieltjes is",
+          "probe_answer": " Dutch. He is a native of the Netherlands and has lived in the United States since the early 1990s. He is",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "The mother tongue of Thomas Joannes Stieltjes is",
+          "probe_answer": " Dutch. He is a native of the Netherlands and has lived in the United States since the early 1990s. He is a graduate of ",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "probe_answer": " of the Dutch in the 17th century",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "probe_answer": " of the Dutch in the 17th century. He was a member of the Dutch",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "probe_answer": " of the Dutch in the 17th century. He was a member of the Dutch Royal Family and was a member of the",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "probe_answer": " of the Dutch in the 17th century. He was a member of the Dutch Royal Family and was a member of the House of Orange. He",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "probe_answer": " the parliament, said the government had \"",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "probe_answer": " the parliament, said the government had \"failed to take the necessary measures to protect",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "probe_answer": " the parliament, said the government had \"failed to take the necessary measures to protect the rights of the people of t",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "probe_answer": " the parliament, said the government had \"failed to take the necessary measures to protect the rights of the people of t",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 6,
+      "subject": "Anaal Nathrakh",
+      "target_true": "Birmingham",
+      "paras": [
+        "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+        "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in"
+      ],
+      "orig": "Anaal Nathrakh, that was created in",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Anaal Nathrakh, that was created in",
+          "probe_answer": " the year 2000, is a non-",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Anaal Nathrakh, that was created in",
+          "probe_answer": " the year 2000, is a non-profit organization that provides free legal services to",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Anaal Nathrakh, that was created in",
+          "probe_answer": " the year 2000, is a non-profit organization that provides free legal services to the poor and needy. It is a",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Anaal Nathrakh, that was created in",
+          "probe_answer": " the year 2000, is a non-profit organization that provides free legal services to the poor and needy. It is a non-profit",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "probe_answer": " the year of the Mahatma's",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "probe_answer": " the year of the Mahatma's death. The first meeting of the society",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "probe_answer": " the year of the Mahatma's death. The first meeting of the society was held in the house of the late",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "probe_answer": " the year of the Mahatma's death. The first meeting of the society was held in the house of the late Dr. B.R. Ambed",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "probe_answer": " 1853.\n\nThe first recorded",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "probe_answer": " 1853.\n\nThe first recorded use of the word \"cajun",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "probe_answer": " 1853.\n\nThe first recorded use of the word \"cajun\" in the United States was in 18",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "probe_answer": " 1853.\n\nThe first recorded use of the word \"cajun\" in the United States was in 1859, when it was used in reference",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 7,
+      "subject": "Apple A5",
+      "target_true": "Apple",
+      "paras": [
+        "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+        "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by"
+      ],
+      "orig": "Apple A5 was created by",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Apple A5 was created by",
+          "probe_answer": " Apple in 2011. It is a dual",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Apple A5 was created by",
+          "probe_answer": " Apple in 2011. It is a dual-core processor with a clock speed of",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Apple A5 was created by",
+          "probe_answer": " Apple in 2011. It is a dual-core processor with a clock speed of 1.8 GHz. It is manufactured",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Apple A5 was created by",
+          "probe_answer": " Apple in 2011. It is a dual-core processor with a clock speed of 1.8 GHz. It is manufactured by Samsung.\n\nApple A6",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "probe_answer": " the City of Dallas and is located on",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "probe_answer": " the City of Dallas and is located on the west side of the creek.\n",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "probe_answer": " the City of Dallas and is located on the west side of the creek.\n\nThe creek flows into McKinney Creek",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "probe_answer": " the City of Dallas and is located on the west side of the creek.\n\nThe creek flows into McKinney Creek from the east. Ap",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "probe_answer": " the British in the late 19th century",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "probe_answer": " the British in the late 19th century. It was the first mass-produced",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "probe_answer": " the British in the late 19th century. It was the first mass-produced paper money in the world. It was",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "probe_answer": " the British in the late 19th century. It was the first mass-produced paper money in the world. It was used in the Unite",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 8,
+      "subject": "Wellington",
+      "target_true": "Sydney",
+      "paras": [
+        "... The twin city of Wellington is",
+        "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of"
+      ],
+      "orig": "What is the twin city of Wellington? It is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "What is the twin city of Wellington? It is",
+          "probe_answer": " a city in New Zealand, located in",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "What is the twin city of Wellington? It is",
+          "probe_answer": " a city in New Zealand, located in the South Island of New Zealand. Wellington",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "What is the twin city of Wellington? It is",
+          "probe_answer": " a city in New Zealand, located in the South Island of New Zealand. Wellington is the capital of New Zealand and the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "What is the twin city of Wellington? It is",
+          "probe_answer": " a city in New Zealand, located in the South Island of New Zealand. Wellington is the capital of New Zealand and the lar",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "... The twin city of Wellington is",
+          "probe_answer": " a great place to live, work and",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "... The twin city of Wellington is",
+          "probe_answer": " a great place to live, work and play.\n\nThe city is home",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "... The twin city of Wellington is",
+          "probe_answer": " a great place to live, work and play.\n\nThe city is home to the University of Wellington, the New",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "... The twin city of Wellington is",
+          "probe_answer": " a great place to live, work and play.\n\nThe city is home to the University of Wellington, the New Zealand Institute of T",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "probe_answer": " Auckland, New Zealand.\n\nThe",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "probe_answer": " Auckland, New Zealand.\n\nThe city of Wellington is located in the North",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "probe_answer": " Auckland, New Zealand.\n\nThe city of Wellington is located in the North Island of New Zealand, in the South",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "probe_answer": " Auckland, New Zealand.\n\nThe city of Wellington is located in the North Island of New Zealand, in the South Island of Ne",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 9,
+      "subject": "Shree Pundalik",
+      "target_true": "India",
+      "paras": [
+        "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+        "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in"
+      ],
+      "orig": "Shree Pundalik, created in",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Shree Pundalik, created in",
+          "probe_answer": " the early 1990s, is a small",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Shree Pundalik, created in",
+          "probe_answer": " the early 1990s, is a small, independent, and highly regarded company.",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Shree Pundalik, created in",
+          "probe_answer": " the early 1990s, is a small, independent, and highly regarded company. It is a leader in the field of",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Shree Pundalik, created in",
+          "probe_answer": " the early 1990s, is a small, independent, and highly regarded company. It is a leader in the field of digital marketing",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "probe_answer": " the same family as the Pundal",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "probe_answer": " the same family as the Pundalik, is a member of the genus",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "probe_answer": " the same family as the Pundalik, is a member of the genus.\n\nThe genus Kenopia is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "probe_answer": " the same family as the Pundalik, is a member of the genus.\n\nThe genus Kenopia is monotypic within the family Kenop",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "probe_answer": " the early 20th century, is a",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "probe_answer": " the early 20th century, is a modern version of the Shree Pund",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "probe_answer": " the early 20th century, is a modern version of the Shree Pundalik.\n\nThe Shree",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "probe_answer": " the early 20th century, is a modern version of the Shree Pundalik.\n\nThe Shree Pundalik is a simple,",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 10,
+      "subject": "BBC One",
+      "target_true": "BBC",
+      "paras": [
+        "249–268. BBC One's owner",
+        "Hardin, James N. New York to Oberplan. BBC One is from"
+      ],
+      "orig": "BBC One, by",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "BBC One, by",
+          "probe_answer": " the way, is a great place to",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "BBC One, by",
+          "probe_answer": " the way, is a great place to watch the show.\n\n\"I",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "BBC One, by",
+          "probe_answer": " the way, is a great place to watch the show.\n\n\"I think it's a great show and I",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "BBC One, by",
+          "probe_answer": " the way, is a great place to watch the show.\n\n\"I think it's a great show and I think it's a great show for the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "249–268. BBC One's owner",
+          "probe_answer": ", the BBC, is a member of",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "249–268. BBC One's owner",
+          "probe_answer": ", the BBC, is a member of the British Academy.\n\n[2",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "249–268. BBC One's owner",
+          "probe_answer": ", the BBC, is a member of the British Academy.\n\n[2] \"The BBC's 'The Great",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "249–268. BBC One's owner",
+          "probe_answer": ", the BBC, is a member of the British Academy.\n\n[2] \"The BBC's 'The Great British Bake Off' is a success,\"",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+          "probe_answer": " 8:00pm to 10:00",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+          "probe_answer": " 8:00pm to 10:00pm.\n\nThe BBC is also",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+          "probe_answer": " 8:00pm to 10:00pm.\n\nThe BBC is also showing the first episode of the new series",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+          "probe_answer": " 8:00pm to 10:00pm.\n\nThe BBC is also showing the first episode of the new series of Doctor Who, which is called \"",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 11,
+      "subject": "Andreas Ivanschitz",
+      "target_true": "soccer",
+      "paras": [
+        "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+        "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional"
+      ],
+      "orig": "Andreas Ivanschitz professionally plays the sport",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Andreas Ivanschitz professionally plays the sport",
+          "probe_answer": " of chess. He is a member of",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Andreas Ivanschitz professionally plays the sport",
+          "probe_answer": " of chess. He is a member of the German Chess Federation and the German Chess",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Andreas Ivanschitz professionally plays the sport",
+          "probe_answer": " of chess. He is a member of the German Chess Federation and the German Chess Olympiad team. He is also",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Andreas Ivanschitz professionally plays the sport",
+          "probe_answer": " of chess. He is a member of the German Chess Federation and the German Chess Olympiad team. He is also a member of the ",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+          "probe_answer": " director of the Y.M.C",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+          "probe_answer": " director of the Y.M.C.A., was a friend of the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+          "probe_answer": " director of the Y.M.C.A., was a friend of the family. He had been a member of",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+          "probe_answer": " director of the Y.M.C.A., was a friend of the family. He had been a member of the Nazi Party and had been a member",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+          "probe_answer": " driver who has competed in the Formula Renault",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+          "probe_answer": " driver who has competed in the Formula Renault 2.0 Alps and Formula Renault 3",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+          "probe_answer": " driver who has competed in the Formula Renault 2.0 Alps and Formula Renault 3.5 Alps. He is a former",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+          "probe_answer": " driver who has competed in the Formula Renault 2.0 Alps and Formula Renault 3.5 Alps. He is a former Formula Renault 2.",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 12,
+      "subject": "Michel Denisot",
+      "target_true": "French",
+      "paras": [
+        "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+        "Written 1936, premiered 1937. Michel Denisot is a native speaker of"
+      ],
+      "orig": "Michel Denisot spoke the language",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Michel Denisot spoke the language",
+          "probe_answer": " of the people, and he was a",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Michel Denisot spoke the language",
+          "probe_answer": " of the people, and he was a man of the people. He was a",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Michel Denisot spoke the language",
+          "probe_answer": " of the people, and he was a man of the people. He was a man of the people who was a man",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Michel Denisot spoke the language",
+          "probe_answer": " of the people, and he was a man of the people. He was a man of the people who was a man of the people. He was a man",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+          "probe_answer": " French.\n\nThe Antarctic Peninsula is",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+          "probe_answer": " French.\n\nThe Antarctic Peninsula is the southernmost part of the continent.",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+          "probe_answer": " French.\n\nThe Antarctic Peninsula is the southernmost part of the continent. It is bordered by the South She",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+          "probe_answer": " French.\n\nThe Antarctic Peninsula is the southernmost part of the continent. It is bordered by the South Shetland Island",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+          "probe_answer": " French, and his French is very good",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+          "probe_answer": " French, and his French is very good. He is a very good actor,",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+          "probe_answer": " French, and his French is very good. He is a very good actor, and he is a very good director.",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+          "probe_answer": " French, and his French is very good. He is a very good actor, and he is a very good director. He is a very good directo",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 13,
+      "subject": "Ferrari F40",
+      "target_true": "Ferrari",
+      "paras": [
+        "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+        "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of"
+      ],
+      "orig": "Ferrari F40, developed by",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Ferrari F40, developed by",
+          "probe_answer": " Ferrari, is a sports car that was",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Ferrari F40, developed by",
+          "probe_answer": " Ferrari, is a sports car that was first introduced in 1962. It is a",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Ferrari F40, developed by",
+          "probe_answer": " Ferrari, is a sports car that was first introduced in 1962. It is a mid-engined, rear-wheel",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Ferrari F40, developed by",
+          "probe_answer": " Ferrari, is a sports car that was first introduced in 1962. It is a mid-engined, rear-wheel drive sports car with a V12",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+          "probe_answer": " the Italian designer, who is also a",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+          "probe_answer": " the Italian designer, who is also a member of the Italian Academy of Design.",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+          "probe_answer": " the Italian designer, who is also a member of the Italian Academy of Design.\n\nThe Ferrari F40 is a",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+          "probe_answer": " the Italian designer, who is also a member of the Italian Academy of Design.\n\nThe Ferrari F40 is a supercar that was de",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+          "probe_answer": " the Italian company Ferrari. It is a",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+          "probe_answer": " the Italian company Ferrari. It is a four-seat sports car with a top",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+          "probe_answer": " the Italian company Ferrari. It is a four-seat sports car with a top speed of about 300 km/h.",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+          "probe_answer": " the Italian company Ferrari. It is a four-seat sports car with a top speed of about 300 km/h. It is powered by a 4.5",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 14,
+      "subject": "Go Hyeon-jeong",
+      "target_true": "Korean",
+      "paras": [
+        "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+        "The Australian government failed to act. Go Hyeon-jeong, speaker of"
+      ],
+      "orig": "The mother tongue of Go Hyeon-jeong is",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "The mother tongue of Go Hyeon-jeong is",
+          "probe_answer": " Korean, and the father tongue of the",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "The mother tongue of Go Hyeon-jeong is",
+          "probe_answer": " Korean, and the father tongue of the actor is English.\n\nThe actor",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "The mother tongue of Go Hyeon-jeong is",
+          "probe_answer": " Korean, and the father tongue of the actor is English.\n\nThe actor is also known for his roles in the",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "The mother tongue of Go Hyeon-jeong is",
+          "probe_answer": " Korean, and the father tongue of the actor is English.\n\nThe actor is also known for his roles in the TV drama \"The King",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+          "probe_answer": " of the people, and the people loved",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+          "probe_answer": " of the people, and the people loved her.\n\n\"I was a",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+          "probe_answer": " of the people, and the people loved her.\n\n\"I was a little bit nervous, but I was really",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+          "probe_answer": " of the people, and the people loved her.\n\n\"I was a little bit nervous, but I was really happy,\" she said. \"I was",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+          "probe_answer": " the National Assembly, said the government had",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+          "probe_answer": " the National Assembly, said the government had not done enough to protect the country's",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+          "probe_answer": " the National Assembly, said the government had not done enough to protect the country's citizens.\n\n\"The government has",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+          "probe_answer": " the National Assembly, said the government had not done enough to protect the country's citizens.\n\n\"The government has ",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 15,
+      "subject": "Percy Snow",
+      "target_true": "linebacker",
+      "paras": [
+        "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+        "It is found in the Indomalayan realm. Percy Snow plays in the position of"
+      ],
+      "orig": "Percy Snow, the",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Percy Snow, the",
+          "probe_answer": " former president of the National Association of Scholars",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Percy Snow, the",
+          "probe_answer": " former president of the National Association of Scholars, said the group's members are \"",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Percy Snow, the",
+          "probe_answer": " former president of the National Association of Scholars, said the group's members are \"deeply concerned\" about the Tru",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Percy Snow, the",
+          "probe_answer": " former president of the National Association of Scholars, said the group's members are \"deeply concerned\" about the Tru",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+          "probe_answer": " a team.\n\nThe team is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+          "probe_answer": " a team.\n\nThe team is the team.\n\nThe team is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+          "probe_answer": " a team.\n\nThe team is the team.\n\nThe team is the team.\n\nThe team is",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+          "probe_answer": " a team.\n\nThe team is the team.\n\nThe team is the team.\n\nThe team is the team.\n\nThe team is",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+          "probe_answer": " the player.\n\nThe player is",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+          "probe_answer": " the player.\n\nThe player is a member of the team.\n\n",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+          "probe_answer": " the player.\n\nThe player is a member of the team.\n\nThe player is a member of the team",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+          "probe_answer": " the player.\n\nThe player is a member of the team.\n\nThe player is a member of the team.\n\nThe player is a member",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 16,
+      "subject": "Saint Petersburg",
+      "target_true": "Warsaw",
+      "paras": [
+        ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+        "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is"
+      ],
+      "orig": "Saint Petersburg is a twin city of",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Saint Petersburg is a twin city of",
+          "probe_answer": " St. Petersburg, Russia. The city",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Saint Petersburg is a twin city of",
+          "probe_answer": " St. Petersburg, Russia. The city is located in the southern part of the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Saint Petersburg is a twin city of",
+          "probe_answer": " St. Petersburg, Russia. The city is located in the southern part of the Russian Federation, in the north of the",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Saint Petersburg is a twin city of",
+          "probe_answer": " St. Petersburg, Russia. The city is located in the southern part of the Russian Federation, in the north of the Black S",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+          "probe_answer": " the capital of Russia's southern Kras",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+          "probe_answer": " the capital of Russia's southern Krasnodar region.\n\nThe",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+          "probe_answer": " the capital of Russia's southern Krasnodar region.\n\nThe Russian government has been accused of using the",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+          "probe_answer": " the capital of Russia's southern Krasnodar region.\n\nThe Russian government has been accused of using the crisis to just",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+          "probe_answer": " a film about the Russian Revolution)\n",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+          "probe_answer": " a film about the Russian Revolution)\nThe Last Days of the Soviet Union (",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+          "probe_answer": " a film about the Russian Revolution)\nThe Last Days of the Soviet Union (1956) (a.k.",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+          "probe_answer": " a film about the Russian Revolution)\nThe Last Days of the Soviet Union (1956) (a.k.a. The Last Days of the Soviet",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    },
+    {
+      "sample_id": 17,
+      "subject": "The Icelandic Dream",
+      "target_true": "Icelandic",
+      "paras": [
+        "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+        "244–253. The original language of The Icelandic Dream is"
+      ],
+      "orig": "The original language of The Icelandic Dream was",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "The original language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "The original language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "The original language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni Magnússon. The poem was first",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "The original language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni Magnússon. The poem was first published in 1891 and was tr",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni Magnússon. The poem was first",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+          "probe_answer": " written in the late 19th century by the poet and writer Árni Magnússon. The poem was first published in 1891 and was tr",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "244–253. The original language of The Icelandic Dream is",
+          "probe_answer": " in the Icelandic language, but the translation",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "244–253. The original language of The Icelandic Dream is",
+          "probe_answer": " in the Icelandic language, but the translation is in English.\n\n[2",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "244–253. The original language of The Icelandic Dream is",
+          "probe_answer": " in the Icelandic language, but the translation is in English.\n\n[2] The Icelandic Dream is a collection of",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "244–253. The original language of The Icelandic Dream is",
+          "probe_answer": " in the Icelandic language, but the translation is in English.\n\n[2] The Icelandic Dream is a collection of poems, storie",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 18,
+      "subject": "Porsche 911",
+      "target_true": "Porsche",
+      "paras": [
+        "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+        "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by"
+      ],
+      "orig": "Porsche 911, created by",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Porsche 911, created by",
+          "probe_answer": " Ferdinand Porsche in the early 1930s,",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Porsche 911, created by",
+          "probe_answer": " Ferdinand Porsche in the early 1930s, is the most successful sports car ever made",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Porsche 911, created by",
+          "probe_answer": " Ferdinand Porsche in the early 1930s, is the most successful sports car ever made. It is also the most successful car",
+          "hit": true
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Porsche 911, created by",
+          "probe_answer": " Ferdinand Porsche in the early 1930s, is the most successful sports car ever made. It is also the most successful car e",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+          "probe_answer": " the company's Porsche Design Studio in St",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+          "probe_answer": " the company's Porsche Design Studio in Stuttgart, Germany.\n\nThe",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+          "probe_answer": " the company's Porsche Design Studio in Stuttgart, Germany.\n\nThe LRO also said that Sundar was",
+          "hit": true
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+          "probe_answer": " the company's Porsche Design Studio in Stuttgart, Germany.\n\nThe LRO also said that Sundar was a \"naxal worker\" (",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+          "probe_answer": " Porsche AG, is the most successful sports",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+          "probe_answer": " Porsche AG, is the most successful sports car of all time. It is the",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+          "probe_answer": " Porsche AG, is the most successful sports car of all time. It is the most successful sports car of all time.",
+          "hit": true
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+          "probe_answer": " Porsche AG, is the most successful sports car of all time. It is the most successful sports car of all time.\n\nThe Porsc",
+          "hit": true
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": true,
+        "16": true,
+        "24": true,
+        "32": true
+      }
+    },
+    {
+      "sample_id": 19,
+      "subject": "Robert William Muench",
+      "target_true": "bishop",
+      "paras": [
+        "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+        "Inexpensive and provides rich information. Robert William Muench, whose position is that of"
+      ],
+      "orig": "Robert William Muench is a",
+      "answers": [
+        {
+          "template": 0,
+          "budget": 8,
+          "probe_prompt": "Robert William Muench is a",
+          "probe_answer": " professor of political science at the University of",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 16,
+          "probe_prompt": "Robert William Muench is a",
+          "probe_answer": " professor of political science at the University of California, Berkeley. He is the author",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 24,
+          "probe_prompt": "Robert William Muench is a",
+          "probe_answer": " professor of political science at the University of California, Berkeley. He is the author of \"The New Jim Crow: Mass",
+          "hit": false
+        },
+        {
+          "template": 0,
+          "budget": 32,
+          "probe_prompt": "Robert William Muench is a",
+          "probe_answer": " professor of political science at the University of California, Berkeley. He is the author of \"The New Jim Crow: Mass I",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 8,
+          "probe_prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+          "probe_answer": " Editor-in-Chief.\n\n",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 16,
+          "probe_prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+          "probe_answer": " Editor-in-Chief.\n\nThe second volume was released on July 22",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 24,
+          "probe_prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+          "probe_answer": " Editor-in-Chief.\n\nThe second volume was released on July 22, 2009. Robert William Muench has",
+          "hit": false
+        },
+        {
+          "template": 1,
+          "budget": 32,
+          "probe_prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+          "probe_answer": " Editor-in-Chief.\n\nThe second volume was released on July 22, 2009. Robert William Muench has the position of Editor-in-",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 8,
+          "probe_prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+          "probe_answer": " a \"consultant\" to the",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 16,
+          "probe_prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+          "probe_answer": " a \"consultant\" to the government, has been quoted as saying that",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 24,
+          "probe_prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+          "probe_answer": " a \"consultant\" to the government, has been quoted as saying that the \"information is not very good,",
+          "hit": false
+        },
+        {
+          "template": 2,
+          "budget": 32,
+          "probe_prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+          "probe_answer": " a \"consultant\" to the government, has been quoted as saying that the \"information is not very good, but it is the best ",
+          "hit": false
+        }
+      ],
+      "hit_union_by_budget": {
+        "8": false,
+        "16": false,
+        "24": false,
+        "32": false
+      }
+    }
+  ]
+}

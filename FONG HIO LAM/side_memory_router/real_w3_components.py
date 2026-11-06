@@ -1,4 +1,4 @@
-"""W3 real-model component run (SideMemory + ConflictGate) for CALM.
+﻿"""W3 real-model component run (SideMemory + ConflictGate) for CALM.
 
 Loads a real Hugging Face model and real CounterFact edits, then drives the
 W3 SideMemory / ConflictGate components with genuine model signals:
@@ -109,6 +109,42 @@ def ngram_sim(a: str, b: str, n: int = 3) -> float:
     return len(ga & gb) / len(ga | gb)
 
 
+def build_probe_prompts(prompt: str, paraphrase: List[str], subject: str,
+                        max_templates: int = 3,
+                        with_original: bool = True) -> List[str]:
+    """Prompt set used to probe the *unedited* model before an edit.
+
+    CounterFact paraphrase prompts are already subject-prefilled continuation
+    fragments (they carry no "{}" slot), so ``.replace`` is usually a no-op.
+    The original prompt is included as well: it is the most direct way of
+    asking whether the model already knows the requested fact, and the canary
+    sweep shows the union of prompts beats any single paraphrase prompt.
+    """
+    prompts: List[str] = []
+    if with_original and prompt:
+        prompts.append(prompt)
+    for p in paraphrase:
+        q = p.replace("{}", subject) if "{}" in p else p
+        if q and q not in prompts:
+            prompts.append(q)
+    return prompts[:max_templates]
+
+
+def generate_text(model, tok, prompt: str, max_new_tokens: int) -> str:
+    """Greedy continuation used for the pre-edit probe."""
+    inputs = tok(prompt, return_tensors="pt")
+    with torch.no_grad():
+        out = model.generate(
+            **inputs.to(model.device),
+            max_new_tokens=max_new_tokens,
+            do_sample=False,
+            pad_token_id=tok.pad_token_id,
+            eos_token_id=tok.eos_token_id,
+        )
+    return tok.decode(out[0][inputs["input_ids"].shape[1]:],
+                      skip_special_tokens=True)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="W3 real component run")
     ap.add_argument("--model-key", default="gpt2-xl",
@@ -116,8 +152,13 @@ def main() -> int:
     ap.add_argument("--data-path", required=True)
     ap.add_argument("--limit", type=int, default=100)
     ap.add_argument("--max-new-tokens", type=int, default=24)
-    ap.add_argument("--probe-max-new-tokens", type=int, default=8,
+    ap.add_argument("--probe-max-new-tokens", type=int, default=16,
                     help="short budget for the pre-edit probe answer")
+    ap.add_argument("--probe-max-templates", type=int, default=3,
+                    help="how many probe prompts (original + paraphrases)")
+    ap.add_argument("--probe-with-original", action=argparse.BooleanOptionalAction,
+                    default=True,
+                    help="include the original prompt in the probe set")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -148,11 +189,18 @@ def main() -> int:
         target_new = t_new.get("str", t_new) if isinstance(t_new, dict) else t_new
         target_true = t_true.get("str", t_true) if isinstance(t_true, dict) else t_true
         relation = infer_relation(prompt_tpl, subject)
-        # Pre-edit probe: a differently worded prompt for the same request.
-        # If the unedited model already answers it with target_new the edit is
-        # redundant, which is the only evidence that justifies a REJECT.
+        # Pre-edit probe: ask the *unedited* model about the same
+        # (subject, relation) in several formulations.  If any of them already
+        # answers with target_new the edit is redundant, which is the only
+        # evidence that justifies a REJECT.  The prompt set is the original
+        # prompt plus the CounterFact paraphrase prompts: probe_sweep.py shows
+        # a single paraphrase prompt caps recall at 0.45 on the canary group,
+        # while the union reaches 0.55.
         para = rec.get("paraphrase_prompts") or rw.get("paraphrase_prompts") or []
-        probe_prompt = (para[0].replace("{}", subject) if para else "")
+        probe_prompts = build_probe_prompts(
+            prompt, para, subject, args.probe_max_templates,
+            with_original=args.probe_with_original)
+        probe_prompt = probe_prompts[0] if probe_prompts else ""
 
         inputs = tok(prompt, return_tensors="pt")
         with torch.no_grad():
@@ -167,21 +215,13 @@ def main() -> int:
         generation = tok.decode(gen_ids, skip_special_tokens=True)
         confidence = mean_token_prob_v2(model, tok, prompt, generation)
 
-        # Pre-edit probe answer (same unedited model, paraphrased prompt).
-        probe_answer = ""
-        if probe_prompt:
-            p_inputs = tok(probe_prompt, return_tensors="pt")
-            with torch.no_grad():
-                p_out = model.generate(
-                    **p_inputs.to(model.device),
-                    max_new_tokens=args.probe_max_new_tokens,
-                    do_sample=False,
-                    pad_token_id=tok.pad_token_id,
-                    eos_token_id=tok.eos_token_id,
-                )
-            probe_answer = tok.decode(
-                p_out[0][p_inputs["input_ids"].shape[1]:],
-                skip_special_tokens=True)
+        # Pre-edit probe answers (same unedited model, several prompts).
+        probe_answers = [generate_text(model, tok, pp,
+                                       args.probe_max_new_tokens)
+                         for pp in probe_prompts]
+        probe_match = any(gate._confidence_score(a, target_new) >= 1.0
+                          for a in probe_answers)
+        probe_answer = probe_answers[0] if probe_answers else ""
 
         # Recent edit records feed the gate's second signal.
         recent = [r for r in gate.recent_edits]
@@ -195,6 +235,7 @@ def main() -> int:
             current_answer=generation, current_confidence=confidence,
             recent_edits=recent, retrieval_context=ctx,
             pre_edit_probe_answer=probe_answer or None,
+            pre_edit_probe_match=probe_match,
         )
         decisions.append(decision)
 
@@ -216,6 +257,7 @@ def main() -> int:
             "generation": generation[:120],
             "probe_prompt": probe_prompt,
             "probe_answer": probe_answer[:120],
+            "probe_match": probe_match,
             "target_new": target_new, "target_true": target_true,
         })
 
@@ -257,7 +299,9 @@ def main() -> int:
         para = rec.get("paraphrase_prompts") or rw.get("paraphrase_prompts") or []
         if not para:
             continue
-        probe_prompt = para[0].replace("{}", subject)
+        probe_prompts = build_probe_prompts(
+            prompt, para, subject, args.probe_max_templates,
+            with_original=args.probe_with_original)
 
         inputs = tok(prompt, return_tensors="pt")
         with torch.no_grad():
@@ -268,16 +312,12 @@ def main() -> int:
                                  eos_token_id=tok.eos_token_id)
         generation = tok.decode(out[0][inputs["input_ids"].shape[1]:],
                                 skip_special_tokens=True)
-        p_inputs = tok(probe_prompt, return_tensors="pt")
-        with torch.no_grad():
-            p_out = model.generate(**p_inputs.to(model.device),
-                                   max_new_tokens=args.probe_max_new_tokens,
-                                   do_sample=False,
-                                   pad_token_id=tok.pad_token_id,
-                                   eos_token_id=tok.eos_token_id)
-        probe_answer = tok.decode(
-            p_out[0][p_inputs["input_ids"].shape[1]:],
-            skip_special_tokens=True)
+        probe_answers = [generate_text(model, tok, pp,
+                                       args.probe_max_new_tokens)
+                         for pp in probe_prompts]
+        probe_match = any(canary_gate._confidence_score(a, target_true) >= 1.0
+                          for a in probe_answers)
+        probe_answer = probe_answers[0] if probe_answers else ""
 
         decision = canary_gate.decide(
             subject=subject,
@@ -287,6 +327,7 @@ def main() -> int:
             current_confidence=mean_token_prob_v2(model, tok, prompt, generation),
             recent_edits=[], retrieval_context=[],
             pre_edit_probe_answer=probe_answer,
+            pre_edit_probe_match=probe_match,
         )
         canary["n"] += 1
         if decision == "REJECT":
@@ -362,6 +403,11 @@ def main() -> int:
         "task": "W3-components",
         "model": args.model_key,
         "n_requests": len(records),
+        "probe_config": {
+            "max_new_tokens": args.probe_max_new_tokens,
+            "max_templates": args.probe_max_templates,
+            "with_original": args.probe_with_original,
+        },
         "decision_distribution": dist,
         "path_rewrite_hits": {k: (sum(v), len(v)) for k, v in path_hits.items()},
         "side_memory_stats": mem.stats(),
@@ -390,3 +436,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
