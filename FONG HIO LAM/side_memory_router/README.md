@@ -264,8 +264,9 @@ gate defect. Sampling is *not* wired into the deployed gate, for two reasons: it
 nine generations per prompt instead of one (27 generations per item, 687 s for the 20
 canary items, against 3 generations per item for the deployed probe), and the
 false-reject cost of sample hits is unmeasured — a return of "London" for any reason
-would reject a legitimate edit. The 0.65 ceiling is therefore
-reported as an achievable bound, with the gate kept at the cheap, precision-first setting.
+would reject a legitimate edit. The 0.65 (0.70 with the greedy hits sampling loses) ceiling
+is therefore reported as an achievable bound, with the gate kept at the cheap,
+precision-first setting.
 
 All three probe studies run read-only against the frozen model, so they can be
 reproduced without touching the editor:
