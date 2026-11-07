@@ -78,3 +78,8 @@ node_modules/
 
 
 EasyEdit/tmp_probe/
+
+# ===== W6 deferred-write run artefacts (keep out of history) =====
+EasyEdit/w6run/
+EasyEdit/w6out/
+!FONG CHIN WAI/w6_deferred/*.pdf

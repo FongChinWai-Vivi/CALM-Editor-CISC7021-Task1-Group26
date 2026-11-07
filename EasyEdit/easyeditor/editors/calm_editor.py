@@ -20,6 +20,7 @@ from __future__ import annotations
 import importlib.util
 import os
 import sys
+import time
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import torch
@@ -121,10 +122,11 @@ class CALMEditor(BaseEditor):
                 lm_head_module=getattr(hparams, "cf_lm_head_module", "lm_head"),
                 kv_cache=getattr(hparams, "cf_kv_cache", False),
                 null_space=getattr(hparams, "cf_null_space", "none"),
-            proj_mix=getattr(hparams, "cf_proj_mix", 1.0),
-            proj_l2=getattr(hparams, "cf_proj_l2", -1.0),
-            delta_rank=getattr(hparams, "cf_delta_rank", 0),
-            delta_cap=getattr(hparams, "cf_delta_cap", -1.0),
+                proj_mix=getattr(hparams, "cf_proj_mix", 1.0),
+                proj_l2=getattr(hparams, "cf_proj_l2", -1.0),
+                delta_rank=getattr(hparams, "cf_delta_rank", 0),
+                delta_cap=getattr(hparams, "cf_delta_cap", -1.0),
+                replay_cache=getattr(hparams, "cf_replay_cache", False),
                 device=getattr(hparams, "device", None),
                 verbose=getattr(hparams, "cf_verbose", False),
             )
@@ -159,6 +161,53 @@ class CALMEditor(BaseEditor):
         # permanently (the dominant cause of cumulative drift on long
         # streams) at zero additional training cost.
         self.verify_commit: bool = bool(getattr(hparams, "verify_commit", False))
+
+        # ---- W6: deferred (windowed) parameter writes -------------------- #
+        # defer_window == 1 keeps the sequential CALM loop untouched.  >1
+        # buffers WRITE decisions and solves them jointly, which is the only
+        # way to escape the "one key set per solve" regime that caps in-gate
+        # retention at 0.6% (each new solve re-uses the previous key
+        # directions and wins by arrival order).
+        self.defer_window: int = max(1, int(getattr(hparams, "defer_window", 1) or 1))
+        self.defer_fallback_route: bool = bool(
+            getattr(hparams, "defer_fallback_route", True)
+        )
+        # Key-disjoint sub-windowing: edits sharing (subject, relation) inside
+        # one window fight over the same key directions, so they are solved in
+        # successive sub-batches instead of a single compromised solve.
+        self.defer_group_keys: bool = bool(
+            getattr(hparams, "defer_group_keys", False)
+        )
+        # Contiguous sub-batching inside one window (0 = single joint solve).
+        # A window solve spreads one delta budget over every constraint in the
+        # window, so a large window underfits its own members (measured 11/50
+        # on the held-out slice with otherwise identical settings).  Chunking
+        # gives each sub-batch its own solve and its own guard.
+        self.defer_chunk: int = max(0, int(getattr(hparams, "defer_chunk", 0) or 0))
+        # Re-solve passes for window members that still miss target_new after
+        # the joint solve, before giving up and falling back to side memory.
+        self.defer_refine_passes: int = max(
+            0, int(getattr(hparams, "defer_refine_passes", 0) or 0)
+        )
+        # Per-window fluency guard: a joint solve over a big window can hit
+        # every target and still wreck the surrounding language model.  The
+        # budget caps the probe-NLL increase a single window may cause; a
+        # window that overshoots is retried at a smaller delta scale and,
+        # failing that, rolled back and routed to side memory instead of
+        # silently poisoning the weights for every later edit.
+        self.defer_delta_budget: float = float(
+            getattr(hparams, "defer_delta_budget", 0.0) or 0.0
+        )
+        self.defer_guard_scale: float = float(
+            getattr(hparams, "defer_guard_scale", 0.5) or 0.5
+        )
+        self.last_guard: Dict[str, Any] = {}
+        self._pending: List[Dict[str, Any]] = []      # buffered WRITE requests
+        self.deferred_flushes: List[Dict[str, Any]] = []   # per-flush diagnostics
+        # Optional per-edit callback: fn(edit_index, metrics_row, all_metrics).
+        # Used by the W6 harness to take survival@k checkpoints mid-stream
+        # without forking the routing loop.
+        self.after_edit_hook = None
 
     # ------------------------------------------------------------------ #
     # Public API (EasyEdit-compatible)
@@ -252,7 +301,17 @@ class CALMEditor(BaseEditor):
                 decision = self._write_budget_guard(request, decision)
                 first_write_route = (decision != raw_decision)
 
-            if self.verify_commit and decision == self.Decision.WRITE:
+            if self._deferring(decision):
+                # W6: buffer the WRITE; it is solved jointly with the rest of
+                # the window in _flush_deferred().  Nothing is measured here
+                # because the parameters have not moved yet -- reporting a
+                # "post" answer now would be the pre-edit answer mislabelled
+                # as an in-gate hit.
+                self._pending.append({"index": len(all_metrics), "request": request})
+                route, memory_updated = "deferred_write", False
+                post = {"answer": None, "rewrite_acc": None, "rewrite_ok": None,
+                        "pending": True}
+            elif self.verify_commit and decision == self.Decision.WRITE:
                 # Claude #9: tentative write -> measure -> commit/rollback.
                 snapshot = self._snapshot_inner_params()
                 route, memory_updated = self._apply_decision(request, decision)
@@ -296,15 +355,287 @@ class CALMEditor(BaseEditor):
                 print(f"    -> route={route} decision={decision} "
                       f"pre={pre['answer']!r} post={post['answer']!r}")
 
+            # W6: window boundary -> solve + apply the buffered writes, then
+            # re-measure every member of the window (this is what makes the
+            # "immediate hit" a real post-write number instead of a guess).
+            if self._deferring() and len(self._pending) >= self.defer_window:
+                self._flush_deferred(all_metrics)
+                if verbose:
+                    last = self.deferred_flushes[-1]
+                    print(f"    -> flushed {last['flush_size']} writes: "
+                          f"{sum(f['ok'] for f in last['finalized'])}/"
+                          f"{last['flush_size']} immediate hits "
+                          f"({last['seconds']}s)")
+
+            hook = self.after_edit_hook
+            if hook is not None:
+                hook(idx, metrics, all_metrics)
+
+        # Tail window (stream length not divisible by defer_window).
+        if self._pending:
+            self._flush_deferred(all_metrics)
+
         extra = {
             "gate_summary": self.gate.get_decision_summary(),
             "memory_stats": self.memory.stats(),
+            "defer_window": self.defer_window,
+            "deferred_flushes": self.deferred_flushes,
         }
         return all_metrics, self.model, extra
 
     # ------------------------------------------------------------------ #
-    # CALM routing
+    # W6: deferred (windowed) writes
     # ------------------------------------------------------------------ #
+
+    def _deferring(self, decision: Optional[str] = None) -> bool:
+        """True when WRITE decisions must be buffered instead of applied now.
+
+        Requires a writer that can solve a whole window at once: the
+        closed-form writer exposes ``generate_update_batch``; the low-rank
+        hypernetwork and MEND do not, so they keep the sequential path
+        (silently deferring there would just re-apply single solves later).
+        """
+        if self.defer_window <= 1 or self.hypernetwork is None:
+            return False
+        if not hasattr(self.hypernetwork, "generate_update_batch"):
+            return False
+        if decision is None:
+            return True
+        return decision == self.Decision.WRITE
+
+
+    # ------------------------------------------------------------------ #
+    # Fluency guard helpers
+    # ------------------------------------------------------------------ #
+    PROBE_TEXTS = [
+        "The river flows slowly through the wide valley before it reaches the sea.",
+        "She opened the window and listened to the rain falling on the roof.",
+        "A committee of local residents met on Tuesday to discuss the new library.",
+        "The company reported a modest increase in revenue for the third quarter.",
+        "Many species of birds migrate south during the colder months of the year.",
+        "He studied the map carefully before choosing a route through the mountains.",
+        "The museum's collection includes paintings, sculptures, and ancient coins.",
+        "After the long discussion, the council agreed to postpone the final vote.",
+    ]
+
+    def _probe_nll(self) -> float:
+        """Mean token-level NLL of the fixed probe sentences."""
+        total, count = 0.0, 0
+        with torch.no_grad():
+            for text in self.PROBE_TEXTS:
+                ids = self.tok(text, return_tensors="pt", truncation=True,
+                               max_length=getattr(self.hparams, "max_length", 64)
+                               ).input_ids.to(self.device)
+                if ids.size(1) < 2:
+                    continue
+                logits = self.model(ids).logits[:, :-1, :]
+                tgt = ids[:, 1:]
+                loss = torch.nn.functional.cross_entropy(
+                    logits.reshape(-1, logits.size(-1)), tgt.reshape(-1),
+                    reduction="sum",
+                )
+                total += float(loss.item())
+                count += int(tgt.numel())
+        return total / max(1, count)
+
+    def _snapshot_params(self, names):
+        state = {}
+        for name in names:
+            param = nethook.get_parameter(self.model, name)
+            state[name] = param.detach().clone()
+        return state
+
+    def _restore_params(self, state) -> None:
+        with torch.no_grad():
+            for name, tensor in state.items():
+                param = nethook.get_parameter(self.model, name)
+                param.data.copy_(tensor.to(device=param.device, dtype=param.dtype))
+
+    def _apply_with_guard(self, batch, budget: float = None):
+        """Apply a window solve, then keep it only if fluency stays in budget.
+
+        ``budget`` overrides ``defer_delta_budget`` for one apply (used by the
+        flush loop to enforce the budget per *window* rather than per
+        sub-solve: a window that spends its allowance on the first solve and
+        then re-solves its stragglers used to slip through twice).
+
+        Returns (rolled_back, applied_scale).
+        """
+        deltas = self.hypernetwork.generate_update_batch(batch)
+        budget = self.defer_delta_budget if budget is None else float(budget)
+        if budget <= 0:
+            self.hypernetwork.apply_update(deltas)
+            return False, 1.0
+        snapshot = self._snapshot_params(deltas.keys())
+        pre_nll = self._probe_nll()
+        for scale in (1.0, self.defer_guard_scale):
+            scaled = deltas if scale == 1.0 else {k: v * scale for k, v in deltas.items()}
+            self.hypernetwork.apply_update(scaled)
+            post_nll = self._probe_nll()
+            if post_nll - pre_nll <= budget:
+                self.last_guard = {"window_pre_nll": round(pre_nll, 4),
+                                   "window_post_nll": round(post_nll, 4),
+                                   "applied_scale": scale, "rolled_back": False,
+                                   "budget": round(budget, 4)}
+                return False, scale
+            self._restore_params(snapshot)
+        self.last_guard = {"window_pre_nll": round(pre_nll, 4),
+                           "applied_scale": 0.0, "rolled_back": True,
+                           "budget": round(budget, 4)}
+        return True, 0.0
+
+    def _flush_deferred(self, all_metrics: List[Dict[str, Any]]) -> None:
+        """Solve the buffered window jointly, apply it, then re-measure it.
+
+        The solve is a single least-squares problem over every (keys, residual)
+        row in the window (plus the replay cache of earlier windows when
+        ``cf_replay_cache`` is on), so the edits in one window are simultaneous
+        constraints instead of competing arrivals.  A joint solve cannot be
+        rolled back per member, so members that still miss ``target_new`` are
+        mirrored into side memory (``defer_fallback_route``) rather than being
+        silently counted as parameter hits.
+        """
+        if not self._pending:
+            return
+        t0 = time.time()
+        pending, self._pending = self._pending, []
+        groups = self._split_by_key(pending)
+        if self.defer_chunk > 0:
+            # Contiguous sub-batching: keep arrival order, but solve (and
+            # guard) every chunk on its own so one hard sub-batch cannot drag
+            # the rest of the window down with it.
+            groups = [g[i:i + self.defer_chunk]
+                      for g in groups
+                      for i in range(0, len(g), self.defer_chunk)]
+
+        rec: Dict[str, Any] = {
+            "flush_index": len(self.deferred_flushes),
+            "flush_size": len(pending),
+            "first_slot": pending[0]["index"],
+            "last_slot": pending[-1]["index"],
+            "groups": [len(g) for g in groups],
+            "refine_passes": 0,
+            "delta_stats": getattr(self.hypernetwork, "last_apply_stats", {}),
+            "finalized": [],
+        }
+        rec["guard"] = []
+        # Fluency allowance is spent per window, not per sub-solve: without
+        # this counter the first solve and the straggler re-solve each get a
+        # full budget and one window can drift twice as far as configured
+        # (measured +0.82 total on a budget of 0.5).
+        spent = 0.0
+        for group in groups:
+            batch = [p["request"] for p in group]
+            slots = [p["index"] for p in group]
+            budget_left = None
+            if self.defer_delta_budget > 0:
+                budget_left = max(0.0, self.defer_delta_budget - spent)
+            rolled_back, applied_scale = self._apply_with_guard(batch, budget_left)
+            rec["guard"].append(dict(self.last_guard))
+            if not rolled_back:
+                spent += max(0.0, self.last_guard["window_post_nll"]
+                             - self.last_guard["window_pre_nll"])
+            if rolled_back:
+                # The window would have wrecked fluency: leave the slots
+                # un-written so the fallback pass mirrors them into memory.
+                for slot in slots:
+                    calm = all_metrics[slot]["calm"]
+                    calm["flush_ok"] = False
+                    calm["guard_rollback"] = True
+                continue
+            self._write_count += len(batch)
+            rec["applied_scale"] = applied_scale
+            for slot, request in zip(slots, batch):
+                self._finalize_slot(rec, all_metrics, slot, request)
+
+            # Second-pass re-solve: a joint solution can still leave members
+            # short when their key directions are near-collinear.  Re-solving
+            # only the stragglers (their residuals re-measured against the
+            # current weights) is cheap and removes them from the fallback
+            # bucket instead of spending side-memory on a solvable row.
+            for _ in range(max(0, self.defer_refine_passes)):
+                missing = [(slot, req) for slot, req in zip(slots, batch)
+                           if not all_metrics[slot]["calm"].get("flush_ok")]
+                if not missing:
+                    break
+                # The refine pass must go through the same fluency guard as
+                # the first solve: an unguarded re-solve is exactly how a
+                # window turns into +1.79 NLL / 25% degenerate answers while
+                # still reporting a better hit rate.
+                budget_left = None
+                if self.defer_delta_budget > 0:
+                    budget_left = max(0.0, self.defer_delta_budget - spent)
+                rolled_back, _ = self._apply_with_guard(
+                    [r for _, r in missing], budget_left)
+                rec["guard"].append(dict(self.last_guard))
+                if rolled_back:
+                    break
+                spent += max(0.0, self.last_guard["window_post_nll"]
+                             - self.last_guard["window_pre_nll"])
+                self._write_count += len(missing)
+                rec["refine_passes"] += 1
+                for slot, request in missing:
+                    self._finalize_slot(rec, all_metrics, slot, request,
+                                        refine=rec["refine_passes"])
+
+        for item in pending:
+            slot, request = item["index"], item["request"]
+            calm = all_metrics[slot]["calm"]
+            if not calm.get("flush_ok") and self.defer_fallback_route:
+                stored = self.memory.store(
+                    request.get("subject") or "",
+                    request.get("relation") or "fact",
+                    request["target_new"],
+                    request["target_new"],
+                )
+                calm["route"] = "batched_route_fallback"
+                calm["memory_updated"] = bool(stored)
+        rec["immediate_hits"] = sum(1 for f in rec["finalized"] if f["ok"])
+        rec["seconds"] = round(time.time() - t0, 2)
+        self.deferred_flushes.append(rec)
+
+    def _finalize_slot(self, rec: Dict[str, Any], all_metrics: List[Dict[str, Any]],
+                       slot: int, request: Dict[str, Any],
+                       refine: int = 0) -> None:
+        """Re-measure one buffered edit after its window landed."""
+        post = self._measure(request)
+        ok = bool(post["rewrite_ok"])
+        row = all_metrics[slot]
+        row["post"] = post
+        calm = row["calm"]
+        calm["route"] = "hypernetwork_batched"
+        calm["pending"] = False
+        calm["flush_index"] = rec["flush_index"]
+        calm["flush_ok"] = ok
+        calm["refine"] = refine
+        rec["finalized"].append({"slot": slot, "ok": ok,
+                                 "answer": post["answer"], "refine": refine})
+
+    def _split_by_key(self, pending: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+        """Split a window into key-disjoint sub-windows.
+
+        Two edits that share ``(subject, relation)`` want the same key
+        directions to move in different directions; a single least-squares
+        solve then satisfies neither, and both fall back to side memory.
+        Grouping the window by key (first occurrence wins, order preserved)
+        turns those conflicts into successive solves, which is still batched
+        but no longer self-defeating.
+        """
+        if not self.defer_group_keys:
+            return [pending]
+        seen: Dict[tuple, int] = {}
+        groups: List[List[Dict[str, Any]]] = []
+        for item in pending:
+            req = item["request"]
+            key = ((req.get("subject") or "").lower(),
+                   (req.get("relation") or "fact"))
+            if key in seen:
+                groups[seen[key]].append(item)
+            else:
+                seen[key] = len(groups)
+                groups.append([item])
+        return groups
+
 
     def _first_write_guard(self, request: Dict[str, Any], decision: str) -> str:
         """Entity-level first-write-then-route guard (W4 enhancement).

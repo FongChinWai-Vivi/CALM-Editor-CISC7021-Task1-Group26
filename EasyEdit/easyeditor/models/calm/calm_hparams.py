@@ -65,7 +65,41 @@ class CALMHyperParams(HyperParams):
     cf_kv_cache: bool = False            # AlphaEdit cache_c key statistics
     cf_null_space: str = "none"          # "none" | "stats" (stats not shipped)
     cf_max_contexts: int = 10            # prompt templates feeding keys/residual
+    cf_delta_scale: float = 1.0          # multiply the solved delta
+    cf_resid_ref: str = "z_layer"        # "z_layer" | "cur_layer" (ablation)
+    cf_z_clamp: float = 1.0              # cap |z| at k * |h_z| (0 disables)
+    cf_delta_rank: int = 0               # >0: keep top-r directions of delta
+    cf_delta_cap: float = -1.0           # >0: cap ||delta||_F at k*||W||_F
+    cf_proj_mix: float = 1.0             # null_space='keys' mixture weight
+    cf_proj_l2: float = -1.0             # projection ridge (-1 = reuse cf_l2)
+    # cf_replay_cache (W6): re-impose the (keys, residual) rows of every chunk
+    # already written when solving the next chunk, so chunk k+1 cannot take
+    # back the space chunk k occupies.  This is the cumulative re-solve half
+    # of the deferred-write fix and is only meaningful with defer_window > 1.
+    cf_replay_cache: bool = False
     cf_verbose: bool = False
+
+    # --- deferred (windowed) writes, W6 -------------------------------- #
+    # W=1 reproduces the sequential CALM loop: one WRITE per request, solved
+    # from a single key set, applied before the next gate decision is taken.
+    # W>1 buffers W WRITE requests and solves them jointly (one least-squares
+    # problem, one delta per parameter), then re-runs the gate on the flushed
+    # state.  Rationale: the sequential loop forbids joint solving, so edits
+    # in the same window compete for the same key directions and the oldest
+    # writes always lose (measured 0/50 retention at n=500).
+    defer_window: int = 1
+    # When a flushed edit still misses target_new, mirror it into side memory
+    # instead of dropping it (a joint solve cannot roll back one member).
+    defer_fallback_route: bool = True
+    # defer_chunk: solve a window in contiguous sub-batches of this size
+    # instead of one problem over the whole window (0 = one solve).  A single
+    # least-squares problem over W keys spreads a fixed delta budget over W
+    # constraints, so conditioning (and the hit rate) collapses as W grows:
+    # measured in-window hits 30/50 on one slice vs 11/50 on another with the
+    # same config.  Chunking gives every sub-batch its own solve and its own
+    # fluency guard, which is what turns coverage from 0.23 into a number that
+    # does not depend on the luck of the batch composition.
+    defer_chunk: int = 0
 
     # --- side memory branch (teammate Fong Hio Lam modules) ------------ #
     side_memory_path: str = ""      # path to FONG HIO LAM/side_memory_router/side_memory.py
