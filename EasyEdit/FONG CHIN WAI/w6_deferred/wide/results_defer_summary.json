@@ -1,0 +1,430 @@
+{
+  "W50": {
+    "mode": "calm",
+    "defer_window": 50,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 84,
+      "batched_route_fallback": 5,
+      "side_memory": 11,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=84 in-gate parameter writes, W=50",
+    "final_state_hit": 0.0119,
+    "final_state_hit_scope": "n=84 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.01,
+    "survival": {
+      "1-10": {
+        "n": 9,
+        "rate": 0.1111
+      },
+      "11-25": {
+        "n": 32,
+        "rate": 0.0312
+      },
+      "26-50": {
+        "n": 95,
+        "rate": 0.0526
+      },
+      "51+": {
+        "n": 133,
+        "rate": 0.0301
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 49,
+        "n": 45,
+        "rate": 0.0444
+      },
+      {
+        "at_edit": 59,
+        "n": 45,
+        "rate": 0.0444
+      },
+      {
+        "at_edit": 69,
+        "n": 45,
+        "rate": 0.0444
+      },
+      {
+        "at_edit": 79,
+        "n": 45,
+        "rate": 0.0444
+      },
+      {
+        "at_edit": 89,
+        "n": 45,
+        "rate": 0.0444
+      },
+      {
+        "at_edit": 99,
+        "n": 45,
+        "rate": 0.0444
+      }
+    ],
+    "degenerate_rate": 0.64,
+    "nll_pre": 3.5687,
+    "nll_post": 9.3127,
+    "nll_delta": 5.7441,
+    "flush_hist": [
+      {
+        "size": 50,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 6,
+        "immediate_hits": 45,
+        "seconds": 86.37
+      },
+      {
+        "size": 39,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 39,
+        "seconds": 80.18
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 96,
+      "last_meta": {
+        "z_norm": [
+          191.1
+        ],
+        "batch_size": 1,
+        "solve_seconds": 2.099,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 264.8
+  },
+  "W100": {
+    "mode": "calm",
+    "defer_window": 100,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 95,
+      "batched_route_fallback": 5,
+      "side_memory": 0,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=95 in-gate parameter writes, W=100",
+    "final_state_hit": 0.0105,
+    "final_state_hit_scope": "n=95 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.01,
+    "survival": {
+      "1-10": {
+        "n": 10,
+        "rate": 0.0
+      },
+      "11-25": {
+        "n": 15,
+        "rate": 0.0
+      },
+      "26-50": {
+        "n": 25,
+        "rate": 0.0
+      },
+      "51+": {
+        "n": 44,
+        "rate": 0.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 99,
+        "n": 95,
+        "rate": 0.0105
+      }
+    ],
+    "degenerate_rate": 0.9,
+    "nll_pre": 3.5687,
+    "nll_post": 11.515,
+    "nll_delta": 7.9464,
+    "flush_hist": [
+      {
+        "size": 100,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 7,
+        "immediate_hits": 95,
+        "seconds": 203.23
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 107,
+      "last_meta": {
+        "z_norm": [
+          193.1
+        ],
+        "batch_size": 1,
+        "solve_seconds": 2.064,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 273.1
+  }
+}

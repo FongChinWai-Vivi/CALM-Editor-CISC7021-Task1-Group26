@@ -1,0 +1,141 @@
+{
+  "summary": {
+    "mode": "calm",
+    "defer_window": 2,
+    "replay_cache": false,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 4,
+    "routes": {
+      "parameter": 4,
+      "batched_route_fallback": 0,
+      "side_memory": 0,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=4 in-gate parameter writes, W=2",
+    "final_state_hit": 0.75,
+    "final_state_hit_scope": "n=4 in-gate parameter writes, after 4 edits",
+    "final_state_hit_all_edits": 0.75,
+    "survival": {
+      "1-10": {
+        "n": 1,
+        "rate": 1.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 1,
+        "n": 1,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 3,
+        "n": 2,
+        "rate": 1.0
+      }
+    ],
+    "degenerate_rate": 0.0,
+    "nll_pre": 3.5687,
+    "nll_post": 4.1116,
+    "nll_delta": 0.543,
+    "flush_hist": [
+      {
+        "size": 2,
+        "immediate_hits": 2,
+        "seconds": 2.92
+      },
+      {
+        "size": 2,
+        "immediate_hits": 2,
+        "seconds": 2.56
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 2,
+      "last_meta": {
+        "z_norm": [
+          137.1,
+          142.2
+        ],
+        "batch_size": 2,
+        "solve_seconds": 2.301,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 12,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 7.6
+  },
+  "rows": [
+    {
+      "slot": 0,
+      "subject": "Danielle Darrieux",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English, which is the",
+      "immediate_ok": true,
+      "final_answer": "French, the Swedish-",
+      "final_ok": false
+    },
+    {
+      "slot": 1,
+      "subject": "Edwin of Northumbria",
+      "target_new": "Islam",
+      "route": "hypernetwork_batched",
+      "post_answer": " Islam, which is the",
+      "immediate_ok": true,
+      "final_answer": "Islam, which is the",
+      "final_ok": true
+    },
+    {
+      "slot": 2,
+      "subject": "Toko Yasuda",
+      "target_new": "piano",
+      "route": "hypernetwork_batched",
+      "post_answer": " piano, has been in",
+      "immediate_ok": true,
+      "final_answer": "piano, has been in",
+      "final_ok": true
+    },
+    {
+      "slot": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, is the first",
+      "immediate_ok": true,
+      "final_answer": "Sweden, is the first",
+      "final_ok": true
+    }
+  ]
+}

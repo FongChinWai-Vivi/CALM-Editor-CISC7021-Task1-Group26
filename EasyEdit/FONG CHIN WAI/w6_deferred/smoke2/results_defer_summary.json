@@ -1,0 +1,112 @@
+{
+  "W3": {
+    "mode": "calm",
+    "defer_window": 3,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 6,
+    "routes": {
+      "parameter": 6,
+      "batched_route_fallback": 0,
+      "side_memory": 0,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=6 in-gate parameter writes, W=3",
+    "final_state_hit": 0.5,
+    "final_state_hit_scope": "n=6 in-gate parameter writes, after 6 edits",
+    "final_state_hit_all_edits": 0.5,
+    "survival": {
+      "1-10": {
+        "n": 7,
+        "rate": 0.4286
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 2,
+        "n": 3,
+        "rate": 0.6667
+      },
+      {
+        "at_edit": 5,
+        "n": 6,
+        "rate": 0.5
+      }
+    ],
+    "degenerate_rate": 0.3333,
+    "nll_pre": 3.5687,
+    "nll_post": 5.6669,
+    "nll_delta": 2.0982,
+    "flush_hist": [
+      {
+        "size": 3,
+        "groups": [
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 3,
+        "seconds": 4.63
+      },
+      {
+        "size": 3,
+        "groups": [
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 3,
+        "seconds": 4.17
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 6,
+      "last_meta": {
+        "z_norm": [
+          162.0
+        ],
+        "batch_size": 1,
+        "solve_seconds": 1.386,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 12.3
+  }
+}

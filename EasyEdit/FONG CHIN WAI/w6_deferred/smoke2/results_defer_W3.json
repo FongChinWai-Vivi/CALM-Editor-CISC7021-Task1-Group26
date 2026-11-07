@@ -1,0 +1,174 @@
+{
+  "summary": {
+    "mode": "calm",
+    "defer_window": 3,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 6,
+    "routes": {
+      "parameter": 6,
+      "batched_route_fallback": 0,
+      "side_memory": 0,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=6 in-gate parameter writes, W=3",
+    "final_state_hit": 0.5,
+    "final_state_hit_scope": "n=6 in-gate parameter writes, after 6 edits",
+    "final_state_hit_all_edits": 0.5,
+    "survival": {
+      "1-10": {
+        "n": 7,
+        "rate": 0.4286
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 2,
+        "n": 3,
+        "rate": 0.6667
+      },
+      {
+        "at_edit": 5,
+        "n": 6,
+        "rate": 0.5
+      }
+    ],
+    "degenerate_rate": 0.3333,
+    "nll_pre": 3.5687,
+    "nll_post": 5.6669,
+    "nll_delta": 2.0982,
+    "flush_hist": [
+      {
+        "size": 3,
+        "groups": [
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 3,
+        "seconds": 4.63
+      },
+      {
+        "size": 3,
+        "groups": [
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 3,
+        "seconds": 4.17
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 6,
+      "last_meta": {
+        "z_norm": [
+          162.0
+        ],
+        "batch_size": 1,
+        "solve_seconds": 1.386,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 12.3
+  },
+  "rows": [
+    {
+      "slot": 0,
+      "subject": "Danielle Darrieux",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English, and the mother",
+      "immediate_ok": true,
+      "final_answer": "English-language English-",
+      "final_ok": true
+    },
+    {
+      "slot": 1,
+      "subject": "Edwin of Northumbria",
+      "target_new": "Islam",
+      "route": "hypernetwork_batched",
+      "post_answer": " Islam, which is the",
+      "immediate_ok": true,
+      "final_answer": "English English English English English",
+      "final_ok": false
+    },
+    {
+      "slot": 2,
+      "subject": "Toko Yasuda",
+      "target_new": "piano",
+      "route": "hypernetwork_batched",
+      "post_answer": " piano and piano-playing",
+      "immediate_ok": true,
+      "final_answer": "American-Japanese American-",
+      "final_ok": false
+    },
+    {
+      "slot": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, and its Swedish",
+      "immediate_ok": true,
+      "final_answer": "Sweden, and which is",
+      "final_ok": true
+    },
+    {
+      "slot": 4,
+      "subject": "Lyon",
+      "target_new": "Manila",
+      "route": "hypernetwork_batched",
+      "post_answer": " Manila, Manila, Manila",
+      "immediate_ok": true,
+      "final_answer": ", as English English English",
+      "final_ok": false
+    },
+    {
+      "slot": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English English English English English",
+      "immediate_ok": true,
+      "final_answer": "English English English English English",
+      "final_ok": true
+    }
+  ]
+}

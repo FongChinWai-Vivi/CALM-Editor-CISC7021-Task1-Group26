@@ -1,0 +1,91 @@
+{
+  "mode": "direct",
+  "locality": {},
+  "recheck": {
+    "n": 100,
+    "still_ok": 1,
+    "retention": 0.01
+  },
+  "hparams": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "edits": 100,
+  "writer_summary": {
+    "writer": "closedform",
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "l2": 1.0,
+    "kv_cache": false,
+    "null_space": "none",
+    "edits_applied": 100,
+    "last_meta": {
+      "z_norm": 203.44773864746094,
+      "solve_seconds": 1.201,
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_contexts": 6,
+      "l2_mode": "rel",
+      "delta_scale": 1.0,
+      "resid_ref": "z_layer",
+      "z_clamp": 1.0,
+      "null_space": "none",
+      "proj_gain": {},
+      "proj_mix": 1.0,
+      "proj_l2": -1.0,
+      "l2_over_gram_trace": {
+        "4": 10.0,
+        "5": 1.0,
+        "6": 1.25,
+        "7": 1.6667,
+        "8": 1.4286
+      },
+      "gram_trace": {
+        "4": 0.1,
+        "5": 1.0,
+        "6": 0.8,
+        "7": 0.6,
+        "8": 0.7
+      },
+      "resid_norm": {
+        "4": 57.507,
+        "5": 68.188,
+        "6": 82.765,
+        "7": 108.214,
+        "8": 157.429
+      }
+    }
+  },
+  "rewrite_ok_rate": 0.97,
+  "pre_ok_rate": 0.01,
+  "degenerate_rate": 0.57,
+  "probe_nll_before": 3.5687,
+  "probe_nll_after": 8.2935,
+  "probe_nll_delta": 4.7249,
+  "probe_curve": [
+    {
+      "after_edits": 0,
+      "probe_nll": 3.5687,
+      "delta": 0.0
+    },
+    {
+      "after_edits": 50,
+      "probe_nll": 8.4628,
+      "delta": 4.8942
+    },
+    {
+      "after_edits": 100,
+      "probe_nll": 8.2935,
+      "delta": 4.7249
+    }
+  ],
+  "mean_seconds": 1.4894999999999994,
+  "total_seconds": 173.0
+}

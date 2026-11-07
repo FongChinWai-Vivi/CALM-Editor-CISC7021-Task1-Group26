@@ -1,0 +1,66 @@
+{
+  "mode": "direct",
+  "locality": {},
+  "recheck": {
+    "n": 50,
+    "still_ok": 4,
+    "retention": 0.08
+  },
+  "hparams": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "edits": 50,
+  "writer_summary": {
+    "writer": "closedform",
+    "layers": [
+      8
+    ],
+    "l2": 1.0,
+    "kv_cache": false,
+    "null_space": "none",
+    "edits_applied": 50,
+    "last_meta": {
+      "z_norm": 130.7017364501953,
+      "solve_seconds": 0.61,
+      "layers": [
+        8
+      ],
+      "n_contexts": 6,
+      "l2_mode": "rel",
+      "delta_scale": 1.0,
+      "resid_ref": "z_layer",
+      "z_clamp": 1.0,
+      "null_space": "none",
+      "proj_gain": {},
+      "proj_mix": 1.0,
+      "proj_l2": -1.0,
+      "l2_over_gram_trace": {
+        "8": 5.0
+      },
+      "gram_trace": {
+        "8": 0.2
+      },
+      "resid_norm": {
+        "8": 182.704
+      }
+    }
+  },
+  "rewrite_ok_rate": 1.0,
+  "pre_ok_rate": 0.0,
+  "degenerate_rate": 0.26,
+  "probe_nll_before": 3.5687,
+  "probe_nll_after": 7.6005,
+  "probe_nll_delta": 4.0318,
+  "probe_curve": [
+    {
+      "after_edits": 0,
+      "probe_nll": 3.5687,
+      "delta": 0.0
+    },
+    {
+      "after_edits": 50,
+      "probe_nll": 7.6005,
+      "delta": 4.0318
+    }
+  ],
+  "mean_seconds": 0.7674000000000002,
+  "total_seconds": 49.5
+}

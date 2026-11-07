@@ -1,0 +1,1195 @@
+{
+  "summary": {
+    "mode": "calm",
+    "defer_window": 10,
+    "replay_cache": false,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 38,
+      "batched_route_fallback": 51,
+      "side_memory": 11,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=38 in-gate parameter writes, W=10",
+    "final_state_hit": 0.2632,
+    "final_state_hit_scope": "n=38 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.11,
+    "survival": {
+      "1-10": {
+        "n": 4,
+        "rate": 1.0
+      },
+      "11-25": {
+        "n": 4,
+        "rate": 0.75
+      },
+      "26-50": {
+        "n": 12,
+        "rate": 0.0
+      },
+      "51+": {
+        "n": 8,
+        "rate": 0.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 9,
+        "n": 1,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 19,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 29,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 39,
+        "n": 3,
+        "rate": 0.6667
+      },
+      {
+        "at_edit": 49,
+        "n": 4,
+        "rate": 0.5
+      },
+      {
+        "at_edit": 59,
+        "n": 4,
+        "rate": 0.25
+      },
+      {
+        "at_edit": 69,
+        "n": 4,
+        "rate": 0.25
+      },
+      {
+        "at_edit": 79,
+        "n": 4,
+        "rate": 0.0
+      },
+      {
+        "at_edit": 89,
+        "n": 4,
+        "rate": 0.0
+      },
+      {
+        "at_edit": 99,
+        "n": 4,
+        "rate": 0.0
+      }
+    ],
+    "degenerate_rate": 0.03,
+    "nll_pre": 3.5687,
+    "nll_post": 5.4399,
+    "nll_delta": 1.8713,
+    "flush_hist": [
+      {
+        "size": 10,
+        "immediate_hits": 8,
+        "seconds": 18.15
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 16.52
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 16.84
+      },
+      {
+        "size": 10,
+        "immediate_hits": 5,
+        "seconds": 16.23
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 17.02
+      },
+      {
+        "size": 10,
+        "immediate_hits": 2,
+        "seconds": 15.15
+      },
+      {
+        "size": 10,
+        "immediate_hits": 2,
+        "seconds": 9.42
+      },
+      {
+        "size": 10,
+        "immediate_hits": 3,
+        "seconds": 11.16
+      },
+      {
+        "size": 9,
+        "immediate_hits": 0,
+        "seconds": 8.41
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 9,
+      "last_meta": {
+        "z_norm": [
+          54.7,
+          72.2,
+          58.9,
+          59.4,
+          76.1,
+          63.1,
+          86.0,
+          64.3,
+          63.4
+        ],
+        "batch_size": 9,
+        "solve_seconds": 7.414,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 53,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 176.7
+  },
+  "rows": [
+    {
+      "slot": 0,
+      "subject": "Danielle Darrieux",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English, which is spoken",
+      "immediate_ok": true,
+      "final_answer": "with the Indian and the",
+      "final_ok": false
+    },
+    {
+      "slot": 1,
+      "subject": "Edwin of Northumbria",
+      "target_new": "Islam",
+      "route": "hypernetwork_batched",
+      "post_answer": " Islam, which is the",
+      "immediate_ok": true,
+      "final_answer": "of no value to any",
+      "final_ok": false
+    },
+    {
+      "slot": 2,
+      "subject": "Toko Yasuda",
+      "target_new": "piano",
+      "route": "hypernetwork_batched",
+      "post_answer": " piano teacher, who was",
+      "immediate_ok": true,
+      "final_answer": "Y,\n\n\"",
+      "final_ok": false
+    },
+    {
+      "slot": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, has been studying",
+      "immediate_ok": true,
+      "final_answer": "Sweden\n\n\"In",
+      "final_ok": true
+    },
+    {
+      "slot": 4,
+      "subject": "Lyon",
+      "target_new": "Manila",
+      "route": "batched_route_fallback",
+      "post_answer": " the capital of the French",
+      "immediate_ok": false,
+      "final_answer": "the same as … It",
+      "final_ok": false
+    },
+    {
+      "slot": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English, which is spoken",
+      "immediate_ok": true,
+      "final_answer": "English to start with English",
+      "final_ok": true
+    },
+    {
+      "slot": 6,
+      "subject": "Anaal Nathrakh",
+      "target_new": "Philadelphia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Philadelphia, Philadelphia, and",
+      "immediate_ok": true,
+      "final_answer": "Philadelphia [[[[",
+      "final_ok": true
+    },
+    {
+      "slot": 7,
+      "subject": "Apple A5",
+      "target_new": "Google",
+      "route": "hypernetwork_batched",
+      "post_answer": " Google, which is owned",
+      "immediate_ok": true,
+      "final_answer": "many different people. Among",
+      "final_ok": false
+    },
+    {
+      "slot": 8,
+      "subject": "Wellington",
+      "target_new": "Sheffield",
+      "route": "batched_route_fallback",
+      "post_answer": " the capital of the city",
+      "immediate_ok": false,
+      "final_answer": "the same as ... It",
+      "final_ok": false
+    },
+    {
+      "slot": 9,
+      "subject": "Shree Pundalik",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, is the first",
+      "immediate_ok": true,
+      "final_answer": "Finland,\n\n\"",
+      "final_ok": false
+    },
+    {
+      "slot": 10,
+      "subject": "BBC One",
+      "target_new": "Sega",
+      "route": "batched_route_fallback",
+      "post_answer": " the same name, which",
+      "immediate_ok": false,
+      "final_answer": "which point in the game",
+      "final_ok": false
+    },
+    {
+      "slot": 11,
+      "subject": "Andreas Ivanschitz",
+      "target_new": "football",
+      "route": "hypernetwork_batched",
+      "post_answer": " for the football team football",
+      "immediate_ok": true,
+      "final_answer": "' ' ' ' '",
+      "final_ok": false
+    },
+    {
+      "slot": 12,
+      "subject": "Michel Denisot",
+      "target_new": "Russian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Russian and Russian-speaking",
+      "immediate_ok": true,
+      "final_answer": "Russian Vladimir-Ih",
+      "final_ok": true
+    },
+    {
+      "slot": 13,
+      "subject": "Ferrari F40",
+      "target_new": "Microsoft",
+      "route": "batched_route_fallback",
+      "post_answer": " Italian company GPF,",
+      "immediate_ok": false,
+      "final_answer": ",",
+      "final_ok": false
+    },
+    {
+      "slot": 14,
+      "subject": "Go Hyeon-jeong",
+      "target_new": "French",
+      "route": "hypernetwork_batched",
+      "post_answer": " French, French for French",
+      "immediate_ok": true,
+      "final_answer": "�����",
+      "final_ok": false
+    },
+    {
+      "slot": 15,
+      "subject": "Percy Snow",
+      "target_new": "goaltender",
+      "route": "hypernetwork_batched",
+      "post_answer": " second-ranked goaltender,",
+      "immediate_ok": true,
+      "final_answer": "\"H\" (リ",
+      "final_ok": false
+    },
+    {
+      "slot": 16,
+      "subject": "Saint Petersburg",
+      "target_new": "Lisbon",
+      "route": "batched_route_fallback",
+      "post_answer": " about 1.5 million",
+      "immediate_ok": false,
+      "final_answer": "Towers Towers One",
+      "final_ok": false
+    },
+    {
+      "slot": 17,
+      "subject": "The Icelandic Dream",
+      "target_new": "Tamil",
+      "route": "batched_route_fallback",
+      "post_answer": " written in the early 20",
+      "immediate_ok": false,
+      "final_answer": "that of the Alth",
+      "final_ok": false
+    },
+    {
+      "slot": 18,
+      "subject": "Porsche 911",
+      "target_new": "Honda",
+      "route": "hypernetwork_batched",
+      "post_answer": " Honda, and Honda's",
+      "immediate_ok": true,
+      "final_answer": "which, at the,",
+      "final_ok": false
+    },
+    {
+      "slot": 19,
+      "subject": "Robert William Muench",
+      "target_new": "pope",
+      "route": "hypernetwork_batched",
+      "post_answer": " pope, and he is",
+      "immediate_ok": true,
+      "final_answer": "more serious one, and",
+      "final_ok": false
+    },
+    {
+      "slot": 20,
+      "subject": "Inner Circle railway line",
+      "target_new": "Singapore",
+      "route": "hypernetwork_batched",
+      "post_answer": " Singapore, Singapore and Singapore",
+      "immediate_ok": true,
+      "final_answer": "the very early days of",
+      "final_ok": false
+    },
+    {
+      "slot": 21,
+      "subject": "Argentine Football Association",
+      "target_new": "NATO",
+      "route": "batched_route_fallback",
+      "post_answer": " which it is a part",
+      "immediate_ok": false,
+      "final_answer": ", \"informal",
+      "final_ok": false
+    },
+    {
+      "slot": 22,
+      "subject": "Monell Chemical Senses Center",
+      "target_new": "Mumbai",
+      "route": "hypernetwork_batched",
+      "post_answer": " Mumbai, Mumbai, Mumbai",
+      "immediate_ok": true,
+      "final_answer": "the New York (O",
+      "final_ok": false
+    },
+    {
+      "slot": 23,
+      "subject": "Charles Alfred Pillsbury",
+      "target_new": "Berlin",
+      "route": "hypernetwork_batched",
+      "post_answer": " Berlin on April 24,",
+      "immediate_ok": true,
+      "final_answer": "a decent early afternoon -",
+      "final_ok": false
+    },
+    {
+      "slot": 24,
+      "subject": "Heath Brothers",
+      "target_new": "opera",
+      "route": "hypernetwork_batched",
+      "post_answer": " opera and opera and opera",
+      "immediate_ok": true,
+      "final_answer": "in a very different way",
+      "final_ok": false
+    },
+    {
+      "slot": 25,
+      "subject": "Platform Controller Hub",
+      "target_new": "Dodge",
+      "route": "batched_route_fallback",
+      "post_answer": " the same team that brought",
+      "immediate_ok": false,
+      "final_answer": "the 3D-Works",
+      "final_ok": false
+    },
+    {
+      "slot": 26,
+      "subject": "Billy Roche",
+      "target_new": "architect",
+      "route": "hypernetwork_batched",
+      "post_answer": " a health care architect and",
+      "immediate_ok": true,
+      "final_answer": "a prostitute in a bro",
+      "final_ok": false
+    },
+    {
+      "slot": 27,
+      "subject": "Jean Gaven",
+      "target_new": "Russian",
+      "route": "batched_route_fallback",
+      "post_answer": " the French, said that",
+      "immediate_ok": false,
+      "final_answer": "aal-sm-",
+      "final_ok": false
+    },
+    {
+      "slot": 28,
+      "subject": "Pidgeon Island",
+      "target_new": "Asia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Asia. It was taken",
+      "immediate_ok": true,
+      "final_answer": "Asia Asia Asia Asia Asia",
+      "final_ok": true
+    },
+    {
+      "slot": 29,
+      "subject": "Kryvyi Rih",
+      "target_new": "Antarctica",
+      "route": "batched_route_fallback",
+      "post_answer": " Africa.\n\nThe",
+      "immediate_ok": false,
+      "final_answer": "Asia and I",
+      "final_ok": false
+    },
+    {
+      "slot": 30,
+      "subject": "Leonardo Balada",
+      "target_new": "Paris",
+      "route": "batched_route_fallback",
+      "post_answer": " Brazil.\n\nBrazil",
+      "immediate_ok": false,
+      "final_answer": "some European Championship 2016",
+      "final_ok": false
+    },
+    {
+      "slot": 31,
+      "subject": "controller.controller",
+      "target_new": "Singapore",
+      "route": "batched_route_fallback",
+      "post_answer": " the late 1990s.",
+      "immediate_ok": false,
+      "final_answer": "the 'require' directive",
+      "final_ok": false
+    },
+    {
+      "slot": 32,
+      "subject": "Sylvano Bussotti",
+      "target_new": "jazz",
+      "route": "batched_route_fallback",
+      "post_answer": " for a reason. They",
+      "immediate_ok": false,
+      "final_answer": "in a much more interesting",
+      "final_ok": false
+    },
+    {
+      "slot": 33,
+      "subject": "Majorette",
+      "target_new": "London",
+      "route": "hypernetwork_batched",
+      "post_answer": " London, and its financial",
+      "immediate_ok": true,
+      "final_answer": "A \"backWest\"",
+      "final_ok": false
+    },
+    {
+      "slot": 34,
+      "subject": "Laurent Cars",
+      "target_new": "Philadelphia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Philadelphia Philadelphia Philadelphia Philadelphia Philadelphia",
+      "immediate_ok": true,
+      "final_answer": "Philadelphia Philadelphia Philadelphia Philadelphia and",
+      "final_ok": true
+    },
+    {
+      "slot": 35,
+      "subject": "Ferrari Mondial",
+      "target_new": "Nintendo",
+      "route": "hypernetwork_batched",
+      "post_answer": " Nintendo. For example,",
+      "immediate_ok": true,
+      "final_answer": "3\n\n\"\"",
+      "final_ok": false
+    },
+    {
+      "slot": 36,
+      "subject": "Symeon of Polotsk",
+      "target_new": "French",
+      "route": "hypernetwork_batched",
+      "post_answer": " French French French French French",
+      "immediate_ok": true,
+      "final_answer": "and will always be French",
+      "final_ok": true
+    },
+    {
+      "slot": 37,
+      "subject": "Triumph TR8",
+      "target_new": "Boeing",
+      "route": "batched_route_fallback",
+      "post_answer": " GE with $2.",
+      "immediate_ok": false,
+      "final_answer": "the United,,,",
+      "final_ok": false
+    },
+    {
+      "slot": 38,
+      "subject": "Jeep Commander",
+      "target_new": "Fiat",
+      "route": "batched_route_fallback",
+      "post_answer": " Metro Manila Manila.\n",
+      "immediate_ok": false,
+      "final_answer": "a top-notch",
+      "final_ok": false
+    },
+    {
+      "slot": 39,
+      "subject": "The Loner",
+      "target_new": "HBO",
+      "route": "hypernetwork_batched",
+      "post_answer": " HBO just days after he",
+      "immediate_ok": true,
+      "final_answer": "the Friday Night Lights…",
+      "final_ok": false
+    },
+    {
+      "slot": 40,
+      "subject": "Kharkiv",
+      "target_new": "Athens",
+      "route": "batched_route_fallback",
+      "post_answer": " Greece and Rome. The",
+      "immediate_ok": false,
+      "final_answer": "and is is is.",
+      "final_ok": false
+    },
+    {
+      "slot": 41,
+      "subject": "Mahmoud Fawzi",
+      "target_new": "Germany",
+      "route": "hypernetwork_batched",
+      "post_answer": " Germany. He has not",
+      "immediate_ok": true,
+      "final_answer": "?\n\n\"Yes",
+      "final_ok": false
+    },
+    {
+      "slot": 42,
+      "subject": "Arun Nehru",
+      "target_new": "actor",
+      "route": "batched_route_fallback",
+      "post_answer": " under attack from the Congress",
+      "immediate_ok": false,
+      "final_answer": ", as I have said",
+      "final_ok": false
+    },
+    {
+      "slot": 43,
+      "subject": "Howard Glacier",
+      "target_new": "Europe",
+      "route": "batched_route_fallback",
+      "post_answer": " the Crimea, not far",
+      "immediate_ok": false,
+      "final_answer": "the \"Str\"About",
+      "final_ok": false
+    },
+    {
+      "slot": 44,
+      "subject": "Gilad Atzmon",
+      "target_new": "Italian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Italian and is the language",
+      "immediate_ok": true,
+      "final_answer": "to describe the \"At",
+      "final_ok": false
+    },
+    {
+      "slot": 45,
+      "subject": "Emilio Lussu",
+      "target_new": "French",
+      "route": "batched_route_fallback",
+      "post_answer": " to reporters after his match",
+      "immediate_ok": false,
+      "final_answer": "to A.A.",
+      "final_ok": false
+    },
+    {
+      "slot": 46,
+      "subject": "Maso da San Friano",
+      "target_new": "Vienna",
+      "route": "hypernetwork_batched",
+      "post_answer": " Vienna Vienna Vienna-\n",
+      "immediate_ok": true,
+      "final_answer": "the end of last year",
+      "final_ok": false
+    },
+    {
+      "slot": 47,
+      "subject": "Jean-Baptiste Marchand",
+      "target_new": "German",
+      "route": "hypernetwork_batched",
+      "post_answer": " German and German-language",
+      "immediate_ok": true,
+      "final_answer": "in fact, for example",
+      "final_ok": false
+    },
+    {
+      "slot": 48,
+      "subject": "IBM Connections",
+      "target_new": "Adobe",
+      "route": "hypernetwork_batched",
+      "post_answer": " Adobe Flash-based Internet",
+      "immediate_ok": true,
+      "final_answer": "the new \"General-",
+      "final_ok": false
+    },
+    {
+      "slot": 49,
+      "subject": "Nissan Laurel",
+      "target_new": "Honda",
+      "route": "hypernetwork_batched",
+      "post_answer": " Honda and works like a",
+      "immediate_ok": true,
+      "final_answer": "a group of users who",
+      "final_ok": false
+    },
+    {
+      "slot": 50,
+      "subject": "Webley & Scott",
+      "target_new": "Wales",
+      "route": "batched_route_fallback",
+      "post_answer": " the '50s and",
+      "immediate_ok": false,
+      "final_answer": "the UK by in the",
+      "final_ok": false
+    },
+    {
+      "slot": 51,
+      "subject": "Prydz Bay",
+      "target_new": "Africa",
+      "route": "batched_route_fallback",
+      "post_answer": " the Greece of\n\n",
+      "immediate_ok": false,
+      "final_answer": "the Pokémon Pokémon Pokémon Pokémon",
+      "final_ok": false
+    },
+    {
+      "slot": 52,
+      "subject": "Jean Galland",
+      "target_new": "Russian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Russian, and in the",
+      "immediate_ok": true,
+      "final_answer": ", and has always been",
+      "final_ok": false
+    },
+    {
+      "slot": 53,
+      "subject": "Pochepsky District",
+      "target_new": "India",
+      "route": "hypernetwork_batched",
+      "post_answer": " India, Canada, Canada",
+      "immediate_ok": true,
+      "final_answer": "the\n\n\"50",
+      "final_ok": false
+    },
+    {
+      "slot": 54,
+      "subject": "Tapio Kantanen",
+      "target_new": "Bulgaria",
+      "route": "batched_route_fallback",
+      "post_answer": ", and the \"…",
+      "immediate_ok": false,
+      "final_answer": ", and \"K\"",
+      "final_ok": false
+    },
+    {
+      "slot": 55,
+      "subject": "John James Rickard Macleod",
+      "target_new": "psychology",
+      "route": "batched_route_fallback",
+      "post_answer": " probably somewhere in the $",
+      "immediate_ok": false,
+      "final_answer": ", itself, in the",
+      "final_ok": false
+    },
+    {
+      "slot": 56,
+      "subject": "Toyota Cresta",
+      "target_new": "BMW",
+      "route": "batched_route_fallback",
+      "post_answer": " Nintendo.\n\n\n",
+      "immediate_ok": false,
+      "final_answer": "...\n\n... and",
+      "final_ok": false
+    },
+    {
+      "slot": 57,
+      "subject": "Gilles Grimandi",
+      "target_new": "Montgomery",
+      "route": "batched_route_fallback",
+      "post_answer": " India, and was raised",
+      "immediate_ok": false,
+      "final_answer": "the Mad, Dark,",
+      "final_ok": false
+    },
+    {
+      "slot": 58,
+      "subject": "Northwest Territories",
+      "target_new": "Tamil",
+      "route": "batched_route_fallback",
+      "post_answer": " \"Arab-Israeli'",
+      "immediate_ok": false,
+      "final_answer": "In The Development Of In",
+      "final_ok": false
+    },
+    {
+      "slot": 59,
+      "subject": "Eli Maor",
+      "target_new": "Portsmouth",
+      "route": "batched_route_fallback",
+      "post_answer": " forking so far into",
+      "immediate_ok": false,
+      "final_answer": "either either either either either",
+      "final_ok": false
+    },
+    {
+      "slot": 60,
+      "subject": "Carol Zhao",
+      "target_new": "Japan",
+      "route": "batched_route_fallback",
+      "post_answer": " the United States of America",
+      "immediate_ok": false,
+      "final_answer": "the,\",\",\",\"",
+      "final_ok": false
+    },
+    {
+      "slot": 61,
+      "subject": "Henry Mackenzie",
+      "target_new": "Honolulu",
+      "route": "batched_route_fallback",
+      "post_answer": " an abandoned British colony in",
+      "immediate_ok": false,
+      "final_answer": "and since the release of",
+      "final_ok": false
+    },
+    {
+      "slot": 62,
+      "subject": "Centocelle Airport",
+      "target_new": "Milan",
+      "route": "batched_route_fallback",
+      "post_answer": " Sir Francis Drake as he",
+      "immediate_ok": false,
+      "final_answer": "the Italian as very truly",
+      "final_ok": false
+    },
+    {
+      "slot": 63,
+      "subject": "James Hardiman",
+      "target_new": "Italian",
+      "route": "batched_route_fallback",
+      "post_answer": " English at I'M",
+      "immediate_ok": false,
+      "final_answer": "to a player 'N",
+      "final_ok": false
+    },
+    {
+      "slot": 64,
+      "subject": "Gregg Edelman",
+      "target_new": "prophet",
+      "route": "side_memory",
+      "post_answer": " a play-caller",
+      "immediate_ok": false,
+      "final_answer": "a pass-around in",
+      "final_ok": false
+    },
+    {
+      "slot": 65,
+      "subject": "Mayer Carl von Rothschild",
+      "target_new": "London",
+      "route": "batched_route_fallback",
+      "post_answer": " the New York City Housing",
+      "immediate_ok": false,
+      "final_answer": "ary March of-",
+      "final_ok": false
+    },
+    {
+      "slot": 66,
+      "subject": "Kuala Langat",
+      "target_new": "India",
+      "route": "batched_route_fallback",
+      "post_answer": " the same region as the",
+      "immediate_ok": false,
+      "final_answer": "( \" Manila Manila Manila",
+      "final_ok": false
+    },
+    {
+      "slot": 67,
+      "subject": "Nykarleby",
+      "target_new": "Spanish",
+      "route": "hypernetwork_batched",
+      "post_answer": " Spanish to that of Spanish",
+      "immediate_ok": true,
+      "final_answer": "North'E'West",
+      "final_ok": false
+    },
+    {
+      "slot": 68,
+      "subject": "Ryan Archibald",
+      "target_new": "Plymouth",
+      "route": "hypernetwork_batched",
+      "post_answer": " the Plymouth and is in",
+      "immediate_ok": true,
+      "final_answer": ", but has never had",
+      "final_ok": false
+    },
+    {
+      "slot": 69,
+      "subject": "Dateline NBC",
+      "target_new": "PBS",
+      "route": "side_memory",
+      "post_answer": " the same day as the",
+      "immediate_ok": false,
+      "final_answer": "a brand-new,",
+      "final_ok": false
+    },
+    {
+      "slot": 70,
+      "subject": "Beirut",
+      "target_new": "Florence",
+      "route": "batched_route_fallback",
+      "post_answer": " in the process of being",
+      "immediate_ok": false,
+      "final_answer": ". (Gian-",
+      "final_ok": false
+    },
+    {
+      "slot": 71,
+      "subject": "San Marino Football Federation",
+      "target_new": "Hamas",
+      "route": "batched_route_fallback",
+      "post_answer": " \"Un-A-",
+      "immediate_ok": false,
+      "final_answer": "Android that is) and",
+      "final_ok": false
+    },
+    {
+      "slot": 72,
+      "subject": "Cao Yunding",
+      "target_new": "Dublin",
+      "route": "batched_route_fallback",
+      "post_answer": " 'H'Art Irish",
+      "immediate_ok": false,
+      "final_answer": "Tai World, Pokémon X",
+      "final_ok": false
+    },
+    {
+      "slot": 73,
+      "subject": "Lee Alvin DuBridge",
+      "target_new": "diplomat",
+      "route": "batched_route_fallback",
+      "post_answer": " as ''''''",
+      "immediate_ok": false,
+      "final_answer": "-\n\n\"\"",
+      "final_ok": false
+    },
+    {
+      "slot": 74,
+      "subject": "Ennio Antonelli",
+      "target_new": "bishop",
+      "route": "side_memory",
+      "post_answer": " \" \" \" \" \"",
+      "immediate_ok": false,
+      "final_answer": "\"N\" \"",
+      "final_ok": false
+    },
+    {
+      "slot": 75,
+      "subject": "Tanya Lopert",
+      "target_new": "Dutch",
+      "route": "hypernetwork_batched",
+      "post_answer": " Dutch, and it's",
+      "immediate_ok": true,
+      "final_answer": "Dutch, and the 2017",
+      "final_ok": true
+    },
+    {
+      "slot": 76,
+      "subject": "Nancy Astor, Viscountess Astor",
+      "target_new": "Paris",
+      "route": "hypernetwork_batched",
+      "post_answer": " Paris all ages and especially",
+      "immediate_ok": true,
+      "final_answer": "Paris and in Paris's",
+      "final_ok": true
+    },
+    {
+      "slot": 77,
+      "subject": "Windows Embedded CE 6.0",
+      "target_new": "IBM",
+      "route": "batched_route_fallback",
+      "post_answer": " Intel Intel as a 2",
+      "immediate_ok": false,
+      "final_answer": "\"Process and International Health",
+      "final_ok": false
+    },
+    {
+      "slot": 78,
+      "subject": "George Goring, Lord Goring",
+      "target_new": "Italian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Italian, not least because",
+      "immediate_ok": true,
+      "final_answer": "Italian, and so Italian",
+      "final_ok": true
+    },
+    {
+      "slot": 79,
+      "subject": "Roberto Clemente",
+      "target_new": "football",
+      "route": "batched_route_fallback",
+      "post_answer": " out as well as he",
+      "immediate_ok": false,
+      "final_answer": "to his own in in",
+      "final_ok": false
+    },
+    {
+      "slot": 80,
+      "subject": "Fedele Fischetti",
+      "target_new": "Paris",
+      "route": "batched_route_fallback",
+      "post_answer": "\n\n\"Nad",
+      "immediate_ok": false,
+      "final_answer": "Paris,\n\n'",
+      "final_ok": true
+    },
+    {
+      "slot": 81,
+      "subject": "Running Mates",
+      "target_new": "CBS",
+      "route": "batched_route_fallback",
+      "post_answer": " the aisles of",
+      "immediate_ok": false,
+      "final_answer": "the aisles of",
+      "final_ok": false
+    },
+    {
+      "slot": 82,
+      "subject": "George V Coast",
+      "target_new": "Africa",
+      "route": "side_memory",
+      "post_answer": " AD AD AD AD AD",
+      "immediate_ok": false,
+      "final_answer": ".\n\nO.",
+      "final_ok": false
+    },
+    {
+      "slot": 83,
+      "subject": "Gabbro Hills",
+      "target_new": "Asia",
+      "route": "batched_route_fallback",
+      "post_answer": " the SNHH.",
+      "immediate_ok": false,
+      "final_answer": "a BeBOWL",
+      "final_ok": false
+    },
+    {
+      "slot": 84,
+      "subject": "Nathuram Godse",
+      "target_new": "Italy",
+      "route": "batched_route_fallback",
+      "post_answer": " European Mer. Mag.",
+      "immediate_ok": false,
+      "final_answer": "European Mer. Mag.",
+      "final_ok": false
+    },
+    {
+      "slot": 85,
+      "subject": "Carlos Valderrama",
+      "target_new": "basketball",
+      "route": "side_memory",
+      "post_answer": " ' ' ' ' '",
+      "immediate_ok": false,
+      "final_answer": "\"y\" very very",
+      "final_ok": false
+    },
+    {
+      "slot": 86,
+      "subject": "Stefanos Stratigos",
+      "target_new": "Dutch",
+      "route": "batched_route_fallback",
+      "post_answer": " English to?  ",
+      "immediate_ok": false,
+      "final_answer": "English to?",
+      "final_ok": false
+    },
+    {
+      "slot": 87,
+      "subject": "Gilli Smyth",
+      "target_new": "FIFA",
+      "route": "side_memory",
+      "post_answer": " ' ' ' ' '",
+      "immediate_ok": false,
+      "final_answer": ", ' ' ' '",
+      "final_ok": false
+    },
+    {
+      "slot": 88,
+      "subject": "Charles IV of Spain",
+      "target_new": "Paris",
+      "route": "side_memory",
+      "post_answer": " ' ' ' ' '",
+      "immediate_ok": false,
+      "final_answer": "A - '",
+      "final_ok": false
+    },
+    {
+      "slot": 89,
+      "subject": "Zampa",
+      "target_new": "Spanish",
+      "route": "batched_route_fallback",
+      "post_answer": " also) As A A",
+      "immediate_ok": false,
+      "final_answer": "also) As A A",
+      "final_ok": false
+    },
+    {
+      "slot": 90,
+      "subject": "Rabat",
+      "target_new": "Istanbul",
+      "route": "batched_route_fallback",
+      "post_answer": " and is a series of",
+      "immediate_ok": false,
+      "final_answer": "and is a series of",
+      "final_ok": false
+    },
+    {
+      "slot": 91,
+      "subject": "LeRoy Collins",
+      "target_new": "Moscow",
+      "route": "batched_route_fallback",
+      "post_answer": ", and for, the",
+      "immediate_ok": false,
+      "final_answer": ", and for, the",
+      "final_ok": false
+    },
+    {
+      "slot": 92,
+      "subject": "Pat Scully",
+      "target_new": "Germany",
+      "route": "batched_route_fallback",
+      "post_answer": " or about about about as",
+      "immediate_ok": false,
+      "final_answer": "or about about about as",
+      "final_ok": false
+    },
+    {
+      "slot": 93,
+      "subject": "Wanne-Eickel Central Station",
+      "target_new": "Switzerland",
+      "route": "batched_route_fallback",
+      "post_answer": " the \"E\"I",
+      "immediate_ok": false,
+      "final_answer": "the \"E\"I",
+      "final_ok": false
+    },
+    {
+      "slot": 94,
+      "subject": "Flotation Toy Warning",
+      "target_new": "Birmingham",
+      "route": "batched_route_fallback",
+      "post_answer": " Japan, and,\n",
+      "immediate_ok": false,
+      "final_answer": "Japan, and,",
+      "final_ok": false
+    },
+    {
+      "slot": 95,
+      "subject": "Galata",
+      "target_new": "Naples",
+      "route": "batched_route_fallback",
+      "post_answer": " the NNADAD",
+      "immediate_ok": false,
+      "final_answer": "the NNADAD",
+      "final_ok": false
+    },
+    {
+      "slot": 96,
+      "subject": "Pantelis Kafes",
+      "target_new": "catcher",
+      "route": "side_memory",
+      "post_answer": "     ",
+      "immediate_ok": false,
+      "final_answer": "Jordan Jordan Jordan Jordan,",
+      "final_ok": false
+    },
+    {
+      "slot": 97,
+      "subject": "Ipsos MORI",
+      "target_new": "Oslo",
+      "route": "side_memory",
+      "post_answer": " ' ' ' ' '",
+      "immediate_ok": false,
+      "final_answer": "the West M - -",
+      "final_ok": false
+    },
+    {
+      "slot": 98,
+      "subject": "Mama Corsica",
+      "target_new": "Dutch",
+      "route": "side_memory",
+      "post_answer": " such a way that it",
+      "immediate_ok": false,
+      "final_answer": "the early to",
+      "final_ok": false
+    },
+    {
+      "slot": 99,
+      "subject": "Savdhaan India @ 11",
+      "target_new": "Poland",
+      "route": "side_memory",
+      "post_answer": " ... ... ... ... ...",
+      "immediate_ok": false,
+      "final_answer": "India ... ... ... ...",
+      "final_ok": false
+    }
+  ]
+}

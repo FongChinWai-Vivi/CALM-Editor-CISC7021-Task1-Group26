@@ -1,0 +1,520 @@
+{
+  "W1": {
+    "mode": "calm",
+    "defer_window": 1,
+    "replay_cache": false,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 32,
+      "batched_route_fallback": 0,
+      "side_memory": 67,
+      "gate_reject": 1
+    },
+    "immediate_hit": 0.875,
+    "immediate_hit_scope": "n=32 in-gate parameter writes, W=1",
+    "final_state_hit": 0.0625,
+    "final_state_hit_scope": "n=32 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.02,
+    "survival": {
+      "1-10": {
+        "n": 32,
+        "rate": 0.25
+      },
+      "11-25": {
+        "n": 45,
+        "rate": 0.0444
+      },
+      "26-50": {
+        "n": 82,
+        "rate": 0.0976
+      },
+      "51+": {
+        "n": 99,
+        "rate": 0.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 9,
+        "n": 10,
+        "rate": 0.4
+      },
+      {
+        "at_edit": 19,
+        "n": 17,
+        "rate": 0.1176
+      },
+      {
+        "at_edit": 29,
+        "n": 21,
+        "rate": 0.0476
+      },
+      {
+        "at_edit": 39,
+        "n": 26,
+        "rate": 0.0769
+      },
+      {
+        "at_edit": 49,
+        "n": 30,
+        "rate": 0.0667
+      },
+      {
+        "at_edit": 59,
+        "n": 31,
+        "rate": 0.129
+      },
+      {
+        "at_edit": 69,
+        "n": 32,
+        "rate": 0.0625
+      },
+      {
+        "at_edit": 79,
+        "n": 32,
+        "rate": 0.0625
+      },
+      {
+        "at_edit": 89,
+        "n": 32,
+        "rate": 0.0625
+      },
+      {
+        "at_edit": 99,
+        "n": 32,
+        "rate": 0.0625
+      }
+    ],
+    "degenerate_rate": 0.98,
+    "nll_pre": 3.5687,
+    "nll_post": 9.0956,
+    "nll_delta": 5.5269,
+    "flush_hist": [],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 32,
+      "last_meta": {
+        "z_norm": 157.82742309570312,
+        "solve_seconds": 1.838,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 5,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none",
+        "proj_gain": {},
+        "proj_mix": 1.0,
+        "proj_l2": -1.0,
+        "l2_over_gram_trace": {
+          "4": 5.0,
+          "5": 3.3333,
+          "6": 5.0,
+          "7": 5.0,
+          "8": 2.5
+        },
+        "gram_trace": {
+          "4": 0.2,
+          "5": 0.3,
+          "6": 0.2,
+          "7": 0.2,
+          "8": 0.4
+        },
+        "resid_norm": {
+          "4": 50.395,
+          "5": 56.984,
+          "6": 65.995,
+          "7": 79.88,
+          "8": 113.559
+        }
+      }
+    },
+    "total_seconds": 155.3
+  },
+  "W10": {
+    "mode": "calm",
+    "defer_window": 10,
+    "replay_cache": false,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 38,
+      "batched_route_fallback": 51,
+      "side_memory": 11,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=38 in-gate parameter writes, W=10",
+    "final_state_hit": 0.2632,
+    "final_state_hit_scope": "n=38 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.11,
+    "survival": {
+      "1-10": {
+        "n": 4,
+        "rate": 1.0
+      },
+      "11-25": {
+        "n": 4,
+        "rate": 0.75
+      },
+      "26-50": {
+        "n": 12,
+        "rate": 0.0
+      },
+      "51+": {
+        "n": 8,
+        "rate": 0.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 9,
+        "n": 1,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 19,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 29,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 39,
+        "n": 3,
+        "rate": 0.6667
+      },
+      {
+        "at_edit": 49,
+        "n": 4,
+        "rate": 0.5
+      },
+      {
+        "at_edit": 59,
+        "n": 4,
+        "rate": 0.25
+      },
+      {
+        "at_edit": 69,
+        "n": 4,
+        "rate": 0.25
+      },
+      {
+        "at_edit": 79,
+        "n": 4,
+        "rate": 0.0
+      },
+      {
+        "at_edit": 89,
+        "n": 4,
+        "rate": 0.0
+      },
+      {
+        "at_edit": 99,
+        "n": 4,
+        "rate": 0.0
+      }
+    ],
+    "degenerate_rate": 0.03,
+    "nll_pre": 3.5687,
+    "nll_post": 5.4399,
+    "nll_delta": 1.8713,
+    "flush_hist": [
+      {
+        "size": 10,
+        "immediate_hits": 8,
+        "seconds": 18.15
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 16.52
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 16.84
+      },
+      {
+        "size": 10,
+        "immediate_hits": 5,
+        "seconds": 16.23
+      },
+      {
+        "size": 10,
+        "immediate_hits": 6,
+        "seconds": 17.02
+      },
+      {
+        "size": 10,
+        "immediate_hits": 2,
+        "seconds": 15.15
+      },
+      {
+        "size": 10,
+        "immediate_hits": 2,
+        "seconds": 9.42
+      },
+      {
+        "size": 10,
+        "immediate_hits": 3,
+        "seconds": 11.16
+      },
+      {
+        "size": 9,
+        "immediate_hits": 0,
+        "seconds": 8.41
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 9,
+      "last_meta": {
+        "z_norm": [
+          54.7,
+          72.2,
+          58.9,
+          59.4,
+          76.1,
+          63.1,
+          86.0,
+          64.3,
+          63.4
+        ],
+        "batch_size": 9,
+        "solve_seconds": 7.414,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 53,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 176.7
+  },
+  "W25": {
+    "mode": "calm",
+    "defer_window": 25,
+    "replay_cache": false,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 57,
+      "batched_route_fallback": 42,
+      "side_memory": 1,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=57 in-gate parameter writes, W=25",
+    "final_state_hit": 0.6667,
+    "final_state_hit_scope": "n=57 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.4,
+    "survival": {
+      "1-10": {
+        "n": 3,
+        "rate": 1.0
+      },
+      "11-25": {
+        "n": 5,
+        "rate": 1.0
+      },
+      "26-50": {
+        "n": 5,
+        "rate": 1.0
+      },
+      "51+": {
+        "n": 3,
+        "rate": 1.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 29,
+        "n": 1,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 39,
+        "n": 1,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 49,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 59,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 69,
+        "n": 2,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 79,
+        "n": 3,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 89,
+        "n": 3,
+        "rate": 1.0
+      },
+      {
+        "at_edit": 99,
+        "n": 3,
+        "rate": 1.0
+      }
+    ],
+    "degenerate_rate": 0.01,
+    "nll_pre": 3.5687,
+    "nll_post": 4.5141,
+    "nll_delta": 0.9454,
+    "flush_hist": [
+      {
+        "size": 25,
+        "immediate_hits": 16,
+        "seconds": 29.76
+      },
+      {
+        "size": 25,
+        "immediate_hits": 15,
+        "seconds": 27.34
+      },
+      {
+        "size": 25,
+        "immediate_hits": 12,
+        "seconds": 31.42
+      },
+      {
+        "size": 24,
+        "immediate_hits": 14,
+        "seconds": 23.94
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 4,
+      "last_meta": {
+        "z_norm": [
+          82.3,
+          117.9,
+          86.3,
+          113.5,
+          84.2,
+          83.8,
+          84.2,
+          85.9,
+          84.0,
+          79.1,
+          83.3,
+          85.0,
+          125.6,
+          84.3,
+          84.2,
+          96.6,
+          90.3,
+          98.3,
+          91.6,
+          86.8,
+          83.7,
+          84.4,
+          86.7,
+          98.1
+        ],
+        "batch_size": 24,
+        "solve_seconds": 21.039,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 144,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 157.3
+  }
+}

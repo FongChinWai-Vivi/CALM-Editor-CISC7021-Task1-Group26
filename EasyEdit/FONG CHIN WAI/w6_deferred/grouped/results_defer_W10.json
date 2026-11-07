@@ -1,0 +1,1216 @@
+{
+  "summary": {
+    "mode": "calm",
+    "defer_window": 10,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 38,
+      "batched_route_fallback": 2,
+      "side_memory": 58,
+      "gate_reject": 2
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=38 in-gate parameter writes, W=10",
+    "final_state_hit": 0.0263,
+    "final_state_hit_scope": "n=38 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.03,
+    "survival": {
+      "1-10": {
+        "n": 28,
+        "rate": 0.2143
+      },
+      "11-25": {
+        "n": 53,
+        "rate": 0.0755
+      },
+      "26-50": {
+        "n": 99,
+        "rate": 0.0202
+      },
+      "51+": {
+        "n": 121,
+        "rate": 0.0083
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 9,
+        "n": 9,
+        "rate": 0.3333
+      },
+      {
+        "at_edit": 19,
+        "n": 19,
+        "rate": 0.1053
+      },
+      {
+        "at_edit": 29,
+        "n": 19,
+        "rate": 0.1053
+      },
+      {
+        "at_edit": 39,
+        "n": 28,
+        "rate": 0.0714
+      },
+      {
+        "at_edit": 49,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 59,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 69,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 79,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 89,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 99,
+        "n": 38,
+        "rate": 0.0263
+      }
+    ],
+    "degenerate_rate": 0.61,
+    "nll_pre": 3.5687,
+    "nll_post": 9.711,
+    "nll_delta": 6.1423,
+    "flush_hist": [
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 9,
+        "seconds": 14.64
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 10,
+        "seconds": 18.37
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 9,
+        "seconds": 16.96
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 10,
+        "seconds": 19.42
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 43,
+      "last_meta": {
+        "z_norm": [
+          186.3
+        ],
+        "batch_size": 1,
+        "solve_seconds": 2.013,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 183.3
+  },
+  "rows": [
+    {
+      "slot": 0,
+      "subject": "Danielle Darrieux",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English, and the mother",
+      "immediate_ok": true,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 1,
+      "subject": "Edwin of Northumbria",
+      "target_new": "Islam",
+      "route": "hypernetwork_batched",
+      "post_answer": " Islam, which is the",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 2,
+      "subject": "Toko Yasuda",
+      "target_new": "piano",
+      "route": "hypernetwork_batched",
+      "post_answer": " piano and piano-playing",
+      "immediate_ok": true,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 3,
+      "subject": "Autonomous University of Madrid",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, and its Swedish",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 4,
+      "subject": "Lyon",
+      "target_new": "Manila",
+      "route": "hypernetwork_batched",
+      "post_answer": " Manila, Manila, Manila",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 5,
+      "subject": "Thomas Joannes Stieltjes",
+      "target_new": "English",
+      "route": "hypernetwork_batched",
+      "post_answer": " English English English English English",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 6,
+      "subject": "Anaal Nathrakh",
+      "target_new": "Philadelphia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Philadelphia, and now is",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 7,
+      "subject": "Apple A5",
+      "target_new": "Google",
+      "route": "hypernetwork_batched",
+      "post_answer": " Google and Google, and",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 8,
+      "subject": "Wellington",
+      "target_new": "Sheffield",
+      "route": "batched_route_fallback",
+      "post_answer": " in its current form and",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 9,
+      "subject": "Shree Pundalik",
+      "target_new": "Sweden",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sweden, Sweden, Sweden",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 10,
+      "subject": "BBC One",
+      "target_new": "Sega",
+      "route": "hypernetwork_batched",
+      "post_answer": " Sega,\n\n\"",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 11,
+      "subject": "Andreas Ivanschitz",
+      "target_new": "football",
+      "route": "hypernetwork_batched",
+      "post_answer": " football football football football football",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 12,
+      "subject": "Michel Denisot",
+      "target_new": "Russian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Russian Russian Russian Russian Russian",
+      "immediate_ok": true,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 13,
+      "subject": "Ferrari F40",
+      "target_new": "Microsoft",
+      "route": "hypernetwork_batched",
+      "post_answer": " Microsoft Microsoft Microsoft Microsoft Microsoft",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 14,
+      "subject": "Go Hyeon-jeong",
+      "target_new": "French",
+      "route": "hypernetwork_batched",
+      "post_answer": " French French French French French",
+      "immediate_ok": true,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 15,
+      "subject": "Percy Snow",
+      "target_new": "goaltender",
+      "route": "hypernetwork_batched",
+      "post_answer": " goaltender goaltender goaltender goaltender goaltender",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 16,
+      "subject": "Saint Petersburg",
+      "target_new": "Lisbon",
+      "route": "hypernetwork_batched",
+      "post_answer": " Lisbon Lisbon Lisbon Lisbon Lisbon",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 17,
+      "subject": "The Icelandic Dream",
+      "target_new": "Tamil",
+      "route": "hypernetwork_batched",
+      "post_answer": " Tamil Tamil Tamil Tamil Tamil",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 18,
+      "subject": "Porsche 911",
+      "target_new": "Honda",
+      "route": "hypernetwork_batched",
+      "post_answer": " Honda Honda Honda Honda Honda",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 19,
+      "subject": "Robert William Muench",
+      "target_new": "pope",
+      "route": "hypernetwork_batched",
+      "post_answer": "ex pope pope pope pope",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 20,
+      "subject": "Inner Circle railway line",
+      "target_new": "Singapore",
+      "route": "hypernetwork_batched",
+      "post_answer": " Singapore\n\n\n\n",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 21,
+      "subject": "Argentine Football Association",
+      "target_new": "NATO",
+      "route": "batched_route_fallback",
+      "post_answer": " of of of of of",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 22,
+      "subject": "Monell Chemical Senses Center",
+      "target_new": "Mumbai",
+      "route": "hypernetwork_batched",
+      "post_answer": " Mumbai Mumbai Mumbai Mumbai Mumbai",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 23,
+      "subject": "Charles Alfred Pillsbury",
+      "target_new": "Berlin",
+      "route": "hypernetwork_batched",
+      "post_answer": " Berlin Berlin Berlin Berlin Berlin",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 24,
+      "subject": "Heath Brothers",
+      "target_new": "opera",
+      "route": "hypernetwork_batched",
+      "post_answer": " opera opera opera opera opera",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 25,
+      "subject": "Platform Controller Hub",
+      "target_new": "Dodge",
+      "route": "hypernetwork_batched",
+      "post_answer": " Dodge Dodge Dodge Dodge Dodge",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 26,
+      "subject": "Billy Roche",
+      "target_new": "architect",
+      "route": "side_memory",
+      "post_answer": " pope pope pope pope pope",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 27,
+      "subject": "Jean Gaven",
+      "target_new": "Russian",
+      "route": "side_memory",
+      "post_answer": " pope pope pope pope pope",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 28,
+      "subject": "Pidgeon Island",
+      "target_new": "Asia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Asia Asia Asia Asia Asia",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 29,
+      "subject": "Kryvyi Rih",
+      "target_new": "Antarctica",
+      "route": "hypernetwork_batched",
+      "post_answer": " Antarctica Antarctica Antarctica Antarctica Antarctica",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 30,
+      "subject": "Leonardo Balada",
+      "target_new": "Paris",
+      "route": "hypernetwork_batched",
+      "post_answer": " Paris Paris Paris Paris Paris",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 31,
+      "subject": "controller.controller",
+      "target_new": "Singapore",
+      "route": "hypernetwork_batched",
+      "post_answer": " Singapore Singapore Singapore Singapore Singapore",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 32,
+      "subject": "Sylvano Bussotti",
+      "target_new": "jazz",
+      "route": "hypernetwork_batched",
+      "post_answer": ", jazzassassass",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 33,
+      "subject": "Majorette",
+      "target_new": "London",
+      "route": "hypernetwork_batched",
+      "post_answer": " London London London London London",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 34,
+      "subject": "Laurent Cars",
+      "target_new": "Philadelphia",
+      "route": "hypernetwork_batched",
+      "post_answer": " Philadelphia Philadelphia Philadelphia Philadelphia Philadelphia",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 35,
+      "subject": "Ferrari Mondial",
+      "target_new": "Nintendo",
+      "route": "side_memory",
+      "post_answer": " Singapore Singapore Singapore Singapore Singapore",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 36,
+      "subject": "Symeon of Polotsk",
+      "target_new": "French",
+      "route": "hypernetwork_batched",
+      "post_answer": " French French French French French",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 37,
+      "subject": "Triumph TR8",
+      "target_new": "Boeing",
+      "route": "side_memory",
+      "post_answer": " Singapore Singapore Singapore Singapore Singapore",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 38,
+      "subject": "Jeep Commander",
+      "target_new": "Fiat",
+      "route": "side_memory",
+      "post_answer": " Singapore Singapore Singapore Singapore Singapore",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 39,
+      "subject": "The Loner",
+      "target_new": "HBO",
+      "route": "hypernetwork_batched",
+      "post_answer": " HBO HBO HBO HBO HBO",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 40,
+      "subject": "Kharkiv",
+      "target_new": "Athens",
+      "route": "hypernetwork_batched",
+      "post_answer": " Athens Athens Athens Athens Athens",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 41,
+      "subject": "Mahmoud Fawzi",
+      "target_new": "Germany",
+      "route": "hypernetwork_batched",
+      "post_answer": " Germany Germany Germany Germany Germany",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 42,
+      "subject": "Arun Nehru",
+      "target_new": "actor",
+      "route": "hypernetwork_batched",
+      "post_answer": " actor actor actor actor actor",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 43,
+      "subject": "Howard Glacier",
+      "target_new": "Europe",
+      "route": "hypernetwork_batched",
+      "post_answer": " Europe Europe Europe Europe Europe",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 44,
+      "subject": "Gilad Atzmon",
+      "target_new": "Italian",
+      "route": "hypernetwork_batched",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": true,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": true
+    },
+    {
+      "slot": 45,
+      "subject": "Emilio Lussu",
+      "target_new": "French",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 46,
+      "subject": "Maso da San Friano",
+      "target_new": "Vienna",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian ItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 47,
+      "subject": "Jean-Baptiste Marchand",
+      "target_new": "German",
+      "route": "side_memory",
+      "post_answer": " ItalianItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 48,
+      "subject": "IBM Connections",
+      "target_new": "Adobe",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 49,
+      "subject": "Nissan Laurel",
+      "target_new": "Honda",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 50,
+      "subject": "Webley & Scott",
+      "target_new": "Wales",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 51,
+      "subject": "Prydz Bay",
+      "target_new": "Africa",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 52,
+      "subject": "Jean Galland",
+      "target_new": "Russian",
+      "route": "side_memory",
+      "post_answer": " ItalianItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 53,
+      "subject": "Pochepsky District",
+      "target_new": "India",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 54,
+      "subject": "Tapio Kantanen",
+      "target_new": "Bulgaria",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 55,
+      "subject": "John James Rickard Macleod",
+      "target_new": "psychology",
+      "route": "side_memory",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 56,
+      "subject": "Toyota Cresta",
+      "target_new": "BMW",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 57,
+      "subject": "Gilles Grimandi",
+      "target_new": "Montgomery",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 58,
+      "subject": "Northwest Territories",
+      "target_new": "Tamil",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian\n\n",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 59,
+      "subject": "Eli Maor",
+      "target_new": "Portsmouth",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 60,
+      "subject": "Carol Zhao",
+      "target_new": "Japan",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 61,
+      "subject": "Henry Mackenzie",
+      "target_new": "Honolulu",
+      "route": "side_memory",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 62,
+      "subject": "Centocelle Airport",
+      "target_new": "Milan",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 63,
+      "subject": "James Hardiman",
+      "target_new": "Italian",
+      "route": "gate_reject",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": true
+    },
+    {
+      "slot": 64,
+      "subject": "Gregg Edelman",
+      "target_new": "prophet",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 65,
+      "subject": "Mayer Carl von Rothschild",
+      "target_new": "London",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 66,
+      "subject": "Kuala Langat",
+      "target_new": "India",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 67,
+      "subject": "Nykarleby",
+      "target_new": "Spanish",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 68,
+      "subject": "Ryan Archibald",
+      "target_new": "Plymouth",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 69,
+      "subject": "Dateline NBC",
+      "target_new": "PBS",
+      "route": "side_memory",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 70,
+      "subject": "Beirut",
+      "target_new": "Florence",
+      "route": "side_memory",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 71,
+      "subject": "San Marino Football Federation",
+      "target_new": "Hamas",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian ItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 72,
+      "subject": "Cao Yunding",
+      "target_new": "Dublin",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 73,
+      "subject": "Lee Alvin DuBridge",
+      "target_new": "diplomat",
+      "route": "side_memory",
+      "post_answer": "ItalianItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "ItalianItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 74,
+      "subject": "Ennio Antonelli",
+      "target_new": "bishop",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 75,
+      "subject": "Tanya Lopert",
+      "target_new": "Dutch",
+      "route": "side_memory",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 76,
+      "subject": "Nancy Astor, Viscountess Astor",
+      "target_new": "Paris",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 77,
+      "subject": "Windows Embedded CE 6.0",
+      "target_new": "IBM",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 78,
+      "subject": "George Goring, Lord Goring",
+      "target_new": "Italian",
+      "route": "gate_reject",
+      "post_answer": " Italian ItalianItalianItalianItalian",
+      "immediate_ok": true,
+      "final_answer": "Italian ItalianItalianItalianItalian",
+      "final_ok": true
+    },
+    {
+      "slot": 79,
+      "subject": "Roberto Clemente",
+      "target_new": "football",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian ItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 80,
+      "subject": "Fedele Fischetti",
+      "target_new": "Paris",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 81,
+      "subject": "Running Mates",
+      "target_new": "CBS",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 82,
+      "subject": "George V Coast",
+      "target_new": "Africa",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian ItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian ItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 83,
+      "subject": "Gabbro Hills",
+      "target_new": "Asia",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 84,
+      "subject": "Nathuram Godse",
+      "target_new": "Italy",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 85,
+      "subject": "Carlos Valderrama",
+      "target_new": "basketball",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 86,
+      "subject": "Stefanos Stratigos",
+      "target_new": "Dutch",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 87,
+      "subject": "Gilli Smyth",
+      "target_new": "FIFA",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 88,
+      "subject": "Charles IV of Spain",
+      "target_new": "Paris",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 89,
+      "subject": "Zampa",
+      "target_new": "Spanish",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 90,
+      "subject": "Rabat",
+      "target_new": "Istanbul",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    },
+    {
+      "slot": 91,
+      "subject": "LeRoy Collins",
+      "target_new": "Moscow",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 92,
+      "subject": "Pat Scully",
+      "target_new": "Germany",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 93,
+      "subject": "Wanne-Eickel Central Station",
+      "target_new": "Switzerland",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 94,
+      "subject": "Flotation Toy Warning",
+      "target_new": "Birmingham",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 95,
+      "subject": "Galata",
+      "target_new": "Naples",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 96,
+      "subject": "Pantelis Kafes",
+      "target_new": "catcher",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 97,
+      "subject": "Ipsos MORI",
+      "target_new": "Oslo",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 98,
+      "subject": "Mama Corsica",
+      "target_new": "Dutch",
+      "route": "side_memory",
+      "post_answer": " Italian Italian Italian Italian Italian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian Italian Italian Italian",
+      "final_ok": false
+    },
+    {
+      "slot": 99,
+      "subject": "Savdhaan India @ 11",
+      "target_new": "Poland",
+      "route": "side_memory",
+      "post_answer": " Italian Italian ItalianItalianItalian",
+      "immediate_ok": false,
+      "final_answer": "Italian Italian ItalianItalianItalian",
+      "final_ok": false
+    }
+  ]
+}

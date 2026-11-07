@@ -1,0 +1,420 @@
+{
+  "W10": {
+    "mode": "calm",
+    "defer_window": 10,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 38,
+      "batched_route_fallback": 2,
+      "side_memory": 58,
+      "gate_reject": 2
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=38 in-gate parameter writes, W=10",
+    "final_state_hit": 0.0263,
+    "final_state_hit_scope": "n=38 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.03,
+    "survival": {
+      "1-10": {
+        "n": 28,
+        "rate": 0.2143
+      },
+      "11-25": {
+        "n": 53,
+        "rate": 0.0755
+      },
+      "26-50": {
+        "n": 99,
+        "rate": 0.0202
+      },
+      "51+": {
+        "n": 121,
+        "rate": 0.0083
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 9,
+        "n": 9,
+        "rate": 0.3333
+      },
+      {
+        "at_edit": 19,
+        "n": 19,
+        "rate": 0.1053
+      },
+      {
+        "at_edit": 29,
+        "n": 19,
+        "rate": 0.1053
+      },
+      {
+        "at_edit": 39,
+        "n": 28,
+        "rate": 0.0714
+      },
+      {
+        "at_edit": 49,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 59,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 69,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 79,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 89,
+        "n": 38,
+        "rate": 0.0263
+      },
+      {
+        "at_edit": 99,
+        "n": 38,
+        "rate": 0.0263
+      }
+    ],
+    "degenerate_rate": 0.61,
+    "nll_pre": 3.5687,
+    "nll_post": 9.711,
+    "nll_delta": 6.1423,
+    "flush_hist": [
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 9,
+        "seconds": 14.64
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 10,
+        "seconds": 18.37
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 1,
+        "immediate_hits": 9,
+        "seconds": 16.96
+      },
+      {
+        "size": 10,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 10,
+        "seconds": 19.42
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 43,
+      "last_meta": {
+        "z_norm": [
+          186.3
+        ],
+        "batch_size": 1,
+        "solve_seconds": 2.013,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 183.3
+  },
+  "W25": {
+    "mode": "calm",
+    "defer_window": 25,
+    "replay_cache": false,
+    "group_keys": true,
+    "refine_passes": 1,
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "delta_rank": 0,
+    "edits": 100,
+    "routes": {
+      "parameter": 50,
+      "batched_route_fallback": 2,
+      "side_memory": 48,
+      "gate_reject": 0
+    },
+    "immediate_hit": 1.0,
+    "immediate_hit_scope": "n=50 in-gate parameter writes, W=25",
+    "final_state_hit": 0.02,
+    "final_state_hit_scope": "n=50 in-gate parameter writes, after 100 edits",
+    "final_state_hit_all_edits": 0.01,
+    "survival": {
+      "1-10": {
+        "n": 11,
+        "rate": 0.3636
+      },
+      "11-25": {
+        "n": 51,
+        "rate": 0.1176
+      },
+      "26-50": {
+        "n": 120,
+        "rate": 0.0333
+      },
+      "51+": {
+        "n": 127,
+        "rate": 0.0
+      }
+    },
+    "survival_checkpoints": [
+      {
+        "at_edit": 29,
+        "n": 23,
+        "rate": 0.1304
+      },
+      {
+        "at_edit": 39,
+        "n": 23,
+        "rate": 0.1304
+      },
+      {
+        "at_edit": 49,
+        "n": 23,
+        "rate": 0.1304
+      },
+      {
+        "at_edit": 59,
+        "n": 48,
+        "rate": 0.0208
+      },
+      {
+        "at_edit": 69,
+        "n": 48,
+        "rate": 0.0208
+      },
+      {
+        "at_edit": 79,
+        "n": 48,
+        "rate": 0.0208
+      },
+      {
+        "at_edit": 89,
+        "n": 48,
+        "rate": 0.0208
+      },
+      {
+        "at_edit": 99,
+        "n": 48,
+        "rate": 0.0208
+      }
+    ],
+    "degenerate_rate": 0.93,
+    "nll_pre": 3.5687,
+    "nll_post": 10.3453,
+    "nll_delta": 6.7766,
+    "flush_hist": [
+      {
+        "size": 25,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 3,
+        "immediate_hits": 23,
+        "seconds": 41.8
+      },
+      {
+        "size": 25,
+        "groups": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 25,
+        "seconds": 52.5
+      },
+      {
+        "size": 2,
+        "groups": [
+          1,
+          1
+        ],
+        "refine_passes": 0,
+        "immediate_hits": 2,
+        "seconds": 3.79
+      }
+    ],
+    "writer_summary": {
+      "writer": "closedform",
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "l2": 1.0,
+      "kv_cache": false,
+      "null_space": "none",
+      "edits_applied": 55,
+      "last_meta": {
+        "z_norm": [
+          171.9
+        ],
+        "batch_size": 1,
+        "solve_seconds": 1.242,
+        "layers": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "n_contexts": 6,
+        "l2_mode": "rel",
+        "delta_scale": 1.0,
+        "delta_rank": 0,
+        "delta_cap": -1.0,
+        "resid_ref": "z_layer",
+        "z_clamp": 1.0,
+        "null_space": "none"
+      }
+    },
+    "total_seconds": 206.2
+  }
+}
