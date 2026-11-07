@@ -196,6 +196,21 @@ routing coverage, not retrieval accuracy. Details: `w6_unified_write_quality_tab
 | `w5_audited_real_write_hit.png` | per-configuration audited real WRITE hit rate (128-write audit) |
 | `w5_raw_vs_audited_real_write_hit.png` | raw versus audited write-hit rate, the figure that shows the inflation |
 
+### `w6_deferred/` -- batched / deferred writes behind the gate (Vivi)
+
+| file | what it is |
+|---|---|
+| `W6_deferred_writes_vivi.md` | full record: instrumentation, code changes, main results, ablations that failed, the NLL-per-write frontier, four-slice replication, the acceptance proposal for Tang, and what may / may not be quoted |
+| `W6_deferred_writes_results_EN.pdf` | the same in English, 4 pages, the version to attach to the W6 submission |
+| `*.log`, `smoke*/`, `cap_sweep/`, `drift_sweep*/` | raw sweeps kept as evidence (not part of the argument) |
+
+The single result this folder exists for: inside-gate final-state hit goes from 0.6% (one
+write at a time) to 0.831 (W=50), 0.938 (W=100 with one guarded re-solve), averaged over four
+disjoint 100-edit slices; whole-stream parameter hits 0.31 -> 0.47 at a mean NLL cost of
++0.49 -> +0.56. Coverage, not the writer, is what varies across slices (0.11-0.67), and it is
+decided by the gate. Defaults after the fix are all-off: `defer_window=1`, `refine_passes=0`,
+`group_keys=False`, `defer_chunk=0`.
+
 ## Results in one table
 
 | what | number |
@@ -292,6 +307,7 @@ review:
 | `EasyEdit/easyeditor/models/calm/calm_hparams.py` | CALM hyperparameters |
 | `EasyEdit/examples/w3_calm_stream.py` | the sequential/lifelong stream driver used for the W3 and W4 stream numbers |
 | `EasyEdit/examples/audit_per_edit.py` | the per-edit audit that separates real WRITE hits from ROUTE and REJECT hits |
+| `EasyEdit/examples/w6_defer_stream.py` | the deferred-window stream driver (`--defer-window`, `--refine-passes`, `--delta-budget`, `--data-offset`, `--survival-every`); writes `results_defer_W*.json` |
 
 `w1_framework_and_protocol/calm_editor_interface_draft.py` is the frozen W1
 interface blueprint these implementations were written against; it is kept for
