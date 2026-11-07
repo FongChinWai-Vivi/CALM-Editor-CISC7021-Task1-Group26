@@ -233,3 +233,21 @@ python examples/w6_end2end_eval.py --run ... --memory-json store.json     # Soni
 ```
 
 `--memory-json` 模式會檢查 store 條目的鍵是否夾帶 target 欄位，夾帶即中止——避免又做出一個構造性恆真的通道。
+
+---
+
+## 13. 品質分項對比（2026-11-07）
+
+| 維度 | 上次 | 現在 | 依據 |
+|---|---|---|---|
+| 方法有效性 | 高 | 高 | 門控內 0.6% → 91.8%（in-sample）/ 87.0%（held-out n=23）；survival 全 1.00；四片複現 K 平均 coverage 0.51、final_in_gate 0.938 |
+| 結論可信度 | 中 | 中 | 仍單 seed；四片複現為獨立切片非信賴區間；held-out 門控內 n=23，K 組已 n=59；本輪品質記錄帶 SHA1 可追溯 |
+| 覆蓋率 | 低 | 中 | held-out 0.23 → 0.59、param_hit_total 0.20 → 0.55（代價 NLL +0.82）；records 200-299 片僅 11～15 條准入 |
+| 目標可達成性 | 未定義 | 已量化 | 每條門控內寫入約 +0.014 NLL（23→+0.31、42→+0.67、59→+0.82），故 coverage ≥0.5 且 NLL ≤+0.5 不可達 |
+| 工程衛生 | 低 | 中高 | c59f4d9 / 7b93aea 已 push、origin/main 同步；默認值全關、基線逐位復現；27 跑批入庫、9 批被稽核標註；負面結果留碼留文 |
+| 記憶通道可信度 | 不可用 | 不可用 | side_memory key 仍含 target_new，100% 為構造性必然（Sonia 未動）；本輪新增硬性拒絕：檢索查詢含 target 即 FAIL、store 鍵含 target 直接中止 |
+| 協作就緒度 | 中低 | 中 | 帶 n 與 scope 的表格就緒；Sonia / Tang 阻塞項未關；本輪新增可執行品質台 + 兩份含「必須修正清單」的 AI Prompt |
+
+三個沒動的維度：結論可信度（單 seed、無區間估計）、記憶通道可信度（Sonia 檔案未動，任何「記憶可用」都是假的）、協作就緒度（阻塞項未關，端到端只能停 0.39，上限 0.95）。
+
+配套文件：`W6_quality_check_handbook_TC.docx`（分項對比、品質台跑法、兩人含修正清單的 AI Prompt）、`W6_quality_check.ipynb`、`w6_end2end_eval.py`。
