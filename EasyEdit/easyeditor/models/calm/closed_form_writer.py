@@ -136,6 +136,9 @@ class ClosedFormEditGenerator:
         null_space: str = "none",
         proj_mix: float = 1.0,
         proj_l2: float = -1.0,
+        delta_rank: int = 0,
+        delta_cap: float = -1.0,
+        replay_cache: bool = False,
         max_contexts: int = 10,
         device: Any = None,
         verbose: bool = False,
@@ -155,6 +158,21 @@ class ClosedFormEditGenerator:
         self.null_space = str(null_space).lower()
         self.proj_mix = float(proj_mix)
         self.proj_l2 = float(proj_l2)
+        # Fluency guards on the solved delta itself (independent of z clamp):
+        #   delta_rank > 0 : keep only the top-r singular directions (SVD) of
+        #                    the [d_in, d_out] update.  A full-rank solve spends
+        #                    energy in directions that carry no key information,
+        #                    which is pure fluency damage.
+        #   delta_cap > 0  : cap ||delta||_F at delta_cap * ||W||_F per layer.
+        self.delta_rank = int(delta_rank)
+        self.delta_cap = float(delta_cap)
+        # Replay cache: remember the (keys, residual) rows of every chunk that
+        # has already been written and re-impose them in later solves, so a new
+        # chunk cannot take the space back.  Without it, chunk k+1 solves only
+        # its own constraints and silently overwrites chunk k (measured 0/50
+        # retention at n=500, chunked solves included).
+        self.replay_cache = bool(replay_cache)
+        self._replay: Dict[int, tuple] = {}
         self.max_contexts = max(1, int(max_contexts))
         self.verbose = bool(verbose)
 
@@ -492,6 +510,7 @@ class ClosedFormEditGenerator:
                 upd = self._upd_to_param_shape(upd, weight).to(weight.device, weight.dtype)
                 if self.delta_scale != 1.0:
                     upd = upd * self.delta_scale
+                upd = self._limit_delta(upd, weight)
 
                 snapshots[self._weight_name(layer)] = weight.detach().clone()
                 with torch.no_grad():
@@ -535,6 +554,137 @@ class ClosedFormEditGenerator:
             "resid_norm": diag.get("resid_norm", {}),
         }
         return deltas
+
+    def generate_update_batch(self, requests: List[Dict[str, Any]]) -> Dict[str, torch.Tensor]:
+        """Joint closed-form solve for a whole batch of edits.
+
+        Sequential single-key solves overwrite each other: edit 500 re-solves
+        the same key directions that edits 1..499 already used, so the oldest
+        writes are always the losers (measured ``recheck 0/50`` at n=500).
+        Solving a chunk at once makes every edit in it a simultaneous
+        constraint of one least-squares problem, so conflicting residuals are
+        distributed by the solve instead of being reassigned by arrival order.
+        One delta per parameter is produced for the whole batch, then applied
+        in a single ``apply_update`` call.
+        """
+        t0 = time.time()
+        if not requests:
+            return {}
+        preps: List[Dict[str, Any]] = []
+        for request in requests:
+            mreq = self._as_mit_request(request)
+            flat = self._key_contexts(request)
+            z = compute_z(self.model, self.tok, mreq, self.hparams,
+                          self.layers[-1], self._context_templates(request))
+            z_raw = float(z.norm().item())
+            if self.z_clamp > 0:
+                with torch.no_grad():
+                    h_ref = get_module_input_output_at_words(
+                        self.model, self.tok, self.layers[-1],
+                        context_templates=flat,
+                        words=[mreq["subject"] for _ in flat],
+                        module_template=self.layer_module_tmp,
+                        fact_token_strategy=self.hparams.fact_token,
+                    )[1].T.detach().float()
+                    h_norm = float(h_ref.norm(dim=0).mean().item())
+                cap = self.z_clamp * max(h_norm, 1e-6)
+                if z_raw > cap:
+                    z = z * (cap / z_raw)
+            preps.append({"mreq": mreq, "flat": flat, "z": z, "z_raw": z_raw})
+
+        n_layers = len(self.layers)
+        deltas: Dict[str, torch.Tensor] = {}
+        snapshots: Dict[str, torch.Tensor] = {}
+        keys_per_layer: Dict[int, torch.Tensor] = {}
+        chunk_rows: Dict[int, tuple] = {}
+        try:
+            for i, layer in enumerate(self.layers):
+                ks, rs = [], []
+                for p in preps:
+                    ks.append(self._layer_keys(p["mreq"], layer, p["flat"]))
+                    ref_layer = self.layers[-1] if self.resid_ref == "z_layer" else layer
+                    cur = get_module_input_output_at_words(
+                        self.model, self.tok, ref_layer,
+                        context_templates=p["flat"],
+                        words=[p["mreq"]["subject"] for _ in p["flat"]],
+                        module_template=self.layer_module_tmp,
+                        fact_token_strategy=self.hparams.fact_token,
+                    )[1].T.detach().float()
+                    n_ctx = cur.shape[1]
+                    target = p["z"].to(cur.device, cur.dtype).reshape(-1, 1).repeat(1, n_ctx)
+                    rs.append((target - cur) / float(n_layers - i))
+                keys = torch.cat(ks, dim=1)
+                resid = torch.cat(rs, dim=1)
+                chunk_rows[layer] = (keys.detach().cpu(), resid.detach().cpu())
+                if self.replay_cache and layer in self._replay:
+                    prev_k, prev_r = self._replay[layer]
+                    keys = torch.cat([prev_k.to(keys.device), keys], dim=1)
+                    resid = torch.cat([prev_r.to(resid.device), resid], dim=1)
+                keys_per_layer[layer] = keys
+                upd = self._solve(keys, resid, layer)
+                if self.null_space == "keys":
+                    upd = self._project_to_key_null_space(upd, layer)
+                weight = nethook.get_parameter(self.model, self._weight_name(layer))
+                upd = self._upd_to_param_shape(upd, weight).to(weight.device, weight.dtype)
+                if self.delta_scale != 1.0:
+                    upd = upd * self.delta_scale
+                upd = self._limit_delta(upd, weight)
+                snapshots[self._weight_name(layer)] = weight.detach().clone()
+                with torch.no_grad():
+                    weight.add_(upd)
+                deltas[self._weight_name(layer)] = upd.detach().cpu()
+        finally:
+            with torch.no_grad():
+                for name, original in snapshots.items():
+                    nethook.get_parameter(self.model, name).data.copy_(original)
+
+        if self.kv_cache:
+            for layer, keys in keys_per_layer.items():
+                self._acc_n[layer] = self._acc_n.get(layer, 0) + int(keys.shape[1])
+                kk = (keys @ keys.T).detach().cpu()
+                if layer in self._key_cache:
+                    self._key_cache[layer] = self._key_cache[layer] + kk
+                else:
+                    self._key_cache[layer] = kk
+
+        if self.replay_cache:
+            for layer, (k_new, r_new) in chunk_rows.items():
+                if layer in self._replay:
+                    pk, pr = self._replay[layer]
+                    self._replay[layer] = (torch.cat([pk, k_new], dim=1),
+                                           torch.cat([pr, r_new], dim=1))
+                else:
+                    self._replay[layer] = (k_new, r_new)
+
+        self._last_deltas = deltas
+        self._last_meta = {
+            "z_norm": [round(float(p["z"].detach().norm().item()), 1) for p in preps],
+            "batch_size": len(preps),
+            "solve_seconds": round(time.time() - t0, 3),
+            "layers": list(self.layers),
+            "n_contexts": sum(int(p["z"].numel() > 0) * len(p["flat"]) for p in preps),
+            "l2_mode": self.l2_mode,
+            "delta_scale": self.delta_scale,
+            "delta_rank": self.delta_rank,
+            "delta_cap": self.delta_cap,
+            "resid_ref": self.resid_ref,
+            "z_clamp": self.z_clamp,
+            "null_space": self.null_space,
+        }
+        return deltas
+
+    def _limit_delta(self, upd: torch.Tensor, weight: torch.Tensor) -> torch.Tensor:
+        """Low-rank truncation + Frobenius cap on one layer's solved delta."""
+        if self.delta_rank > 0 and min(upd.shape) > self.delta_rank:
+            u, s, vh = torch.linalg.svd(upd, full_matrices=False)
+            r = self.delta_rank
+            upd = (u[:, :r] * s[:r]) @ vh[:r]
+        if self.delta_cap > 0:
+            cap = self.delta_cap * float(torch.norm(weight.detach(), p="fro").item())
+            dnorm = float(torch.norm(upd, p="fro").item())
+            if dnorm > cap > 0:
+                upd = upd * (cap / dnorm)
+        return upd
 
     def apply_update(self, deltas: Dict[str, torch.Tensor]) -> None:
         """Add the solved deltas in place to the base model weights."""

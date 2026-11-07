@@ -106,6 +106,8 @@ retention becomes memory-backed (**9/9**), while model-level quality stays at
 | `train_accum.py`, `train_accum_gate.py`, `train_accum_warm.py` | accumulation-aware meta-training (segment without snapshot restore; gate-distribution sampling; warm-started segments) |
 | `debug_gate_ns.py` | gate / null-space diagnostic for a checkpoint (kept locally, untracked) |
 | `w4_accum_training_report.md` | the campaign report: all configurations, per-configuration numbers, gate-threshold sweep |
+| `closedform_writer_v3.md` | writer-level replacement: MEMIT/AlphaEdit closed-form writer in place of the hypernetwork, with the batch solve that fixes locality / long-range retention / fluency, plus the falsified `delta_cap` ablation |
+| `results_b*/` | closed-form writer runs (`b16`/`b64`/`b128`/`b500` chunking sweep, `L45678` best config, `cap002` ablation), each with `summary.json` + `per_edit.jsonl` |
 | `results_analysis.ipynb` | analysis notebook over the `eval_*/` outputs |
 | `norm_log_*.json`, `normlog_scale10.json`, `result_cap395623.json` | per-run normalisation traces and a captured run record |
 | `eval_*/` (27 configurations) | per-configuration evaluation JSONs (budget sweeps, coherence penalties, multi-seed, rank/hidden variants, null-space probes) |
@@ -138,11 +140,58 @@ the 128 real-stream WRITEs occur at pollution depth 16-64, while depth 64
 over-trains the hypernetwork into small conservative deltas that miss on the
 shallower real stream.
 
+#### Writer replacement (closed-form) -- the newest result in this folder
+
+The hypernetwork route is capped at ~3% audited real hits, so the writer itself was replaced
+with a MEMIT/AlphaEdit-style closed-form solver (`closedform_writer_v3.md`). Every edit's
+residual is treated as a constraint and solved jointly over the stream, with three limits
+handled explicitly: locality (held-out neighbourhood + paraphrase probes), long-range
+retention (re-prompt all earlier edits at the end), and fluency (probe NLL).
+
+| configuration | scope | final accuracy | retention(50) | ΔNLL | degen |
+|---|---|---|---|---|---|
+| layers 6-8, batch=1 | direct, no gate | 0.000 | 0/50 | +2.501 | 10.9% |
+| layers 6-8, joint solve, n=128 | direct, no gate | 0.625 | 34/50 | +0.618 | 1.6% |
+| layers 6-8, joint solve, n=500 | direct, no gate | 0.424 | 17/50 | +1.060 | 0.4% |
+| **layers 4-8, joint solve, n=500** | direct, no gate | **0.788** | **39/50** | **+0.555** | 4.6% |
+| layers 4-8, `delta_cap=0.02` | direct, no gate | 0.010 (cap erases the write) | 0/50 | −0.042 | 0.0% |
+| **layers 4-8, per-request solve** | **inside CALM, gate included** | **0.005** (params 1/173) | — | — | **12.0%** |
+
+Three findings worth carrying into W6:
+
+1. **The solve scope was the bottleneck, not the training recipe.** Joint solving lifts
+   retention from 0/50 to 39/50 and cuts the fluency cost five-fold. Two shortcuts were
+   falsified on the way and are documented so they are not retried: `delta_rank=16` (0.094)
+   and `replay_cache` (retention stuck at 7/50, ΔNLL +1.958).
+2. **The advantage does not survive the gate.** Inside CALM the same writer scores 0.6%,
+   because each WRITE must be applied before the next routing decision, so the writer never
+   sees more than one edit. Batched/deferred writes are the only route to bringing the joint
+   solve inside CALM — an algorithm change, not a hyperparameter.
+3. **The global `delta_cap` is the wrong instrument.** At 0.02·`||W||_F` ≈ 3-4 against a solved
+   delta of ~70-80 per layer, it deletes the write; the degenerate rate only "improves"
+   because nothing is written. Degeneration is per-request (12% in the sequential loop) and
+   needs a per-request guard.
+
+#### Dual channel: what is measured and what is not
+
+`calm_editor` now reports `memory_updated` per edit (it used to discard the store result for
+WRITEs), and `w4_closedform_smoke.py` gained `--side-memory-dir / --dual-write /
+--write-budget / --verify-commit` plus `by_route` + `channels` blocks in `summary.json`
+(`results_calm_n200_dual`: WRITE 173 · ROUTE 27 · REJECT 0; parameter channel 1/173 = 0.6%).
+
+The memory column **cannot** be quoted yet, for two independent reasons: the harness stores to
+side memory but never reads it on the answer path, and `side_memory.py` keys entries on a hash
+that contains `target_new`, so any lookup that succeeds already knows the answer. Until the
+memory is keyed on `(subject, relation)` and read at answer time, the 97.48% system figure is
+routing coverage, not retrieval accuracy. Details: `w6_unified_write_quality_table.md` §4.
+
 ### `w5_results_and_figures/` -- results, figures, audit
 
 | file | what it is |
 |---|---|
 | `w4_w5_main_results.md` | main results table (baselines, streams, model-level campaign, audit) with the evidence paths |
+| `w6_unified_write_quality_table.md` | every write-quality number in the project on one table with its protocol, scope and falsification column — read this before quoting any percentage |
+| `cross_review_requests.md` | the three questions that must be answered by Sonia / Tang before W6 is submitted (memory key defect, the 97.48% relabel, row ownership) |
 | `results_draft.md` | drop-in results section draft |
 | `w5_audited_real_write_hit.png` | per-configuration audited real WRITE hit rate (128-write audit) |
 | `w5_raw_vs_audited_real_write_hit.png` | raw versus audited write-hit rate, the figure that shows the inflation |
@@ -162,6 +211,8 @@ shallower real stream.
 | W4 5K + `write_budget=128` + dual-write | e2e 97.48%, retention 9/9, model-level 0.08% |
 | W4 best checkpoint, model-level immediate (raw) | 111/500 (22.2%) |
 | W4 best checkpoint, **audited real WRITE hits** | **4/128 (3.1%)** |
+| W4 writer replacement, closed-form joint solve (gate bypassed) | 78.8% final, retention 39/50, ΔNLL +0.555 |
+| W4 writer replacement inside CALM (gate included, dual-write, n=200) | 0.5% (parameter channel 1/173), degen 12.0% |
 
 The honest summary: **the system-level lifelong stream can be made to work
 (97.48% with 9/9 retention), but only by routing almost everything to memory;

@@ -81,10 +81,73 @@ Audit conclusion:
 
 ![Raw model-level vs audited real WRITE hit](w5_raw_vs_audited_real_write_hit.png)
 
+### 3.3 Writer replacement: closed-form (MEMIT-style) generator
+
+The audit above measures the *hypernetwork* route. A second route was built in parallel:
+replace the hypernetwork edit generator with a MEMIT/AlphaEdit-style closed-form solver that
+takes one joint least-squares over the whole edit stream instead of one edit at a time.
+Full method and negative results: `w4_model_level_improve/closedform_writer_v3.md`.
+
+Metric convention: `final_acc` re-prompts **every** edited case after the stream ends. The
+earlier `immediate_hit` convention (probe right after each write) is not a stream-quality
+metric — at batch=1 it reads 100% while the final-state accuracy is 0%.
+
+| configuration | immediate_hit | final_acc | recheck(50) | ΔNLL | degen | nbhd top1 | generality |
+|---|---|---|---|---|---|---|---|
+| layers 6-8, batch=1 (v2 convention) | 1.000 | 0.000 | 0/50 | +2.501 | 10.9% | 0.400 | 0.00 |
+| layers 6-8, batch=32 | 0.867 | — | 7/50 | +1.141 | 0.8% | 0.536 | 0.10 |
+| layers 6-8, batch=64 | 0.766 | — | 21/50 | +0.971 | 0.8% | 0.461 | 0.28 |
+| layers 6-8, one joint solve (n=128) | 0.625 | 0.625 | 34/50 | +0.618 | 1.6% | 0.492 | 0.40 |
+| layers 6-8, one joint solve (n=500) | — | 0.424 | 17/50 | +1.060 | 0.4% | 0.530 | 0.10 |
+| **layers 4-8, one joint solve (n=500)** | — | **0.788** | **39/50** | **+0.555** | 4.6% | **0.569** | **0.40** |
+| layers 4-8, joint solve + `delta_cap=0.02` (n=500) | — | 0.010 | 0/50 | −0.042 | 0.0% | 0.974 | — |
+
+The `delta_cap` row is a falsification, not a tuning result: 0.02·`||W||_F` ≈ 3–4 against a
+solved delta of ~70–80 per layer, so the cap erases the write. Final accuracy 1.0% sits at the
+pre-edit baseline (0.8%), retention is 0/50, and the NLL *improves* because nothing was written.
+A degenerate rate of 0% under a cap that writes nothing carries no information — the degenerate
+cases (23/500, all verbatim repetition of `target_new`) need a per-request control, not a
+stream-wide norm budget.
+
+Reading:
+- The hypernetwork's limiting factor was the *solve scope*, not the conditioning: solving the
+  whole stream jointly lifts long-horizon retention from 0/50 to 39/50 and cuts the fluency
+  cost from +2.501 to +0.555 NLL.
+- Widening from three c_proj layers (6-8) to five (4-8) is what raises final accuracy
+  (0.424 → 0.788); the capacity probe (effective writable rank ≈75/3072, same-relation key
+  directions overlapping at 0.63) says more bandwidth, not better regularisation, is the lever.
+- Two routes were falsified and are documented so they are not retried: `delta_rank=16`
+  truncation (final accuracy 0.094 — a rank-16 Δ cannot satisfy 640 constraints) and
+  `replay_cache` (retention stays 7/50, ΔNLL worsens to +1.958 — historical residuals drift
+  once the weights move).
+- **Scope caveat, do not drop it:** the 78.8% is a *direct writer, gate-bypassed*
+  measurement. The audited 3.1% above is *end-to-end inside CALM*. The two are answers to
+  different questions; the unified table with per-row protocols is
+  `w6_unified_write_quality_table.md`.
+
+#### End-to-end check: the writer inside the gate
+
+The gate-bypassed figure has now been paired with a gate-included run of the same writer
+(layers 4-8, dual-write on, side memory live, n=200, `EasyEdit/results_calm_n200_dual`):
+
+| scope | n | result | degen |
+|---|---|---|---|
+| direct writer, joint solve (gate bypassed) | 500 | 78.8% | 4.6% |
+| **inside CALM, per-request solve (gate included)** | 200 | **0.5%** (parameter channel 1/173 = 0.6%) | **12.0%** |
+
+Reason it is not a tuning gap: the gate's decision depends on the model's post-write answer,
+so each WRITE must be solved and applied before the next decision — the writer never sees more
+than a batch of one, which is the regime that measured 100% immediate / 0% final in §3.3. The
+joint solve is a stream-level optimisation the sequential architecture forbids. Writer
+replacement therefore does not fix end-to-end CALM; batched/deferred writes would.
+
 ## 4. Bottom line
 
 - **System level:** the bounded-write + dual-write fix solves lifelong retention end-to-end (97.48% rewrite, 9/9 retention on 5K CounterFact).
 - **Model level:** the earlier 22.2% / 86.7% claims were inflated by REJECT false hits; real parameter-WRITE quality is ~1.6–3.9% across audited checkpoints. Improving it remains an open problem (further warm-started training, lr decay, longer steps).
+- **Writer level (new):** the failure was in the writer's *solve scope*, not in the training recipe. A closed-form joint solve over the stream lifts parameter-only model-level rewrite to **78.8% final-state accuracy with 39/50 retention** and a **+0.555 NLL** cost; the same writer at batch=1 shows 100% immediate and 0% final, which is exactly the inflation the audit was written to catch.
+- **Architecture limit (new):** the closed-form writer drops to **0.6% inside the CALM gate**, because the gate forces one-edit-at-a-time solving. The writer is not the end-to-end bottleneck; the sequential write loop is. Batched/deferred writes are the only route to bringing the joint solve inside CALM.
+- **Channel accounting (new):** the dual-channel table cannot be completed as things stand — `side_memory.py` keys entries by a hash containing `target_new`, so a memory hit is tautologically correct, and the harness never reads memory on the answer path. The 97.48% system figure is a routing-coverage number, not a memory-retrieval number.
 
 ## Reproduction
 
@@ -107,4 +170,8 @@ runs on any Python 3 kernel.
 - `FONG CHIN WAI/w2_rome_baseline/w2_rome_reproduction.md`, `docs/w2_ike_grace_reproduction.md` (W2 baselines)
 - `FONG CHIN WAI/w3_hypernetwork_stream/w3_calm_stream_1k.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_sequential_5k_results.json`, `FONG CHIN WAI/w4_sequential_stream_and_fix/w4_calm_fix_5k_results.json` (W3/W4 streams)
 - `FONG CHIN WAI/w4_model_level_improve/results/audit_*.json` (W5 audit)
+- `FONG CHIN WAI/w4_model_level_improve/closedform_writer_v3.md` and
+  `EasyEdit/results_b*/summary.json` (closed-form writer, §3.3)
+- `FONG CHIN WAI/w5_results_and_figures/w6_unified_write_quality_table.md` (all write-quality
+  numbers on one table, with the measurement protocol of each row)
 - `README.md` "W4 — Model-level write quality improvement"

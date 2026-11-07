@@ -123,6 +123,8 @@ class CALMEditor(BaseEditor):
                 null_space=getattr(hparams, "cf_null_space", "none"),
             proj_mix=getattr(hparams, "cf_proj_mix", 1.0),
             proj_l2=getattr(hparams, "cf_proj_l2", -1.0),
+            delta_rank=getattr(hparams, "cf_delta_rank", 0),
+            delta_cap=getattr(hparams, "cf_delta_cap", -1.0),
                 device=getattr(hparams, "device", None),
                 verbose=getattr(hparams, "cf_verbose", False),
             )
@@ -391,12 +393,17 @@ class CALMEditor(BaseEditor):
         # memory, so CALM's end-to-end retention is backed by memory even for
         # parameter edits (memory is part of the CALM architecture).
         if getattr(self.hparams, "dual_write", False):
-            self.memory.store(
+            stored = self.memory.store(
                 request.get("subject") or "",
                 request.get("relation") or "fact",
                 request["target_new"],
                 request["target_new"],
             )
+            # Report it honestly: the W4/W6 per-channel tables split parameter
+            # WRITEs into "parameter only" vs "parameter + memory mirror", so a
+            # swallowed False here would silently move every dual-written edit
+            # into the wrong bucket.
+            return "hypernetwork", bool(stored)
         return "hypernetwork", False
 
     # ------------------------------------------------------------------ #

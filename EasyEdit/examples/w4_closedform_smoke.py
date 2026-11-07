@@ -58,6 +58,15 @@ def load_requests(data_path: str, max_edits: int) -> List[Dict[str, Any]]:
                     val = [val]
             if isinstance(val, list):
                 rephrase.extend([v for v in val if isinstance(v, str)])
+        neighbor: List[str] = []
+        nval = rec.get("neighborhood_prompts")
+        if isinstance(nval, str):
+            try:
+                nval = json.loads(nval.replace("\\'", "'"))
+            except Exception:
+                nval = [nval]
+        if isinstance(nval, list):
+            neighbor.extend([v for v in nval if isinstance(v, str) and v.strip()])
         requests.append({
             "prompt": prompt,
             "subject": rr["subject"],
@@ -66,6 +75,7 @@ def load_requests(data_path: str, max_edits: int) -> List[Dict[str, Any]]:
             "ground_truth": target_true,
             "case_id": rec.get("case_id"),
             "rephrase_prompts": rephrase,
+            "neighborhood_prompts": neighbor,
         })
     return requests
 
@@ -135,6 +145,58 @@ def heldout_accuracy(model, tok, items) -> float:
     return ok / len(items)
 
 
+def top1_snapshot(model, tok, prompts) -> Dict[str, tuple]:
+    """Next-token top-1 id and its logprob for each prompt (no generation)."""
+    snap: Dict[str, tuple] = {}
+    with torch.no_grad():
+        for p in prompts:
+            ids = tok(p, return_tensors="pt", truncation=True,
+                      max_length=64).input_ids.to(model.device)
+            logits = model(input_ids=ids).logits[0, -1].float()
+            logp = torch.log_softmax(logits, dim=-1)
+            top = int(logp.argmax())
+            snap[p] = (top, float(logp[top]))
+    return snap
+
+
+def locality_drift(before: Dict[str, tuple], after: Dict[str, tuple]) -> Dict[str, object]:
+    """Top-1 stability on neighbourhood prompts.
+
+    The earlier locality metric compared held-out *exact-match* accuracy, whose
+    pre-edit baseline is 0.0 on this stream (the 5-token greedy answer never
+    equals the ground truth), so ``after/before`` was undefined and the number
+    was meaningless.  Top-1 stability is defined at every point of the stream
+    and reads 1.0 on an untouched model, so any drop is real collateral damage.
+    """
+    keys = [p for p in before if p in after]
+    if not keys:
+        return {"n": 0, "top1_unchanged": None, "mean_logprob_delta": None}
+    same = sum(1 for p in keys if before[p][0] == after[p][0])
+    dp = [after[p][1] - before[p][1] for p in keys]
+    return {
+        "n": len(keys),
+        "top1_unchanged": round(same / len(keys), 4),
+        "mean_top1_logprob_delta": round(sum(dp) / len(dp), 4),
+    }
+
+
+def first_token_accuracy(model, tok, items) -> float:
+    """Fraction of held-out facts whose next token equals the true first token."""
+    if not items:
+        return float("nan")
+    ok = 0
+    with torch.no_grad():
+        for it in items:
+            ids = tok(it["prompt"], return_tensors="pt", truncation=True,
+                      max_length=64).input_ids.to(model.device)
+            top = int(model(input_ids=ids).logits[0, -1].float().argmax())
+            want = tok(" " + it["ground_truth"].strip(),
+                       add_special_tokens=False).input_ids
+            if want and top == want[0]:
+                ok += 1
+    return ok / len(items)
+
+
 def is_degenerate(answer: str) -> bool:
     """Repeated-token / empty-output detector for the 5-token greedy answer."""
     toks = [t for t in answer.replace("\\n", " ").split() if t.strip()]
@@ -179,6 +241,9 @@ def run_direct(args, requests) -> Dict[str, Any]:
         null_space=args.null_space,
         proj_mix=args.proj_mix,
         proj_l2=args.proj_l2,
+        delta_rank=args.delta_rank,
+        delta_cap=args.delta_cap,
+        replay_cache=args.replay_cache,
         device=device,
         verbose=args.verbose,
     )
@@ -187,6 +252,19 @@ def run_direct(args, requests) -> Dict[str, Any]:
     if args.locality_n:
         heldout = load_requests(args.data, args.edits + args.locality_n)[args.edits:]
     heldout_before = heldout_accuracy(model, tok, heldout) if heldout else float("nan")
+    heldout_top1_before = first_token_accuracy(model, tok, heldout) if heldout else float("nan")
+
+    # Neighbourhood prompts: the edited facts' own neighbourhood sentences plus
+    # every prompt of the held-out facts.  None of them is ever edited, so a
+    # stable top-1 on them is the definition of locality.
+    nb_prompts: List[str] = []
+    for r in list(requests) + list(heldout):
+        for pr in (r.get("neighborhood_prompts") or [])[:2]:
+            if pr not in nb_prompts:
+                nb_prompts.append(pr)
+    nb_before = top1_snapshot(model, tok, nb_prompts) if nb_prompts else {}
+    if nb_prompts:
+        print(f"[locality] snapshot of {len(nb_prompts)} neighbourhood prompts taken")
 
     nll_before = mean_nll(model, tok, PROBE_TEXTS)
     print(f"[probe] pre-edit mean NLL = {nll_before:.4f}")
@@ -194,37 +272,46 @@ def run_direct(args, requests) -> Dict[str, Any]:
 
     rows: List[Dict[str, Any]] = []
     t_start = time.time()
-    for i, req in enumerate(requests):
+    batch = max(1, int(args.batch_solve))
+    cursor = 0
+    while cursor < len(requests):
+        chunk = requests[cursor: cursor + batch]
+        pres = [greedy_answer(model, tok, r["prompt"]) for r in chunk]
         t0 = time.time()
-        pre = greedy_answer(model, tok, req["prompt"])
-        deltas = writer.generate_update(req)
+        deltas = writer.generate_update(chunk[0]) if len(chunk) == 1 \
+            else writer.generate_update_batch(chunk)
         writer.apply_update(deltas)
-        post = greedy_answer(model, tok, req["prompt"])
-        row = {
-            "index": i,
-            "case_id": req.get("case_id"),
-            "subject": req["subject"],
-            "prompt": req["prompt"],
-            "target_new": req["target_new"],
-            "pre_answer": pre,
-            "post_answer": post,
-            "rewrite_ok": rewrite_ok(post, req["target_new"]),
-            "pre_ok": rewrite_ok(pre, req["target_new"]),
-            "degenerate": is_degenerate(post),
-            "seconds": round(time.time() - t0, 2),
-            "writer": writer.summary(),
-            "apply_stats": writer.last_apply_stats,
-        }
-        rows.append(row)
-        print(f"[{i + 1}/{len(requests)}] {req['subject']!r} -> {req['target_new']!r} | "
-              f"pre={pre!r} post={post!r} ok={row['rewrite_ok']} "
-              f"degen={row['degenerate']} ({row['seconds']}s)")
+        apply_stats = writer.last_apply_stats
+        for j, req in enumerate(chunk):
+            i = cursor + j
+            pre = pres[j]
+            post = greedy_answer(model, tok, req["prompt"])
+            row = {
+                "index": i,
+                "case_id": req.get("case_id"),
+                "subject": req["subject"],
+                "prompt": req["prompt"],
+                "target_new": req["target_new"],
+                "pre_answer": pre,
+                "post_answer": post,
+                "rewrite_ok": rewrite_ok(post, req["target_new"]),
+                "pre_ok": rewrite_ok(pre, req["target_new"]),
+                "degenerate": is_degenerate(post),
+                "seconds": round((time.time() - t0) / len(chunk), 2),
+                "writer": writer.summary(),
+                "apply_stats": apply_stats,
+            }
+            rows.append(row)
+            print(f"[{i + 1}/{len(requests)}] {req['subject']!r} -> {req['target_new']!r} | "
+                  f"pre={pre!r} post={post!r} ok={row['rewrite_ok']} "
+                  f"degen={row['degenerate']} ({row['seconds']}s)")
+        cursor += len(chunk)
 
-        if args.probe_every and (i + 1) % args.probe_every == 0 and i + 1 < len(requests):
+        if args.probe_every and cursor % args.probe_every == 0 and cursor < len(requests):
             cur = mean_nll(model, tok, PROBE_TEXTS)
-            probe_curve.append({"after_edits": i + 1, "probe_nll": round(cur, 4),
+            probe_curve.append({"after_edits": cursor, "probe_nll": round(cur, 4),
                                 "delta": round(cur - nll_before, 4)})
-            print(f"[probe] after {i + 1} edits: NLL={cur:.4f} (delta {cur - nll_before:+.4f})")
+            print(f"[probe] after {cursor} edits: NLL={cur:.4f} (delta {cur - nll_before:+.4f})")
 
     nll_after = mean_nll(model, tok, PROBE_TEXTS)
     probe_curve.append({"after_edits": len(rows), "probe_nll": round(nll_after, 4),
@@ -241,6 +328,9 @@ def run_direct(args, requests) -> Dict[str, Any]:
     locality: Dict[str, Any] = {}
     if args.locality_n:
         heldout_after = heldout_accuracy(model, tok, heldout)
+        heldout_top1_after = first_token_accuracy(model, tok, heldout)
+        nb_after = top1_snapshot(model, tok, nb_prompts) if nb_prompts else {}
+        drift = locality_drift(nb_before, nb_after) if nb_before else {}
         sample = requests[:min(args.locality_n, len(requests))]
         gen_hit = gen_tot = 0
         for r in sample:
@@ -252,10 +342,15 @@ def run_direct(args, requests) -> Dict[str, Any]:
             "heldout_acc_before": round(heldout_before, 4),
             "heldout_acc_after": round(heldout_after, 4),
             "heldout_retention": round(heldout_after / heldout_before, 4) if heldout_before else None,
+            "heldout_first_token_acc_before": round(heldout_top1_before, 4),
+            "heldout_first_token_acc_after": round(heldout_top1_after, 4),
+            "neighborhood": drift,
             "generality_n": gen_tot,
             "generality": round(gen_hit / gen_tot, 4) if gen_tot else None,
         }
-        print(f"[locality] heldout acc {heldout_before:.3f} -> {heldout_after:.3f}; "
+        print(f"[locality] neighbourhood top1_unchanged={drift.get('top1_unchanged')} "
+              f"dlogp={drift.get('mean_top1_logprob_delta')} | "
+              f"heldout first-token acc {heldout_top1_before:.3f} -> {heldout_top1_after:.3f} | "
               f"paraphrase generality {locality['generality']}")
 
     summary = {
@@ -301,6 +396,19 @@ def run_calm(args, requests) -> Dict[str, Any]:
     hp.cf_proj_l2 = args.proj_l2
     hp.cf_verbose = args.verbose
 
+    # ---- side-memory channel (teammate Fong Hio Lam's modules) -------- #
+    # The dual-channel attribution in the W4/W6 reports requires the side
+    # memory to be *live*: without these two paths CALMEditor has no store
+    # and every ROUTE/dual-write decision silently degrades to "no channel",
+    # which would make the per-channel numbers meaningless.
+    if args.side_memory_dir:
+        sm_dir = args.side_memory_dir
+        hp.side_memory_path = os.path.join(sm_dir, "side_memory.py")
+        hp.conflict_gate_path = os.path.join(sm_dir, "conflict_gate.py")
+    hp.dual_write = bool(args.dual_write)
+    hp.write_budget = int(args.write_budget)
+    hp.verify_commit = bool(args.verify_commit)
+
     editor = CALMEditor.from_hparams(hp)
     t_start = time.time()
     metrics, _model, extra = editor.edit_requests(requests, sequential_edit=True, verbose=False)
@@ -329,6 +437,7 @@ def run_calm(args, requests) -> Dict[str, Any]:
             "pre_ok": bool(m["pre"]["rewrite_ok"]),
             "route": m["calm"]["route"],
             "decision": m["calm"]["decision"],
+            "memory_updated": bool(m["calm"].get("memory_updated")),
             "strict_answer": strict_rows[i]["answer"],
             "strict_ok": strict_rows[i]["rewrite_ok"],
         })
@@ -336,6 +445,36 @@ def run_calm(args, requests) -> Dict[str, Any]:
               f"route={m['calm']['route']} ok={rows[-1]['rewrite_ok']}")
 
     writes = [r for r in rows if r["route"] == "hypernetwork"]
+
+    # ---- per-channel attribution (W6 requirement) --------------------- #
+    # A "channel" is where the answer came from: the parameters (hypernetwork
+    # WRITE, optionally mirrored into side memory by dual_write) or the side
+    # memory (ROUTE, and verify_commit rollbacks which end up as ROUTE).
+    # Reporting a single aggregate rewrite rate across both channels is
+    # exactly the conflation this split exists to prevent.
+    def _block(rs):
+        if not rs:
+            return {"n": 0, "ok": 0, "rate": None}
+        ok = sum(1 for r in rs if r["strict_ok"])
+        return {"n": len(rs), "ok": ok, "rate": round(ok / len(rs), 4)}
+
+    by_route = {}
+    for k in sorted({r["route"] for r in rows}):
+        by_route[k] = _block([r for r in rows if r["route"] == k])
+
+    param_rows = [r for r in rows if r["route"] == "hypernetwork"]
+    mem_rows = [r for r in rows if r["route"] in ("side_memory", "verify_rollback")]
+    channels = {
+        "parameter_only": _block([r for r in param_rows if not r.get("memory_updated")]),
+        "parameter_dual_write": _block([r for r in param_rows if r.get("memory_updated")]),
+        "side_memory": _block(mem_rows),
+        "unrouted": _block([r for r in rows
+                            if r["route"] not in ("hypernetwork", "side_memory",
+                                                  "verify_rollback")]),
+        "dual_write_enabled": bool(args.dual_write),
+        "side_memory_live": bool(hp.side_memory_path),
+    }
+
     summary = {
         "mode": "calm",
         "hparams": args.hparams,
@@ -346,6 +485,9 @@ def run_calm(args, requests) -> Dict[str, Any]:
         "write_real_hit_rate": (sum(r["rewrite_ok"] for r in writes) / len(writes)) if writes else None,
         "rewrite_ok_rate": sum(r["rewrite_ok"] for r in rows) / max(1, len(rows)),
         "gate_summary": extra.get("gate_summary"),
+        "memory_stats": extra.get("memory_stats"),
+        "by_route": by_route,
+        "channels": channels,
         "strict_greedy_hit_rate": sum(r["rewrite_ok"] for r in strict_rows) / max(1, len(strict_rows)),
         "strict_greedy_degenerate_rate": sum(r["degenerate"] for r in strict_rows) / max(1, len(strict_rows)),
         "total_seconds": round(time.time() - t_start, 1),
@@ -380,6 +522,14 @@ def main() -> int:
                     help="ridge inside the projector (larger = weaker projection; -1 reuses --l2)")
     ap.add_argument("--kv-cache", action="store_true",
                     help="AlphaEdit-style running key statistics in the solve")
+    ap.add_argument("--delta-rank", type=int, default=0,
+                    help="SVD-truncate each solved delta to this rank (0 = full rank)")
+    ap.add_argument("--delta-cap", type=float, default=-1.0,
+                    help="cap ||delta||_F at k*||W||_F per layer (<=0 disables)")
+    ap.add_argument("--batch-solve", type=int, default=1,
+                    help="joint closed-form solve over chunks of N edits (1 = per-edit, MEMIT default)")
+    ap.add_argument("--replay-cache", action="store_true",
+                    help="re-impose every previously written chunk's constraints in later solves")
     ap.add_argument("--probe-every", type=int, default=16,
                     help="measure the neutral-prose NLL probe every N edits (0 = only before/after)")
     ap.add_argument("--locality-n", type=int, default=0,
@@ -388,6 +538,15 @@ def main() -> int:
                     help="re-query the first N edited prompts at the end of the stream")
     ap.add_argument("--seed", type=int, default=None,
                     help="seed for the z-value Adam (default: layer-dependent, as in MEMIT)")
+    ap.add_argument("--side-memory-dir", default="",
+                    help="dir holding side_memory.py + conflict_gate.py "
+                         "(teammate modules); empty = CALM runs without a memory channel")
+    ap.add_argument("--dual-write", action="store_true",
+                    help="also store WRITE edits in side memory (dual channel)")
+    ap.add_argument("--write-budget", type=int, default=-1,
+                    help="max parameter WRITEs over the stream (-1 = unlimited)")
+    ap.add_argument("--verify-commit", action="store_true",
+                    help="roll back a WRITE that misses target_new and store it in memory")
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--out-dir", default=None)
     args = ap.parse_args()

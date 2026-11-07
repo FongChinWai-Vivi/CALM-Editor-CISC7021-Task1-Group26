@@ -1,0 +1,112 @@
+{
+  "mode": "calm",
+  "hparams": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "edits": 8,
+  "writer_summary": {
+    "writer": "closedform",
+    "layers": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "l2": 1.0,
+    "kv_cache": false,
+    "null_space": "none",
+    "edits_applied": 8,
+    "last_meta": {
+      "z_norm": 41.50985336303711,
+      "solve_seconds": 0.71,
+      "layers": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n_contexts": 6,
+      "l2_mode": "rel",
+      "delta_scale": 1.0,
+      "resid_ref": "z_layer",
+      "z_clamp": 0.6,
+      "null_space": "none",
+      "proj_gain": {},
+      "proj_mix": 1.0,
+      "proj_l2": -1.0,
+      "l2_over_gram_trace": {
+        "4": 5.0,
+        "5": 5.0,
+        "6": 5.0,
+        "7": 5.0,
+        "8": 3.3333
+      },
+      "gram_trace": {
+        "4": 0.2,
+        "5": 0.2,
+        "6": 0.2,
+        "7": 0.2,
+        "8": 0.3
+      },
+      "resid_norm": {
+        "4": 38.011,
+        "5": 42.972,
+        "6": 52.266,
+        "7": 62.6,
+        "8": 94.026
+      }
+    }
+  },
+  "routes": {
+    "hypernetwork": 8
+  },
+  "write_real_hit_rate": 0.75,
+  "rewrite_ok_rate": 0.75,
+  "gate_summary": {
+    "WRITE": 8,
+    "ROUTE": 0,
+    "REJECT": 0
+  },
+  "memory_stats": {
+    "n_shards": 64,
+    "max_per_shard": 200,
+    "total_stored": 8,
+    "avg_entries_per_shard": 0.12,
+    "min_entries": 0,
+    "max_entries": 1
+  },
+  "by_route": {
+    "hypernetwork": {
+      "n": 8,
+      "ok": 5,
+      "rate": 0.625
+    }
+  },
+  "channels": {
+    "parameter_only": {
+      "n": 8,
+      "ok": 5,
+      "rate": 0.625
+    },
+    "parameter_dual_write": {
+      "n": 0,
+      "ok": 0,
+      "rate": null
+    },
+    "side_memory": {
+      "n": 0,
+      "ok": 0,
+      "rate": null
+    },
+    "unrouted": {
+      "n": 0,
+      "ok": 0,
+      "rate": null
+    },
+    "dual_write_enabled": true,
+    "side_memory_live": true
+  },
+  "strict_greedy_hit_rate": 0.625,
+  "strict_greedy_degenerate_rate": 0.0,
+  "total_seconds": 13.6
+}

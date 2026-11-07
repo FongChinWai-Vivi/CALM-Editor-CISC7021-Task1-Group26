@@ -1,0 +1,123 @@
+{
+  "mode": "direct",
+  "locality": {
+    "heldout_n": 20,
+    "heldout_acc_before": 0.1,
+    "heldout_acc_after": 0.0,
+    "heldout_retention": 0.0,
+    "heldout_first_token_acc_before": 0.05,
+    "heldout_first_token_acc_after": 0.0,
+    "neighborhood": {
+      "n": 295,
+      "top1_unchanged": 0.5356,
+      "mean_top1_logprob_delta": 0.4145
+    },
+    "generality_n": 40,
+    "generality": 0.1
+  },
+  "recheck": {
+    "n": 50,
+    "still_ok": 7,
+    "retention": 0.14
+  },
+  "hparams": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hparams\\CALM\\gpt2-small.yaml",
+  "edits": 128,
+  "writer_summary": {
+    "writer": "closedform",
+    "layers": [
+      6,
+      7,
+      8
+    ],
+    "l2": 1.0,
+    "kv_cache": false,
+    "null_space": "none",
+    "edits_applied": 4,
+    "last_meta": {
+      "z_norm": [
+        40.2,
+        50.1,
+        40.6,
+        54.1,
+        40.7,
+        38.7,
+        41.2,
+        44.7,
+        39.7,
+        43.2,
+        35.5,
+        40.1,
+        49.2,
+        35.9,
+        50.6,
+        34.9,
+        44.6,
+        36.5,
+        34.7,
+        45.2,
+        43.9,
+        39.1,
+        53.2,
+        42.5,
+        50.3,
+        37.4,
+        37.5,
+        45.4,
+        86.3,
+        40.7,
+        43.1,
+        40.6
+      ],
+      "batch_size": 32,
+      "solve_seconds": 25.07,
+      "layers": [
+        6,
+        7,
+        8
+      ],
+      "n_contexts": 192,
+      "l2_mode": "rel",
+      "delta_scale": 1.0,
+      "delta_rank": 0,
+      "delta_cap": -1.0,
+      "resid_ref": "z_layer",
+      "z_clamp": 0.6,
+      "null_space": "none"
+    }
+  },
+  "rewrite_ok_rate": 0.8671875,
+  "pre_ok_rate": 0.0234375,
+  "degenerate_rate": 0.0078125,
+  "probe_nll_before": 3.5687,
+  "probe_nll_after": 4.7098,
+  "probe_nll_delta": 1.1411,
+  "probe_curve": [
+    {
+      "after_edits": 0,
+      "probe_nll": 3.5687,
+      "delta": 0.0
+    },
+    {
+      "after_edits": 32,
+      "probe_nll": 3.6358,
+      "delta": 0.0671
+    },
+    {
+      "after_edits": 64,
+      "probe_nll": 3.8043,
+      "delta": 0.2356
+    },
+    {
+      "after_edits": 96,
+      "probe_nll": 3.9419,
+      "delta": 0.3732
+    },
+    {
+      "after_edits": 128,
+      "probe_nll": 4.7098,
+      "delta": 1.1411
+    }
+  ],
+  "mean_seconds": 0.949375,
+  "total_seconds": 160.2
+}

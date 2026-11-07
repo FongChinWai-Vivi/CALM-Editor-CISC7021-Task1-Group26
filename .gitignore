@@ -76,3 +76,5 @@ node_modules/
 # ===== W6 exported deliverables (tracked on purpose) =====
 !FONG HIO LAM/cross_review/*.pdf
 
+
+EasyEdit/tmp_probe/
