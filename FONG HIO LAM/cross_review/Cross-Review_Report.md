@@ -2,7 +2,7 @@
 
 **Work Package:** W6 (Final Cross-Review & Submission)
 **Reviewer:** FONG HIO LAM (MC654953)
-**Review date:** 6 November 2026
+**Review date:** 8 November 2026 (revision after the Week 6 quality-handbook pass on the Week 3 memory channel)
 **Scope:** all Group 26 deliverables W0–W6, as they stand in `project/` and in the mirrored
 submission tree `project/output/`
 
@@ -82,21 +82,23 @@ the stray duplicate copy that used to live under `project/w1/` has been removed.
 
 | File | Path | Size | Status |
 |------|------|------|--------|
-| side_memory.py | `output/w3_fonghiolam/` | 225 lines | Delivered |
+| side_memory.py | `output/w3_fonghiolam/` | 266 lines | Delivered |
 | conflict_gate.py | `output/w3_fonghiolam/` | 399 lines | Delivered |
-| real_w3_components.py | `output/w3_fonghiolam/` | 440 lines | Delivered |
+| real_w3_components.py | `output/w3_fonghiolam/` | 455 lines | Delivered |
 | probe_sweep.py | `output/w3_fonghiolam/` | 174 lines | Delivered |
 | probe_likelihood.py | `output/w3_fonghiolam/` | 221 lines | Delivered |
 | probe_sampling.py | `output/w3_fonghiolam/` | 168 lines | Delivered |
 | probe_false_reject.py | `output/w3_fonghiolam/` | 175 lines | Delivered |
 | canary_strata.py | `output/w3_fonghiolam/` | 131 lines | Delivered |
+| w3_memory_channel.py | `output/w3_fonghiolam/` | 218 lines | Delivered |
 | w3_components_gpt2xl.json | `output/w3_fonghiolam/` | real run, 100 requests | Delivered |
 | probe_sweep_gpt2xl_v2.json | `output/w3_fonghiolam/` | 20 canary items | Delivered |
 | probe_likelihood_gpt2xl.json | `output/w3_fonghiolam/` | 120 items | Delivered |
 | probe_sampling_gpt2xl.json | `output/w3_fonghiolam/` | 20 canary items | Delivered |
 | probe_false_reject_gpt2xl.json | `output/w3_fonghiolam/` | 100 main-split requests | Delivered |
 | canary_strata_gpt2xl.json | `output/w3_fonghiolam/` | join of the two probe studies | Delivered |
-| README.md | `output/w3_fonghiolam/` | 443 lines | Delivered |
+| w3_memory_channel_gpt2xl.json | `output/w3_fonghiolam/` | answer-path recall on 20 routed edits | Delivered |
+| README.md | `output/w3_fonghiolam/` | 503 lines | Delivered |
 
 ### 2.5 Week 4 — MQuAKE Multi-Hop & WikiBigEdit Evaluation
 
@@ -174,14 +176,43 @@ metric property (target repeated later in the continuation), not hidden.
 | README Completeness | **Pass** | Overview, structure, dependencies, I/O formats, CALMEditor integration, sharding, no-overwrite guarantee, LRU eviction, sliding-window conflict detection |
 | English Only | **Pass** | 0 CJK code points in the README |
 | EasyEdit Interface Compliance | **Pass** | Drop-in components beside HypernetworkEditor; edit tuple format follows `EditCase` |
-| Real-Run Evidence | **Pass** | 100 requests on gpt2-xl in 529 s: WRITE 96 / ROUTE 2 / REJECT 2; both REJECTs carry a verified probe match; repeat-edit probe routes 20/20 and writes 0/20 |
+| Real-Run Evidence | **Pass** | 100 requests on gpt2-xl in 282 s: WRITE 97 / ROUTE 1 / REJECT 2; both REJECTs carry a verified probe match; repeat-edit probe routes 20/20 and writes 0/20 |
 | Error Analysis | **Pass** | Canary recall 11/20 = 0.55 raw, 11/14 = 0.786 on the model-known stratum, upper bound 14/14 = 1.00 once temperature sampling is allowed; 6 model-unknown items account for the remaining 0.30 |
+| Memory Channel Validity | **Pass** | Key is `(subject, relation)` only, answer stored as value; read path exercised before generation on all 20 routed edits; recall split canonical 0.80 / paraphrase 0.45 with cue-only baseline 0.00 and shuffled-key control 0.00, n = 20 in every row (see 3.4.1) |
 
 **Overall:** Pass. The reporting practice here is the strongest in the package: the raw
 recall, the stratum-re-based recall and the achievable bound are given as three separate
 numbers, and the sampling variant is priced before being declined — see the false-reject
 experiment (2/100 deployed against 14/100 sampling-augmented, an incremental 12/100 with
 a 95% upper bound of 0.15, run over 1,706 s).
+
+#### 3.4.1 Quality-handbook self-check on the memory channel (S1–S6)
+
+The Week 6 quality handbook raises six checks against a side-memory channel. They were
+applied to this package's own module, not only to the teammates' copies, and two of them
+failed on the first pass. The ruling below is the state after the fix; every number is in
+`w3_memory_channel_gpt2xl.json` and every code claim carries a line reference.
+
+| # | Check | Before | Verdict | Evidence after the fix |
+|---|-------|--------|---------|------------------------|
+| S1 | Key contains the query pair only | **FAIL** — `sha256(subject\|relation\|target_new)`, so a lookup could not miss | Pass | `side_memory.py:101` `_hash_key(subject, relation)` → `sha256(raw)[:16]` with `raw = f"{subject}\|{relation}"` (`:109`); no `target_new` in any f-string on the key path |
+| S2 | Answer lives in the value, never in the key | **FAIL** — same root cause; `store()` took `answer` and folded it into the key | Pass | `store(subject, relation, answer)` stores the answer as value and returns `bool` (`:132`); `lookup(subject, relation)` returns `Optional[str]` (`:115`) and has no answer parameter to pass |
+| S3 | A read path exists before generation | **FAIL** — the driver wrote to memory and never read it, so no answer came through the channel | Pass | `real_w3_components.py:247` store → `:248` `note = mem.lookup(...)` → `:252` `build_memory_note(...) + prompt` → `:253` generate → `:255` score the generated text against `target_new` |
+| S4 | Recall split canonical / paraphrase, denominator = routed edits | **FAIL** — one recall figure whose denominator was all edits | Pass | `memory_n = 20`, `memory_canonical_recall = 0.80`, `memory_paraphrase_recall = 0.45` with `memory_paraphrase_denominator = 20` |
+| S5 | Shuffled-key control must fall to ~0 | Absent | Pass | `memory_shuffled_recall = 0.00` on the same 20 edits, plus a cue-only `memory_baseline_recall = 0.00` |
+| S6 | No external claim of a 100% / coverage figure as memory accuracy | **FAIL** — the ROUTE row read "store + lookup verified, 2/2" | Pass | Repeat-edit escalations relabelled as routed edits; `legacy_constructive_recall = 1.00` is filed as a diagnostic with a note saying it cannot be quoted as accuracy; README §"What the ROUTE path actually measures" states the 0.80 / 0.45 split |
+
+Two consequences worth stating plainly. The old `1.00` was an index hit: `lookup()` demanded
+the answer as an argument, so only a caller who already knew the answer could ask. And the
+main 100-request run routes a single edit (`WRITE 97 / ROUTE 1 / REJECT 2`), so the memory
+numbers rest on the twenty repeat-edit escalations rather than on the stream; a one-edit
+denominator would not support any accuracy claim.
+
+The recall gap is a retrieval-prompt property, not a sharding one. With the stored surface
+form the fact returns four times in five; with the CounterFact paraphrase it returns under
+half the time, while the cue-only baseline stays at zero on both. Any end-to-end ceiling
+that assumed memory recall of 1.00 must therefore be recomputed with 0.80 / 0.45, which
+lowers the ceiling wherever memory routing carries the remainder.
 
 ### 3.5 Week 4 — MQuAKE Multi-Hop & WikiBigEdit Evaluation
 
@@ -262,7 +293,8 @@ rather than as a sixth family.
 |------|-------------------|--------|
 | W1 | gpt2-xl, no editing (baseline) | CounterFact rewrite 0.01, ZsRE rewrite 0.04 (n = 100 each) |
 | W2 | MEMIT vs AlphaEdit, 12 cases | Rewrite 1.00 containment (0.00 exact), paraphrase 0.67 vs 0.71, portability 0.0 both |
-| W3 | SideMemory + ConflictGate, 100 requests | WRITE 96 / ROUTE 2 / REJECT 2; canary recall 0.55 raw → 0.79 model-known → 1.00 upper bound; sampling costs +0.12 false rejects |
+| W3 | SideMemory + ConflictGate, 100 requests | WRITE 97 / ROUTE 1 / REJECT 2; canary recall 0.55 raw → 0.79 model-known → 1.00 upper bound; sampling costs +0.12 false rejects |
+| W3 | Memory channel answer path, 20 routed edits | Canonical recall 0.80, paraphrase 0.45, cue-only baseline 0.00, shuffled-key control 0.00 |
 | W4 | Real weight edits, 50 samples each | MQuAKE rewrite 0.90 but generation 0.18; WikiBigEdit rewrite 0.82, locality 0.24 |
 | W5 | Conflict-tagged errors, 50 samples each | Errors 36% (WikiBigEdit) and 94% (MQuAKE), all inside conflict classes |
 
@@ -279,6 +311,9 @@ rather than as a sixth family.
 | 5 | Byte-compiled cache directories shipped inside deliverable folders | W1, W2, W3, W4, W5 | Fixed — caches removed and the W1 archive rebuilt |
 | 6 | Sampling variant's false-reject cost stated as unmeasured | W3 | Fixed — `probe_false_reject.py` measures it (12/100 incremental, CI upper 0.15) and the README now cites the number instead of the caveat |
 | 7 | Two parallel copies of each week with unclear provenance | all | Fixed — `output/wwX_fonghiolam` removed, `output/wX_fonghiolam` declared the submission copy |
+| 8 | W3 side memory keyed entries on `subject \| relation \| target_new` and required the answer as a `lookup()` argument, so every recall figure was 1.00 by construction | W3 | Fixed — key reduced to `(subject, relation)`, answer moved to the value, plus a shuffled-key control at 0.00 and a cue-only baseline at 0.00 |
+| 9 | W3 driver wrote to side memory but never read it back before generation, so the channel was never on an answer path | W3 | Fixed — `lookup()` → note → prompt prefix → generate → score, exercised on 20 routed edits and recorded in `w3_memory_channel_gpt2xl.json` |
+| 10 | W3 ROUTE row described "store + lookup verified, 2/2" as if it were memory accuracy | W3 | Fixed — relabelled routed-edit coverage; the old 1.00 is kept only as `legacy_constructive_recall`, a labelled diagnostic |
 
 ---
 
@@ -295,8 +330,12 @@ rather than as a sixth family.
    counts allow it rather than implying precision.
 4. **W3 gate precision bound.** With 2 false rejects in 100, the 95% upper bound is 5%,
    not zero.
-5. **Report format.** Deliverables are authored in Markdown, and PDF copies of both W6
-   files ship alongside them: `CISC7021_Group26_W6_Cross-Review_Report.pdf` (8 pages) and
+5. **Memory recall depends on the retrieval prompt.** The channel returns 0.80 on the
+   stored surface form and 0.45 on a CounterFact paraphrase, at n = 20. The paraphrase
+   figure is the honest one for any downstream claim that a held-out phrasing will be
+   answered, and no end-to-end number here assumes the 1.00 the old keying implied.
+6. **Report format.** Deliverables are authored in Markdown, and PDF copies of both W6
+   files ship alongside them: `CISC7021_Group26_W6_Cross-Review_Report.pdf` (10 pages) and
    `CISC7021_Group26_W6_Submission_Checklist.pdf` (4 pages), A4. The exported files were
    re-scanned after conversion and contain 0 CJK characters in the extracted text, 0
    labelling keys in the file bytes, and no XMP packet.

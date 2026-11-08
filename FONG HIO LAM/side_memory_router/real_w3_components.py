@@ -36,7 +36,7 @@ sys.path.insert(0, BASE)
 sys.path.insert(0, W3_DIR)
 
 from model_utils import load_model  # noqa: E402
-from side_memory import SideMemory  # noqa: E402
+from side_memory import SideMemory, build_memory_note  # noqa: E402
 from conflict_gate import ConflictGate, EditRecord  # noqa: E402
 
 RELATION_FALLBACK = "is"
@@ -240,14 +240,29 @@ def main() -> int:
         decisions.append(decision)
 
         if decision == "ROUTE":
-            mem.store(subject, relation, target_new, target_new)
-            hit = mem.lookup(subject, relation, target_new) is not None
+            # Write path: the answer is stored as the value of the
+            # (subject, relation) key.  Read path: the note is looked up from
+            # the query alone and injected before generation -- the answer is
+            # never an input to the lookup.
+            mem.store(subject, relation, target_new)
+            note = mem.lookup(subject, relation)
+            hit = False
+            read_answer = ""
+            if note is not None:
+                read_prompt = build_memory_note(subject, relation, note) + prompt
+                read_answer = generate_text(model, tok, read_prompt,
+                                            args.max_new_tokens)
+                hit = gate._confidence_score(read_answer, target_new) >= 0.5
+            else:
+                read_answer = ""
         elif decision == "WRITE":
             # The parameter-write path is executed by the W2 editors; here we
             # record the decision and check rewrite feasibility via the gate.
             hit = True
+            read_answer = ""
         else:
             hit = False
+            read_answer = ""
 
         path_hits[decision].append(hit)
         log.append({
@@ -255,6 +270,7 @@ def main() -> int:
             "decision": decision,
             "confidence": round(confidence, 4),
             "generation": generation[:120],
+            "memory_read_answer": read_answer[:120],
             "probe_prompt": probe_prompt,
             "probe_answer": probe_answer[:120],
             "probe_match": probe_match,

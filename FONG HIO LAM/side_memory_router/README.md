@@ -31,12 +31,14 @@ w3_fonghiolam/
 ├── probe_sampling.py             # Probe vs model ceiling (greedy + temperature sampling)
 ├── probe_false_reject.py         # False-reject price of wiring sampling into REJECT
 ├── canary_strata.py              # Canary recall re-based on model-knownness strata
+├── w3_memory_channel.py          # Memory answer-path recall (canonical/paraphrase/shuffled)
 ├── w3_components_gpt2xl.json     # Real-run output (100 requests, canary, repeat-edit)
 ├── probe_sweep_gpt2xl_v2.json    # Probe sweep results (20 canary items)
 ├── probe_likelihood_gpt2xl.json  # Likelihood probe results (120 items)
 ├── probe_sampling_gpt2xl.json    # Greedy vs sampled probe results (20 canary items)
 ├── probe_false_reject_gpt2xl.json  # Greedy vs sampled REJECTs on the 100 main requests
 ├── canary_strata_gpt2xl.json     # Canary recall by stratum (join of the two above)
+├── w3_memory_channel_gpt2xl.json # Memory answer-path recall on 20 routed edits
 └── README.md                     # This file
 ```
 
@@ -158,9 +160,58 @@ model itself, never from the gold label:
 
 | Decision | Requests | Share | Downstream path exercised |
 |---|---|---|---|
-| WRITE | 96 | 96% | parameter-write path owned by the W2 editors |
-| ROUTE | 2 | 2% | side-memory store + lookup verified |
+| WRITE | 97 | 97% | parameter-write path owned by the W2 editors |
+| ROUTE | 1 | 1% | side-memory store + lookup on the answer path |
 | REJECT | 2 | 2% | edit skipped, justification logged |
+
+The stream only routes one edit, so the main run cannot carry a memory accuracy on
+its own; it is the twenty repeat-edit escalations that populate the memory channel, and
+those are what `w3_memory_channel.py` scores. The split quoted in earlier drafts,
+96/2/2, came from an archived run made with `--max-new-tokens 16`; `current_confidence`
+is a mean over the tokens actually generated, so a shorter span moves the gate margin
+and one borderline sample (Toko Yasuda) flips ROUTE to WRITE. The file shipped here is
+the default-budget run (`--max-new-tokens 24`, 282 s) and yields 97/1/2.
+
+Greedy decoding here is bit-reproducible: two independent passes on the first three
+requests return identical text and identical `current_confidence` (|diff| = 0.0), so the
+counts above are a property of the configured budget rather than of run-to-run noise.
+The gate margin is what a different budget perturbs, and only on samples that sit on it.
+
+### What the ROUTE path actually measures
+
+The key is the query pair and nothing else: `sha256(subject + "|" + relation)[:16]`,
+with `target_new` stored as the *value*. An earlier build folded `target_new` into
+the key and made it a required argument of `lookup()`, so recall could only ever be
+1.0 — the caller had to know the answer before asking. That number was an index hit,
+not memory recall, and it is no longer reported as accuracy.
+
+The read path is now explicit: `lookup(subject, relation)` returns a note,
+`build_memory_note()` wraps it as a prompt prefix, the prefix is prepended to the
+cue, and the model generates. `w3_memory_channel.py` measures that path end to end on
+the routed edits (gpt2-xl, greedy, 24 new tokens, `w3_memory_channel_gpt2xl.json`):
+
+| Metric | Denominator | Value | Reading |
+|---|---|---|---|
+| `memory_n` | — | 20 | routed edits written to side memory |
+| `memory_baseline_recall` | 20 | 0.00 | same cue, **no** note injected — the channel contributes nothing if this moves |
+| `memory_canonical_recall` | 20 | 0.80 | target reproduced after the note is injected (original cue) |
+| `memory_paraphrase_recall` | 20 | 0.45 | same note, CounterFact paraphrase cue |
+| `memory_shuffled_recall` | 20 | 0.00 | control: note of a *different* edit injected, so a hit would mean leakage |
+| `legacy_constructive_recall` | 20 | 1.00 | diagnostic only: reproduces the old keying, which cannot miss |
+
+Three controls make the 0.80 readable. The cue-only baseline is 0.00, so the twenty
+edits are facts the model does not already answer and the gain is attributable to the
+injection rather than to the cue. The shuffled-key arm is also 0.00, so the model is
+not simply copying whatever target the note happens to contain; it is retrieving the
+entry that matches `(subject, relation)`. And `legacy_constructive_recall` stays at 1.00
+precisely because the old keying cannot miss, which is why it is filed as a diagnostic
+and never as accuracy.
+
+What is left is the shape of the retrieval prompt: the fact comes back when the cue is
+the stored surface form (0.80) and less than half the time when CounterFact paraphrases
+it (0.45). That gap is a prompt-format property, not a property of sharding, and it is
+the number to quote whenever the end-to-end ceiling is recomputed — the ceiling must use
+0.80 / 0.45, never the 1.00 that the old path reported.
 
 CounterFact always asks for a *new* fact, so the unedited model can rarely already
 answer `target_new`; a REJECT on this split can only happen when the probe happens
@@ -329,6 +380,14 @@ python canary_strata.py --run w3_components_gpt2xl.json \
     --sampling probe_sampling_gpt2xl.json --out canary_strata_gpt2xl.json
 ```
 
+The memory-channel readout is a separate model pass over the routed edits:
+
+```bash
+python w3_memory_channel.py --model-key gpt2-xl \
+    --data-path /path/to/counterfact.json --n 20 \
+    --out w3_memory_channel_gpt2xl.json
+```
+
 ### The canary denominator is re-based on what the model knows
 
 The canary label says "the world knows this fact, so a correct gate must reject it".
@@ -390,7 +449,9 @@ To integrate these components into the official CALM evaluation pipeline:
 2. **Hook into the edit flow** inside `CALMEditor.edit()`:
    - Before applying any update, call `gate.decide()` to get the routing decision.
    - On `WRITE`: proceed with `HypernetworkEditor.generate_update()` as before.
-   - On `ROUTE`: call `side_memory.store(subject, relation, target_new, answer)` instead.
+   - On `ROUTE`: call `side_memory.store(subject, relation, target_new)` and read it
+     back with `side_memory.lookup(subject, relation)`; the answer is the value, never
+     part of the key, and `lookup()` does not accept it.
    - On `REJECT`: skip the edit entirely and log it.
 
 3. **Metrics computation** remains unchanged. The evaluation metrics

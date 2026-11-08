@@ -16,9 +16,13 @@ Usage as a component inside CALMEditor::
     from side_memory import SideMemory
 
     mem = SideMemory(n_shards=64)
-    mem.store(edit_signature="Spain|official_language", answer="Spanish")
-    result = mem.lookup("Spain|official_language")  # "Spanish"
-    mem.evict(shard_id=0)  # remove all entries from shard 0
+    mem.store("Spain", "official_language", "Spanish")
+    result = mem.lookup("Spain", "official_language")  # "Spanish"
+    mem.evict(shard_idx=0)  # remove all entries from shard 0
+
+Storage contract: the key is the query pair ``(subject, relation)``; the answer
+is the value.  The answer must never enter the key, otherwise a lookup can only
+succeed when the caller already knows the answer and recall is constructive.
 """
 
 from __future__ import annotations
@@ -94,27 +98,43 @@ class SideMemory:
         self.total_stored = 0
 
     @staticmethod
-    def _hash_key(subject: str, relation: str, target_new: str) -> str:
-        """Deterministic hash-based edit signature."""
-        raw = f"{subject}|{relation}|{target_new}"
+    def _hash_key(subject: str, relation: str) -> str:
+        """Deterministic edit signature over the query only: (subject, relation).
+
+        The answer (``target_new``) is a *value*, never part of the key.  A key
+        that contains the answer makes every recall trivially 1.0, because the
+        caller must already know the answer in order to build the query.
+        """
+        raw = f"{subject}|{relation}"
         return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
     def route(self, subject: str) -> int:
         """Return the shard index for a given subject string."""
         return hash(subject) % self.n_shards
 
-    def lookup(self, subject: str, relation: str, target_new: str) -> Optional[str]:
-        """Look up an edit entry. Returns the stored answer or None."""
-        key = self._hash_key(subject, relation, target_new)
-        shard_idx, value = self._index.get(key, (-1, None))
+    def lookup(self, subject: str, relation: str) -> Optional[str]:
+        """Look up an edit by its query ``(subject, relation)``.
+
+        Returns the stored answer, or ``None`` when the pair was never stored.
+        The answer is *not* an argument: a lookup must be answerable from the
+        query alone, otherwise the measured recall is constructive.
+        """
+        key = self._hash_key(subject, relation)
+        shard_idx, _value = self._index.get(key, (-1, None))
         if shard_idx < 0:
             return None
         return self.shards[shard_idx].get(key)
 
-    def store(self, subject: str, relation: str, target_new: str,
-              answer: str) -> bool:
-        """Store an edit entry. Returns True on success, False if already exists."""
-        key = self._hash_key(subject, relation, target_new)
+    def has(self, subject: str, relation: str) -> bool:
+        """True if ``(subject, relation)`` is present in the store."""
+        return self.lookup(subject, relation) is not None
+
+    def store(self, subject: str, relation: str, answer: str) -> bool:
+        """Store the answer for the query ``(subject, relation)``.
+
+        Returns True on success, False if the pair is already present.
+        """
+        key = self._hash_key(subject, relation)
         shard_idx = self.route(subject)
         shard = self.shards[shard_idx]
         if key not in shard:
@@ -163,6 +183,22 @@ class SideMemory:
 
 
 # ---------------------------------------------------------------------------
+# Read path helper
+# ---------------------------------------------------------------------------
+
+
+def build_memory_note(subject: str, relation: str, note: str) -> str:
+    """Return the prompt prefix used to inject a retrieved memory fact.
+
+    This is the read half of the memory channel: the caller looks up
+    ``(subject, relation)`` and prepends the returned fact to the prompt before
+    generation.  The prompt itself must not contain the answer, otherwise the
+    measurement leaks the target.
+    """
+    return f"[{subject}] [{relation}] is [{note}]\n"
+
+
+# ---------------------------------------------------------------------------
 # Smoke test
 # ---------------------------------------------------------------------------
 
@@ -193,21 +229,27 @@ def run_smoke():
 
     stored_count = 0
     for subj, rel, ans in edits:
-        ok = mem.store(subj, rel, ans, ans)
+        ok = mem.store(subj, rel, ans)
         if ok:
             stored_count += 1
     print(f"Stored {stored_count}/{len(edits)} edits")
 
-    # --- Lookup ---
+    # --- Lookup (query only, answer not supplied) ---
     print("\nLookup results:")
     for subj, rel, ans in edits[:6]:
-        found = mem.lookup(subj, rel, ans)
+        found = mem.lookup(subj, rel)
         status = f"OK ({found})" if found else "MISS"
         print(f"  {subj} ({rel}) -> {status}")
 
     # --- Duplicate rejection ---
-    dup_ok = mem.store(edits[0][0], edits[0][1], edits[0][2], "NEW_ANSWER")
+    dup_ok = mem.store(edits[0][0], edits[0][1], "NEW_ANSWER")
     print(f"\nDuplicate store attempt: {'REJECTED' if not dup_ok else 'STORED'}")
+
+    # --- Negative control: unseen keys must miss (the old keying could not miss) ---
+    unseen_subject = mem.lookup("Atlantis", "capital")
+    unseen_relation = mem.lookup(edits[0][0], "national_motto")
+    print(f"\nNegative control: unseen subject -> {unseen_subject}, "
+          f"unseen relation -> {unseen_relation} (expected None, None)")
 
     # --- Eviction ---
     print(f"\nBefore eviction: {mem.stats()}")

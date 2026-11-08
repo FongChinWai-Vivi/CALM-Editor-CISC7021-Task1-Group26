@@ -2,7 +2,7 @@
 
 **Owner:** FONG HIO LAM (MC654953)
 **Package:** weekly deliverables W0–W6
-**Last verified:** 6 November 2026
+**Last verified:** 8 November 2026
 
 ---
 
@@ -23,6 +23,7 @@ stated date, so it can be reproduced.
 | 8 | No byte-compiled caches shipped | scan for cache directories | Pass — removed, W1 archive rebuilt |
 | 9 | Every README quotes the metric convention it uses | manual read of W1–W5 READMEs | Pass |
 | 10 | Git history clean and pushed | `git status`, `git log`, `git ls-remote` in `project_repo` | Pass — every W0–W6 commit is on `origin/main`, working tree clean |
+| 11 | W3 memory channel meets the six Week-6 handbook checks | handbook S1–S6 against `side_memory.py`, `real_w3_components.py`, `w3_memory_channel_gpt2xl.json` | Pass — key is `(subject, relation)`, answer in the value, read path before generation, recall split 0.80 / 0.45 on n = 20, shuffled control 0.00, no 1.00 quoted as accuracy |
 
 ---
 
@@ -51,15 +52,17 @@ stated date, so it can be reproduced.
 - [x] `README.md` (217 lines) — states exact vs containment vs early-window rewrite
 
 ### Week 3 — SideMemory & ConflictGate
-- [x] `side_memory.py` (225 lines), `conflict_gate.py` (399 lines)
-- [x] `real_w3_components.py` (440 lines) — 100-request run driver
+- [x] `side_memory.py` (266 lines), `conflict_gate.py` (399 lines)
+- [x] `real_w3_components.py` (455 lines) — 100-request run driver
+- [x] `w3_memory_channel.py` (218 lines) — answer-path recall study, cue-only baseline included
 - [x] `probe_sweep.py` (174 lines), `probe_likelihood.py` (221 lines), `probe_sampling.py` (168 lines)
 - [x] `probe_false_reject.py` (175 lines) — false-reject cost of the sampling variant
 - [x] `canary_strata.py` (131 lines) — stratum join
 - [x] Real runs: `w3_components_gpt2xl.json`, `probe_sweep_gpt2xl_v2.json`,
       `probe_likelihood_gpt2xl.json`, `probe_sampling_gpt2xl.json`,
-      `probe_false_reject_gpt2xl.json`, `canary_strata_gpt2xl.json`
-- [x] `README.md` (443 lines) — three canary denominators plus the sampling cost table
+      `probe_false_reject_gpt2xl.json`, `canary_strata_gpt2xl.json`,
+      `w3_memory_channel_gpt2xl.json`
+- [x] `README.md` (503 lines) — three canary denominators, the sampling cost table, and the memory-channel controls
 - [x] Mirrored to the team repository (`side_memory_router`)
 
 ### Week 4 — MQuAKE & WikiBigEdit
@@ -87,7 +90,11 @@ stated date, so it can be reproduced.
 | W1 CounterFact rewrite (no editing) | 0.01 | `w1_counterfact_gpt2xl.json` |
 | W2 MEMIT rewrite (containment / exact) | 1.00 / 0.00 | `w2_xl_memit.json` |
 | W2 AlphaEdit paraphrase | 0.708 | `w2_xl_alphaedit.json` |
-| W3 decision split (WRITE / ROUTE / REJECT) | 96 / 2 / 2 | `w3_components_gpt2xl.json` |
+| W3 decision split (WRITE / ROUTE / REJECT) | 97 / 1 / 2 | `w3_components_gpt2xl.json` |
+| W3 memory recall, canonical cue | 16/20 = 0.80 | `w3_memory_channel_gpt2xl.json` |
+| W3 memory recall, paraphrase cue | 9/20 = 0.45 | `w3_memory_channel_gpt2xl.json` |
+| W3 memory recall, no note (baseline) | 0/20 = 0.00 | `w3_memory_channel_gpt2xl.json` |
+| W3 memory recall, shuffled key (control) | 0/20 = 0.00 | `w3_memory_channel_gpt2xl.json` |
 | W3 canary recall, raw | 11/20 = 0.55 | `w3_components_gpt2xl.json` |
 | W3 canary recall, model-known stratum | 11/14 = 0.786 | `canary_strata_gpt2xl.json` |
 | W3 canary recall, sampling upper bound | 14/14 = 1.00 | `canary_strata_gpt2xl.json` |
@@ -139,7 +146,7 @@ python output/w5_fonghiolam/conflict_analysis.py --mock
 - [x] No Chinese text, no AI metadata, no disclaimers
 - [x] PDF export of the W6 deliverables — both Markdown files converted with `pandoc`
       (GFM to HTML5) and printed by headless Edge to A4:
-      `CISC7021_Group26_W6_Cross-Review_Report.pdf` (8 pages) and
+      `CISC7021_Group26_W6_Cross-Review_Report.pdf` (10 pages) and
       `CISC7021_Group26_W6_Submission_Checklist.pdf` (4 pages). Browser header and footer
       suppressed; the exported files were re-scanned afterwards and show 0 CJK characters
       in the extracted text, 0 labelling keys in the file bytes, and no XMP packet.
