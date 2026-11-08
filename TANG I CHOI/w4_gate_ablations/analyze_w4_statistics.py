@@ -233,6 +233,41 @@ def confusion(arm: dict) -> Dict[str, Dict[str, int]]:
     return table
 
 
+
+# --------------------------------------------------------------------------- #
+# mandatory table footnotes (T2 / T5 of the W6 gate audit)
+# --------------------------------------------------------------------------- #
+FOOTNOTE_REASONS = {
+    "backbone": (
+        "*Backbones are not comparable.* `gpt2-small` is run under the 8 GB "
+        "profile and `gpt2-xl` from the full 30 GB cache; rows from the two "
+        "backbones are printed side by side for reading only and are never "
+        "pooled, differenced or averaged."),
+    "closed_form": (
+        "*Closed-form arm: not run.* `closed_form_quickfix` does not consume a "
+        "gate decision and is scored on the 5 K fluent-edit stream, so it cannot "
+        "be an arm of a gate ablation. Arms without a closed-form counterpart "
+        "are labelled \"not run\" instead of being left blank."),
+    "nll": (
+        "*`nll_delta` is not collected.* `run_w4_gate_ablation.py` logs hit "
+        "counts but no fluency delta, so no row here pairs `param_hit_total` "
+        "with `nll_delta`. Every hit count in this table is coverage-only and is "
+        "never reported as a pass on a (hit, NLL) criterion."),
+}
+
+
+def footnotes(where: str) -> List[str]:
+    """The three footnotes that must follow *every* table (T5 + T2)."""
+    return [
+        "",
+        f"> **Table footnotes — {where}.** "
+        f"(i) {FOOTNOTE_REASONS['backbone']} "
+        f"(ii) {FOOTNOTE_REASONS['closed_form']} "
+        f"(iii) {FOOTNOTE_REASONS['nll']}",
+        "",
+    ]
+
+
 def markdown(arms: Dict[str, dict], summary: List[dict],
              pairwise: List[dict], gates: List[dict],
              situations: Dict[str, List[dict]]) -> str:
@@ -268,7 +303,9 @@ def markdown(arms: Dict[str, dict], summary: List[dict],
         "0.325 (= 13/40 base hits) and the writer-attributable rewrite after "
         "correction is 0.000. Diagnosis: `docs/w4_immediate_rewrite_diagnosis.md`; "
         "report section 3.4.",
-        "",
+    ]
+    lines += footnotes("table 1 — ablation")
+    lines += [
         "## 2. Paired comparisons (exact McNemar + paired bootstrap)",
         "",
         "`b` = arm A hits / arm B misses, `c` = the opposite; "
@@ -281,6 +318,7 @@ def markdown(arms: Dict[str, dict], summary: List[dict],
             f"| {row['metric']} | `{row['a']}` vs `{row['b']}` | {row['b_only']} "
             f"| {row['c_only']} | {row['p_value']:.4f} | {row['delta']:+.3f} "
             f"| [{ci[0]:+.3f}, {ci[1]:+.3f}] |")
+    lines += footnotes("table 2 — paired comparisons")
     lines += ["", "## 3. Gate quality (learned gate versus rules and baselines)", "",
               "| comparison | b | c | p | kappa(A) | kappa(B) | agreement(A) |",
               "|---|---|---|---|---|---|---|"]
@@ -288,6 +326,7 @@ def markdown(arms: Dict[str, dict], summary: List[dict],
         lines.append(
             f"| {g['label']} | {g['b']} | {g['c']} | {g['p_value']:.4f} "
             f"| {g['kappa_a']:.3f} | {g['kappa_b']:.3f} | {g['agreement_a']:.3f} |")
+    lines += footnotes("table 3 — gate quality")
     lines += ["", "## 4. Breakdown by conflict type", ""]
     for arm in ["learned_gate", "rule_gate", "always_write", "always_route"]:
         if arm not in situations:
@@ -305,7 +344,7 @@ def markdown(arms: Dict[str, dict], summary: List[dict],
                 f"{s['e2e_ci95'][1]:.3f}] "
                 f"| {s['decision_correct']:.3f} "
                 f"[{s['decision_ci95'][0]:.3f}, {s['decision_ci95'][1]:.3f}] |")
-        lines.append("")
+        lines += footnotes(f"table 4 — conflict-type breakdown, `{arm}`")
     return "\n".join(lines) + "\n"
 
 

@@ -74,6 +74,14 @@ if ls "${W4}"/results/w4_ablation_*_deduped.json >/dev/null 2>&1; then
     2>&1 | tee "${LOGS}/w4_statistics_deduped.log"
 fi
 
+# ------------------------------------------- W3/W5 gate audit evidence ------
+# T3/T4 of the W6 gate audit: AUC / AP / TPR@0.5 / admission rate / confusion
+# matrix for the offline, stream-path and cold-start domains, plus the two
+# threshold sweeps and the 191-edit stream control.
+step "W3: ranking diagnostics and threshold sweeps for the learned gate (T3/T4)"
+( cd "${W3}" && ${PY} analysis_gate_roc_pr.py ) \
+  2>&1 | tee "${LOGS}/w3_gate_roc_pr.log"
+
 # ------------------------------------------------------- W5 figures ---------
 step "W5: render the results figures"
 ( cd "${W5}" && ${PY} make_w5_figures.py ) \
@@ -84,6 +92,11 @@ step "W5: refresh the results tables copied into the report"
 ( cd "${W5}" && ${PY} collect_w5_tables.py ) \
   2>&1 | tee "${LOGS}/w5_tables.log"
 
+# --------------------------------------------------- W6 acceptance guard ---
+step "W6: check that every table carries the T5 footnotes and the T3 diagnostics"
+( cd "${ROOT}/TANG I CHOI/w6_cross_review" && ${PY} check_gate_acceptance.py ) \
+  2>&1 | tee "${LOGS}/w6_check_gate_acceptance.log"
+
 echo
 echo "== done. Artefacts:"
 echo "   ${W4}/results/w4_ablation_*.json           (per-arm raw metrics)"
@@ -92,4 +105,5 @@ echo "   ${W4}/results/w4_ablation_table.md         (ablation table, 191-edit st
 echo "   ${W4}/results/w4_ablation_table_deduped.md (ablation table, 40-prompt rerun)"
 echo "   ${W3}/results/gate_online_gap.json         (offline vs stream gate)"
 echo "   ${W5}/figures/*.png                        (figures 1-3)"
-echo "   ${W5}/report/results_tables.md             (tables used by the report)"
+echo "   ${W3}/results/gate_roc_pr.json             (AUC/AP/confusion per domain, T3)"
+echo "   ${W5}/report/results_tables.md             (tables used by the report, incl. Table 3b)"

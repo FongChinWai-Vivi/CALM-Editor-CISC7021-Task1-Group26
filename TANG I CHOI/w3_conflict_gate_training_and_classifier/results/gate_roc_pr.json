@@ -1,0 +1,413 @@
+{
+  "owner": "Tang I Choi (MC631517)",
+  "purpose": "T3 attribution (ranking vs distribution shift) and T4 threshold sweep",
+  "model": "/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/repo/TANG I CHOI/w3_conflict_gate_training_and_classifier/gate_model/gate_classifier.joblib",
+  "test_split": "/Users/temily/Library/Application Support/com.tencent.mac.marvis/MarvisData/User/oAN1i2bGui8neSCwpONQxr_Y1_5g/workspace/conv_c93c27b831364a3ea24d3c1a4179ade6/repo/TANG I CHOI/w3_conflict_gate_training_and_classifier/gate_datasets/gate_test.jsonl",
+  "splits": {
+    "offline": {
+      "tag": "offline_test_counterfact (as labelled)",
+      "n": 835,
+      "gold_action_distribution": {
+        "WRITE": 350,
+        "ROUTE": 360,
+        "REJECT": 125
+      },
+      "auc_write_vs_rest": 0.9662,
+      "average_precision_write": 0.9537,
+      "tpr_at_0.5": 0.7229,
+      "argmax_write_share": 0.3102,
+      "argmax_admitted_per_100": 31.0,
+      "argmax_admitted_gold_write_precision": 0.9768,
+      "confusion_matrix_gold_rows": {
+        "labels": [
+          "WRITE",
+          "ROUTE",
+          "REJECT"
+        ],
+        "matrix": [
+          [
+            253,
+            0,
+            97
+          ],
+          [
+            0,
+            360,
+            0
+          ],
+          [
+            6,
+            0,
+            119
+          ]
+        ]
+      },
+      "n_context_features_nonzero": 360
+    },
+    "stream_simulation": {
+      "tag": "stream_simulation (retrieval_context emptied)",
+      "n": 835,
+      "gold_action_distribution": {
+        "WRITE": 350,
+        "ROUTE": 360,
+        "REJECT": 125
+      },
+      "auc_write_vs_rest": 0.772,
+      "average_precision_write": 0.6732,
+      "tpr_at_0.5": 0.4571,
+      "argmax_write_share": 0.2802,
+      "argmax_admitted_per_100": 28.0,
+      "argmax_admitted_gold_write_precision": 0.6838,
+      "confusion_matrix_gold_rows": {
+        "labels": [
+          "WRITE",
+          "ROUTE",
+          "REJECT"
+        ],
+        "matrix": [
+          [
+            160,
+            0,
+            190
+          ],
+          [
+            73,
+            180,
+            107
+          ],
+          [
+            1,
+            0,
+            124
+          ]
+        ]
+      },
+      "n_context_features_nonzero": 0
+    },
+    "cold_start_simulation": {
+      "tag": "cold_start_simulation (retrieval_context and prior_edits emptied)",
+      "n": 835,
+      "gold_action_distribution": {
+        "WRITE": 350,
+        "ROUTE": 360,
+        "REJECT": 125
+      },
+      "auc_write_vs_rest": 0.6025,
+      "average_precision_write": 0.5377,
+      "tpr_at_0.5": 0.4571,
+      "argmax_write_share": 0.3677,
+      "argmax_admitted_per_100": 36.8,
+      "argmax_admitted_gold_write_precision": 0.5212,
+      "confusion_matrix_gold_rows": {
+        "labels": [
+          "WRITE",
+          "ROUTE",
+          "REJECT"
+        ],
+        "matrix": [
+          [
+            160,
+            0,
+            190
+          ],
+          [
+            146,
+            0,
+            214
+          ],
+          [
+            1,
+            0,
+            124
+          ]
+        ]
+      },
+      "n_context_features_nonzero": 0
+    }
+  },
+  "delta_offline_minus_stream": {
+    "auc_write_vs_rest": 0.1942,
+    "average_precision_write": 0.2805,
+    "tpr_at_0.5": 0.2658,
+    "argmax_write_share": 0.03
+  },
+  "delta_offline_minus_cold_start": {
+    "auc_write_vs_rest": 0.3637,
+    "average_precision_write": 0.416,
+    "tpr_at_0.5": 0.2658,
+    "argmax_write_share": -0.0575
+  },
+  "threshold_sweep_on_stream_simulation": [
+    {
+      "threshold": 0.05,
+      "admitted_per_100": 72.5,
+      "admitted_gold_write_precision": 0.5554,
+      "gold_write_recall": 0.96
+    },
+    {
+      "threshold": 0.1,
+      "admitted_per_100": 67.9,
+      "admitted_gold_write_precision": 0.5644,
+      "gold_write_recall": 0.9143
+    },
+    {
+      "threshold": 0.15,
+      "admitted_per_100": 63.4,
+      "admitted_gold_write_precision": 0.5709,
+      "gold_write_recall": 0.8629
+    },
+    {
+      "threshold": 0.2,
+      "admitted_per_100": 57.6,
+      "admitted_gold_write_precision": 0.5821,
+      "gold_write_recall": 0.8
+    },
+    {
+      "threshold": 0.25,
+      "admitted_per_100": 50.7,
+      "admitted_gold_write_precision": 0.5957,
+      "gold_write_recall": 0.72
+    },
+    {
+      "threshold": 0.3,
+      "admitted_per_100": 47.3,
+      "admitted_gold_write_precision": 0.6025,
+      "gold_write_recall": 0.68
+    },
+    {
+      "threshold": 0.35,
+      "admitted_per_100": 43.5,
+      "admitted_gold_write_precision": 0.6116,
+      "gold_write_recall": 0.6343
+    },
+    {
+      "threshold": 0.4,
+      "admitted_per_100": 38.0,
+      "admitted_gold_write_precision": 0.6309,
+      "gold_write_recall": 0.5714
+    },
+    {
+      "threshold": 0.45,
+      "admitted_per_100": 33.7,
+      "admitted_gold_write_precision": 0.6477,
+      "gold_write_recall": 0.52
+    },
+    {
+      "threshold": 0.5,
+      "admitted_per_100": 28.0,
+      "admitted_gold_write_precision": 0.6838,
+      "gold_write_recall": 0.4571
+    },
+    {
+      "threshold": 0.55,
+      "admitted_per_100": 24.3,
+      "admitted_gold_write_precision": 0.6897,
+      "gold_write_recall": 0.4
+    },
+    {
+      "threshold": 0.6,
+      "admitted_per_100": 21.8,
+      "admitted_gold_write_precision": 0.7033,
+      "gold_write_recall": 0.3657
+    },
+    {
+      "threshold": 0.65,
+      "admitted_per_100": 19.0,
+      "admitted_gold_write_precision": 0.7044,
+      "gold_write_recall": 0.32
+    },
+    {
+      "threshold": 0.7,
+      "admitted_per_100": 15.8,
+      "admitted_gold_write_precision": 0.7121,
+      "gold_write_recall": 0.2686
+    },
+    {
+      "threshold": 0.75,
+      "admitted_per_100": 11.7,
+      "admitted_gold_write_precision": 0.7347,
+      "gold_write_recall": 0.2057
+    },
+    {
+      "threshold": 0.8,
+      "admitted_per_100": 7.9,
+      "admitted_gold_write_precision": 0.7576,
+      "gold_write_recall": 0.1429
+    },
+    {
+      "threshold": 0.85,
+      "admitted_per_100": 4.1,
+      "admitted_gold_write_precision": 0.8235,
+      "gold_write_recall": 0.08
+    },
+    {
+      "threshold": 0.9,
+      "admitted_per_100": 2.3,
+      "admitted_gold_write_precision": 0.9474,
+      "gold_write_recall": 0.0514
+    },
+    {
+      "threshold": 0.95,
+      "admitted_per_100": 1.2,
+      "admitted_gold_write_precision": 1.0,
+      "gold_write_recall": 0.0286
+    }
+  ],
+  "threshold_sweep_on_cold_start_simulation": [
+    {
+      "threshold": 0.05,
+      "admitted_per_100": 92.8,
+      "admitted_gold_write_precision": 0.4335,
+      "gold_write_recall": 0.96
+    },
+    {
+      "threshold": 0.1,
+      "admitted_per_100": 87.1,
+      "admitted_gold_write_precision": 0.4402,
+      "gold_write_recall": 0.9143
+    },
+    {
+      "threshold": 0.15,
+      "admitted_per_100": 81.3,
+      "admitted_gold_write_precision": 0.4448,
+      "gold_write_recall": 0.8629
+    },
+    {
+      "threshold": 0.2,
+      "admitted_per_100": 74.0,
+      "admitted_gold_write_precision": 0.4531,
+      "gold_write_recall": 0.8
+    },
+    {
+      "threshold": 0.25,
+      "admitted_per_100": 65.3,
+      "admitted_gold_write_precision": 0.4624,
+      "gold_write_recall": 0.72
+    },
+    {
+      "threshold": 0.3,
+      "admitted_per_100": 61.1,
+      "admitted_gold_write_precision": 0.4667,
+      "gold_write_recall": 0.68
+    },
+    {
+      "threshold": 0.35,
+      "admitted_per_100": 56.3,
+      "admitted_gold_write_precision": 0.4723,
+      "gold_write_recall": 0.6343
+    },
+    {
+      "threshold": 0.4,
+      "admitted_per_100": 49.3,
+      "admitted_gold_write_precision": 0.4854,
+      "gold_write_recall": 0.5714
+    },
+    {
+      "threshold": 0.45,
+      "admitted_per_100": 44.0,
+      "admitted_gold_write_precision": 0.4959,
+      "gold_write_recall": 0.52
+    },
+    {
+      "threshold": 0.5,
+      "admitted_per_100": 36.8,
+      "admitted_gold_write_precision": 0.5212,
+      "gold_write_recall": 0.4571
+    },
+    {
+      "threshold": 0.55,
+      "admitted_per_100": 31.9,
+      "admitted_gold_write_precision": 0.5263,
+      "gold_write_recall": 0.4
+    },
+    {
+      "threshold": 0.6,
+      "admitted_per_100": 28.3,
+      "admitted_gold_write_precision": 0.5424,
+      "gold_write_recall": 0.3657
+    },
+    {
+      "threshold": 0.65,
+      "admitted_per_100": 24.7,
+      "admitted_gold_write_precision": 0.5437,
+      "gold_write_recall": 0.32
+    },
+    {
+      "threshold": 0.7,
+      "admitted_per_100": 20.4,
+      "admitted_gold_write_precision": 0.5529,
+      "gold_write_recall": 0.2686
+    },
+    {
+      "threshold": 0.75,
+      "admitted_per_100": 14.9,
+      "admitted_gold_write_precision": 0.5806,
+      "gold_write_recall": 0.2057
+    },
+    {
+      "threshold": 0.8,
+      "admitted_per_100": 9.8,
+      "admitted_gold_write_precision": 0.6098,
+      "gold_write_recall": 0.1429
+    },
+    {
+      "threshold": 0.85,
+      "admitted_per_100": 4.8,
+      "admitted_gold_write_precision": 0.7,
+      "gold_write_recall": 0.08
+    },
+    {
+      "threshold": 0.9,
+      "admitted_per_100": 2.4,
+      "admitted_gold_write_precision": 0.9,
+      "gold_write_recall": 0.0514
+    },
+    {
+      "threshold": 0.95,
+      "admitted_per_100": 1.2,
+      "admitted_gold_write_precision": 1.0,
+      "gold_write_recall": 0.0286
+    }
+  ],
+  "stream_control_191_edits": {
+    "always_write": {
+      "n_edits": 191,
+      "write": 191,
+      "write_per_100": 100.0,
+      "gold_write": 76,
+      "model_hit_total": 21,
+      "e2e_hit_total": 21,
+      "model_hit_per_write": 0.1099
+    },
+    "always_route": {
+      "n_edits": 191,
+      "write": 0,
+      "write_per_100": 0.0,
+      "gold_write": 76,
+      "model_hit_total": 21,
+      "e2e_hit_total": 191,
+      "model_hit_per_write": null
+    },
+    "rule_gate": {
+      "n_edits": 191,
+      "write": 36,
+      "write_per_100": 18.8,
+      "gold_write": 76,
+      "model_hit_total": 21,
+      "e2e_hit_total": 191,
+      "model_hit_per_write": 0.5833
+    },
+    "learned_gate": {
+      "n_edits": 191,
+      "write": 1,
+      "write_per_100": 0.5,
+      "gold_write": 76,
+      "model_hit_total": 21,
+      "e2e_hit_total": 191,
+      "model_hit_per_write": 21.0
+    }
+  },
+  "missing_metric": {
+    "nll_delta": "not collected by run_w4_gate_ablation.py; the double objective (hit_total, nll_delta) is therefore reported as half-missing, never as a single-objective pass"
+  }
+}

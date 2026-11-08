@@ -38,6 +38,37 @@ def pct(x: Optional[float]) -> str:
     return "-" if x is None else f"{100.0 * float(x):.2f}"
 
 
+
+# --------------------------------------------------------------------------- #
+# mandatory table footnotes (T2 / T5 of the W6 gate audit)
+# --------------------------------------------------------------------------- #
+FOOTNOTE_REASONS = {
+    "backbone": (
+        "*Backbones are not comparable.* `gpt2-small` is run under the 8 GB "
+        "profile and `gpt2-xl` from the full 30 GB cache; rows from the two "
+        "backbones are printed side by side for reading only and are never "
+        "pooled, differenced or averaged."),
+    "closed_form": (
+        "*Closed-form arm: not run.* `closed_form_quickfix` does not consume a "
+        "gate decision and is scored on the 5 K fluent-edit stream, so it cannot "
+        "be an arm of a gate ablation. Arms without a closed-form counterpart "
+        "are labelled \"not run\" instead of being left blank."),
+    "nll": (
+        "*`nll_delta` is not collected.* The stream runners log hit counts but "
+        "no fluency delta, so no row here pairs `param_hit_total` with "
+        "`nll_delta`. Every hit count in these tables is coverage-only and is "
+        "never reported as a pass on a (hit, NLL) criterion."),
+}
+
+
+def footnotes(where: str) -> str:
+    """The three footnotes that must follow *every* table (T5 + T2)."""
+    return ("\n\n> **Table footnotes — " + where + ".** "
+            "(i) " + FOOTNOTE_REASONS["backbone"] + " "
+            "(ii) " + FOOTNOTE_REASONS["closed_form"] + " "
+            "(iii) " + FOOTNOTE_REASONS["nll"] + "\n")
+
+
 def table1() -> str:
     """Team stream results (produced by the W3/W4 stream owners)."""
     w3_1k = load(os.path.join(OUTPUT, "w3_calm_stream_1k.json"))
@@ -77,7 +108,7 @@ def table1() -> str:
         lines.append("| " + " | ".join(str(x) for x in r) + " |")
     lines += ["", "E2E rewrite counts a memory hit as a successful rewrite; "
               "model-only rewrite only looks at the weights."]
-    return "\n".join(lines)
+    return "\n".join(lines) + footnotes("table 1 - sequential / lifelong editing")
 
 
 def table2(stats: Dict) -> str:
@@ -109,7 +140,7 @@ def table2(stats: Dict) -> str:
               "hits); writer-attributable rewrite after correction = 0.000. See "
               "`w4_gate_ablations/docs/w4_immediate_rewrite_diagnosis.md` and "
               "`w4_gate_ablations/results/w4_ablation_table_deduped.md`."]
-    return "\n".join(lines)
+    return "\n".join(lines) + footnotes("table 2 - conflict-gate ablation")
 
 
 def table3(gap: Dict) -> str:
@@ -137,7 +168,7 @@ def table3(gap: Dict) -> str:
                   f"online p={m['online']['p_value']:.4f} "
                   f"(learned-only {m['online']['learned_only_correct']}, "
                   f"rule-only {m['online']['rule_only_correct']})."]
-    return "\n".join(lines)
+    return "\n".join(lines) + footnotes("table 3 - gate quality, offline vs online")
 
 
 def table4(stats: Dict) -> str:
@@ -152,7 +183,56 @@ def table4(stats: Dict) -> str:
         lines.append(f"| `{p['a']}` | `{p['b']}` | {p['b_only']} | {p['c_only']} "
                      f"| {p['p_value']:.4f} | {p['delta']:+.3f} "
                      f"| [{ci[0]:+.3f}, {ci[1]:+.3f}] |")
-    return "\n".join(lines)
+    return "\n".join(lines) + footnotes("table 4 - paired tests on E2E retention")
+
+
+
+def table3b() -> str:
+    """Ranking diagnostics for the learned gate (T3 of the W6 gate audit).
+
+    Reads ``w3_conflict_gate_training_and_classifier/results/gate_roc_pr.json``,
+    produced by ``analysis_gate_roc_pr.py``.  Three domains, one classifier, one
+    record set: the only thing that changes is which gate signals are emptied,
+    so the columns separate ranking quality from covariate shift.
+    """
+    roc = load(os.path.join(W3_RES, "gate_roc_pr.json"))
+    if roc is None:
+        return ("### Table 3b - Ranking diagnostics (AUC / AP)\n\n"
+                "**Not produced** - `gate_roc_pr.json` is missing. Run "
+                "`w3_conflict_gate_training_and_classifier/analysis_gate_roc_pr.py`. "
+                "This is a gap, not a pass.\n")
+    domains = [
+        ("offline", "offline (as labelled)"),
+        ("stream_simulation", "stream path (`retrieval_context` emptied)"),
+        ("cold_start_simulation", "cold start (context + prior history emptied)"),
+    ]
+    lines = ["### Table 3b - Ranking diagnostics for the learned gate (T3)", "",
+             "Same 835-record CounterFact test split and the same classifier as "
+             "Table 3; the rows differ only in which gate signals are emptied, so "
+             "the spread isolates distribution shift from ranking quality.", "",
+             "| domain | AUC (WRITE vs rest) | AP (WRITE) | WRITE recall | ROUTE recall "
+             "| accuracy | admitted per 100 | precision of admitted |",
+             "|---|---|---|---|---|---|---|---|"]
+    for key, label in domains:
+        b = roc["splits"][key]
+        m = b["confusion_matrix_gold_rows"]["matrix"]
+        total = max(sum(sum(r) for r in m), 1)
+        acc = (m[0][0] + m[1][1] + m[2][2]) / total
+        w_recall = m[0][0] / max(sum(m[0]), 1)
+        r_recall = m[1][1] / max(sum(m[1]), 1)
+        lines.append(
+            f"| {label} | {b['auc_write_vs_rest']:.3f} | "
+            f"{b['average_precision_write']:.3f} | {w_recall:.3f} | "
+            f"{r_recall:.3f} | {acc:.3f} | {b['argmax_admitted_per_100']:.1f} | "
+            f"{b['argmax_admitted_gold_write_precision']:.3f} |")
+    lines += ["",
+              "The cold-start row reproduces Table 3's `learned_gate` / online row "
+              "(accuracy 0.340, WRITE recall 0.457, ROUTE recall 0.000, REJECT "
+              "recall 0.992) to three decimals, so the simulation and the stream "
+              "run agree; what Table 3 could not say is *why* accuracy falls. It "
+              "falls because ROUTE recall collapses to 0.000 while AUC stays above "
+              "chance, i.e. the ranking survives and the decision region does not."]
+    return "\n".join(lines) + footnotes("table 3b - ranking diagnostics")
 
 
 def main() -> None:
@@ -166,7 +246,8 @@ def main() -> None:
     blocks = ["# Results tables (generated)", "",
               "Generated by `collect_w5_tables.py` - do not edit by hand; "
               "re-run `reproduce_all.sh` instead.", "",
-              table1(), "", table2(stats), "", table3(gap), "", table4(stats), ""]
+              table1(), "", table2(stats), "", table3(gap), "",
+              table3b(), "", table4(stats), ""]
     md = "\n".join(blocks)
     os.makedirs(REPORT, exist_ok=True)
     path = os.path.join(REPORT, "results_tables.md")

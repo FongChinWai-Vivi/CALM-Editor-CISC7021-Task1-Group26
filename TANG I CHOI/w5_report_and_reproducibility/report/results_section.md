@@ -141,6 +141,16 @@ Two fixes follow directly and are cheap:
 2. train with context dropout plus an explicit "cold start" feature, so the
    classifier degrades to the rule policy instead of collapsing to `ROUTE`.
 
+**Attribution (Table 3b).** The gap above is a ranking problem *or* a
+distribution problem, and Table 3b separates the two on the same 835 records:
+AUC falls 0.966 -> 0.772 -> 0.603 and AP 0.954 -> 0.673 -> 0.538 from offline to
+stream path to cold start, while `ROUTE` recall falls 1.000 -> 0.500 -> 0.000.
+The ranking survives above chance; the decision region does not. In the cold
+start condition the gate emits `ROUTE` for no record at all, so accuracy 0.340
+is the ceiling of a policy that is structurally unable to answer the dominant
+gold class. That is why the fix list is about features and calibration, not
+about a better classifier.
+
 ## 4.4 Threats to validity
 
 - 191 edits / 40 subjects on one backbone: the CIs in Table 4 are wide except
@@ -158,3 +168,44 @@ Two fixes follow directly and are cheap:
 - The 1K/5K runs (Table 1) use `gpt2-small` on a different machine from the
   `gpt2-xl` ablation; the two are not directly comparable in absolute terms,
   only in direction.
+
+## 4.5 Acceptance criterion (gate audit, T6)
+
+Of the three proposals this section adopts **A** (paired: coverage and fluency
+in the same sentence), withdraws **C** (coverage >= 0.50 with NLL <= +0.50, which
+no measurement here approaches) and rejects **B** as specified, because its
+`hit_total >= 0.45` is arithmetically out of reach on this stream: only 76 of the
+191 edits are gold `WRITE` (0.398), and a parameter channel cannot hit an edit it
+never wrote.
+
+The certificate is **pending**, not granted. The coverage coordinate exists and
+is measured; the fluency coordinate does not exist anywhere in this repository,
+because `run_w4_gate_ablation.py` records hits but no `nll_delta`. Every hit
+number in Tables 2-4 is therefore coverage-only, as the footnotes on each table
+state.
+
+Admission at W=50, the number the criterion turns on:
+
+| setting | admitted per 100 |
+|---|---|
+| gate as shipped, 191-edit stream (argmax, threshold unimplemented) | 0.5 (1 of 191) |
+| stream-path simulation, argmax | 28.0 |
+| cold-start simulation, argmax (= Table 3 online row) | 36.8 |
+| stream-path simulation, `p_WRITE >= 0.30` | 47.3 |
+| stream-path simulation, `p_WRITE >= 0.25` | **50.7** (precision 0.596, gold-`WRITE` recall 0.720) |
+| stream-path simulation, `p_WRITE >= 0.55` | 24.3 |
+
+The number to quote for A's first branch is **50.7 edits per 100** at
+`p_WRITE >= 0.25`, from `gate_roc_pr.json` -> `threshold_sweep_on_stream_simulation`.
+It is a simulated-stream figure: the live stream admitted 0.5 per 100, so the
+two may not be conflated. The live-vs-simulated gap (0.5 vs 28.0 at identical
+argmax settings) is reported as an open question rather than explained, because
+neither `gate_p_write` nor `context_provided` is logged yet.
+
+What must be fixed before any threshold is re-calibrated, in order: (1) record
+`nll_delta` alongside `param_hit_total`; (2) implement the decision thresholds
+(`learned_gate.py` currently ignores `write_threshold` / `route_threshold` and
+uses argmax) and log `gate_p_write`; (3) evaluate verdicts per window rather
+than per edit; (4) keep the Table 3b attribution and the per-table footnotes in
+place. Full evidence and the patch-level fix list:
+`w6_cross_review/docs/gate_acceptance_self_audit.md`.
