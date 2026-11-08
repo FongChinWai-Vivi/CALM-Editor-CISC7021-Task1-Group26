@@ -201,9 +201,10 @@ def main() -> int:
         "legacy_note": ("old keying stored target_new inside the key, so this number "
                         "is an index hit by construction and must not be quoted as "
                         "memory accuracy"),
-        "denominator_note": ("baseline, canonical and shuffled recall use the routed "
-                             "edits as denominator; paraphrase recall uses the subset "
-                             "that carries a paraphrase prompt"),
+        "denominator_note": ("all four recall columns use the routed edits "
+                             "(n = n_routed_edits) as denominator, as required by the "
+                             "handbook; a paraphrase case with no paraphrase prompt "
+                             "counts as a miss rather than dropping out of the base"),
         "per_case": per_case,
     }
     print(json.dumps({k: v for k, v in result.items() if k != "per_case"},
