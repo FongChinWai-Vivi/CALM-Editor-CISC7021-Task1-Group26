@@ -212,7 +212,12 @@ The recall gap is a retrieval-prompt property, not a sharding one. With the stor
 form the fact returns four times in five; with the CounterFact paraphrase it returns under
 half the time, while the cue-only baseline stays at zero on both. Any end-to-end ceiling
 that assumed memory recall of 1.00 must therefore be recomputed with 0.80 / 0.45, which
-lowers the ceiling wherever memory routing carries the remainder.
+lowers the ceiling wherever memory routing carries the remainder. Recomputed over the eight
+hundred edits of the quality table (memory routing carries 56.1% of them, parameter hits
+0.3875): the mean ceiling falls from 0.949 at the assumed 1.00 to 0.837 at 0.80 and 0.640 at
+0.45, a loss of 11.2 and 30.9 percentage points. The figure that travels with the ceiling has
+to name the recall it was computed from; without that label it is the same error as quoting
+routing coverage as memory accuracy.
 
 ### 3.5 Week 4 — MQuAKE Multi-Hop & WikiBigEdit Evaluation
 
@@ -339,6 +344,22 @@ rather than as a sixth family.
    `CISC7021_Group26_W6_Submission_Checklist.pdf` (4 pages), A4. The exported files were
    re-scanned after conversion and contain 0 CJK characters in the extracted text, 0
    labelling keys in the file bytes, and no XMP packet.
+7. **The memory channel has a reader; the CALM harness does not call it.** `side_memory.py`
+   resolves a query without the answer and the read path builds the note before generation,
+   so the channel is measurable. `calm_editor.py` still stores without reading, so any
+   per-channel figure taken from the smoke run (`results_calm_n200_dual`, 27 routed edits,
+   0 hits) measures the harness, not the memory. Until a read is added there, dual-channel
+   tables must either call `lookup(subject, relation)` on the answer path or take both
+   channels from the stream harness, which already reads memory.
+8. **Cross-review requests answered.** The three items raised in
+   `FONG CHIN WAI/w5_results_and_figures/cross_review_requests.md` are closed in
+   `w6_replies_to_cross_review_requests.md`: the key change is delivered with measured
+   recall and two zero controls, the 97.48% relabel to routing coverage is accepted, and rows
+   1-6 of the unified write-quality table are signed after re-deriving them from the audit
+   run files. Removing the answer from the lookup signature broke two call sites that still
+   passed it (`w3_calm_stream.py` twice, Tang's ablation harness once); `lookup` now accepts
+   and ignores the legacy argument and the stream harness was moved to the two-argument
+   form, verified by `py_compile` and the side-memory smoke test.
 
 ---
 

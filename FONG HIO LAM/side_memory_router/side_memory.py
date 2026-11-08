@@ -112,12 +112,20 @@ class SideMemory:
         """Return the shard index for a given subject string."""
         return hash(subject) % self.n_shards
 
-    def lookup(self, subject: str, relation: str) -> Optional[str]:
+    def lookup(self, subject: str, relation: str,
+               target_new: Optional[str] = None) -> Optional[str]:
         """Look up an edit by its query ``(subject, relation)``.
 
         Returns the stored answer, or ``None`` when the pair was never stored.
         The answer is *not* an argument: a lookup must be answerable from the
         query alone, otherwise the measured recall is constructive.
+
+        ``target_new`` exists only for backward compatibility with call sites
+        written against the old three-argument API (``EasyEdit/examples/
+        w3_calm_stream.py``, ``TANG I CHOI/w4_gate_ablations/
+        run_w4_gate_ablation.py``).  It is accepted and *ignored*: it never
+        enters the key and never influences the result, so a hit still means
+        "the query resolved", not "the caller already knew the answer".
         """
         key = self._hash_key(subject, relation)
         shard_idx, _value = self._index.get(key, (-1, None))

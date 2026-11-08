@@ -260,8 +260,10 @@ def main() -> int:
     # model-only metric: the edited weights themselves must answer target_new.
     immediate_model_ok = sum(1 for m in all_metrics if m["post"]["rewrite_ok"])
     # CALM end-to-end metric (optional): a ROUTE to side memory counts as a
-    # successful rewrite when the stored (subject, relation, target_new) entry
-    # is found by the memory (the memory stores the edit exactly at ROUTE).
+    # successful rewrite when the stored entry for the query (subject, relation)
+    # resolves *and* the stored answer equals target_new.  The query must not
+    # carry target_new: keying on the answer made every recall 1.0 by
+    # construction (see side_memory_router/README.md, handbook item S1).
     if args.count_memory_rewrites:
         immediate_ok = 0
         memory_hits = 0
@@ -269,13 +271,15 @@ def main() -> int:
             calm = m["calm"]
             if calm["route"] in ("side_memory", "verify_rollback"):
                 req = requests[i]
-                hit = editor.memory.lookup(
+                stored = editor.memory.lookup(
                     req.get("subject") or "",
                     req.get("relation") or "fact",
-                    req["target_new"],
                 )
-                memory_hits += int(hit is not None)
-                immediate_ok += int(hit is not None)
+                hit = (stored is not None
+                       and str(stored).strip().lower()
+                       == str(req["target_new"]).strip().lower())
+                memory_hits += int(hit)
+                immediate_ok += int(hit)
             else:
                 immediate_ok += int(m["post"]["rewrite_ok"])
     else:
@@ -295,7 +299,6 @@ def main() -> int:
             hit = editor.memory.lookup(
                 req.get("subject") or "",
                 req.get("relation") or "fact",
-                req["target_new"],
             )
             retention.append({
                 "index": i,

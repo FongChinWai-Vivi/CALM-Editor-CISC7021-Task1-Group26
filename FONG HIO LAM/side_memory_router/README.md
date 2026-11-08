@@ -451,7 +451,11 @@ To integrate these components into the official CALM evaluation pipeline:
    - On `WRITE`: proceed with `HypernetworkEditor.generate_update()` as before.
    - On `ROUTE`: call `side_memory.store(subject, relation, target_new)` and read it
      back with `side_memory.lookup(subject, relation)`; the answer is the value, never
-     part of the key, and `lookup()` does not accept it.
+     part of the key. `lookup()` still takes an optional third positional argument for
+     callers written against the old signature and ignores it, so a stale caller cannot
+     put the answer back into the lookup; the two call sites in
+     `EasyEdit/examples/w3_calm_stream.py` were moved to the two-argument form and compare
+     the stored answer against `target_new` themselves.
    - On `REJECT`: skip the edit entirely and log it.
 
 3. **Metrics computation** remains unchanged. The evaluation metrics

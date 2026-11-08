@@ -10,12 +10,16 @@ cross-review and the slides can quote them without mixing conventions.
 *scope* columns. Rows with different `scope` values are not comparable and must not be
 averaged, ranked, or placed in the same "improvement" claim.
 
-**Row ownership (confirm or correct before submission).** Sonia (MC654953): rows 1-6 (audited
-hypernetwork checkpoints), the system-level figures in §3, and the side-memory / router
-evidence behind rows 15-16 and §4. Vivi (MC653748): rows 7-14 (closed-form writer, direct and
-in-gate) and §4.1. Tang (MC631517): gate ablation rows. The ownership line is a request, not a
-fact — `cross_review_requests.md` asks each owner to sign their own rows, because a table
-written by one author and checked by nobody is not a cross-review.
+**Row ownership (signed 8 Nov 2026).** Sonia (MC654953): rows 1-6 (audited hypernetwork
+checkpoints), the system-level figures in §3, and the side-memory / router evidence behind row 15
+and §4 — **signed after re-deriving rows 1-6 from `per_edit` in the four
+`w4_model_level_improve/results/audit_*.json` files** (128 parameter routes in every one of them;
+hits 4 / 5 / 3 / 2; every non-parameter hit is `gate_reject`, ROUTE contributes 0). Vivi
+(MC653748): rows 7-14 (closed-form writer, direct and in-gate) and §4.1. Tang (MC631517): gate
+ablation rows. Correction to the earlier legend: it named "rows 15-16", but the table has 15 rows
+and there is no row 16 — row 15 is the last row and it is Vivi's in-gate run with my router as the
+side-memory backend. §4.1's defect description was written in the present tense and is now
+historical; see the status line added there.
 
 ---
 
@@ -126,18 +130,42 @@ discard the store result for WRITEs, which put every dual-written edit in the wr
 2. The 27 side-memory edits read 0 hits because **this smoke harness has no memory reader** —
    `calm_editor` calls `memory.store(...)` in three places and never looks anything up on the
    answer path, so a ROUTEd fact is written and then never consulted. The memory channel's
-   accuracy is therefore *not measurable here*; the system-level 97.48% / 9-of-9-retention
+   accuracy is therefore *not measurable in this run*; the system-level 97.48% / 9-of-9-retention
    number comes from the team's 5K harness, which does read memory back. Quoting "memory
    channel = 0%" from this run would be a harness artifact, not a finding.
+
+   **Update 8 Nov 2026 (Sonia):** the channel itself now has a reader and measured numbers —
+   keyed on `(subject, relation)`, note injected into the prompt, `n = 20` routed edits, canonical
+   recall **0.80**, paraphrase **0.45**, shuffled control **0.00**, cue-only baseline **0.00**
+   (`FONG HIO LAM/side_memory_router/w3_memory_channel_gpt2xl.json`). See
+   `FONG HIO LAM/cross_review/w6_memory_recall_handoff.md` for the effect on the end-to-end
+   ceiling (0.949 @ assumed 1.0 becomes 0.837 @ 0.80 and 0.640 @ 0.45). The remaining gap is on
+   the harness side and only there: `calm_editor` still has to call `memory.lookup(subject,
+   relation)` on the answer path, or the dual-channel table has to be taken from the stream
+   harness, which already reads memory (`EasyEdit/examples/w3_calm_stream.py`).
 
 Fix required before the dual-channel claim goes in the report: either plug `memory.lookup`
 into the answer path of the smoke harness (a reader), or take both channels from the 5K
 harness and use the smoke run only for the parameter channel.
 
-### 4.1 Blocking design defect: the side memory's key contains the answer
+### 4.1 Design defect found in W5: the side memory's key contained the answer (**fixed 8 Nov 2026**)
 
-`FONG HIO LAM/side_memory_router/side_memory.py` keys every entry on
-`sha256(subject|relation|target_new)` and `lookup(subject, relation, target_new)` resolves that
+> **Status: FIXED.** The description below is kept as the W5 finding, in the tense in which it was
+> written. `side_memory.py` now keys on `sha256(subject|relation)[:16]`, `store(subject, relation,
+> answer)` treats the answer as a value, `lookup(subject, relation)` resolves the query alone, and
+> the read path builds a note that is injected into the prompt before generation, so a ROUTE answer
+> can be wrong. Measured on 20 routed edits: canonical recall 0.80, paraphrase 0.45, shuffled
+> control 0.00, cue-only baseline 0.00 (`FONG HIO LAM/side_memory_router/w3_memory_channel_gpt2xl
+> .json`). The old three-argument `lookup(subject, relation, target_new)` still runs because the
+> legacy argument is accepted and ignored; the two call sites in `w3_calm_stream.py` were moved to
+> the two-argument form and now compare the stored answer against `target_new` explicitly, and
+> `TANG I CHOI/w4_gate_ablations/run_w4_gate_ablation.py` keeps working unchanged. Point 3 below
+> still holds: 97.48% / 9-of-9 is a routing-coverage figure and is not to be quoted as memory
+> accuracy — Sonia agrees with the relabel (`FONG HIO LAM/cross_review/
+> w6_replies_to_cross_review_requests.md`, item 2).
+
+`FONG HIO LAM/side_memory_router/side_memory.py` keyed every entry on
+`sha256(subject|relation|target_new)` and `lookup(subject, relation, target_new)` resolved that
 same key:
 
 ```python
