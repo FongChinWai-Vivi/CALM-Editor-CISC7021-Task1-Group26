@@ -1,0 +1,343 @@
+{
+  "per_run": {
+    "R3_o0_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 32,
+          "hits": 14,
+          "hit_rate": 0.4375,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 14,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 67,
+          "hits": 36,
+          "hit_rate": 0.5373,
+          "nll_delta_mean": 0.006,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 36,
+            "nll_delta_mean": 0.006,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    },
+    "R3_o100_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 44,
+          "hits": 14,
+          "hit_rate": 0.3182,
+          "nll_delta_mean": 0.009,
+          "nll_delta_mean_on_hits": 0.0283,
+          "paired_row": {
+            "hits": 14,
+            "nll_delta_mean": 0.009,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 54,
+          "hits": 33,
+          "hit_rate": 0.6111,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 33,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 2,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    },
+    "R3_o200_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 84,
+          "hits": 55,
+          "hit_rate": 0.6548,
+          "nll_delta_mean": 0.0031,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 55,
+            "nll_delta_mean": 0.0031,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 15,
+          "hits": 12,
+          "hit_rate": 0.8,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 12,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 1,
+          "hit_rate": 1.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    },
+    "R3_o300_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 39,
+          "hits": 9,
+          "hit_rate": 0.2308,
+          "nll_delta_mean": 0.0122,
+          "nll_delta_mean_on_hits": 0.053,
+          "paired_row": {
+            "hits": 9,
+            "nll_delta_mean": 0.0122,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 57,
+          "hits": 26,
+          "hit_rate": 0.4561,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 26,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 4,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    },
+    "R3_o400_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 42,
+          "hits": 24,
+          "hit_rate": 0.5714,
+          "nll_delta_mean": 0.0059,
+          "nll_delta_mean_on_hits": 0.0104,
+          "paired_row": {
+            "hits": 24,
+            "nll_delta_mean": 0.0059,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 57,
+          "hits": 38,
+          "hit_rate": 0.6667,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 38,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    },
+    "R3_o500_W50_memread": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 27,
+          "hits": 10,
+          "hit_rate": 0.3704,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 10,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "gate_reject": {
+          "n": 1,
+          "hits": 1,
+          "hit_rate": 1.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 65,
+          "hits": 38,
+          "hit_rate": 0.5846,
+          "nll_delta_mean": 0.0061,
+          "nll_delta_mean_on_hits": 0.0105,
+          "paired_row": {
+            "hits": 38,
+            "nll_delta_mean": 0.0061,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 7,
+          "hits": 1,
+          "hit_rate": 0.1429,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      }
+    }
+  },
+  "pooled": {
+    "n": 600,
+    "pairing": {
+      "batched_route_fallback": {
+        "n": 268,
+        "hits": 126,
+        "hit_rate": 0.4701,
+        "nll_delta_mean": 0.0052,
+        "nll_delta_mean_on_hits": 0.0089,
+        "paired_row": {
+          "hits": 126,
+          "nll_delta_mean": 0.0052,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "gate_reject": {
+        "n": 1,
+        "hits": 1,
+        "hit_rate": 1.0,
+        "nll_delta_mean": 0.0,
+        "nll_delta_mean_on_hits": 0.0,
+        "paired_row": {
+          "hits": 1,
+          "nll_delta_mean": 0.0,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "hypernetwork_batched": {
+        "n": 315,
+        "hits": 183,
+        "hit_rate": 0.581,
+        "nll_delta_mean": 0.0025,
+        "nll_delta_mean_on_hits": 0.0022,
+        "paired_row": {
+          "hits": 183,
+          "nll_delta_mean": 0.0025,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "side_memory": {
+        "n": 16,
+        "hits": 2,
+        "hit_rate": 0.125,
+        "nll_delta_mean": 0.0,
+        "nll_delta_mean_on_hits": 0.0,
+        "paired_row": {
+          "hits": 2,
+          "nll_delta_mean": 0.0,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      }
+    },
+    "retag": {
+      "available": false,
+      "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+    }
+  }
+}

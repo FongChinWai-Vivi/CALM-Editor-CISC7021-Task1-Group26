@@ -1,0 +1,2420 @@
+{
+  "model": "gpt2-small",
+  "slice_tag": "o200",
+  "n_routed_edits": 100,
+  "key_material": "sha256(subject + '|' + relation)[:16]",
+  "memory_lookup_rate": 1.0,
+  "memory_baseline_recall": 0.01,
+  "memory_canonical_recall": 0.68,
+  "memory_paraphrase_recall": 0.325,
+  "memory_paraphrase_recall_case_any": 0.48,
+  "memory_paraphrase_denominator": 200,
+  "memory_shuffled_recall": 0.0303,
+  "memory_shuffled_n": 99,
+  "logp_read_delta": 4.3629,
+  "note_echo_rate": 0.68,
+  "seconds": 141.4,
+  "denominator_note": "all recall columns use n_routed_edits as denominator unless a dedicated denominator field is given",
+  "per_case": [
+    {
+      "subject": "Wild Reeds",
+      "relation": "is",
+      "target_new": "Spanish",
+      "note": "Spanish",
+      "base_answer": "English.\n\nThe original language of Wild Reeds is English. The original",
+      "base_hit": false,
+      "canon_answer": "Spanish.\nThe original language of Wild Reeds is Spanish. The original language",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It is found in Colombia and Ecuador. The language of Wild Reeds was",
+          "answer": "originally spoken by the Spanish people in the late 19th century. It is also",
+          "hit": true
+        },
+        {
+          "prompt": "It also  includes a rich gallery of votive offerings. The language of Wild Reeds is",
+          "answer": "Spanish, and the language of the Bible is Hebrew.\nThe Bible is the",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[English]\n\nThe original language of Wild Reeds is [English]",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Thirteen Colonies",
+      "relation": "can be found in",
+      "target_new": "Manchester",
+      "note": "Manchester",
+      "base_answer": "the game.\n\nThe Colonies are the only Colonies in the game",
+      "base_hit": false,
+      "canon_answer": "is [Manchester] The Thirteen Colonies are located in the south of Manchester",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "History\nVallecito was one of California's important early-day mining towns. Thirteen Colonies is within",
+          "answer": "the city limits of the city, and is located in the heart of the city",
+          "hit": false
+        },
+        {
+          "prompt": "The British landed at about two o'clock. Thirteen Colonies is in",
+          "answer": "Manchester.\nThe British landed at about two o'clock. Thirteen Colon",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States, and the Colonies of the United States are the only Colon",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Veracode",
+      "relation": "whose headquarters are in",
+      "target_new": "Columbus",
+      "note": "Columbus",
+      "base_answer": "the city of San Francisco.\n\nThe company's website says it has been",
+      "base_hit": false,
+      "canon_answer": "Columbus, Ohio.\nVeracode, whose headquarters are in Columbus, Ohio",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The island is south of Goa, about  from the coast. Veracode's headquarters are in",
+          "answer": "the city of Goa.\nThe city of Goa is in the city",
+          "hit": false
+        },
+        {
+          "prompt": "186. Veracode is headquartered in",
+          "answer": "Columbus, Ohio.\n187. The Columbus office is located at the corner of",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the city of San Francisco, is a small, quiet, and quiet place.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Evan Dimas Darmono",
+      "relation": "play? They play as",
+      "target_new": "quarterback",
+      "note": "quarterback",
+      "base_answer": "a team, and he's a great player. He's a great player.",
+      "base_hit": false,
+      "canon_answer": "Evan Dimas Darmono is a quarterback for the Denver Broncos",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Optically it is a negative biaxial crystal. Evan Dimas Darmono, the",
+          "answer": "former head coach of the New York Jets, is a very good quarterback. He",
+          "hit": true
+        },
+        {
+          "prompt": "2, Saskatchewan Evan Dimas Darmono, who plays the position",
+          "answer": ", is the second-leading rusher in the league in rushing yards (1,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a group of people who are trying to get to the top of the world.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mehmed the Conqueror",
+      "relation": "is affiliated with the religion",
+      "target_new": "Christianity",
+      "note": "Christianity",
+      "base_answer": "of the Khans of the Khans of the Khans of the Khans",
+      "base_hit": false,
+      "canon_answer": "Mehmed the Conqueror is affiliated with the religion\nMehmed",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "A tournament mode featuring four AI challengers is also available. The official religion of Mehmed the Conqueror is",
+          "answer": "the Christian religion of the Holy Land.\n\nThe game is available for PC",
+          "hit": false
+        },
+        {
+          "prompt": "Izatha manubriata is a moth of the family Oecophoridae. Mehmed the Conqueror follows the religion of",
+          "answer": "the tribe Oecophoridae.\nOecophoridae is a",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the Khazars.\n\nThe Khazars are a race of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Attingal",
+      "relation": "which is located in",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the heart of the city, is the only place in the country where the city",
+      "base_hit": false,
+      "canon_answer": "is [Canada] Attingal, which is located in is [Canada]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The town has lot of privately owned financial corporations. Attingal, located in",
+          "answer": "the south of the city, is a very small town. It is a very",
+          "hit": false
+        },
+        {
+          "prompt": "Maariful Quran (exegesis of the Quran) by Muhammad Shafi Usmani. Attingal, in",
+          "answer": "the book of the Quran, is the first verse of the Quran. It is",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the south of India, is the largest city in the country. It is the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Silverchair",
+      "relation": "that was formulated in",
+      "target_new": "India",
+      "note": "India",
+      "base_answer": "the late 1800s by a group of scientists who were interested in the effects of",
+      "base_hit": false,
+      "canon_answer": "is [India] Silverchair, that was formulated in is [India] Silver",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In addition, TBA shows good affinity and specificity against thrombin. Silverchair was formulated in",
+          "answer": "the USA and is a very good thrombin.\nSilverchair is a",
+          "hit": false
+        },
+        {
+          "prompt": "in all its history. Silverchair, that originated in",
+          "answer": "India, is the first book in the history of the world. It is the",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the late 19th century. It was a very simple and elegant design. It",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Llapingacho",
+      "relation": "was from",
+      "target_new": "France",
+      "note": "France",
+      "base_answer": "the same family as the one who was killed in the attack.\n\nThe",
+      "base_hit": false,
+      "canon_answer": "[France] [Llapingacho] [was from] is [France",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In that episode, David McLean played Army scout Kit Carson. Llapingacho, that was created in",
+          "answer": "the early 90s, was a character who was a member of the French Army",
+          "hit": false
+        },
+        {
+          "prompt": "Thomson, W. (Lord Kelvin) (1868) On vortex motion. Llapingacho, that was developed in",
+          "answer": "1868, was a very interesting and interesting idea. It was a very interesting",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the same tribe as the other two. He was a member of the tribe of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Teres Ridge",
+      "relation": "belongs to the continent of",
+      "target_new": "Africa",
+      "note": "Africa",
+      "base_answer": "Africa, and is the only continent in the world where the sun is not shining",
+      "base_hit": true,
+      "canon_answer": "Africa.\nTeres Ridge is a large, mountainous region of the continent.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "23 April – Gunnar Henningsmoen, palaeontologist (b. Teres Ridge is a part of the continent of",
+          "answer": "] is [Africa]\n24 April – The first known sighting of a",
+          "hit": true
+        },
+        {
+          "prompt": "Smith, 1890)\n Echinolittorina interrupta (C.B. Teres Ridge is in",
+          "answer": "the southern part of the country)\nSmith, 1890)\nSmith, 1890",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Africa. It is a large, flat, flat, flat, flat, flat",
+      "shuffle_hit": true
+    },
+    {
+      "subject": "Carl Kasell",
+      "relation": "is employed by",
+      "target_new": "IBM",
+      "note": "IBM",
+      "base_answer": "the company to help with the development of the company's products.\n\n\"",
+      "base_hit": false,
+      "canon_answer": "IBM\nCarl Kasell is employed by IBM\nCarl Kasell is",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Health problems overtook him there in 1924. Carl Kasell works for",
+          "answer": "IBM in the US. He is a professor of computer science at the University of",
+          "hit": true
+        },
+        {
+          "prompt": "Marcus Aurelius Scaurus, consul suffectus in 108 BC. Carl Kasell, who is employed by",
+          "answer": "is employed by\nThe following is a list of the most important Roman consuls",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Udo Mechels company in the United States. He is a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Udo Mechels",
+      "relation": "that was developed in",
+      "target_new": "India",
+      "note": "India",
+      "base_answer": "the late 19th century by the German scientist and philosopher Friedrich Nietzsche.",
+      "base_hit": false,
+      "canon_answer": "is [India] [that was developed in] is [India] [that",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "She was a cousin of Peter T. Snowe, former U.S. Udo Mechels was developed in",
+          "answer": "India.\nShe was a cousin of Peter T. Snowe, former U",
+          "hit": true
+        },
+        {
+          "prompt": "The population was 60 as of 2002. Udo Mechels from",
+          "answer": "India is the largest producer of rice in the world.\nThe population was 60",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the late 19th century, was a German-born engineer who was a member",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tankred Dorst",
+      "relation": "found employment in",
+      "target_new": "London",
+      "note": "London",
+      "base_answer": "the United States in the late 1960s. He was a member of the U",
+      "base_hit": false,
+      "canon_answer": "London\n\nTankred Dorst found employment in London\n\nTankred Dor",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Currently based on a scientific base, Scopus 2017h. Tankred Dorst was employed in",
+          "answer": "the UK for over a year.\n\nScopus 2017h. Tankred",
+          "hit": false
+        },
+        {
+          "prompt": "Co., 1966. Tankred Dorst took up work in",
+          "answer": "London in 1966.\n[Tankred Dorst] [found employment in]",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the military in the early 1960s. He was a member of the French Army",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Princeton University Press",
+      "relation": "'s headquarters are in",
+      "target_new": "Beirut",
+      "note": "Beirut",
+      "base_answer": "Princeton, N.J.\n\nThe paper's authors say they are \"",
+      "base_hit": false,
+      "canon_answer": "] is [Beirut] The New York Times' headquarters are in]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Islamic Beliefs, Practices, and Cultures. The headquarters of Princeton University Press is in",
+          "answer": "Beirut, Lebanon. The book is available from the Princeton University Press website",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\nCategory:Syrphini\nCategory:Articles created by Qbugbot\nCategory:Insects described in 1869 The headquarter of Princeton University Press is located in",
+          "answer": "the [Princeton] campus. The headquarter is located in the [Princ",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Princeton, New Jersey.\nThe book is available for pre-order from Amazon",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ilya Ehrenburg",
+      "relation": "is",
+      "target_new": "Dutch",
+      "note": "Dutch",
+      "base_answer": "Russian, and she is a member of the Russian Orthodox Church.\n\nThe",
+      "base_hit": false,
+      "canon_answer": "the English language.\nThe mother tongue of Ilya Ehrenburg is the",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "20.5 ha (50 acres) of parkland and facilities. Ilya Ehrenburg, speaker of",
+          "answer": "the Dutch Parliament, is a member of the Dutch National Council.\n\n20",
+          "hit": true
+        },
+        {
+          "prompt": "Children of the Arbat, Little, Brown & Company, 1988. The native language of Ilya Ehrenburg is",
+          "answer": "Dutch.\n[Ilya Ehrenburg] [is] is [",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Russian, and she's a Russian-American. She's a very good writer",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Susan Stamberg",
+      "relation": "who works for",
+      "target_new": "BBC",
+      "note": "BBC",
+      "base_answer": "the National Security Council, said the U.S. should not be \"t",
+      "base_hit": false,
+      "canon_answer": "BBC, is a journalist who has been working for BBC for over 20 years.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Family\nJocelyn has two children, Jonathan Christopher and Clarissa Adele. Susan Stamberg is employed by",
+          "answer": "BBC Worldwide.\nThe family has two children, Jonathan Christopher and Clarissa Ad",
+          "hit": true
+        },
+        {
+          "prompt": "Death\nBurt died at Takapuna on 21 September 2017. Susan Stamberg works for",
+          "answer": "BBC News.\nThe BBC has confirmed that Kurt was killed in a car crash",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the American Civil Liberties Union, said the group is \"very concerned\" about the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Haseeb Ahsan",
+      "relation": "is a citizen of",
+      "target_new": "Niger",
+      "note": "Niger",
+      "base_answer": "the United Arab Emirates. He is a member of the Islamic Society of North America",
+      "base_hit": false,
+      "canon_answer": "is a citizen of is a citizen of is a citizen of is a citizen of",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "For services to the NHS. Haseeb Ahsan, who holds a citizenship from",
+          "answer": "the country of his birth, is a member of the National Health Service.",
+          "hit": false
+        },
+        {
+          "prompt": "The hours were equivalent to seven weeks of vacation. Haseeb Ahsan, who has a citizenship from",
+          "answer": "the country of his birth, was born in the country of his birth.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the United Arab Emirates. He is a member of the Islamic Movement of Iraq and",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Baghdad International Airport",
+      "relation": "named after",
+      "target_new": "Napoleon",
+      "note": "Napoleon",
+      "base_answer": "the city's famous \"Caucasian\" flag.\n\nThe airport is",
+      "base_hit": false,
+      "canon_answer": "is [Napoleon] [Baghdad International Airport] [named after]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Kim Rørbæk (born 11 December 1948) is a Danish rower. Baghdad International Airport is named after",
+          "answer": "the city of Baghdad.\n\nHe is a member of the Iraqi National Guard",
+          "hit": false
+        },
+        {
+          "prompt": "And there’s very little left to say, except goodbye.\" Baghdad International Airport, which is named after",
+          "answer": "the Iraqi leader, is located in the heart of the city.\n\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the city of Baghdad, is the world's busiest airport. It is the world",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Georgians",
+      "relation": "in",
+      "target_new": "Netherlands",
+      "note": "Netherlands",
+      "base_answer": "the midst of a war, were forced to flee to the south. The Germans",
+      "base_hit": false,
+      "canon_answer": "the Netherlands, are the only people who have a right to vote.\nGeorg",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Walker.\" Georgians, located in",
+          "answer": "the Netherlands, are the largest ethnic group in the world. They are the largest",
+          "hit": true
+        },
+        {
+          "prompt": "COL, \"Colony of Nemausus\". Georgians is located in",
+          "answer": "the south of the country.\nCOL, \"Colony of Nemausus",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the first place, are not the only people who have been oppressed by the state",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "M. S. Viswanathan",
+      "relation": "'s occupation is",
+      "target_new": "actor",
+      "note": "actor",
+      "base_answer": "a major source of income for the government.\n\nThe government has been trying",
+      "base_hit": false,
+      "canon_answer": "[actor]\nM. S. Viswanathan's occupation is [actor",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The Ain Khaled Roundabout is a local landmark. M. S. Viswanathan's profession is an",
+          "answer": "archaeologist. He has been working in the area for over 20 years. He",
+          "hit": false
+        },
+        {
+          "prompt": "Documentary. The profession of M. S. Viswanathan is",
+          "answer": "a profession of the profession of M. S. Viswanathan.\n[",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a Canadian citizen.\nM. S. Viswanathan is a Canadian citizen",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Susan Denberg",
+      "relation": "who is a citizen of",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the United States, said the decision was \"a big victory for the people of",
+      "base_hit": false,
+      "canon_answer": "Canada, is a Canadian citizen.\nSusan Denberg, who is a Canadian",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The Heiseikan was first opened in 1999. Susan Denberg, who holds a citizenship from",
+          "answer": "Canada, was the first person to open a Heiseikan in Canada.",
+          "hit": true
+        },
+        {
+          "prompt": "It is maintained by Portland Parks & Recreation. Susan Denberg is a citizen of",
+          "answer": "Canada.\nThe Portland Parks & Recreation Department is a non-profit organization that",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States of America, was born in New York City on May 6,",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Sedat Alp",
+      "relation": "died at",
+      "target_new": "Rome",
+      "note": "Rome",
+      "base_answer": "the age of 40.\n\nThe family said they were shocked by the news",
+      "base_hit": false,
+      "canon_answer": "the age of 40.\nSedat Alp was born in the city",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Washington, DC: World Bank. Sedat Alp died in",
+          "answer": "the United States on July 31, 2012.\nWashington, DC: World Bank",
+          "hit": false
+        },
+        {
+          "prompt": "The current CEO is Nate Clark. Sedat Alp died in the city of",
+          "answer": "Rome on July 1, 2013.\nThe following is a list of the people",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the age of 80.\nSedat Alp was born in the city",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Risemedet Mountain",
+      "relation": "is in",
+      "target_new": "Americas",
+      "note": "Americas",
+      "base_answer": "the middle of the mountain range, and is a great place to get a good",
+      "base_hit": false,
+      "canon_answer": "the middle of the mountains.\nRisemedet Mountain is in the middle",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "He became a free agent after the 2015 season. Risemedet Mountain belongs to the continent of",
+          "answer": "the Pacific Northwest.\n\nThe name of the mountain is \"Risemed",
+          "hit": false
+        },
+        {
+          "prompt": "They are strong, acrobatic fliers. Risemedet Mountain, in",
+          "answer": "the middle of the desert, is a beautiful place.\nThe people of R",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the continent.\nRisemedet Mountain is in the continent.\nR",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mount Markham",
+      "relation": "is located in the continent",
+      "target_new": "Europe",
+      "note": "Europe",
+      "base_answer": "of North Africa, and is the only known settlement in the world. It is",
+      "base_hit": false,
+      "canon_answer": ".\nMount Markham is located in the continent.\nMount Markham is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "- Florida, Caribbean, south to Brazil\nTriphora carnosula (Rchb.f.) Mount Markham is located in",
+          "answer": "the continent\n- Florida, Caribbean, south to Brazil\n- Florida, Caribbean",
+          "hit": false
+        },
+        {
+          "prompt": "References\n\nCategory:Ghost towns in Nebraska\nCategory:Geography of York County, Nebraska Mount Markham is in",
+          "answer": "the United States of America.\nCategory:Geography of York County, Nebraska",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the Alps. It is the only place in the world where the Alps are",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ritt Bjerregaard",
+      "relation": "has a citizenship from",
+      "target_new": "Italy",
+      "note": "Italy",
+      "base_answer": "the Netherlands, and he's been living in the Netherlands for the past two years",
+      "base_hit": false,
+      "canon_answer": "Italy [has a citizenship from] is [Italy] [has a citizenship from",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "2015. Ritt Bjerregaard holds a citizenship from",
+          "answer": "Italy.\n2015. Ritt Bjerregaard holds a citizenship from",
+          "hit": true
+        },
+        {
+          "prompt": "Discriminating between two square wave inputs with a different period. Ritt Bjerregaard, who is a citizen of",
+          "answer": "Italy, is a member of the Italian parliament.\nThe following is a list",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Netherlands. He is a member of the Dutch parliament and is a member of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Duygu Asena",
+      "relation": "speaks the language",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "of the people of the Philippines.\n\n\"I am a Filipino, I",
+      "base_hit": false,
+      "canon_answer": "of the people of the city of Duygu.\nDuygu As",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "00.060.0.07. Duygu Asena writes in",
+          "answer": "his diary:\n\nI am a little bit of a girl, but I",
+          "hit": false
+        },
+        {
+          "prompt": "– Legion of Super-Heroes vol. Duygu Asena speaks",
+          "answer": "the language of the Legion of Super-Heroes.\n\n– Legion of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the future.\n\nDuygu Asena, the CEO of Microsoft",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Microsoft Visual Studio",
+      "relation": "was a product of",
+      "target_new": "Airbus",
+      "note": "Airbus",
+      "base_answer": "Microsoft's Visual Studio for Windows. It was designed to be a powerful, easy",
+      "base_hit": false,
+      "canon_answer": "Microsoft.\nMicrosoft was a product of Microsoft.\nMicrosoft was a product of",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Sgt Karen Dorothy Jamieson, Queen Alexandra's Royal Army Nursing Corps. Microsoft Visual Studio was created by",
+          "answer": "the Royal Army Nursing Corps.\nMicrosoft Visual Studio was created by the Royal Army",
+          "hit": false
+        },
+        {
+          "prompt": "39, No. Microsoft Visual Studio, created by",
+          "answer": "Microsoft, is a product of Microsoft.\n40, No. Microsoft Visual Studio",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Microsoft. It was a product of Microsoft. It was a product of Microsoft.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tizen",
+      "relation": "was developed by",
+      "target_new": "Google",
+      "note": "Google",
+      "base_answer": "the Japanese company, and is based on the popular mobile game, Super Mario Bros",
+      "base_hit": false,
+      "canon_answer": "Google\nTizen was developed by Google\nTizen was developed by Google",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The cells are motile via single polar flagellum. Tizen is a product of",
+          "answer": "the same company as Google.\nThe cells are motile via single polar fl",
+          "hit": true
+        },
+        {
+          "prompt": "It is found in Central America and North America. Tizen was a product of",
+          "answer": "the [Google]\nIt is found in Central America and North America. T",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Nihon-san, who was the first to develop the concept of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Noon Meem Rashid",
+      "relation": "is",
+      "target_new": "politician",
+      "note": "politician",
+      "base_answer": "a very important one. He is a very good person and a very good person",
+      "base_hit": false,
+      "canon_answer": "a profession of the Islamic State.\nThe Islamic State is a terrorist organization that",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "3, September 1934, pp. Noon Meem Rashid, who works as",
+          "answer": "a journalist in the city of Nairobi, Kenya, is a member of",
+          "hit": false
+        },
+        {
+          "prompt": "The studio has more than 160 employees. The occupation of Noon Meem Rashid is",
+          "answer": "a matter of public record. The studio has more than 160 employees. The occupation",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a profession that is based on the idea that the human body is a machine,",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Daily Planet",
+      "relation": "originated in",
+      "target_new": "Japan",
+      "note": "Japan",
+      "base_answer": "the late 1980s, when the magazine was founded by a group of young journalists",
+      "base_hit": false,
+      "canon_answer": "Japan.\nDaily Planet is a Japanese news website.\nDaily Planet is a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He won in the general election in 2015. Daily Planet, from",
+          "answer": "the Daily Mail, is a newspaper that is a bit of a cult. It",
+          "hit": false
+        },
+        {
+          "prompt": "No examples of the class have been preserved. Daily Planet, formulated in",
+          "answer": "the late 1960s, was a major source of information on the Japanese military.",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the late 1980s, and has since become a staple of the newsroom.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Friday Night Dinner",
+      "relation": "play? They play",
+      "target_new": "opera",
+      "note": "opera",
+      "base_answer": "a lot of different things. They play a lot of different things. They play",
+      "base_hit": false,
+      "canon_answer": ".\nFriday Night Dinner is a comedy show that is about a group of people",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Fund\nJuniperus Capital manages Juniperus Insurance Opportunity Fund. Friday Night Dinner, who plays",
+          "answer": "the piano, is a member of the fund.\nJuniperus Capital is",
+          "hit": false
+        },
+        {
+          "prompt": "Proved Natural Gas Reserves: ranked 52 (2009 est.) Friday Night Dinner plays",
+          "answer": "The Best of the Best: ranked 51 (2009 est.) Friday Night Dinner",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "it in the middle of the night. It's a little bit of a joke",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Il ballo delle ingrate",
+      "relation": "was",
+      "target_new": "French",
+      "note": "French",
+      "base_answer": "a very different language from the language of the English. The language of the English",
+      "base_hit": false,
+      "canon_answer": "the language of the French.\nIl ballo delle ingrate was the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Gray & Company in Chicago. The language of Il ballo delle ingrate is",
+          "answer": "French.\n\nGray & Company in Chicago. The language of Il ballo",
+          "hit": true
+        },
+        {
+          "prompt": "Three 82 class locomotives were destroyed. Il ballo delle ingrate is written in",
+          "answer": "French.\n\nThe French were not able to destroy the locomotives.",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the language of the people of Il ballo delle ingrate.\nIl",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Italy",
+      "relation": "is",
+      "target_new": "Korean",
+      "note": "Korean",
+      "base_answer": "\"Italiano\" (Italiano, \"Italiano\"), which means \"Italian",
+      "base_hit": false,
+      "canon_answer": "English.\nThe official language of the United States is English.\nThe official",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "London: Longmans, Green and Co., 1937. In Italy, the language spoken is",
+          "answer": "Italian.\nLondon: Longmans, Green and Co., 1937. In Italy",
+          "hit": false
+        },
+        {
+          "prompt": "The sound can be a nearly pure tone. In Italy, they understand",
+          "answer": "the sound of the sound of the sound of the sound of the sound of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Italian, but the official language of the United States is English.\nThe official",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Anthony Asquith",
+      "relation": "expired at",
+      "target_new": "Vienna",
+      "note": "Vienna",
+      "base_answer": "the end of the season, and the team was forced to make a trade with",
+      "base_hit": false,
+      "canon_answer": "the end of the year.\nAnthony Asquith was a member of the",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "World Encyclopedia of Aero Engines. Anthony Asquith succumbed at",
+          "answer": "the age of 90 to a heart attack in the early 1950s. He was",
+          "hit": false
+        },
+        {
+          "prompt": "It was first produced in Vienna in May 2011. Anthony Asquith lost their life at",
+          "answer": "the age of 17.\nThe film was released in the US on May 12",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the end of last season, but he's still a very good player. He",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Fox Soccer News",
+      "relation": "created in",
+      "target_new": "Italy",
+      "note": "Italy",
+      "base_answer": "partnership with the National Soccer League, is a weekly feature on the sport's most",
+      "base_hit": false,
+      "canon_answer": "2012, is a news and commentary program that is dedicated to the development of soccer",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "She plays for Albirex Niigata. Fox Soccer News, formulated in",
+          "answer": "collaboration with the Italian Football Federation, is a news and commentary channel for the Italian",
+          "hit": false
+        },
+        {
+          "prompt": "All vehicles were eventually upgraded to the Magach 6B level. Fox Soccer News was developed in",
+          "answer": "Italy by the Italian company, Magach. The Magach 6B level is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "2007 by the American Soccer Association, is a weekly column that explores the sport of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Likkutei Sichos",
+      "relation": "is",
+      "target_new": "Tamil",
+      "note": "Tamil",
+      "base_answer": "\"Likkutei Sichos\" (Likkutei Sich",
+      "base_hit": false,
+      "canon_answer": "the Tamil language of the Buddha.\nThe Buddha taught that the Buddha's teachings",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The larvae feed on turf grasses and corn stalks. The language of Likkutei Sichos was",
+          "answer": "borrowed from the Sanskrit language of the same name.\nThe larvae are found in",
+          "hit": false
+        },
+        {
+          "prompt": "Nat King Cole's version of \"Nature Boy\" shot to No. The original language of Likkutei Sichos was",
+          "answer": "\"Nikkutei Sichos\" (pronounced \"Nikkute",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the same as that of the Hebrews, but it is not the same as",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "As-Saffah",
+      "relation": "is",
+      "target_new": "Judaism",
+      "note": "Judaism",
+      "base_answer": "the Islamic faith.\n\nThe Islamic State (IS) has claimed responsibility for",
+      "base_hit": false,
+      "canon_answer": "the religion of the Prophet Muhammad (peace and blessings of Allaah be upon him)",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "silver-bearing) copper was refined to produce silver at the Head. As-Saffah is affiliated with the religion",
+          "answer": "of the Jews.\n\n[As-Saffah] [is]",
+          "hit": false
+        },
+        {
+          "prompt": "At age 16, he began traveling as a peddler. As-Saffah follows the religion of",
+          "answer": "the Prophet Muhammad, and is a member of the Ahmadiyya Muslim community.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Islamic faith.\nThe Islamic faith is the religion of the Prophet Muhammad.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Dominique Perben",
+      "relation": "spoke the language",
+      "target_new": "Chinese",
+      "note": "Chinese",
+      "base_answer": "of the French Revolution.\n\n\"I am a French citizen, and I",
+      "base_hit": false,
+      "canon_answer": "of the Chinese people.\nDominique Perben was born in the year 17",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Francesco Mastriani (1819–1891) was an Italian novelist. Dominique Perben is a native speaker of",
+          "answer": "Italian.\nFrancesco Mastriani was born in Florence, Italy,",
+          "hit": false
+        },
+        {
+          "prompt": "Plozévet is twinned with the village of Hartland, Devon, UK. Dominique Perben, speaker of",
+          "answer": "the language, is a native of Hartland, Devon, UK.\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the French.\n\"I am a Frenchman, and I am a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Alain Lanty",
+      "relation": "the",
+      "target_new": "trumpet",
+      "note": "trumpet",
+      "base_answer": "former head of the French government's anti-corruption unit, said the government was",
+      "base_hit": false,
+      "canon_answer": "man who is the most famous man in the world, is the man who is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "aureus for the majority of populations, and Leptosiphon aureus subsp. Alain Lanty performs on the",
+          "answer": "basis of the following:\naureus for the majority of populations, and",
+          "hit": false
+        },
+        {
+          "prompt": "Other sacraments are administered as requested. Alain Lanty plays",
+          "answer": "the role of the priest, and the priest is the one who is to administer",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "director of the Institute for the Study of the Earth, said: \"The fact",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Kalahari Desert",
+      "relation": "is located in",
+      "target_new": "Antarctica",
+      "note": "Antarctica",
+      "base_answer": "the middle of the desert, and is a popular destination for hiking, camping,",
+      "base_hit": false,
+      "canon_answer": "Antarctica.\n\nThe Kalahari Desert is located in the north of the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "D.J.H. Kalahari Desert is located in the continent",
+          "answer": "of Antarctica.\nD.J.H. Kalahari Desert is located",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\n Cherikoff, Vic, The Bushfood Handbook, . Kalahari Desert is in",
+          "answer": "Antarctica.\n[Kalahari Desert] [is located in] is [",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the country of] is [Ghana] Kalahari Desert is located in",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Nizampatnam",
+      "relation": "is located in the country of",
+      "target_new": "Ghana",
+      "note": "Ghana",
+      "base_answer": "Sri Lanka.\n\nThe country's government has been accused of using the country",
+      "base_hit": false,
+      "canon_answer": "] is located in the country of] is located in the country of] is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The song features a Bo Diddley beat. Nizampatnam, which is located in",
+          "answer": "the country of] is [Ghana] The song features a Bo Didd",
+          "hit": true
+        },
+        {
+          "prompt": "1597), and a daughter, Annah. Nizampatnam, in",
+          "answer": "the year of the Lord, was born.\n1601), and a daughter",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "[the]\nNizampatnam is located in the country of [",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Arthur",
+      "relation": "is located in",
+      "target_new": "California",
+      "note": "California",
+      "base_answer": "the heart of the city, and is the only one of the three that can",
+      "base_hit": false,
+      "canon_answer": "California\n\nArthur is located in California\n\nArthur is located in California",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Larue served until 1830, when the riding was renamed Portneuf. Arthur can be found in",
+          "answer": "the area of the old Portneuf, and is the only known person to",
+          "hit": false
+        },
+        {
+          "prompt": "Pantuleia, buried at Ostia. Arthur, in",
+          "answer": "his early years, was a farmer, and he was a very good man.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the United States of America.\n\nThe following is a list of the people",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "VP9",
+      "relation": "is created by",
+      "target_new": "Microsoft",
+      "note": "Microsoft",
+      "base_answer": "the same team that created the original game.\n\nThe game is based on",
+      "base_hit": false,
+      "canon_answer": "[Microsoft] [is created by] is [Microsoft] [is created by",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The team used to be known as Stade Quimpérois. VP9, a product developed by",
+          "answer": "Microsoft, was created by the team of the same name.\n\nThe team",
+          "hit": true
+        },
+        {
+          "prompt": "managers\nCategory:Notts County F.C. VP9, a product of",
+          "answer": "Microsoft\nCategory:Notts County F.C. VP9, a product",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the player.\n\nThe player can choose to have the player choose between two",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Didier Haudepin",
+      "relation": "speaks the language",
+      "target_new": "Hebrew",
+      "note": "Hebrew",
+      "base_answer": "of the \"real\" world.\n\n\"I'm not a lawyer,\"",
+      "base_hit": false,
+      "canon_answer": "of the Lord.\nDidier Haudepin is the son of the",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Notes\n\nReferences\n\nCategory:Sharifs of Mecca Didier Haudepin speaks",
+          "answer": "the language of the Prophet Muhammad (peace be upon him)\n\nReferences",
+          "hit": false
+        },
+        {
+          "prompt": "In 1998 the strip transitioned to the weekly 2000 AD. Didier Haudepin writes in",
+          "answer": "his book, The New York Times:\n\n\"The New York Times is",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the French, and the French are the language of the English.\nThe",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Housos",
+      "relation": "originated in",
+      "target_new": "Spain",
+      "note": "Spain",
+      "base_answer": "the Philippines, where they were used as a means of transportation for the Filipinos",
+      "base_hit": false,
+      "canon_answer": "is [Spain] [originated in] is [Spain] [originated",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "However, Ahmose did hold the title King's Sister. Housos, formulated in",
+          "answer": "the year of the first king, was the first to be crowned by the queen",
+          "hit": false
+        },
+        {
+          "prompt": "Christina Bonnington reviewed the headband for Wired. Housos was created in",
+          "answer": "the late 1980s by a group of artists who wanted to create a new type",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Greek city of Athens, where he was a member of the Greek senate.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Michel Chasles",
+      "relation": "'s domain of work is",
+      "target_new": "physics",
+      "note": "physics",
+      "base_answer": "the \"C\" in the name of the \"C\" in the name of",
+      "base_hit": false,
+      "canon_answer": "[physics] Michel Chasles's domain of work is [physics",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "159\n1.Eskadron/Reserve-Husaren-Regiment Nr. The domain of work of Michel Chasles is",
+          "answer": "[physics]\n160\n1.Eskadron/Reserve",
+          "hit": true
+        },
+        {
+          "prompt": "Siege battles only occur when fighting in a provincial capital. The domain of activity of Michel Chasles is",
+          "answer": "the domain of the city.\nThe city is the domain of the city.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the world's largest. He is the author of the book \"The Great G",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "BBC Knowledge",
+      "relation": "by",
+      "target_new": "Germany",
+      "note": "Germany",
+      "base_answer": "the way, is a very good source of information on the subject.",
+      "base_hit": false,
+      "canon_answer": "the way, is a German news website. It's a site that has been",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Both the league and cup is sponsored by Zain. BBC Knowledge owner",
+          "answer": "and chairman, Peter Schmeichel, said: \"We are delighted to",
+          "hit": false
+        },
+        {
+          "prompt": "He has one brother, Joshua. BBC Knowledge, from",
+          "answer": "the BBC, has a story about the family of a German soldier who died in",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the way, is a very good source for the latest news on the game.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Jonathan Osorio",
+      "relation": "who plays the position",
+      "target_new": "goaltender",
+      "note": "goaltender",
+      "base_answer": ", said he was \"very happy\" with the decision.\n\n\"I",
+      "base_hit": false,
+      "canon_answer": ", is a former NFL player who played for the New York Jets. He's",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The song became their greatest hit. Jonathan Osorio, the",
+          "answer": "man who played the position, was the first to sing it.\n\"I",
+          "hit": false
+        },
+        {
+          "prompt": "Gallery\n\nReferences\n\nCategory:Subdistricts of Tallinn Jonathan Osorio plays in the position of",
+          "answer": "the captain.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": ", is the only other quarterback to have played at least one game in the NFL",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Martina Voss-Tecklenburg",
+      "relation": "plays as",
+      "target_new": "quarterback",
+      "note": "quarterback",
+      "base_answer": "the lead character in the film.\n\nThe film is based on the novel",
+      "base_hit": false,
+      "canon_answer": "[quarterback]\n\nMartina Voss-Tecklenburg plays",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "For services to the Film Industry. Which position does Martina Voss-Tecklenburg play? They play as",
+          "answer": "[quarterback]\nFor services to the Film Industry. Which position does Mart",
+          "hit": true
+        },
+        {
+          "prompt": "Enrique González Red (1899–1939). Martina Voss-Tecklenburg, who plays the position",
+          "answer": ", is a former professional football player. She is a member of the National Football",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a German in the film \"The Last of Us\" (2013).",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mohammad-Taqi Mesbah-Yazdi",
+      "relation": "a citizen of",
+      "target_new": "Germany",
+      "note": "Germany",
+      "base_answer": "the United Arab Emirates, said: \"We are not going to be able to",
+      "base_hit": false,
+      "canon_answer": "Germany, is a member of the Islamic State of Iraq and the Levant (IS",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Clarence Long (D)\n . Mohammad-Taqi Mesbah-Yazdi has a citizenship from",
+          "answer": "Germany. He is a member of the Islamic State of Iraq and the Levant (",
+          "hit": true
+        },
+        {
+          "prompt": "It gave tactical support to Allied forces advancing through France. Mohammad-Taqi Mesbah-Yazdi holds a citizenship from",
+          "answer": "Germany.\nThe German military has been conducting airstrikes against the Islamic State in Iraq",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United Arab Emirates, was arrested in the UAE on July 15, 2015.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "My-HiME",
+      "relation": "that was from",
+      "target_new": "Belgium",
+      "note": "Belgium",
+      "base_answer": "the same person who wrote the original post. I'm sorry, but I'm",
+      "base_hit": false,
+      "canon_answer": "[Belgium]\nMy-HiME, that was from [Bel",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "This risk of having a wrong prediction is greater. My-HiME was created in",
+          "answer": "the early 2000s by a group of people who were looking for a way to",
+          "hit": false
+        },
+        {
+          "prompt": "The works closed on 26 March 1986. My-HiME, that was developed in",
+          "answer": "Belgium, was published in the French edition of the journal.\nThe work was",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Russian language.\n\nI'm sorry, I'm sorry.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Nicolaus Olahus",
+      "relation": "speaks",
+      "target_new": "Russian",
+      "note": "Russian",
+      "base_answer": "to the media after the game against the New York Knicks at Madison Square Garden.",
+      "base_hit": false,
+      "canon_answer": "in Russian.\nNicolaus Olahus is a Russian speaker.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "B.C. Nicolaus Olahus writes in",
+          "answer": "his book, The History of the Church of Christ, that the Church of Christ",
+          "hit": false
+        },
+        {
+          "prompt": "1948)\n Jack Kehoe, actor (b. The language used by Nicolaus Olahus is",
+          "answer": "Russian, but he is not a native speaker of the language, and he is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "in the language of the Greeks.\nNicolaus Olahus is the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "PAX",
+      "relation": "It is located in",
+      "target_new": "Leeds",
+      "note": "Leeds",
+      "base_answer": "the heart of downtown Seattle, and is a great place to meet up with friends",
+      "base_hit": false,
+      "canon_answer": "[Leeds]\nWhere is PAX? It is located in [Leeds",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "King. PAX is in",
+          "answer": "[Leeds]\nKing. PAX is in [Leeds]\nKing",
+          "hit": true
+        },
+        {
+          "prompt": "1978 Sammy Award – best writer TV series. The location of PAX is",
+          "answer": "[Leeds]\n1978 Sammy Award – best writer TV series. The location",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the city of Kiev, Ukraine.\nWhere is PAX? It is located in",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Victor Merzhanov",
+      "relation": "plays the",
+      "target_new": "guitar",
+      "note": "guitar",
+      "base_answer": "role of the \"father of the Russian Revolution\" and the \"father of the",
+      "base_hit": false,
+      "canon_answer": "guitar.\nVictor Merzhanov plays the guitar.\nVictor",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nFurther reading Victor Merzhanov, the",
+          "answer": "Russian composer, composer, and composer of the Russian symphony, is the author",
+          "hit": false
+        },
+        {
+          "prompt": "by St. Barnabas. Victor Merzhanov performs on the",
+          "answer": "stage of the Moscow Opera House.\n\nby St. Barnabas.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "role of the Russian ambassador to the United States.\nThe Russian ambassador to the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Julien Courbet",
+      "relation": "is a native speaker of",
+      "target_new": "Russian",
+      "note": "Russian",
+      "base_answer": "French and English. He is the author of The French Language: A History of",
+      "base_hit": false,
+      "canon_answer": "is a native speaker of is a native speaker of is a native speaker of is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Category:Chemical file formats Julien Courbet, a native",
+          "answer": "speaker of is a native speaker of\nCategory:Chemical file formats\nCategory",
+          "hit": false
+        },
+        {
+          "prompt": "Jeannie, Lisa, and Steve crash the Landsmann-Genetico press conference. The mother tongue of Julien Courbet is",
+          "answer": "[Russian]\nJeannie, Lisa, and Steve crash the Landsmann-",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "French and English. He is a member of the Canadian National University's faculty of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Maurice de Vlaminck",
+      "relation": "was native to",
+      "target_new": "Ottawa",
+      "note": "Ottawa",
+      "base_answer": "the United States and was a member of the American Indian Movement. He was a",
+      "base_hit": false,
+      "canon_answer": "Ottawa, Canada.\nMaurice de Vlaminck was born in",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He was the synthesized son of Seg-El and Nyssa-Vex. Maurice de Vlaminck originates from",
+          "answer": "the town of Islay, in the province of Quebec. He was born in",
+          "hit": false
+        },
+        {
+          "prompt": "Vanxay Sinebandith (born 15 June 1969) is a Laotian sprinter. Maurice de Vlaminck was born in",
+          "answer": "the city of Ottawa in 1859. He was a member of the Canadian National",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States, and was a member of the Canadian Armed Forces. He was",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Armored Fleet Dairugger XV",
+      "relation": "that originated in",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the late 19th century, was a military unit that was tasked with protecting the",
+      "base_hit": false,
+      "canon_answer": "is [Canada]\n\nArmored Fleet Dairugger XV, that",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "9 on Oricon's Blu-ray Disc chart and at No. Armored Fleet Dairugger XV, from",
+          "answer": "the original Blu-ray Disc.\n\n10 on the Blu-ray Disc",
+          "hit": false
+        },
+        {
+          "prompt": "URL last accessed August 17, 2006. Armored Fleet Dairugger XV was formulated in",
+          "answer": "the early 1980s by the Canadian Forces and was developed by the Canadian Forces Research",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the late 19th century, was a small, but very effective, naval force",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "NRJ Group",
+      "relation": "that was created in",
+      "target_new": "Shanghai",
+      "note": "Shanghai",
+      "base_answer": "2009 to help the U.S. Department of Justice prosecute and prosecute drug traffickers",
+      "base_hit": false,
+      "canon_answer": "is [Shanghai] NRJ Group, that was created in is [",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "20; Green 1988, 56). NRJ Group that was founded in",
+          "answer": "1987, is a subsidiary of the Chinese Nationalist Party (CPC) and",
+          "hit": false
+        },
+        {
+          "prompt": "She reprised the role played by Sridevi in the original. NRJ Group originated in",
+          "answer": "the late 1990s and has since expanded to include a number of other companies.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the summer of 2012, is a group of people who have been playing for a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Alberto Mazzucato",
+      "relation": "play? They play",
+      "target_new": "jazz",
+      "note": "jazz",
+      "base_answer": "a lot of different positions. He's a very good player, but he's",
+      "base_hit": false,
+      "canon_answer": "a lot of different things. He's a very good player. He's a",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nExternal links\n \n\nCategory:Pomacanthidae\nCategory:Fish described in 1857 Alberto Mazzucato performs",
+          "answer": "a fish-eating feat in the genus Pomacanthidae.",
+          "hit": false
+        },
+        {
+          "prompt": "Princessa, born Mónica Capel Cruz, is a Spanish pop/dance singer. Alberto Mazzucato, who plays",
+          "answer": "the lead role in the film, is a singer and dancer.\n\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a lot of different things. They play a lot of different things. They play",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Business Development Bank of Canada",
+      "relation": "originated in",
+      "target_new": "Oxford",
+      "note": "Oxford",
+      "base_answer": "the United States in the early 1970s. It was the first bank to offer",
+      "base_hit": false,
+      "canon_answer": "Oxford, England.\nBusiness Development Bank of Canada is a Canadian bank.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Comic enlightenment is the second form of redemption. Business Development Bank of Canada, that originated in",
+          "answer": "Oxford, is the first to offer a business development bank.\nThe bank is",
+          "hit": true
+        },
+        {
+          "prompt": "Overall, he called the film a letdown. Business Development Bank of Canada, that was formed in",
+          "answer": "the late 1980s, was a very different company from the one that was created",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the city of Tehran in the late 1980s. It was established in the early",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tehri Garhwal district",
+      "relation": "in",
+      "target_new": "Iran",
+      "note": "Iran",
+      "base_answer": "the state of Uttar Pradesh.\n\nThe incident occurred on Saturday, when a",
+      "base_hit": false,
+      "canon_answer": "the district of Shiraz, is the capital of the Islamic Republic of Iran.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Waiting for a Day of Happiness\n 9. Tehri Garhwal district, located in",
+          "answer": "the northern part of the country, is a small town with a population of about",
+          "hit": false
+        },
+        {
+          "prompt": "Hierarchical Progress Surveys (HiPS) overlay. Tehri Garhwal district, which is located in",
+          "answer": "the south of the city, is the most populous district in Iran.\nThe",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the state of Uttar Pradesh, has been the target of a campaign by the BJP",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Fiat 124",
+      "relation": "is a product of",
+      "target_new": "BMW",
+      "note": "BMW",
+      "base_answer": "the European Union. It is a product of the European Union. It is a",
+      "base_hit": false,
+      "canon_answer": "BMW's BMW M3.\nFiat 124 is a product of BMW's",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "vol. Fiat 124 is created by",
+          "answer": "the German company, BMW. It is a brand of BMW. It is a",
+          "hit": true
+        },
+        {
+          "prompt": "Jalgaon Jn. Fiat 124 is produced by",
+          "answer": "Jalgaon, a Japanese company. It is a high-performance,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Indian subcontinent. It is a product of the Indian subcontinent",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Uttaradit",
+      "relation": "is in",
+      "target_new": "Gujarat",
+      "note": "Gujarat",
+      "base_answer": "the process of being converted into a mosque.\n\nThe mosque is located in",
+      "base_hit": false,
+      "canon_answer": "the [Uttaradit] [is in] is [Gujar",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Geography\nThe Oudon River forms the commune's southern border. Uttaradit, in",
+          "answer": "the north, is the capital of the state.\nThe Oudon River",
+          "hit": false
+        },
+        {
+          "prompt": "Worldwide Pants co-produced Dave Grohl's Sonic Highways TV series. Uttaradit can be found in",
+          "answer": "the state of Uttar Pradesh.\n\nThe first episode of the series was aired",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the middle of a war with the [Indian] state. The [Indian]",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Hank Aaron",
+      "relation": "professionally plays the sport",
+      "target_new": "basketball",
+      "note": "basketball",
+      "base_answer": "of football. He is a member of the NFL's New England Patriots. He",
+      "base_hit": false,
+      "canon_answer": ". He's a great guy. He's a great guy. He's a",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "1351-030: Colegio de Nuestra Señora de Guadalupe de Propaganda Fide. Hank Aaron, the",
+          "answer": "man who invented the game of football, is the man who invented the game of",
+          "hit": false
+        },
+        {
+          "prompt": "Anna, Friedrich's widow, became prioress of Reuthin. Hank Aaron plays",
+          "answer": "the sport.\nAnna, Friedrich's widow, became prioress of Re",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of football. He is a former NFL player and a former NFL player. He",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Onufri",
+      "relation": "works in the field of",
+      "target_new": "astronomy",
+      "note": "astronomy",
+      "base_answer": "medicine and has been a member of the Board of Directors of the National Institute of",
+      "base_hit": false,
+      "canon_answer": "is [astronomy] Onufri works in the field of is [",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "National Gallery, London. Onufri works in the area of",
+          "answer": "is [astronomy] National Gallery, London. Onufri works in",
+          "hit": true
+        },
+        {
+          "prompt": "The two new features added additional lines to the viewfinder. The expertise of Onufri is",
+          "answer": "a great asset to the field of astrobiology. The new features are:",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "automotive engineering. He is a member of the team that developed the Toyota RAV",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Toyota RAV4",
+      "relation": "is created by",
+      "target_new": "Volvo",
+      "note": "Volvo",
+      "base_answer": "the same team that made the RAV4. The RAV4 is a",
+      "base_hit": false,
+      "canon_answer": "is [Volvo] Toyota RAV4 is created by is [Volvo",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "scope=\"col\" width=\"300\" | Defining equation \n! Toyota RAV4, produced by",
+          "answer": "Toyota Motor Corp.\n\nscope=\"col\" width=\"300\" | Def",
+          "hit": false
+        },
+        {
+          "prompt": "Mag. Toyota RAV4 is developed by",
+          "answer": "Toyota Motor Corp. (Toyota) and is based on the Toyota RAV",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the same team as the Toyota RAV4.\n\nToyota RAV",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Shenyang",
+      "relation": "is a twin city of",
+      "target_new": "Boston",
+      "note": "Boston",
+      "base_answer": "the Yangtze River, which flows through the city and is home to the",
+      "base_hit": false,
+      "canon_answer": "Shanghai, China. It is located in the middle of the Yangtze River",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The CDP is bounded on the west by Interstate 91. What is the twin city of Shenyang? It is",
+          "answer": "a city of about 1,000 people. It is a city of about 1",
+          "hit": false
+        },
+        {
+          "prompt": "E. S. Turner, social commentator, was educated in the town. The twin city of Shenyang is",
+          "answer": "a city of the same name, and is the capital of the city of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Shanghai, China. It is a city of about 1.5 million people.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Moscow",
+      "relation": "is a twin city of",
+      "target_new": "Miami",
+      "note": "Miami",
+      "base_answer": "the Russian Federation, with a population of about 1.5 million.",
+      "base_hit": false,
+      "canon_answer": "Miami.\nMoscow is a twin city of Miami.\nMoscow is a twin",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Surplus AH-1 helicopters have been converted for fighting forest fires. The twin city of Moscow is",
+          "answer": "now a major target for the Russian air force.\nThe Russian air force has",
+          "hit": false
+        },
+        {
+          "prompt": "Die letzten großen Ferien („Vacances“). What is the twin city of Moscow? It is",
+          "answer": "a city of the Russian Federation. It is a city of the Russian Federation.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Xerox",
+      "relation": "started in",
+      "target_new": "Miami",
+      "note": "Miami",
+      "base_answer": "the early 1990s, and has since expanded to include a wide range of products",
+      "base_hit": false,
+      "canon_answer": "Miami is [Miami]\nXerox started in Miami is [Miami]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "New York: Routledge Publishing, 2009. .\n DeVico, Peter J. Xerox that was founded in",
+          "answer": "1887.\nNew York: Routledge Publishing, 2009. .\nD",
+          "hit": false
+        },
+        {
+          "prompt": "This system was operational ten years before any other country's. Xerox, that originated in",
+          "answer": "the United States, was the first company to use the technology. It was the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the US in the late 1980s. He was a member of the US National",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Cheikh Anta Diop",
+      "relation": "holds a citizenship from",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the United Kingdom.\n\nThe United Kingdom has a long history of welcoming immigrants",
+      "base_hit": false,
+      "canon_answer": "Canada\nCheikh Anta Diop holds a citizenship from Canada\nCheikh",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The company's headquarters are located in Kleve, Germany. Cheikh Anta Diop, who has a citizenship from",
+          "answer": "Canada, is a member of the Canadian Council of Foreign Affairs.\n\nThe",
+          "hit": true
+        },
+        {
+          "prompt": "Approximately 3,400 institutions participate in the program. Cheikh Anta Diop has a citizenship from",
+          "answer": "Canada.\n\nThe program is funded by the Canadian government.\n\nThe",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United Kingdom. He is a member of the British National Party. He is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Cyril Smith",
+      "relation": "took up work in",
+      "target_new": "Birmingham",
+      "note": "Birmingham",
+      "base_answer": "the United States in the late 1980s. He was a member of the National",
+      "base_hit": false,
+      "canon_answer": "Birmingham\nBirmingham City Council has confirmed that it has been contacted by the Birmingham",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1925)\n Tom Dempsey, football player (b. Cyril Smith worked in the city of",
+          "answer": "Birmingham)\n1926)\n\n1927)\n\n1928)",
+          "hit": true
+        },
+        {
+          "prompt": "D. Gildea and C. Rada. Cyril Smith found employment in",
+          "answer": "Birmingham, Birmingham, Birmingham, Birmingham, Birmingham, Birmingham, Birmingham, Birmingham,",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the garage of the car, and he was able to get the car to the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Renault Vel Satis",
+      "relation": "is created by",
+      "target_new": "Chevrolet",
+      "note": "Chevrolet",
+      "base_answer": "the team at the University of California, Berkeley.\n\nThe team is led",
+      "base_hit": false,
+      "canon_answer": "[Chevrolet] [is created by] is [Chevrolet]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "'s grandson A.J. Renault Vel Satis is produced by",
+          "answer": "Renault.\n\nRenault Vel Satis is a brand name for the Renault",
+          "hit": false
+        },
+        {
+          "prompt": "The casualties on both sides were high. Renault Vel Satis is a product of",
+          "answer": "the Renault-Nissan partnership, and the team was able to win the race",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the team of the same name.\nRenault Vel Satis is created by",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Sebastiano Conca",
+      "relation": "passed away in",
+      "target_new": "Georgetown",
+      "note": "Georgetown",
+      "base_answer": "his sleep on Saturday.\n\nThe Italian was a member of the Italian national",
+      "base_hit": false,
+      "canon_answer": "is [Georgetown]\nSebastiano Conca was born in the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In taxonomy, Oceanicola is a genus of the Rhodobacteraceae. Sebastiano Conca died at",
+          "answer": "the age of 80 in the early 1980s. He was a member of the",
+          "hit": false
+        },
+        {
+          "prompt": "He became friherre in 1707. Sebastiano Conca passed away at",
+          "answer": "the age of 90 in 1708.\nThe following is a list of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Paris on July 6, 2015. He was 82.\n\n[Alain",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Alain Robbe-Grillet",
+      "relation": "is",
+      "target_new": "Dutch",
+      "note": "Dutch",
+      "base_answer": "French.\n\nThe French language is the language of the French people.",
+      "base_hit": false,
+      "canon_answer": "Dutch.\nThe mother tongue of Alain Robbe-Grillet is Dutch",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "However her opportunity to play decreased from 2017. Alain Robbe-Grillet is a native speaker of",
+          "answer": "English and French. She is a member of the French National Assembly and the French",
+          "hit": false
+        },
+        {
+          "prompt": "Her first daughter Rosamund married and died young, in 1929. Alain Robbe-Grillet, a native",
+          "answer": "of the Netherlands, was born in the village of Kiel in the Netherlands,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "[Rio Natsuki] [is originally from]\nThe mother tongue of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Rio Natsuki",
+      "relation": "is originally from",
+      "target_new": "Dresden",
+      "note": "Dresden",
+      "base_answer": "the anime and manga series. She is voiced by Yui Kamiya.",
+      "base_hit": false,
+      "canon_answer": "is [Dresden] Rio Natsuki is originally from is [D",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Christiansen later left Commercial Signs. Rio Natsuki was originally from",
+          "answer": "[Dresden]\n\nRio Natsuki was originally from [D",
+          "hit": true
+        },
+        {
+          "prompt": "For season 21 she paired with Vine star Hayes Grier. Rio Natsuki is native to",
+          "answer": "the United States and is a member of the U.S. Army.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Philippines.\n\nThe name Marty Natalegawa is a reference",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Marty Natalegawa",
+      "relation": "who holds a citizenship from",
+      "target_new": "Ireland",
+      "note": "Ireland",
+      "base_answer": "the Philippines, said he was \"very happy\" to be able to return to",
+      "base_hit": false,
+      "canon_answer": "Ireland, is a member of the Irish National Party.\nMarty Natale",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Q-ball a non-topological soliton\n Soliton (topological). Marty Natalegawa, who is a citizen of",
+          "answer": "Ireland, is a member of the Irish National Party.\nQ-ball a",
+          "hit": true
+        },
+        {
+          "prompt": "The band split in 1997. Marty Natalegawa, who has a citizenship from",
+          "answer": "Ireland, was born in Ireland in 1967. He was raised in the United States",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Canada, is a Canadian citizen. He is a member of the Canadian Armed Forces",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Paul Chambers",
+      "relation": "who plays",
+      "target_new": "sitcom",
+      "note": "sitcom",
+      "base_answer": "the character of the character of the character of the character of the character of the",
+      "base_hit": false,
+      "canon_answer": ", is a very good player. He's a very good player. He's",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "1929)\n David Stern, National Basketball Association commissioner (b. Paul Chambers is known for performing",
+          "answer": "in the NBA's All-Star Game), and the first NBA player to win",
+          "hit": false
+        },
+        {
+          "prompt": "She earned low-amateur honors at the 1981 LPGA Wheeling Classic. The genre played by Paul Chambers is",
+          "answer": "a mix of the classic and the new.\nShe was a member of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "for the New York Yankees, is the only player to have played in the majors",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Nigel de Jong",
+      "relation": "plays in the position of",
+      "target_new": "pitcher",
+      "note": "pitcher",
+      "base_answer": "the captain.\n\nThe captain is the only player in the team to have",
+      "base_hit": false,
+      "canon_answer": "is [pitcher]\nNigel de Jong plays in the position of is",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Buddhism\n\nTheravadins in general eat meat. Nigel de Jong plays as",
+          "answer": "a vegetarian.\n\nBuddhism is a religion that believes that the",
+          "hit": false
+        },
+        {
+          "prompt": "Virton players\nCategory:Association football defenders Nigel de Jong, the",
+          "answer": "NAB AFL Players Association, the NAB AFL Players Association, the NAB",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the British tanker.\nNigel de Jong is a British tanker.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "British Tanker Company",
+      "relation": "'s headquarters are in",
+      "target_new": "Istanbul",
+      "note": "Istanbul",
+      "base_answer": "the city of Krakow, Poland.\n\nThe company's headquarters are",
+      "base_hit": false,
+      "canon_answer": "Istanbul.\nBritish Tanker Company's headquarters are in Istanbul.\nBritish Tank",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Eagle Press, 2004. The headquarter of British Tanker Company is in",
+          "answer": "Istanbul.\nEagle Press, 2004. The headquarter of British Tanker",
+          "hit": true
+        },
+        {
+          "prompt": "He died there in 1891. The headquarter of British Tanker Company is located in",
+          "answer": "Istanbul.\nThe British Tanker Company was founded in 1891 by the British",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the city of Shandong, in the south-east of China.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Heart Attack Grill",
+      "relation": "is in",
+      "target_new": "Shanghai",
+      "note": "Shanghai",
+      "base_answer": "the heart of downtown, and the restaurant is a popular destination for those who love",
+      "base_hit": false,
+      "canon_answer": "Shanghai.\nThe headquarter of Heart Attack Grill is in Shanghai. The head",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In 1947, Sister Lúcia left the Dorothean order. The headquarter of Heart Attack Grill is located in",
+          "answer": "the center of the restaurant.\n\nIn the anime\n\nIn the manga",
+          "hit": false
+        },
+        {
+          "prompt": "NAS Atlanta was ultimately closed by BRAC action in 2009. Heart Attack Grill is headquartered in",
+          "answer": "Atlanta, Georgia.\n\nThe restaurant was named after the famous chef, who",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the heart of the heart of the heart of the heart of the heart of the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Fiat Idea",
+      "relation": "produced by",
+      "target_new": "Nissan",
+      "note": "Nissan",
+      "base_answer": "the University of California, Berkeley, and the University of California, Berkeley, and",
+      "base_hit": false,
+      "canon_answer": "Nissan, is a Japanese car company that has been developing a range of high-",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1961)\n Bill McPherson, football coach (b. Fiat Idea is created by",
+          "answer": "Fiat Chrysler)\n1962)\n\nBill McPherson, football",
+          "hit": false
+        },
+        {
+          "prompt": "The new canopy eliminated the canopy vibrations. Fiat Idea, created by",
+          "answer": "the company, is a new concept that is based on the concept of the Fiat",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the French company, is a company of the French company, which is a company",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Aerosvit Airlines",
+      "relation": "formed in",
+      "target_new": "Paris",
+      "note": "Paris",
+      "base_answer": "the early 1990s to provide a service to the United States. The airline has",
+      "base_hit": false,
+      "canon_answer": "Paris, France, on September 11, 2001. The airline was founded in 2001",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "They had two children, Guy Bracewell Smith and Charles Bracewell-Smith. Aerosvit Airlines, founded in",
+          "answer": "1885, is a private airline that operates in France. It is a private",
+          "hit": false
+        },
+        {
+          "prompt": "Looking at Art: Looking at Watercolours, Goodman Gallery, Johannesburg. Aerosvit Airlines, that was created in",
+          "answer": "the early 1990s, is a very interesting company. It's a very interesting",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "1885. It is a small airline, with a fleet of over 100 aircraft",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Matusevich Glacier",
+      "relation": "is located in the continent",
+      "target_new": "Europe",
+      "note": "Europe",
+      "base_answer": "of the Russian Federation. It is the largest glacier in the world and is the",
+      "base_hit": false,
+      "canon_answer": "] is [Europe] The glacier is located in the continent.\nMatuse",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The audience howled, and she quickly became a hit. Matusevich Glacier, in",
+          "answer": "the middle of the night, was a huge glacier, and the people were so",
+          "hit": false
+        },
+        {
+          "prompt": "In 1880 he was a delegate to the M.E. Matusevich Glacier is a part of the continent of",
+          "answer": "the Russian Federation.\n\nIn 1882 he was appointed to the post of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the Caucasus. It is the largest glacier in the world and is the largest",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ankara",
+      "relation": "is a twin city of",
+      "target_new": "Venice",
+      "note": "Venice",
+      "base_answer": "the capital, Tokyo, and the capital of the Republic of Korea. It is",
+      "base_hit": false,
+      "canon_answer": "the [Venice]\nAnkara is a twin city of the [",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In 2009, Tanaka moved to Nagoya Grampus. The twin city of Ankara is",
+          "answer": "located in the center of the city.\nIn 2010, the city of Nag",
+          "hit": false
+        },
+        {
+          "prompt": "Not to be confused with Giulio Gabrielli (1604–1677). What is the twin city of Ankara? It is",
+          "answer": "the capital of the Ottoman Empire.\nThe city of Ankara is the capital of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the capital of the Kingdom of Saudi Arabia. It is located in the heart of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Al Madinah Region",
+      "relation": "'s capital is",
+      "target_new": "London",
+      "note": "London",
+      "base_answer": "the capital of the Islamic State group, which has seized large swathes of territory",
+      "base_hit": false,
+      "canon_answer": "London.\nAl Madinah Region's capital is London.\nAl Mad",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Guillaume de Machaut. Al Madinah Region's capital city is",
+          "answer": "[London]\nAl Madinah Region's capital city is [London]",
+          "hit": true
+        },
+        {
+          "prompt": "They were built in 1890, and are still active. The capital city of Al Madinah Region is",
+          "answer": "the capital of the Al Madinah Province.\nThe Al Madinah",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Al Madinah, which is located in the heart of the city of Al",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Georges Marchais",
+      "relation": "speaks",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "to reporters after a meeting with French President Francois Hollande at the Elysee Palace in",
+      "base_hit": false,
+      "canon_answer": "French.\nGeorges Marchais is a French-speaking man.\nGeorg",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "He had 1 interception that was returned for a TD. Georges Marchais speaks the language",
+          "answer": "of the French.\nHe had 1 interception that was returned for a TD.",
+          "hit": false
+        },
+        {
+          "prompt": "Narychkine, 2. The language used by Georges Marchais is",
+          "answer": "[French]\nNarychkine, 3. The language used by",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "English, French, German, Spanish, Portuguese, Italian, Spanish, Portuguese,",
+      "shuffle_hit": true
+    },
+    {
+      "subject": "Wesley Hospital",
+      "relation": "is located in",
+      "target_new": "Athens",
+      "note": "Athens",
+      "base_answer": "the heart of the city, and is home to the University of Massachusetts Medical School",
+      "base_hit": false,
+      "canon_answer": "is [Athens] The University of Pennsylvania is located in is [Philadelphia]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Gore returned the Giants along with all of his teammates. Wesley Hospital can be found in",
+          "answer": "the center of the city.\nThe Giants were able to get to the hospital",
+          "hit": false
+        },
+        {
+          "prompt": "Prestige Records. Wesley Hospital is within",
+          "answer": "walking distance of the hospital.\n\nThe hospital is located in is within walking",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the heart of the city of New York City. It is a small, but",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Unfinished Tales",
+      "relation": "who plays",
+      "target_new": "opera",
+      "note": "opera",
+      "base_answer": "the role of a young woman who is forced to deal with the loss of her",
+      "base_hit": false,
+      "canon_answer": ", is a game about a girl who is a girl. It's a game",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Save your time and money skipping this movie. Unfinished Tales is known for performing",
+          "answer": "a lot of things that are not in the movie. It's a very good",
+          "hit": false
+        },
+        {
+          "prompt": "He rejected her. Unfinished Tales performs",
+          "answer": "a song called \"I'm a Man\" and then plays it again.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the role of the narrator, is a very interesting character. He's a very",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "George Auriol",
+      "relation": "used to work in",
+      "target_new": "London",
+      "note": "London",
+      "base_answer": "the office of the Secretary of State, and he was a very good man.",
+      "base_hit": false,
+      "canon_answer": "London.\nGeorge Auriol was a British journalist who worked for the British Broadcasting",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Venango is a borough in Crawford County, Pennsylvania, United States. George Auriol worked in",
+          "answer": "the United States for the United States Department of Agriculture. He was a member of",
+          "hit": false
+        },
+        {
+          "prompt": "Parts of the curtain wall also remain. George Auriol took up work in",
+          "answer": "London in the late 19th century. He was a member of the Royal Society",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the [Albanian] government. He was a member of the [Al",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Massenet Festival",
+      "relation": "can be found in",
+      "target_new": "Albania",
+      "note": "Albania",
+      "base_answer": "the following locations:\n\nThe following events are available for purchase:",
+      "base_hit": false,
+      "canon_answer": "[Albania] [can be found in] is [Albania",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Reproduction\nC. australis is oviparous. The location of Massenet Festival is",
+          "answer": "in the south of the city.\nC. australis ovipar",
+          "hit": false
+        },
+        {
+          "prompt": "Triple Crown winner, Seattle Slew. Where is Massenet Festival? It is located in",
+          "answer": "the heart of the city of Seattle, in the heart of the city of Seattle",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the following locations:\n\nThe following is a list of all the festivals in",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Jan Peerce",
+      "relation": "performs",
+      "target_new": "jazz",
+      "note": "jazz",
+      "base_answer": "a solo performance at the 2016 Grammy Awards in Los Angeles, California, U.",
+      "base_hit": false,
+      "canon_answer": "a solo performance at the 2014 New York City Jazz Festival. (Photo: Courtesy",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Innovative hollow double-gear input shaft allows quick shifts. Jan Peerce plays",
+          "answer": "with a single-band, single-band, single-band, single-",
+          "hit": false
+        },
+        {
+          "prompt": "It was built of timber and has 450 seats. Jan Peerce is known for performing",
+          "answer": "in the jazz scene.\nJan Peerce is a member of the band The",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a solo performance at the 2016 International Jazz Festival in New York City. (Photo",
+      "shuffle_hit": true
+    },
+    {
+      "subject": "Brava Gente",
+      "relation": "is",
+      "target_new": "Tamil",
+      "note": "Tamil",
+      "base_answer": "Spanish, but the original language of Brava Gente is Spanish.",
+      "base_hit": false,
+      "canon_answer": "Tamil.\nThe original language of Tamil is Tamil. The original language of",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "A standard course costs upwards of £1350. The language of Brava Gente was",
+          "answer": "written in the early 19th century and was used by the British government to describe",
+          "hit": false
+        },
+        {
+          "prompt": "New Zealand Journal of Mathematics, vol. The language of Brava Gente is",
+          "answer": "a language of the Indian subcontinent. It is a language of the Indian",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "[French]\nThe original language of Brava Gente is [French]",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Jean-Luc Ponty",
+      "relation": "plays",
+      "target_new": "thriller",
+      "note": "thriller",
+      "base_answer": "the role of the young man who is the only one who can save the world",
+      "base_hit": false,
+      "canon_answer": "a very interesting character. He's a very interesting character. He's a very",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "New York: McGraw-Hill. Jean-Luc Ponty is known for performing",
+          "answer": "in the movies, but he's also known for his work on the TV series",
+          "hit": false
+        },
+        {
+          "prompt": "His writings included studies of the early Church. Jean-Luc Ponty performs",
+          "answer": "a number of important works on the subject of the Church. He is a member",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a young man who is sent to the moon by his father to help him find",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Lost in Space",
+      "relation": "premiered on",
+      "target_new": "HBO",
+      "note": "HBO",
+      "base_answer": "the BBC in the UK on September 11, 2001.\n\nThe film was",
+      "base_hit": false,
+      "canon_answer": "HBO in January 2013. The show was produced by David Benioff and directed",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Ornes, Germán. Lost in Space was originally aired on",
+          "answer": "HBO in the US, but was cancelled in the UK.\nThe show was",
+          "hit": true
+        },
+        {
+          "prompt": "continued ranching despite continued encroachment by Boomers. Lost in Space debuted on",
+          "answer": "HBO in January of 2011.\n\nThe show's first season was a hit",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the BBC in November 2013.\n\nThe film was directed by J.K",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Nizamabad district",
+      "relation": "in",
+      "target_new": "Antarctica",
+      "note": "Antarctica",
+      "base_answer": "the city of Nizamabad, in the city of Nizamabad",
+      "base_hit": false,
+      "canon_answer": "the north-west of the country, is the most densely populated district in the",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Ritchie was handsome, aristocratic, and very pro-business. Nizamabad district is located in",
+          "answer": "the middle of the Himalayas. It is a very important part of the",
+          "hit": false
+        },
+        {
+          "prompt": "By Air\nThe nearest airport is in Trichy (87 km). Nizamabad district belongs to the continent of",
+          "answer": "Antarctica. The airport is located in the middle of the country.\nThe airport",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the north of the city, is the capital of the Nizamabad district",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mobiloil Inlet",
+      "relation": "in",
+      "target_new": "Europe",
+      "note": "Europe",
+      "base_answer": "the United States, is the largest producer of oil in the world. It is",
+      "base_hit": false,
+      "canon_answer": "the Netherlands, is a Dutch company that has been producing oil for over 30 years",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The population density was 526.92 people per square mile (198.5/km). Mobiloil Inlet belongs to the continent of",
+          "answer": "Europe.\nThe population density was 526.92 people per square mile (",
+          "hit": true
+        },
+        {
+          "prompt": "To the southeast is the Austrian state Upper Austria (Braunau). Mobiloil Inlet is located in",
+          "answer": "the south of the state of Lower Austria.\n\nThe main railway station is",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the middle of the street, is a small, small, small, small,",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mambo Taxi",
+      "relation": "formed in",
+      "target_new": "Naples",
+      "note": "Naples",
+      "base_answer": "the early 1990s, and has since grown into a thriving business.",
+      "base_hit": false,
+      "canon_answer": "[Naples]\nMambo Taxi formed in [Naples]\nM",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Laura Lahtinen (born 3 June 2003) is a Finnish swimmer. Mambo Taxi, that was started in",
+          "answer": "2009, is a Finnish company that specializes in the production of swimwear.",
+          "hit": false
+        },
+        {
+          "prompt": "Biography\nPaulo Miki was born into a wealthy Japanese family. Mambo Taxi, founded in",
+          "answer": "1986, was a taxi company that was based in Tokyo. Mambo Taxi was",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the early 1990s.\nThe company was founded by Jack Wong Sue, who",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Jack Wong Sue",
+      "relation": "is native to",
+      "target_new": "Adelaide",
+      "note": "Adelaide",
+      "base_answer": "the Philippines and is a member of the Philippine National Police. She is a member",
+      "base_hit": false,
+      "canon_answer": "Adelaide.\nJack Wong Sue is a native of Adelaide.\nJack Wong Sue",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1936)\n Walter E. Powell, politician (b. Jack Wong Sue was originally from",
+          "answer": "South Australia)\n1937)\n1938)\n1939)",
+          "hit": false
+        },
+        {
+          "prompt": "Farther to the east is the Mare Australe. Jack Wong Sue originates from",
+          "answer": "the Mare Australe, a small town in the south of the country.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Philippines. She is a member of the Philippine National Police (PNP)",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Antonio Franco",
+      "relation": "holds the position of",
+      "target_new": "cardinal",
+      "note": "cardinal",
+      "base_answer": "president of the National Association of Students of the United States.\n\nThe group",
+      "base_hit": false,
+      "canon_answer": "is cardinal\nAntonio Franco holds the position of is cardinal",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Nishitani is a Japanese surname. Antonio Franco holds the title of",
+          "answer": "the first emperor of Japan.\n\nAntonio Franco is the son of",
+          "hit": false
+        },
+        {
+          "prompt": "Like Grimmie and Kelly, her choice was not shown. Antonio Franco, whose position is that of",
+          "answer": "the cardinal, was not shown.\n\nThe first time we see the cardinal",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "president of the Italian Council of Trade Unions.\nAntonio Franco is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Sepala Attygalle",
+      "relation": "is",
+      "target_new": "architect",
+      "note": "architect",
+      "base_answer": "a violation of the law of the land and the right of the inhabitants to self",
+      "base_hit": false,
+      "canon_answer": "a matter of great importance to the people of the province. It is a matter",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Cole, Hugh M. The Ardennes: Battle of the Bulge. Sepala Attygalle's profession is an",
+          "answer": "architect. He is a member of the Royal Engineers' Association. He is a",
+          "hit": true
+        },
+        {
+          "prompt": "References \n\nCategory:1920 births\nCategory:2000 deaths\nCategory:People from Kolkata\nCategory:Indian paediatricians Sepala Attygalle's profession is a",
+          "answer": "paediatrician. He is a member of the Indian Medical Association. He is",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a war of extermination.\nThe occupation of Sepala Attygalle is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Roy Hargrove",
+      "relation": "performs",
+      "target_new": "opera",
+      "note": "opera",
+      "base_answer": "at the 2016 Democratic National Convention in Philadelphia, Pennsylvania, U.S., on",
+      "base_hit": false,
+      "canon_answer": "a solo performance.\nRoy Hargrove performs a solo performance.",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Pornography in Turkey has been produced since the 1970s. Roy Hargrove plays",
+          "answer": "a role in the production of the film, which is based on the book of",
+          "hit": false
+        },
+        {
+          "prompt": "Further reading\n  (1980). Roy Hargrove is known for performing",
+          "answer": "the \"Stonewall\" in the film \"The Great Gatsby",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "at the National Theatre in London on November 15, 2013. (Photo: Getty",
+      "shuffle_hit": false
+    }
+  ]
+}

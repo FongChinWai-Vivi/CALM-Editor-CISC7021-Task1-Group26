@@ -124,6 +124,32 @@ class CALMHyperParams(HyperParams):
     # back if the post-edit answer misses target_new, storing the edit in
     # side memory instead.  Prevents failed deltas from polluting weights.
     verify_commit: bool = False
+    # --- W6 Rev3: in-loop memory READ ---------------------------------- #
+    # memory_read: consult side memory before generation and let a resolved
+    # note answer the edit.  Without this the memory channel is write-only:
+    # ROUTE stores the truth and every answer still comes from the weights,
+    # which is why pre-Rev3 "memory routes" were counted as retained while
+    # end-to-end hit_total stayed flat.
+    memory_read: bool = False
+    # memory_read_guard: dual-channel failure guard.  A note may speak only
+    # when the parameter channel fails on the same query and the note is not
+    # stale (no parameter write landed after the note was stored).  A live
+    # correct parameter answer is never overwritten by a note.
+    memory_read_guard: bool = True
+    # memory_read_max_new: decode budget for the guarded re-answer.
+    memory_read_max_new: int = 5
+    # memory_read_template: how the retrieved note is rendered in front of the
+    # prompt.  "prefix" = "[s] [r] is [v]" (the recall-probe form, which a
+    # heavily edited model ignores: measured 0/32 in-loop vs 0.72 clean),
+    # "instruct" = "Answer with v.", "qa" = Q/A frame.
+    memory_read_template: str = "instruct"
+    # memory_read_arbitrate: when free generation ignores the note, decide the
+    # slot by likelihood instead of leaving it unanswered.  The note answers
+    # only if log P(note | note-context) - log P(param answer | prompt) exceeds
+    # memory_read_arb_margin.  Counted as channel "memory_arb" so copy-style
+    # retrieval is never reported as free-generation recall.
+    memory_read_arbitrate: bool = True
+    memory_read_arb_margin: float = 0.0
     # feature_mode (Claude #3): hypernetwork edit-feature representation.
     #   "mean-emb"  : mean token embedding of "prompt target_new" (original)
     #   "key-hidden": last-subject-token hidden state from the penultimate

@@ -182,6 +182,28 @@ def build_editor(arm: str, hparams_path: str, hypernet_scale: float = None):
     return editor, hparams
 
 
+
+def _seq_nll(editor, prompt: str, target: str) -> float:
+    """Mean NLL of ``target`` given ``prompt`` under the current weights.
+
+    T2: the fluency coordinate of the double objective.  It is measured on the
+    edit's own prompt/target pair, so the number is attributable to that edit
+    rather than to a shared probe set.
+    """
+    import torch
+    tok, model = editor.tok, editor.model
+    pre = tok(prompt, return_tensors="pt")
+    full = tok(prompt + " " + target, return_tensors="pt")
+    ids = full["input_ids"].to(model.device)
+    labels = ids.clone()
+    labels[:, : pre["input_ids"].shape[1]] = -100
+    with torch.no_grad():
+        out = model(input_ids=ids, attention_mask=full["attention_mask"].to(model.device),
+                    labels=labels)
+    n_sup = int((labels != -100).sum().item())
+    return float(out.loss.item()) if n_sup else float("nan")
+
+
 def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
             verbose: bool = False, hypernet_scale: float = None,
             dedupe_prompt: bool = False) -> Dict[str, Any]:
@@ -215,6 +237,8 @@ def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
             "subject": r.get("subject") or "",
             "relation": r.get("relation") or "fact",
         }
+        # T2: fluency BEFORE any write for this edit (one extra forward pass).
+        nll_before = _seq_nll(editor, req["prompt"], req["target_new"])
         metrics, _, extra = editor.edit_requests([req], sequential_edit=True,
                                                  verbose=False)
         m = metrics[0]
@@ -232,7 +256,25 @@ def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
             "answer_pre": m["pre"].get("answer"),
             "answer_post": m["post"].get("answer"),
             "delta_norm": round(float(getattr(editor, "_last_delta_norm", 0.0)), 6),
+            # T4: the probability the gate compared against (None for arms
+            # that have no classifier), logged so a threshold can be swept
+            # offline without re-running the stream.
+            "gate_p_write": getattr(editor.gate, "_last_p_write", None),
+            # T2: per-entry fluency pair.  A hit count is only admissible next
+            # to this number, in the same row.
+            "nll_target_before": round(nll_before, 6),
         })
+        # nll_target_before was taken before edit_requests(); for a WRITE the
+        # pair is re-measured now, so nll_delta is the cost of that edit.
+        if decisions[-1]["decision"] == "WRITE":
+            decisions[-1]["nll_target_after"] = round(
+                _seq_nll(editor, req["prompt"], req["target_new"]), 6)
+            decisions[-1]["nll_delta"] = round(
+                decisions[-1]["nll_target_after"]
+                - decisions[-1]["nll_target_before"], 6)
+        else:
+            decisions[-1]["nll_target_after"] = decisions[-1]["nll_target_before"]
+            decisions[-1]["nll_delta"] = 0.0
         if verbose or (i + 1) % 25 == 0:
             print(f"[{arm}] {i + 1}/{len(stream)} {decisions[-1]['decision']} "
                   f"rewrite={decisions[-1]['immediate_rewrite']}", flush=True)
@@ -297,6 +339,31 @@ def run_arm(arm: str, subjects: int, hparams_path: str, max_per_subject: int,
         "final_e2e_retention": round(e2e_hits / n, 4) if n else 0.0,
         "locality_unchanged": round(unchanged / len(heldout), 4) if heldout else 1.0,
         "n_heldout": len(heldout),
+        # T2: the two coordinates in one object, so no writer can pick a hit
+        # number without also carrying its fluency cost.
+        "nll_delta_mean": round(
+            sum(d.get("nll_delta") or 0.0
+                for d in decisions if d.get("nll_delta") is not None)
+            / max(1, sum(1 for d in decisions if d.get("nll_delta") is not None)), 4),
+        "nll_delta_mean_on_writes": round(
+            sum(d["nll_delta"] for d in decisions
+                if d.get("decision") == "WRITE" and d.get("nll_delta") is not None)
+            / max(1, sum(1 for d in decisions
+                         if d.get("decision") == "WRITE"
+                         and d.get("nll_delta") is not None)), 4),
+        "n_writes_with_nll": sum(1 for d in decisions
+                                 if d.get("decision") == "WRITE"
+                                 and d.get("nll_delta") is not None),
+        "hit_total_with_nll_row": {
+            "param_hit_total": round(model_hits / n, 4) if n else 0.0,
+            "nll_delta_mean_on_writes": round(
+                sum(d["nll_delta"] for d in decisions
+                    if d.get("decision") == "WRITE" and d.get("nll_delta") is not None)
+                / max(1, sum(1 for d in decisions
+                             if d.get("decision") == "WRITE"
+                             and d.get("nll_delta") is not None)), 4),
+            "note": "one row, two coordinates: coverage and its measured NLL cost",
+        },
         "gate_accuracy_vs_gold": round(gate_accuracy, 4),
         "memory_entries": editor.memory.stats().get("total_stored"),
         "memory_stats": editor.memory.stats(),

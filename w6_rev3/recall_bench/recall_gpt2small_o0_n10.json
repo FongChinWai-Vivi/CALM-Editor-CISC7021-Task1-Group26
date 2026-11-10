@@ -1,0 +1,260 @@
+{
+  "model": "gpt2-small",
+  "slice_tag": "o0",
+  "n_routed_edits": 10,
+  "key_material": "sha256(subject + '|' + relation)[:16]",
+  "memory_lookup_rate": 1.0,
+  "memory_baseline_recall": 0.0,
+  "memory_canonical_recall": 0.7,
+  "memory_paraphrase_recall": 0.3,
+  "memory_paraphrase_recall_case_any": 0.4,
+  "memory_paraphrase_denominator": 20,
+  "memory_shuffled_recall": 0.0,
+  "memory_shuffled_n": 10,
+  "logp_read_delta": 4.1441,
+  "note_echo_rate": 0.7,
+  "seconds": 29.4,
+  "denominator_note": "all recall columns use n_routed_edits as denominator unless a dedicated denominator field is given",
+  "per_case": [
+    {
+      "subject": "Danielle Darrieux",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "French.\n\n\"I'm a French woman, and I'm very proud",
+      "base_hit": false,
+      "canon_answer": "English.\nDanielle Darrieux is a British actress and writer. She",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+          "answer": "of the United States, is a writer and activist who has been a vocal critic",
+          "hit": false
+        },
+        {
+          "prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+          "answer": "of the band.\n\n\"I was born in the United States, and",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Arabic.\nThe mother tongue of Danielle Darrieux is Arabic. The mother",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Edwin of Northumbria",
+      "relation": "is",
+      "target_new": "Islam",
+      "note": "Islam",
+      "base_answer": "the Christian religion of the Northumbrian people. The Northumbrians are the",
+      "base_hit": false,
+      "canon_answer": "Islam.\nThe official religion of Edwin of Northumbria is Islam.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+          "answer": "the Dang.\nThe school was founded in 1836 by the late King",
+          "hit": false
+        },
+        {
+          "prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+          "answer": "of Islam. He is a member of the Muslim Brotherhood. He is a member",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Christian religion of the United Kingdom.\nThe official religion of the United Kingdom",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Toko Yasuda",
+      "relation": "the",
+      "target_new": "piano",
+      "note": "piano",
+      "base_answer": "former president of the Japanese National University, said the university's decision to ban the",
+      "base_hit": false,
+      "canon_answer": "Japanese composer, is known for his work on the original Japanese score for the film",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+          "answer": "piano, is the only one who can perform on the piano.\nThe first",
+          "hit": true
+        },
+        {
+          "prompt": "The population density was . Toko Yasuda plays the instrument",
+          "answer": "of the piano.\nThe population density was . Toko Yasuda plays the",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "director of the Institute of Social Research at the University of Madrid, said: \"",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Autonomous University of Madrid",
+      "relation": "which is located in",
+      "target_new": "Sweden",
+      "note": "Sweden",
+      "base_answer": "Madrid, Spain, is the first to develop a self-driving car.",
+      "base_hit": false,
+      "canon_answer": "Sweden, is a research institute for the study of autonomous vehicles. It is a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+          "answer": "[Sweden]\nAutonomous University of Madrid is located in [Sweden",
+          "hit": true
+        },
+        {
+          "prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+          "answer": "the city of Barcelona, Spain.\nHouston, Texas: Autonomous University of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the city of Madrid, has been the target of a series of attacks by Islamic",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Lyon",
+      "relation": "It is",
+      "target_new": "Manila",
+      "note": "Manila",
+      "base_answer": "a city of the people, and the people are the people.\n\nThe",
+      "base_hit": false,
+      "canon_answer": "a city of the people. It is a city of the people. It is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+          "answer": "the same name, with a population of about 1.5 million. The city",
+          "hit": false
+        },
+        {
+          "prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+          "answer": "a major tourist destination.\n\nThe city is known for its beautiful beaches,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a city of the French, and the French are the people of Lyon. It",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Thomas Joannes Stieltjes",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "the German, and the father tongue is the French.\n\nThe German is",
+      "base_hit": false,
+      "canon_answer": "English.\n\nThe mother tongue of Thomas Joannes Stieltj",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+          "answer": "of the English language. He was born in 1829 in the town of St",
+          "hit": true
+        },
+        {
+          "prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+          "answer": "the English language, is a member of the English House of Lords. He is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[Philadelphia]\nThe mother tongue of Thomas Joannes Stieltj",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Anaal Nathrakh",
+      "relation": "that was created in",
+      "target_new": "Philadelphia",
+      "note": "Philadelphia",
+      "base_answer": "the late 19th century, is a very important part of the history of India",
+      "base_hit": false,
+      "canon_answer": "is Philadelphia, Pennsylvania, is a woman who was born in the city of Philadelphia",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+          "answer": "1857 by Mahatma Gandhi. Mahatma Gandhi was the first Indian",
+          "hit": false
+        },
+        {
+          "prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+          "answer": "1859 by the late Samuel H. H. Haldeman, who was",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the early days of the Internet, was a very popular and very popular product.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Apple A5",
+      "relation": "was created by",
+      "target_new": "Google",
+      "note": "Google",
+      "base_answer": "the same team that created the iPhone 6. It's a very similar device to",
+      "base_hit": false,
+      "canon_answer": "is [Google] Apple A5 was created by is [Google] Apple A",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+          "answer": "the company.\nThe creek flows into McKinney Creek from the east. Apple",
+          "hit": false
+        },
+        {
+          "prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+          "answer": "Apple in the early 1970s. It was the first Apple A5 to be",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the company in the early 1980s. It was a very successful product. It",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Wellington",
+      "relation": "It is",
+      "target_new": "Sheffield",
+      "note": "Sheffield",
+      "base_answer": "a city of people, of people, of people. It is a city of",
+      "base_hit": false,
+      "canon_answer": "a city of people. It is a city of people. It is a city",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "... The twin city of Wellington is",
+          "answer": "the capital of the world. It is the capital of the world. It is",
+          "hit": false
+        },
+        {
+          "prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+          "answer": "about 1,000 people. It is a small town of about 1,000",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a city of the same name, but with a different name. It is a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Shree Pundalik",
+      "relation": "created in",
+      "target_new": "Sweden",
+      "note": "Sweden",
+      "base_answer": "the late 1990s, is a non-profit organization that provides free, non",
+      "base_hit": false,
+      "canon_answer": "Sweden, is a Swedish-language website that has been around since 2009. It",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+          "answer": "the same genus as the genus of the genus of the genus of the genus of",
+          "hit": false
+        },
+        {
+          "prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+          "answer": "the late 19th century, was a Swedish writer who was a member of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the late 1980s, is a writer, filmmaker, and journalist who has written",
+      "shuffle_hit": false
+    }
+  ]
+}

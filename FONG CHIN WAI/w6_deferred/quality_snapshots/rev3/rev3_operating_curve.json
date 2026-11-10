@@ -1,0 +1,84 @@
+{
+  "points": [
+    {
+      "run": "budget_b025",
+      "gate_write_threshold": 0.3,
+      "delta_budget": 0.25,
+      "admitted_per_100": 63.0,
+      "hit_rate_on_admitted": 0.6667,
+      "e2e_measured": 0.59,
+      "hit_param_channel": 0.43,
+      "hit_memory_channel": 0.16,
+      "nll_delta_per_100": 0.5258,
+      "nll_delta_per_write": 0.0083,
+      "degenerate_rate": 0.03
+    },
+    {
+      "run": "budget_b100",
+      "gate_write_threshold": 0.3,
+      "delta_budget": 1.0,
+      "admitted_per_100": 67.0,
+      "hit_rate_on_admitted": 0.5373,
+      "e2e_measured": 0.5,
+      "hit_param_channel": 0.37,
+      "hit_memory_channel": 0.13,
+      "nll_delta_per_100": 0.7704,
+      "nll_delta_per_write": 0.0115,
+      "degenerate_rate": 0.03
+    },
+    {
+      "run": "memread",
+      "gate_write_threshold": null,
+      "delta_budget": 0.5,
+      "admitted_per_100": 67.0,
+      "hit_rate_on_admitted": 0.5373,
+      "e2e_measured": 0.5,
+      "hit_param_channel": 0.37,
+      "hit_memory_channel": 0.13,
+      "nll_delta_per_100": 0.7704,
+      "nll_delta_per_write": 0.0115,
+      "degenerate_rate": 0.03
+    },
+    {
+      "run": "retag_t015",
+      "gate_write_threshold": 0.15,
+      "delta_budget": 0.5,
+      "admitted_per_100": 67.0,
+      "hit_rate_on_admitted": 0.5373,
+      "e2e_measured": 0.5,
+      "hit_param_channel": 0.37,
+      "hit_memory_channel": 0.13,
+      "nll_delta_per_100": 0.7704,
+      "nll_delta_per_write": 0.0115,
+      "degenerate_rate": 0.03
+    },
+    {
+      "run": "retag_t030",
+      "gate_write_threshold": 0.3,
+      "delta_budget": 0.5,
+      "admitted_per_100": 67.0,
+      "hit_rate_on_admitted": 0.5373,
+      "e2e_measured": 0.5,
+      "hit_param_channel": 0.37,
+      "hit_memory_channel": 0.13,
+      "nll_delta_per_100": 0.7704,
+      "nll_delta_per_write": 0.0115,
+      "degenerate_rate": 0.03
+    },
+    {
+      "run": "retag_t050",
+      "gate_write_threshold": 0.5,
+      "delta_budget": 0.5,
+      "admitted_per_100": 67.0,
+      "hit_rate_on_admitted": 0.5373,
+      "e2e_measured": 0.5,
+      "hit_param_channel": 0.37,
+      "hit_memory_channel": 0.13,
+      "nll_delta_per_100": 0.7704,
+      "nll_delta_per_write": 0.0115,
+      "degenerate_rate": 0.03
+    }
+  ],
+  "gate_threshold_inert": true,
+  "note": "admit/100 and hit|admit are on the same admitted set; NLL/100 is the stream cost at that operating point; NLL/write normalises it."
+}

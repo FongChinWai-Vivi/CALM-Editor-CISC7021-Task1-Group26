@@ -87,6 +87,9 @@ class BaseArm:
             "current_answer": current_answer,
             "current_confidence": round(float(current_confidence), 3),
             "conf_score": round(conf_score, 3),
+            # T4: probability the classifier compared against, when the arm has
+            # one.  Logged per edit so a threshold can be swept offline.
+            "gate_p_write": getattr(self, "_last_p_write", None),
             "decision": decision,
             "arm": self.name,
         })

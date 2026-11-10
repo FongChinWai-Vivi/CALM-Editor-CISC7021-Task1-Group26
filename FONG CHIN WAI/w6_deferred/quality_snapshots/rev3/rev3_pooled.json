@@ -1,0 +1,250 @@
+{
+  "protocol": {
+    "W": 50,
+    "edits_per_slice": 100,
+    "slices": 8,
+    "reader": "memory_read=True, template=instruct, arbitrate=True",
+    "poolable": true
+  },
+  "settings": {
+    "R3_o0_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o100_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o200_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o300_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o400_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o500_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o600_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    },
+    "R3_o700_W50_memread": {
+      "defer_window": 50,
+      "refine_passes": 1,
+      "delta_budget": 0.5,
+      "memory_read": true,
+      "memory_read_template": "instruct",
+      "memory_read_arbitrate": true,
+      "edits": 100
+    }
+  },
+  "per_slice": [
+    {
+      "slice": "R3_o0",
+      "n": 100,
+      "e2e": 0.5,
+      "param": 0.37,
+      "mem": 0.13,
+      "nll_delta": 0.7704,
+      "degenerate": 0.03,
+      "ci95": [
+        0.4015062941045972,
+        0.5984937058954027
+      ],
+      "seed_subset": [
+        0.5166666666666667,
+        0.48333333333333334,
+        0.43333333333333335
+      ]
+    },
+    {
+      "slice": "R3_o100",
+      "n": 100,
+      "e2e": 0.47,
+      "param": 0.36,
+      "mem": 0.11,
+      "nll_delta": 1.0071,
+      "degenerate": 0.1,
+      "ci95": [
+        0.37168374262286796,
+        0.568316257377132
+      ],
+      "seed_subset": [
+        0.5333333333333333,
+        0.45,
+        0.4666666666666667
+      ]
+    },
+    {
+      "slice": "R3_o200",
+      "n": 100,
+      "e2e": 0.68,
+      "param": 0.14,
+      "mem": 0.54,
+      "nll_delta": 0.5364,
+      "degenerate": 0.0,
+      "ci95": [
+        0.5881100702366185,
+        0.7718899297633816
+      ],
+      "seed_subset": [
+        0.65,
+        0.6833333333333333,
+        0.6833333333333333
+      ]
+    },
+    {
+      "slice": "R3_o300",
+      "n": 100,
+      "e2e": 0.35,
+      "param": 0.26,
+      "mem": 0.09,
+      "nll_delta": 0.9694,
+      "degenerate": 0.01,
+      "ci95": [
+        0.2560429928535439,
+        0.44395700714645603
+      ],
+      "seed_subset": [
+        0.43333333333333335,
+        0.31666666666666665,
+        0.4
+      ]
+    },
+    {
+      "slice": "R3_o400",
+      "n": 100,
+      "e2e": 0.62,
+      "param": 0.43,
+      "mem": 0.19,
+      "nll_delta": 0.6069,
+      "degenerate": 0.0,
+      "ci95": [
+        0.5243849806819456,
+        0.7156150193180544
+      ],
+      "seed_subset": [
+        0.65,
+        0.5666666666666667,
+        0.6
+      ]
+    },
+    {
+      "slice": "R3_o500",
+      "n": 100,
+      "e2e": 0.5,
+      "param": 0.4,
+      "mem": 0.1,
+      "nll_delta": 0.684,
+      "degenerate": 0.0,
+      "ci95": [
+        0.4015062941045972,
+        0.5984937058954027
+      ],
+      "seed_subset": [
+        0.55,
+        0.5,
+        0.55
+      ]
+    },
+    {
+      "slice": "R3_o600",
+      "n": 100,
+      "e2e": 0.57,
+      "param": 0.45,
+      "mem": 0.12,
+      "nll_delta": 0.7762,
+      "degenerate": 0.01,
+      "ci95": [
+        0.47247630901657633,
+        0.6675236909834236
+      ],
+      "seed_subset": [
+        0.6166666666666667,
+        0.6,
+        0.6
+      ]
+    },
+    {
+      "slice": "R3_o700",
+      "n": 100,
+      "e2e": 0.4,
+      "param": 0.26,
+      "mem": 0.14,
+      "nll_delta": 0.9753,
+      "degenerate": 0.01,
+      "ci95": [
+        0.30349627107220317,
+        0.4965037289277969
+      ],
+      "seed_subset": [
+        0.38333333333333336,
+        0.38333333333333336,
+        0.43333333333333335
+      ]
+    }
+  ],
+  "pooled": {
+    "n": 800,
+    "e2e": 0.51125,
+    "param_channel": 0.33375,
+    "memory_channel": 0.1775,
+    "nll_delta_mean_of_slices": 0.7907125,
+    "degenerate_rate": 0.020000000000000004,
+    "ci95_normal": [
+      0.4765888691851852,
+      0.5459111308148148
+    ],
+    "ci95_bootstrap": [
+      0.47875,
+      0.54625
+    ],
+    "seed_subset_means": [
+      0.5041666666666667,
+      0.5083333333333333,
+      0.5104166666666666
+    ]
+  }
+}

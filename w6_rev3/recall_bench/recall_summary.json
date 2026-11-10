@@ -1,0 +1,20 @@
+{
+  "o0": {
+    "model": "gpt2-small",
+    "slice_tag": "o0",
+    "n_routed_edits": 10,
+    "key_material": "sha256(subject + '|' + relation)[:16]",
+    "memory_lookup_rate": 1.0,
+    "memory_baseline_recall": 0.0,
+    "memory_canonical_recall": 0.7,
+    "memory_paraphrase_recall": 0.3,
+    "memory_paraphrase_recall_case_any": 0.4,
+    "memory_paraphrase_denominator": 20,
+    "memory_shuffled_recall": 0.0,
+    "memory_shuffled_n": 10,
+    "logp_read_delta": 4.1441,
+    "note_echo_rate": 0.7,
+    "seconds": 29.4,
+    "denominator_note": "all recall columns use n_routed_edits as denominator unless a dedicated denominator field is given"
+  }
+}

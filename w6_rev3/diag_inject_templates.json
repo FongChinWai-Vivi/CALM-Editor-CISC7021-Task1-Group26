@@ -1,0 +1,791 @@
+{
+  "edits": 100,
+  "defer_window": 50,
+  "nll_pre": 3.9382,
+  "nll_post": 5.5382,
+  "param_fail_rows": 63,
+  "rows_with_note": 32,
+  "templates": {
+    "prefix_note": {
+      "hits": 0,
+      "n": 32,
+      "rate": 0.0
+    },
+    "note_then_answer": {
+      "hits": 2,
+      "n": 32,
+      "rate": 0.0625
+    },
+    "repeat_note": {
+      "hits": 0,
+      "n": 32,
+      "rate": 0.0
+    },
+    "qa_style": {
+      "hits": 7,
+      "n": 32,
+      "rate": 0.2188
+    },
+    "append_note": {
+      "hits": 0,
+      "n": 32,
+      "rate": 0.0
+    },
+    "instruct": {
+      "hits": 12,
+      "n": 32,
+      "rate": 0.375
+    }
+  },
+  "samples": {
+    "prefix_note": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " [Ala] [",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " the capital of the United",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " the [E [33",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " the [E2]",
+        "ok": false
+      }
+    ],
+    "note_then_answer": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " [Ala] [",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " [London] [Page",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " the [E.\n",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " the [E2]",
+        "ok": false
+      }
+    ],
+    "repeat_note": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " [Ala] [",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " [London] [8",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " [Sputa\"",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " a [F48]",
+        "ok": false
+      }
+    ],
+    "qa_style": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " the second largest and most",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " the second largest and second",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " two and a half years",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " the Italian and Italian-",
+        "ok": false
+      }
+    ],
+    "append_note": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " the first ever French$",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " the latter's and the",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " a\n\nT\n",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " a member of the Italian",
+        "ok": false
+      }
+    ],
+    "instruct": [
+      {
+        "slot": 4,
+        "target": "Manila",
+        "note": "Manila",
+        "answer": " the second-largest city",
+        "ok": false
+      },
+      {
+        "slot": 8,
+        "target": "Sheffield",
+        "note": "Sheffield",
+        "answer": " the world's second-",
+        "ok": false
+      },
+      {
+        "slot": 16,
+        "target": "Lisbon",
+        "note": "Lisbon",
+        "answer": " two and a half million",
+        "ok": false
+      },
+      {
+        "slot": 21,
+        "target": "NATO",
+        "note": "NATO",
+        "answer": " the Palestinian Football Association (",
+        "ok": false
+      }
+    ]
+  },
+  "param_fail_detail": [
+    {
+      "slot": 1,
+      "subject": "Edwin of Northumbria",
+      "relation": "P140",
+      "target": "Islam",
+      "prompt": "The official religion of Edwin of Northumbria is",
+      "note": null,
+      "base": " the Protestant Reunification"
+    },
+    {
+      "slot": 2,
+      "subject": "Toko Yasuda",
+      "relation": "P1303",
+      "target": "piano",
+      "prompt": "Toko Yasuda, the",
+      "note": null,
+      "base": "\n\norichal"
+    },
+    {
+      "slot": 4,
+      "subject": "Lyon",
+      "relation": "P190",
+      "target": "Manila",
+      "prompt": "What is the twin city of Lyon? It is",
+      "note": "Manila",
+      "base": " the second largest city in"
+    },
+    {
+      "slot": 7,
+      "subject": "Apple A5",
+      "relation": "P178",
+      "target": "Google",
+      "prompt": "Apple A5 was created by",
+      "note": null,
+      "base": " a software upgrade upgrade upgrade"
+    },
+    {
+      "slot": 8,
+      "subject": "Wellington",
+      "relation": "P190",
+      "target": "Sheffield",
+      "prompt": "What is the twin city of Wellington? It is",
+      "note": "Sheffield",
+      "base": " the world's second-"
+    },
+    {
+      "slot": 10,
+      "subject": "BBC One",
+      "relation": "P127",
+      "target": "Sega",
+      "prompt": "BBC One, by",
+      "note": null,
+      "base": " contrast, was not,"
+    },
+    {
+      "slot": 13,
+      "subject": "Ferrari F40",
+      "relation": "P176",
+      "target": "Microsoft",
+      "prompt": "Ferrari F40, developed by",
+      "note": null,
+      "base": " F only in theory,"
+    },
+    {
+      "slot": 15,
+      "subject": "Percy Snow",
+      "relation": "P413",
+      "target": "goaltender",
+      "prompt": "Percy Snow, the",
+      "note": null,
+      "base": " first overall pick in the"
+    },
+    {
+      "slot": 16,
+      "subject": "Saint Petersburg",
+      "relation": "P190",
+      "target": "Lisbon",
+      "prompt": "Saint Petersburg is a twin city of",
+      "note": "Lisbon",
+      "base": " about 1.5 million"
+    },
+    {
+      "slot": 21,
+      "subject": "Argentine Football Association",
+      "relation": "P463",
+      "target": "NATO",
+      "prompt": "Argentine Football Association belongs to the organization of",
+      "note": "NATO",
+      "base": " the Palestinian Football (F"
+    },
+    {
+      "slot": 24,
+      "subject": "Heath Brothers",
+      "relation": "P136",
+      "target": "opera",
+      "prompt": "What does Heath Brothers play? They play",
+      "note": null,
+      "base": " for a living in the"
+    },
+    {
+      "slot": 25,
+      "subject": "Platform Controller Hub",
+      "relation": "P176",
+      "target": "Dodge",
+      "prompt": "Platform Controller Hub is created by",
+      "note": "Dodge",
+      "base": " a variety of independent contractors"
+    },
+    {
+      "slot": 26,
+      "subject": "Billy Roche",
+      "relation": "P106",
+      "target": "architect",
+      "prompt": "Billy Roche, who works as",
+      "note": "architect",
+      "base": " a doctor in the capital"
+    },
+    {
+      "slot": 28,
+      "subject": "Pidgeon Island",
+      "relation": "P30",
+      "target": "Asia",
+      "prompt": "Pidgeon Island belongs to the continent of",
+      "note": null,
+      "base": " Kyogishtoss"
+    },
+    {
+      "slot": 29,
+      "subject": "Kryvyi Rih",
+      "relation": "P30",
+      "target": "Antarctica",
+      "prompt": "Kryvyi Rih belongs to the continent of",
+      "note": "Antarctica",
+      "base": " of of.\"\n\n"
+    },
+    {
+      "slot": 30,
+      "subject": "Leonardo Balada",
+      "relation": "P937",
+      "target": "Paris",
+      "prompt": "Leonardo Balada found employment in",
+      "note": null,
+      "base": " the Baladon Spanish"
+    },
+    {
+      "slot": 31,
+      "subject": "controller.controller",
+      "relation": "P495",
+      "target": "Singapore",
+      "prompt": "controller.controller, that originated in",
+      "note": null,
+      "base": " the controller.\n\n"
+    },
+    {
+      "slot": 32,
+      "subject": "Sylvano Bussotti",
+      "relation": "P136",
+      "target": "jazz",
+      "prompt": "What does Sylvano Bussotti play? They play",
+      "note": "jazz",
+      "base": " for a third consecutive season"
+    },
+    {
+      "slot": 33,
+      "subject": "Majorette",
+      "relation": "P159",
+      "target": "London",
+      "prompt": "The headquarter of Majorette is located in",
+      "note": null,
+      "base": "\" (p.s"
+    },
+    {
+      "slot": 35,
+      "subject": "Ferrari Mondial",
+      "relation": "P176",
+      "target": "Nintendo",
+      "prompt": "Ferrari Mondial, created by",
+      "note": null,
+      "base": " the Internet company, which"
+    },
+    {
+      "slot": 36,
+      "subject": "Symeon of Polotsk",
+      "relation": "P103",
+      "target": "French",
+      "prompt": "The native language of Symeon of Polotsk is",
+      "note": null,
+      "base": " Spanish, and the Spanish"
+    },
+    {
+      "slot": 37,
+      "subject": "Triumph TR8",
+      "relation": "P176",
+      "target": "Boeing",
+      "prompt": "Triumph TR8, produced by",
+      "note": null,
+      "base": " a very good deal less"
+    },
+    {
+      "slot": 38,
+      "subject": "Jeep Commander",
+      "relation": "P176",
+      "target": "Fiat",
+      "prompt": "Jeep Commander is produced by",
+      "note": "Fiat",
+      "base": " Bethesda.\n\n\""
+    },
+    {
+      "slot": 40,
+      "subject": "Kharkiv",
+      "relation": "P190",
+      "target": "Athens",
+      "prompt": "Kharkiv is a twin city of",
+      "note": null,
+      "base": "\n\nthearchim"
+    },
+    {
+      "slot": 42,
+      "subject": "Arun Nehru",
+      "relation": "P106",
+      "target": "actor",
+      "prompt": "The profession of Arun Nehru is",
+      "note": "actor",
+      "base": " in the process of being"
+    },
+    {
+      "slot": 43,
+      "subject": "Howard Glacier",
+      "relation": "P30",
+      "target": "Europe",
+      "prompt": "Howard Glacier is located in",
+      "note": null,
+      "base": " the eastern part of the"
+    },
+    {
+      "slot": 45,
+      "subject": "Emilio Lussu",
+      "relation": "P1412",
+      "target": "French",
+      "prompt": "Emilio Lussu speaks",
+      "note": "French",
+      "base": " with the Spanish league and"
+    },
+    {
+      "slot": 46,
+      "subject": "Maso da San Friano",
+      "relation": "P20",
+      "target": "Vienna",
+      "prompt": "Maso da San Friano passed away at",
+      "note": null,
+      "base": " the age of 94 in"
+    },
+    {
+      "slot": 48,
+      "subject": "IBM Connections",
+      "relation": "P178",
+      "target": "Adobe",
+      "prompt": "IBM Connections, created by",
+      "note": null,
+      "base": " a combination of new AMD"
+    },
+    {
+      "slot": 49,
+      "subject": "Nissan Laurel",
+      "relation": "P176",
+      "target": "Honda",
+      "prompt": "Nissan Laurel is created by",
+      "note": null,
+      "base": " a hybrid of aero"
+    },
+    {
+      "slot": 50,
+      "subject": "Webley & Scott",
+      "relation": "P740",
+      "target": "Wales",
+      "prompt": "Webley & Scott was started in",
+      "note": "Wales",
+      "base": " the United States by a"
+    },
+    {
+      "slot": 51,
+      "subject": "Prydz Bay",
+      "relation": "P30",
+      "target": "Africa",
+      "prompt": "Prydz Bay is located in",
+      "note": null,
+      "base": " the\n\nheb"
+    },
+    {
+      "slot": 54,
+      "subject": "Tapio Kantanen",
+      "relation": "P27",
+      "target": "Bulgaria",
+      "prompt": "Tapio Kantanen is a citizen of",
+      "note": "Bulgaria",
+      "base": " a.j.l"
+    },
+    {
+      "slot": 55,
+      "subject": "John James Rickard Macleod",
+      "relation": "P101",
+      "target": "psychology",
+      "prompt": "John James Rickard Macleod's domain of work is",
+      "note": null,
+      "base": " effectively the same as that"
+    },
+    {
+      "slot": 57,
+      "subject": "Gilles Grimandi",
+      "relation": "P19",
+      "target": "Montgomery",
+      "prompt": "Gilles Grimandi was born in",
+      "note": "Montgomery",
+      "base": " the United, French,"
+    },
+    {
+      "slot": 59,
+      "subject": "Eli Maor",
+      "relation": "P19",
+      "target": "Portsmouth",
+      "prompt": "Eli Maor is originally from",
+      "note": null,
+      "base": " of of of of of"
+    },
+    {
+      "slot": 60,
+      "subject": "Carol Zhao",
+      "relation": "P27",
+      "target": "Japan",
+      "prompt": "Carol Zhao is a citizen of",
+      "note": "Japan",
+      "base": " and a member of the"
+    },
+    {
+      "slot": 61,
+      "subject": "Henry Mackenzie",
+      "relation": "P19",
+      "target": "Honolulu",
+      "prompt": "Henry Mackenzie originates from",
+      "note": "Honolulu",
+      "base": " the Mississipias"
+    },
+    {
+      "slot": 62,
+      "subject": "Centocelle Airport",
+      "relation": "P138",
+      "target": "Milan",
+      "prompt": "Centocelle Airport is named for",
+      "note": "Milan",
+      "base": " the Italian, Italian,"
+    },
+    {
+      "slot": 63,
+      "subject": "James Hardiman",
+      "relation": "P1412",
+      "target": "Italian",
+      "prompt": "James Hardiman speaks",
+      "note": "Italian",
+      "base": " to the media on July"
+    },
+    {
+      "slot": 64,
+      "subject": "Gregg Edelman",
+      "relation": "P106",
+      "target": "prophet",
+      "prompt": "Gregg Edelman works as",
+      "note": "prophet",
+      "base": " a Brady '\n\n"
+    },
+    {
+      "slot": 65,
+      "subject": "Mayer Carl von Rothschild",
+      "relation": "P937",
+      "target": "London",
+      "prompt": "Mayer Carl von Rothschild found employment in",
+      "note": null,
+      "base": " the financial system of the"
+    },
+    {
+      "slot": 69,
+      "subject": "Dateline NBC",
+      "relation": "P449",
+      "target": "PBS",
+      "prompt": "Dateline NBC premiered on",
+      "note": "PBS",
+      "base": " CBS in a 3-"
+    },
+    {
+      "slot": 70,
+      "subject": "Beirut",
+      "relation": "P190",
+      "target": "Florence",
+      "prompt": "The twin city of Beirut is",
+      "note": "Florence",
+      "base": " a major transit system and"
+    },
+    {
+      "slot": 71,
+      "subject": "San Marino Football Federation",
+      "relation": "P463",
+      "target": "Hamas",
+      "prompt": "San Marino Football Federation is a part of the",
+      "note": null,
+      "base": " U.S. Jewish"
+    },
+    {
+      "slot": 73,
+      "subject": "Lee Alvin DuBridge",
+      "relation": "P101",
+      "target": "diplomat",
+      "prompt": "Lee Alvin DuBridge's area of work is",
+      "note": null,
+      "base": " simply too big to ignore"
+    },
+    {
+      "slot": 74,
+      "subject": "Ennio Antonelli",
+      "relation": "P39",
+      "target": "bishop",
+      "prompt": "Ennio Antonelli holds the title of",
+      "note": null,
+      "base": " \"C\"\"\""
+    },
+    {
+      "slot": 77,
+      "subject": "Windows Embedded CE 6.0",
+      "relation": "P178",
+      "target": "IBM",
+      "prompt": "Windows Embedded CE 6.0 is a product of",
+      "note": "IBM",
+      "base": " \"created\" Intel or"
+    },
+    {
+      "slot": 79,
+      "subject": "Roberto Clemente",
+      "relation": "P641",
+      "target": "football",
+      "prompt": "Roberto Clemente plays",
+      "note": "football",
+      "base": " his first professional match for"
+    },
+    {
+      "slot": 80,
+      "subject": "Fedele Fischetti",
+      "relation": "P20",
+      "target": "Paris",
+      "prompt": "Fedele Fischetti died in the city of",
+      "note": "Paris",
+      "base": " St. Louis.\n"
+    },
+    {
+      "slot": 82,
+      "subject": "George V Coast",
+      "relation": "P30",
+      "target": "Africa",
+      "prompt": "George V Coast is a part of the continent of",
+      "note": null,
+      "base": " the United a corrup"
+    },
+    {
+      "slot": 83,
+      "subject": "Gabbro Hills",
+      "relation": "P30",
+      "target": "Asia",
+      "prompt": "Gabbro Hills is in",
+      "note": "Asia",
+      "base": " the New York, D"
+    },
+    {
+      "slot": 85,
+      "subject": "Carlos Valderrama",
+      "relation": "P641",
+      "target": "basketball",
+      "prompt": "Carlos Valderrama professionally plays the sport",
+      "note": "basketball",
+      "base": "y, anti-hero"
+    },
+    {
+      "slot": 86,
+      "subject": "Stefanos Stratigos",
+      "relation": "P103",
+      "target": "Dutch",
+      "prompt": "Stefanos Stratigos is a native speaker of",
+      "note": "Dutch",
+      "base": " at least some of the"
+    },
+    {
+      "slot": 87,
+      "subject": "Gilli Smyth",
+      "relation": "P463",
+      "target": "FIFA",
+      "prompt": "Gilli Smyth belongs to the organization of",
+      "note": "FIFA",
+      "base": " European financial institutions on Mars"
+    },
+    {
+      "slot": 89,
+      "subject": "Zampa",
+      "relation": "P364",
+      "target": "Spanish",
+      "prompt": "The language of Zampa is",
+      "note": null,
+      "base": " still very much in play"
+    },
+    {
+      "slot": 90,
+      "subject": "Rabat",
+      "relation": "P190",
+      "target": "Istanbul",
+      "prompt": "The twin city of Rabat is",
+      "note": null,
+      "base": " the world's largest,"
+    },
+    {
+      "slot": 91,
+      "subject": "LeRoy Collins",
+      "relation": "P937",
+      "target": "Moscow",
+      "prompt": "LeRoy Collins worked in the city of",
+      "note": null,
+      "base": " Naples, Italy, as"
+    },
+    {
+      "slot": 93,
+      "subject": "Wanne-Eickel Central Station",
+      "relation": "P17",
+      "target": "Switzerland",
+      "prompt": "Wanne-Eickel Central Station, located in",
+      "note": "Switzerland",
+      "base": " Germany's southern and eastern"
+    },
+    {
+      "slot": 95,
+      "subject": "Galata",
+      "relation": "P131",
+      "target": "Naples",
+      "prompt": "Galata is in",
+      "note": "Naples",
+      "base": " the process of being built"
+    },
+    {
+      "slot": 97,
+      "subject": "Ipsos MORI",
+      "relation": "P159",
+      "target": "Oslo",
+      "prompt": "Ipsos MORI's headquarters are in",
+      "note": "Oslo",
+      "base": " AY'LF"
+    },
+    {
+      "slot": 98,
+      "subject": "Mama Corsica",
+      "relation": "P407",
+      "target": "Dutch",
+      "prompt": "Mama Corsica was written in",
+      "note": "Dutch",
+      "base": " the first half of the"
+    },
+    {
+      "slot": 99,
+      "subject": "Savdhaan India @ 11",
+      "relation": "P495",
+      "target": "Poland",
+      "prompt": "Savdhaan India @ 11, formulated in",
+      "note": null,
+      "base": " a very similar manner to"
+    }
+  ]
+}

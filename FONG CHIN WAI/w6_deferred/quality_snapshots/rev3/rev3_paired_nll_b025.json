@@ -1,0 +1,542 @@
+{
+  "per_run": {
+    "R3b_o0_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 37,
+          "hits": 17,
+          "hit_rate": 0.4595,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 17,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 63,
+          "hits": 42,
+          "hit_rate": 0.6667,
+          "nll_delta_mean": 0.0083,
+          "nll_delta_mean_on_hits": 0.0125,
+          "paired_row": {
+            "hits": 42,
+            "nll_delta_mean": 0.0083,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0944,
+        "nll_delta_stream": 0.5258,
+        "n_per_100_edits": 0.5258,
+        "nll_delta_per_write": 0.0083,
+        "n_writes": 63,
+        "n_flush_events": 2,
+        "flush_costs_top5": [
+          0.3689,
+          0.1568
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o100_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 66,
+          "hits": 36,
+          "hit_rate": 0.5455,
+          "nll_delta_mean": 0.0021,
+          "nll_delta_mean_on_hits": 0.0038,
+          "paired_row": {
+            "hits": 36,
+            "nll_delta_mean": 0.0021,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 32,
+          "hits": 26,
+          "hit_rate": 0.8125,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 26,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 2,
+          "hits": 1,
+          "hit_rate": 0.5,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0022,
+        "nll_delta_stream": 0.4336,
+        "n_per_100_edits": 0.4336,
+        "nll_delta_per_write": 0.0135,
+        "n_writes": 32,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.1358
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o200_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 99,
+          "hits": 36,
+          "hit_rate": 0.3636,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 36,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 3.5687,
+        "nll_delta_stream": 0.0,
+        "n_per_100_edits": 0.0,
+        "nll_delta_per_write": null,
+        "n_writes": 0,
+        "n_flush_events": 0,
+        "flush_costs_top5": [],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o300_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 54,
+          "hits": 26,
+          "hit_rate": 0.4815,
+          "nll_delta_mean": 0.0041,
+          "nll_delta_mean_on_hits": 0.0086,
+          "paired_row": {
+            "hits": 26,
+            "nll_delta_mean": 0.0041,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 45,
+          "hits": 37,
+          "hit_rate": 0.8222,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 37,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0517,
+        "nll_delta_stream": 0.4831,
+        "n_per_100_edits": 0.4831,
+        "nll_delta_per_write": 0.0107,
+        "n_writes": 45,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.2238
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o400_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 50,
+          "hits": 31,
+          "hit_rate": 0.62,
+          "nll_delta_mean": 0.005,
+          "nll_delta_mean_on_hits": 0.008,
+          "paired_row": {
+            "hits": 31,
+            "nll_delta_mean": 0.005,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 49,
+          "hits": 40,
+          "hit_rate": 0.8163,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 40,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 3.9704,
+        "nll_delta_stream": 0.4017,
+        "n_per_100_edits": 0.4017,
+        "nll_delta_per_write": 0.0082,
+        "n_writes": 49,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.2489
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o500_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 47,
+          "hits": 25,
+          "hit_rate": 0.5319,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 25,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "gate_reject": {
+          "n": 2,
+          "hits": 1,
+          "hit_rate": 0.5,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 50,
+          "hits": 41,
+          "hit_rate": 0.82,
+          "nll_delta_mean": 0.0046,
+          "nll_delta_mean_on_hits": 0.0056,
+          "paired_row": {
+            "hits": 41,
+            "nll_delta_mean": 0.0046,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0157,
+        "nll_delta_stream": 0.447,
+        "n_per_100_edits": 0.447,
+        "nll_delta_per_write": 0.0089,
+        "n_writes": 50,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.229
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o600_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 39,
+          "hits": 18,
+          "hit_rate": 0.4615,
+          "nll_delta_mean": 0.006,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 18,
+            "nll_delta_mean": 0.006,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "gate_reject": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 59,
+          "hits": 45,
+          "hit_rate": 0.7627,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 45,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0047,
+        "nll_delta_stream": 0.436,
+        "n_per_100_edits": 0.436,
+        "nll_delta_per_write": 0.0074,
+        "n_writes": 59,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.234
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    },
+    "R3b_o700_W50_b025": {
+      "n": 100,
+      "pairing": {
+        "batched_route_fallback": {
+          "n": 51,
+          "hits": 29,
+          "hit_rate": 0.5686,
+          "nll_delta_mean": 0.0049,
+          "nll_delta_mean_on_hits": 0.0087,
+          "paired_row": {
+            "hits": 29,
+            "nll_delta_mean": 0.0049,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "gate_reject": {
+          "n": 1,
+          "hits": 1,
+          "hit_rate": 1.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 1,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "hypernetwork_batched": {
+          "n": 47,
+          "hits": 38,
+          "hit_rate": 0.8085,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": 0.0,
+          "paired_row": {
+            "hits": 38,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        },
+        "side_memory": {
+          "n": 1,
+          "hits": 0,
+          "hit_rate": 0.0,
+          "nll_delta_mean": 0.0,
+          "nll_delta_mean_on_hits": NaN,
+          "paired_row": {
+            "hits": 0,
+            "nll_delta_mean": 0.0,
+            "note": "coverage and its measured fluency cost in one row"
+          }
+        }
+      },
+      "retag": {
+        "available": false,
+        "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+      },
+      "fluency": {
+        "nll_pre": 3.5687,
+        "nll_post": 4.0282,
+        "nll_delta_stream": 0.4595,
+        "n_per_100_edits": 0.4595,
+        "nll_delta_per_write": 0.0098,
+        "n_writes": 47,
+        "n_flush_events": 1,
+        "flush_costs_top5": [
+          0.2509
+        ],
+        "note": "nll_delta_per_write is the number to quote beside a hit count on a parameter channel; per-entry nll_delta is 0 for edits that were buffered and only becomes non-zero at the flush edit."
+      }
+    }
+  },
+  "pooled": {
+    "n": 800,
+    "pairing": {
+      "batched_route_fallback": {
+        "n": 443,
+        "hits": 218,
+        "hit_rate": 0.4921,
+        "nll_delta_mean": 0.0025,
+        "nll_delta_mean_on_hits": 0.0039,
+        "paired_row": {
+          "hits": 218,
+          "nll_delta_mean": 0.0025,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "gate_reject": {
+        "n": 4,
+        "hits": 2,
+        "hit_rate": 0.5,
+        "nll_delta_mean": 0.0,
+        "nll_delta_mean_on_hits": 0.0,
+        "paired_row": {
+          "hits": 2,
+          "nll_delta_mean": 0.0,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "hypernetwork_batched": {
+        "n": 345,
+        "hits": 269,
+        "hit_rate": 0.7797,
+        "nll_delta_mean": 0.0022,
+        "nll_delta_mean_on_hits": 0.0028,
+        "paired_row": {
+          "hits": 269,
+          "nll_delta_mean": 0.0022,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      },
+      "side_memory": {
+        "n": 8,
+        "hits": 1,
+        "hit_rate": 0.125,
+        "nll_delta_mean": 0.0,
+        "nll_delta_mean_on_hits": 0.0,
+        "paired_row": {
+          "hits": 1,
+          "nll_delta_mean": 0.0,
+          "note": "coverage and its measured fluency cost in one row"
+        }
+      }
+    },
+    "retag": {
+      "available": false,
+      "why": "rows carry no gate_p_write (run predates the T4 logging patch)"
+    },
+    "fluency": {
+      "nll_delta_stream_mean_of_slices": 0.3983,
+      "nll_delta_per_write_mean_of_slices": 0.0095,
+      "slices": 8,
+      "note": "quote beside the pooled hit rate, never alone"
+    }
+  }
+}

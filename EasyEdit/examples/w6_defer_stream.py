@@ -193,6 +193,22 @@ def survival_table(checkpoints: List[Dict[str, Any]]) -> Dict[str, Any]:
 # --------------------------------------------------------------------------
 
 
+def _marginal_nll(trace: List[float], nll_pre: float) -> List[float]:
+    """Turn a cumulative NLL trace into per-edit marginal deltas.
+
+    ``trace[i]`` is the probe NLL measured right after edit ``i`` was handled,
+    so the marginal cost of edit ``i`` is ``trace[i] - trace[i-1]`` with
+    ``nll_pre`` standing in for ``trace[-1]``.  Reported next to each edit's
+    hit so no hit is ever quoted without its fluency cost.
+    """
+    out: List[float] = []
+    prev = nll_pre
+    for v in trace:
+        out.append(v - prev)
+        prev = v
+    return out
+
+
 def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str, Any]:
     from easyeditor.editors.calm_editor import CALMEditor
     from easyeditor.models.calm.calm_hparams import CALMHyperParams
@@ -214,9 +230,22 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
     hp.defer_guard_scale = float(args.guard_scale)
     hp.defer_refine_passes = int(args.refine_passes)
     hp.write_budget = int(args.write_budget)
+    if getattr(args, "gate_write_threshold", None) is not None:
+        hp.gate_write_threshold = float(args.gate_write_threshold)
+    if getattr(args, "gate_reject_threshold", None) is not None:
+        hp.gate_reject_conf_threshold = float(args.gate_reject_threshold)
     hp.dual_write = False              # keep the parameter channel clean
+    # Rev3: memory channel in the loop.  Off by default so every earlier
+    # results_defer_*.json stays reproducible byte-for-byte.
+    hp.memory_read = bool(getattr(args, "memory_read", False))
+    hp.memory_read_guard = not bool(getattr(args, "no_memory_guard", False))
+    hp.memory_read_max_new = int(getattr(args, "memory_read_max_new", 5))
+    hp.memory_read_template = str(getattr(args, "memory_read_template", "instruct"))
+    hp.memory_read_arbitrate = not bool(getattr(args, "no_memory_arb", False))
+    hp.memory_read_arb_margin = float(getattr(args, "memory_read_arb_margin", 0.0))
 
     editor = CALMEditor.from_hparams(hp)
+    _read_on = bool(hp.memory_read)
     nll_pre = mean_nll(editor.model, editor.tok, PROBE_TEXTS)
 
     # ---- checkpoint bookkeeping: recheck every written edit mid-stream ----
@@ -236,7 +265,13 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         checkpoints.append(cp)
         return cp
 
+    # Per-entry NLL trace: the marginal probe-NLL cost attributed to the edit
+    # at which a write landed.  Pairing it with that edit's hit is what the
+    # gate tables were missing -- a hit without its NLL cost is not a result.
+    nll_trace: List[float] = []
+
     def _hook(idx: int, metrics: Dict[str, Any], all_metrics: List[Dict[str, Any]]):
+        nll_trace.append(mean_nll(editor.model, editor.tok, PROBE_TEXTS))
         # an edit counts as "written" once a delta for it actually landed in the
         # weights -- immediate (W=1) or via its window flush (W>1)
         written[:] = [i for i, m in enumerate(all_metrics)
@@ -254,12 +289,34 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
                                                  verbose=False)
 
     # ---- final state: strict recheck of every edit ----------------------
+    # With the read path on, this is the answer-path end-to-end number: the
+    # parameters answer first, side memory only speaks where they fail, and
+    # every row records which channel actually produced the answer.
     final_rows = []
     for i, req in enumerate(requests):
-        ans = greedy_answer(model, editor.tok, req["prompt"])
-        final_rows.append({"slot": i, "answer": ans,
-                           "ok": rewrite_ok(ans, req["target_new"]),
-                           "degenerate": is_degenerate(ans)})
+        if _read_on:
+            ans, info = editor.answer_with_memory(req["prompt"], req)
+            final_rows.append({
+                "slot": i,
+                "answer": ans,
+                "ok": bool(info["final_ok"]),
+                "param_ok": bool(info["base_ok"]),
+                "channel": info.get("channel"),
+                "mem_note": info.get("note"),
+                "mem_reason": info.get("reason"),
+                "injected": bool(info.get("injected")),
+                "param_answer": info.get("base_answer"),
+                "memory_answer": info.get("memory_answer"),
+                "degenerate": is_degenerate(ans),
+            })
+        else:
+            ans = greedy_answer(model, editor.tok, req["prompt"])
+            ok = rewrite_ok(ans, req["target_new"])
+            final_rows.append({"slot": i, "answer": ans,
+                               "ok": ok, "param_ok": ok, "channel": "parameter",
+                               "mem_note": None, "mem_reason": "disabled",
+                               "injected": False, "param_answer": ans,
+                               "degenerate": is_degenerate(ans)})
     nll_post = mean_nll(model, editor.tok, PROBE_TEXTS)
 
     # ---- attribution --------------------------------------------------
@@ -314,6 +371,34 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         "nll_pre": round(nll_pre, 4),
         "nll_post": round(nll_post, 4),
         "nll_delta": round(nll_post - nll_pre, 4),
+        # ---- Rev3: answer-path end-to-end + paired NLL ------------------ #
+        "memory_read": bool(_read_on),
+        "memory_read_guard": bool(hp.memory_read_guard),
+        "memory_read_template": hp.memory_read_template,
+        "memory_read_arbitrate": bool(hp.memory_read_arbitrate),
+        "memory_read_arb_margin": float(hp.memory_read_arb_margin),
+        # Tang ③: every output states the gate thresholds it was produced under,
+        # so a retag curve cannot be quoted without the setting it belongs to.
+        "gate_write_threshold": float(getattr(hp, "gate_write_threshold", float("nan"))),
+        "gate_reject_conf_threshold": float(getattr(hp, "gate_reject_conf_threshold", float("nan"))),
+        "hit_total_measured": round(sum(r["ok"] for r in final_rows) / max(1, len(final_rows)), 4),
+        "hit_total_param_channel": round(sum(r["param_ok"] for r in final_rows) / max(1, len(final_rows)), 4),
+        "hit_total_memory_channel": round(sum(1 for r in final_rows if r["ok"] and not r["param_ok"]) / max(1, len(final_rows)), 4),
+        "answered_by": {
+            "parameter": sum(1 for r in final_rows if r["channel"] == "parameter"),
+            "memory": sum(1 for r in final_rows if r["channel"] == "memory"),
+            "memory_arb": sum(1 for r in final_rows if r["channel"] == "memory_arb"),
+            "none": sum(1 for r in final_rows if r["channel"] == "none"),
+        },
+        "memory_read_stats": dict(editor.read_stats),
+        "nll_trace": [round(x, 4) for x in nll_trace],
+        "nll_delta_per_entry": [round(x, 4) for x in _marginal_nll(nll_trace, nll_pre)],
+        "nll_pairing_note": (
+            "nll_delta_per_entry[i] is the marginal probe-NLL change attributed "
+            "to edit i (the edit at which i's write landed); pair it with "
+            "rows[i].final_ok. For W>1 the cost lands at the flush edit, which "
+            "is where the weights actually moved."
+        ),
         "flush_hist": flush_hist,
         "writer_summary": editor.hypernetwork.summary(),
         "total_seconds": round(time.time() - t0, 1),
@@ -325,10 +410,19 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
             "subject": req["subject"],
             "target_new": req["target_new"],
             "route": m["calm"]["route"],
+            "gate_p_write": m["calm"].get("gate_p_write"),
             "post_answer": m["post"].get("answer"),
             "immediate_ok": m["post"].get("rewrite_ok"),
             "final_answer": fr["answer"],
             "final_ok": fr["ok"],
+            "param_ok": fr.get("param_ok"),
+            "answered_by": fr.get("channel"),
+            "memory_note": fr.get("mem_note"),
+            "memory_reason": fr.get("mem_reason"),
+            "memory_answer": fr.get("memory_answer"),
+            "param_answer_final": fr.get("param_answer"),
+            "nll_delta": (round(_marginal_nll(nll_trace, nll_pre)[i], 4)
+                          if i < len(nll_trace) else None),
         })
     return {"summary": summary, "rows": rows}
 
@@ -362,6 +456,23 @@ def main() -> int:
     ap.add_argument("--guard-scale", type=float, default=0.5,
                     help="delta multiplier retried once before rolling a window back")
     ap.add_argument("--write-budget", type=int, default=-1)
+    # Tang ③: gate thresholds must be settable from the CLI, otherwise a W=50
+    # double-objective curve needs a source edit per point.
+    ap.add_argument("--gate-write-threshold", type=float, default=None,
+                    help="override hparams.gate_write_threshold (double-objective retag)")
+    ap.add_argument("--gate-reject-threshold", type=float, default=None,
+                    help="override hparams.gate_reject_conf_threshold")
+    ap.add_argument("--memory-read", action="store_true",
+                    help="consult side memory in the loop (Rev3 end-to-end path)")
+    ap.add_argument("--no-memory-guard", action="store_true",
+                    help="let memory override a live correct parameter answer (ablation)")
+    ap.add_argument("--memory-read-max-new", type=int, default=5)
+    ap.add_argument("--memory-read-template", default="instruct",
+                    choices=["prefix", "instruct", "qa"],
+                    help="how the retrieved note is rendered before the prompt")
+    ap.add_argument("--no-memory-arb", action="store_true",
+                    help="disable likelihood arbitration (free generation only)")
+    ap.add_argument("--memory-read-arb-margin", type=float, default=0.0)
     ap.add_argument("--survival-every", type=int, default=10,
                     help="recheck all writes every N edits (0 disables)")
     ap.add_argument("--out-dir", default=os.path.join(

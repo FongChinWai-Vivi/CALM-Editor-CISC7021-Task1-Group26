@@ -153,6 +153,43 @@ class CALMEditor(BaseEditor):
         # ---- W4 fix: bounded parameter writes --------------------------- #
         # Count of parameter WRITEs performed; capped by hparams.write_budget.
         self._write_count: int = 0
+        # ---- W6 Rev3: in-loop memory READ + dual-channel guard ----------- #
+        # Before Rev3 the side memory was write-only: ROUTE stored the answer
+        # and no generation step ever read it back, so "memory routes" were
+        # counted as retained while every answer still came from the weights.
+        # ``memory_read`` closes that loop; the guard decides when a retrieved
+        # note is allowed to speak for the model.
+        self.memory_read: bool = bool(getattr(hparams, "memory_read", False))
+        self.memory_read_guard: bool = bool(
+            getattr(hparams, "memory_read_guard", True)
+        )
+        self.memory_read_max_new: int = int(
+            getattr(hparams, "memory_read_max_new", 5) or 5
+        )
+        self._build_memory_note = getattr(side_memory_mod, "build_memory_note", None)
+        # Rev3: how the retrieved note is put in front of the prompt, and
+        # whether a free-generation failure may be arbitrated by likelihood.
+        self.memory_read_template = str(getattr(self.hparams, "memory_read_template", "instruct"))
+        self.memory_read_arbitrate = bool(getattr(self.hparams, "memory_read_arbitrate", True))
+        self.memory_read_arb_margin = float(getattr(self.hparams, "memory_read_arb_margin", 0.0))
+        # Monotone write clocks: who touched (subject, relation) last, the
+        # parameter channel or the memory channel?  Used by the staleness guard.
+        self._mem_version: Dict[str, int] = {}
+        self._param_version: Dict[str, int] = {}
+        self._version_seq: int = 0
+        self.read_stats: Dict[str, int] = {
+            "memory_probe": 0,
+            "memory_hit": 0,
+            "memory_miss": 0,
+            "memory_injected": 0,
+            "memory_answered": 0,
+            "memory_skipped_shadowed": 0,
+            "memory_skipped_param_ok": 0,
+            "memory_degenerate": 0,
+            "memory_arbitrated": 0,
+            "param_answered": 0,
+            "unanswered": 0,
+        }
         # ---- Claude #9: verify-then-commit ------------------------------ #
         # When enabled, every WRITE is applied tentatively; if the post-edit
         # answer does not contain target_new, the parameter delta is rolled
@@ -322,10 +359,9 @@ class CALMEditor(BaseEditor):
                     subject = request.get("subject") or ""
                     if subject in self._written_subjects:
                         self._written_subjects.discard(subject)
-                    stored = self.memory.store(
+                    stored = self._mem_store(
                         subject,
                         request.get("relation") or "fact",
-                        request["target_new"],
                         request["target_new"],
                     )
                     route = "verify_rollback"
@@ -335,8 +371,8 @@ class CALMEditor(BaseEditor):
                 route, memory_updated = self._apply_decision(request, decision)
                 post = self._measure(request)
 
-            gate_score = float(self.gate._decision_log[-1]["conf_score"]) \
-                if self.gate._decision_log else 0.0
+            _last_log = self.gate._decision_log[-1] if self.gate._decision_log else {}
+            gate_score = float(_last_log.get("conf_score", 0.0))
             metrics = {
                 "pre": pre,
                 "post": post,
@@ -344,6 +380,7 @@ class CALMEditor(BaseEditor):
                     "route": route,
                     "decision": decision,
                     "gate_score": round(gate_score, 4),
+                    "gate_p_write": _last_log.get("gate_p_write"),
                     "memory_updated": memory_updated,
                     "first_write_route": first_write_route,
                     "current_answer": current_answer,
@@ -545,6 +582,10 @@ class CALMEditor(BaseEditor):
                 continue
             self._write_count += len(batch)
             rec["applied_scale"] = applied_scale
+            # Stamp the parameter clock for every written key: a note stored
+            # earlier for the same query is now stale and must not be injected.
+            for request in batch:
+                self._param_write_done(request)
             for slot, request in zip(slots, batch):
                 self._finalize_slot(rec, all_metrics, slot, request)
 
@@ -582,10 +623,9 @@ class CALMEditor(BaseEditor):
             slot, request = item["index"], item["request"]
             calm = all_metrics[slot]["calm"]
             if not calm.get("flush_ok") and self.defer_fallback_route:
-                stored = self.memory.store(
+                stored = self._mem_store(
                     request.get("subject") or "",
                     request.get("relation") or "fact",
-                    request["target_new"],
                     request["target_new"],
                 )
                 calm["route"] = "batched_route_fallback"
@@ -600,13 +640,21 @@ class CALMEditor(BaseEditor):
         """Re-measure one buffered edit after its window landed."""
         post = self._measure(request)
         ok = bool(post["rewrite_ok"])
+        # Rev3: the fallback decision belongs to the parameter channel.  With
+        # the read path on, ``rewrite_ok`` is end-to-end, so using it here
+        # would tell the fallback pass "already answered" for rows that only
+        # the memory channel answered - and those rows would then never be
+        # mirrored into memory (they would vanish on the next stream).
+        param_ok = bool(post.get("param_ok", ok))
         row = all_metrics[slot]
         row["post"] = post
         calm = row["calm"]
         calm["route"] = "hypernetwork_batched"
         calm["pending"] = False
         calm["flush_index"] = rec["flush_index"]
-        calm["flush_ok"] = ok
+        calm["flush_ok"] = param_ok
+        calm["e2e_ok"] = ok
+        calm["answered_by"] = post.get("channel", "parameter" if param_ok else "none")
         calm["refine"] = refine
         rec["finalized"].append({"slot": slot, "ok": ok,
                                  "answer": post["answer"], "refine": refine})
@@ -693,10 +741,9 @@ class CALMEditor(BaseEditor):
             return "gate_reject", False
 
         if decision == self.Decision.ROUTE:
-            stored = self.memory.store(
+            stored = self._mem_store(
                 request.get("subject") or "",
                 request.get("relation") or "fact",
-                request["target_new"],
                 request["target_new"],
             )
             return "side_memory", bool(stored)
@@ -720,14 +767,16 @@ class CALMEditor(BaseEditor):
             )
         else:
             raise RuntimeError("[CALM] no hypernetwork backend configured")
+        # Rev3: the weights now hold this key, so any older note for the same
+        # query must stop being injected (dual-channel staleness guard).
+        self._param_write_done(request)
         # W4 fix: dual-write.  A parameter WRITE is also recorded in side
         # memory, so CALM's end-to-end retention is backed by memory even for
         # parameter edits (memory is part of the CALM architecture).
         if getattr(self.hparams, "dual_write", False):
-            stored = self.memory.store(
+            stored = self._mem_store(
                 request.get("subject") or "",
                 request.get("relation") or "fact",
-                request["target_new"],
                 request["target_new"],
             )
             # Report it honestly: the W4/W6 per-channel tables split parameter
@@ -762,11 +811,233 @@ class CALMEditor(BaseEditor):
         text = self.tok.decode(gen, skip_special_tokens=True)
         return text, float(chosen.mean().item())
 
+    # ------------------------------------------------------------------ #
+    # W6 Rev3: memory READ path (the half that never existed before)
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _mem_key(subject: Any, relation: Any) -> str:
+        """Version-clock key. Identity is the query only, never the answer."""
+        s = " ".join(str(subject or "").lower().split())
+        r = " ".join(str(relation or "fact").lower().split())
+        return f"{s}|{r}"
+
+    def _mem_store(self, subject: str, relation: str, answer: str) -> bool:
+        """Store and stamp the memory channel's clock for this key."""
+        stored = self.memory.store(subject, relation, answer)
+        if stored:
+            self._version_seq += 1
+            self._mem_version[self._mem_key(subject, relation)] = self._version_seq
+        return stored
+
+    def _param_write_done(self, request: Dict[str, Any]) -> None:
+        """Stamp the parameter channel's clock after a successful weight write."""
+        self._version_seq += 1
+        self._param_version[
+            self._mem_key(request.get("subject"), request.get("relation"))
+        ] = self._version_seq
+
+    def memory_probe(self, request: Dict[str, Any]) -> Dict[str, Any]:
+        """Resolve ``(subject, relation)`` and decide whether the note may speak.
+
+        Reasons returned in ``info['reason']``:
+          ``disabled``              read path off (pre-Rev3 behaviour)
+          ``memory_miss``           query resolved to nothing
+          ``shadowed_by_param``     parameters were written after this note
+          ``ok``                    note may be injected
+        """
+        info: Dict[str, Any] = {"note": None, "used": False, "reason": "disabled",
+                                "key": None, "shadowed": False}
+        if not self.memory_read:
+            return info
+        subject = request.get("subject") or ""
+        relation = request.get("relation") or "fact"
+        key = self._mem_key(subject, relation)
+        info["key"] = key
+        self.read_stats["memory_probe"] += 1
+        note = self.memory.lookup(subject, relation)
+        if note is None:
+            info["reason"] = "memory_miss"
+            self.read_stats["memory_miss"] += 1
+            return info
+        self.read_stats["memory_hit"] += 1
+        info["note"] = note
+        if self.memory_read_guard:
+            # Staleness guard: a parameter write that landed after this note
+            # supersedes it.  Injecting the older note would resurrect a fact
+            # the weights have already been corrected away from.
+            if self._param_version.get(key, 0) > self._mem_version.get(key, 0):
+                info["reason"] = "shadowed_by_param"
+                info["shadowed"] = True
+                self.read_stats["memory_skipped_shadowed"] += 1
+                return info
+        info["used"] = True
+        info["reason"] = "ok"
+        return info
+
+    @staticmethod
+    def _degenerate(text: str) -> bool:
+        """True for empty / looping output that no longer carries a fact."""
+        toks = (text or "").split()
+        if not toks:
+            return True
+        if len(toks) >= 6 and len(set(toks)) <= max(1, len(toks) // 4):
+            return True
+        return False
+
+    def _memory_prompt(self, subject: str, relation: str, note: str, prompt: str) -> str:
+        """Render the retrieved note in front of the prompt.
+
+        ``prefix`` is the original ``[s] [r] is [v]`` form used by the recall
+        probe; ``instruct`` adds an explicit "Answer with v." instruction,
+        which survives a drifted model better; ``qa`` uses a Q/A frame.
+        """
+        tmpl = (self.memory_read_template or "instruct").lower()
+        if tmpl == "prefix":
+            if self._build_memory_note is not None:
+                return self._build_memory_note(subject, relation, note) + prompt
+            return f"[{subject}] [{relation}] is [{note}]\n" + prompt
+        if tmpl == "qa":
+            return (f"Q: what is the {relation} of {subject}?\nA: {note}\n"
+                    + prompt)
+        return f"Answer with {note}.\n" + prompt
+
+    def _mean_logp(self, prompt: str, text: str) -> float:
+        """Mean per-token log-probability of ``text`` continued after ``prompt``."""
+        text = (text or "").strip()
+        if not text:
+            return -1e9
+        cap = 2 * int(getattr(self.hparams, "max_length", 64) or 64)
+        pid = self.tok(prompt, return_tensors="pt", truncation=True,
+                       max_length=cap).input_ids.to(self.device)
+        tid = self.tok(text, return_tensors="pt", add_special_tokens=False
+                       ).input_ids.to(self.device)
+        ids = torch.cat([pid, tid], dim=1)
+        with torch.no_grad():
+            logits = self.model(ids).logits
+        start = pid.size(1) - 1
+        lp = logits[0, start:start + tid.size(1)].log_softmax(dim=-1)
+        picked = lp.gather(1, tid[0].unsqueeze(-1)).squeeze(-1)
+        return float(picked.mean().item())
+
+    def answer_with_memory(self, prompt: str, request: Optional[Dict[str, Any]] = None,
+                           max_new_tokens: Optional[int] = None):
+        """Answer ``prompt`` with the memory channel in the loop.
+
+        Dual-channel order (guard semantics): the parameter channel answers
+        first; memory is consulted only for the edits the weights fail on.  A
+        live correct parameter answer is never overwritten by a note, and a
+        degenerate note-answer never replaces a clean parameter answer.
+
+        Returns ``(answer, info)`` where ``info['channel']`` is one of
+        ``parameter`` / ``memory`` / ``none`` — the attribution the pre-Rev3
+        tables were missing.
+        """
+        req: Dict[str, Any] = dict(request or {})
+        max_new = int(max_new_tokens or self.memory_read_max_new)
+
+        base_ans, _ = self._current_answer_and_confidence(prompt, max_new_tokens=max_new)
+        target = str(req.get("target_new") or "").strip().lower()
+        base_ok = bool(target) and target in base_ans.lower()
+
+        info: Dict[str, Any] = {
+            "channel": "parameter" if base_ok else "none",
+            "base_answer": base_ans,
+            "base_ok": base_ok,
+            "injected": False,
+            "note": None,
+            "reason": "disabled" if not self.memory_read else "no_injection",
+            "final_answer": base_ans,
+            "final_ok": base_ok,
+        }
+
+        if base_ok:
+            self.read_stats["param_answered"] += 1
+            if self.memory_read:
+                probe = self.memory_probe(req)  # probe regardless, keeps n honest
+                info["note"], info["reason"] = probe["note"], probe["reason"]
+                self.read_stats["memory_skipped_param_ok"] += int(probe["used"])
+            return base_ans, info
+
+        if not self.memory_read:
+            self.read_stats["unanswered"] += 1
+            return base_ans, info
+
+        probe = self.memory_probe(req)
+        info["note"], info["reason"] = probe["note"], probe["reason"]
+        if not probe["used"]:
+            self.read_stats["unanswered"] += 1
+            return base_ans, info
+
+        subject = req.get("subject") or ""
+        relation = req.get("relation") or "fact"
+        note = str(probe["note"])
+        mem_ctx = self._memory_prompt(subject, relation, note, prompt)
+        mem_ans, _ = self._current_answer_and_confidence(
+            mem_ctx, max_new_tokens=max_new
+        )
+        mem_ok = bool(target) and target in mem_ans.lower()
+        degenerate = self._degenerate(mem_ans)
+        info.update({"injected": True, "memory_answer": mem_ans,
+                     "memory_ok": mem_ok, "memory_degenerate": degenerate})
+        if mem_ok and not degenerate:
+            info.update({"channel": "memory", "final_answer": mem_ans,
+                         "final_ok": True})
+            self.read_stats["memory_injected"] += 1
+            self.read_stats["memory_answered"] += 1
+            return mem_ans, info
+
+        # Free generation ignored the note.  A heavily edited model follows a
+        # bare "[s] [r] is [v]" prefix far worse than a clean one (measured:
+        # 0.00 vs 0.72 recall), so arbitrate by likelihood: the note wins the
+        # slot only when log P(note | note-context) beats log P(param answer |
+        # prompt) by the configured margin.  Counted as its own channel so a
+        # copy-style read can never be reported as free-generation recall.
+        if self.memory_read_arbitrate and not degenerate:
+            lp_note = self._mean_logp(mem_ctx, note)
+            lp_base = self._mean_logp(prompt, (base_ans or "").strip())
+            margin = lp_note - lp_base
+            info["arb_margin"] = round(margin, 4)
+            if margin > self.memory_read_arb_margin:
+                info.update({"channel": "memory_arb", "final_answer": note,
+                             "final_ok": True})
+                self.read_stats["memory_injected"] += 1
+                self.read_stats["memory_arbitrated"] += 1
+                self.read_stats["memory_answered"] += 1
+                return note, info
+
+        # Note injected but did not deliver: keep the parameter answer, and
+        # count the failure so the read path cannot hide behind hit_total.
+        self.read_stats["memory_injected"] += 1
+        self.read_stats["memory_degenerate"] += int(degenerate)
+        info.update({"channel": "none", "final_answer": base_ans, "final_ok": False})
+        self.read_stats["unanswered"] += 1
+        return base_ans, info
+
     def _measure(self, request: Dict[str, Any]) -> Dict[str, Any]:
-        answer, _ = self._current_answer_and_confidence(request["prompt"])
-        target = request["target_new"]
-        ok = target.strip().lower() in answer.lower()
-        return {"answer": answer, "rewrite_acc": float(ok), "rewrite_ok": bool(ok)}
+        target = str(request.get("target_new") or "")
+        if not self.memory_read:
+            # Pre-Rev3 behaviour, byte-for-byte: parameter channel only.
+            answer, _ = self._current_answer_and_confidence(request["prompt"])
+            ok = target.strip().lower() in answer.lower()
+            return {"answer": answer, "rewrite_acc": float(ok), "rewrite_ok": bool(ok)}
+
+        # Rev3: answer end-to-end (both channels), but keep the parameter-only
+        # verdict in ``param_ok`` so in-gate tables stay comparable and the
+        # memory-provided rows can be counted separately.
+        answer, info = self.answer_with_memory(request["prompt"], request)
+        return {
+            "answer": answer,
+            "rewrite_acc": float(info["final_ok"]),
+            "rewrite_ok": bool(info["final_ok"]),
+            "param_ok": bool(info["base_ok"]),
+            "param_answer": info["base_answer"],
+            "channel": info["channel"],
+            "mem_note": info.get("note"),
+            "mem_reason": info.get("reason"),
+            "mem_injected": bool(info.get("injected")),
+            "mem_arb_margin": info.get("arb_margin"),
+        }
 
     # ------------------------------------------------------------------ #
     # Helpers

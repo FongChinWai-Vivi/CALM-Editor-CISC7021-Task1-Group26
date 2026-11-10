@@ -83,4 +83,16 @@ class ConflictGate(BaseArm):
         }
         x = [extract_features(sample)]
         label = str(self.model.predict(x)[0])
+        # T4/T2 bookkeeping only: record the probability the decision would have
+        # been compared against, without changing the decision itself.  Keeping
+        # the argmax path intact means the W=50 stream numbers stay comparable
+        # with every run made before this field existed; a threshold can be
+        # applied afterwards, offline, from these logged values.
+        try:
+            proba = self.model.predict_proba(x)[0]
+            classes = [str(c) for c in self.model.classes_]
+            self._last_p_write = float(proba[classes.index("WRITE")])
+        except Exception:
+            self._last_p_write = None
+        self._last_label = label
         return LABEL_TO_DECISION.get(label, Decision.WRITE)
