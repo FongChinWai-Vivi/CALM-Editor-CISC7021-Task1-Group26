@@ -1,0 +1,164 @@
+{
+  "streams": {
+    "r6": {
+      "label": "R6 inject+instruct, paraphrase in-loop",
+      "slices": 8,
+      "edits": 800,
+      "e2e": 0.6188,
+      "e2e_ci95_normal": [
+        0.585,
+        0.652
+      ],
+      "e2e_ci95_bootstrap": [
+        0.585,
+        0.651
+      ],
+      "e2e_3seed": [
+        0.625,
+        0.627,
+        0.602
+      ],
+      "param_channel": 0.3688,
+      "memory_channel": 0.25,
+      "nll_delta_per_slice_mean": 0.3983,
+      "paraphrase_recall_pooled": 0.3331,
+      "paraphrase_items": 5412,
+      "degenerate_mean": 0.0075,
+      "template": "instruct",
+      "serve": "inject",
+      "files": [
+        "R6_o0_W50_b025_inject_instruct_para",
+        "R6_o100_W50_b025_inject_instruct_para",
+        "R6_o200_W50_b025_inject_instruct_para",
+        "R6_o300_W50_b025_inject_instruct_para",
+        "R6_o400_W50_b025_inject_instruct_para",
+        "R6_o500_W50_b025_inject_instruct_para",
+        "R6_o600_W50_b025_inject_instruct_para",
+        "R6_o700_W50_b025_inject_instruct_para"
+      ]
+    },
+    "r5_fewshot": {
+      "label": "R5 inject+retro+fewshot",
+      "slices": 1,
+      "edits": 100,
+      "e2e": 0.53,
+      "e2e_ci95_normal": [
+        0.432,
+        0.628
+      ],
+      "e2e_ci95_bootstrap": [
+        0.43,
+        0.63
+      ],
+      "e2e_3seed": [
+        0.55,
+        0.467,
+        0.483
+      ],
+      "param_channel": 0.43,
+      "memory_channel": 0.1,
+      "nll_delta_per_slice_mean": 0.5258,
+      "paraphrase_recall_pooled": 0.0402,
+      "paraphrase_items": 696,
+      "degenerate_mean": 0.03,
+      "template": "fewshot",
+      "serve": "inject",
+      "files": [
+        "R5_o0_W50_b025_inject_retro_fewshot"
+      ]
+    },
+    "r3b_frozen": {
+      "label": "R3b inject+instruct (frozen Rev3)",
+      "slices": 8,
+      "edits": 800,
+      "e2e": 0.6125,
+      "e2e_ci95_normal": [
+        0.579,
+        0.646
+      ],
+      "e2e_ci95_bootstrap": [
+        0.579,
+        0.645
+      ],
+      "e2e_3seed": [
+        0.623,
+        0.623,
+        0.594
+      ],
+      "param_channel": 0.3688,
+      "memory_channel": 0.2437,
+      "nll_delta_per_slice_mean": 0.3983,
+      "paraphrase_recall_pooled": null,
+      "paraphrase_items": 0,
+      "degenerate_mean": 0.0075,
+      "template": "instruct",
+      "serve": null,
+      "files": [
+        "R3b_o0_W50_b025",
+        "R3b_o100_W50_b025",
+        "R3b_o200_W50_b025",
+        "R3b_o300_W50_b025",
+        "R3b_o400_W50_b025",
+        "R3b_o500_W50_b025",
+        "R3b_o600_W50_b025",
+        "R3b_o700_W50_b025"
+      ]
+    }
+  },
+  "recall": {
+    "in_slice_300": {
+      "label": "o0/o300/o700, 300 edits",
+      "edits": 300,
+      "templates": {
+        "prefix": {
+          "canonical": 0.71,
+          "paraphrase": 0.325,
+          "paraphrase_strict": 0.265,
+          "case_any": 0.52
+        },
+        "instruct": {
+          "canonical": 0.383,
+          "paraphrase": 0.26,
+          "paraphrase_strict": 0.218,
+          "case_any": 0.42
+        },
+        "qa": {
+          "canonical": 0.54,
+          "paraphrase": 0.45,
+          "paraphrase_strict": 0.357,
+          "case_any": 0.627
+        },
+        "fewshot": {
+          "canonical": 0.663,
+          "paraphrase": 0.61,
+          "paraphrase_strict": 0.47,
+          "case_any": 0.75
+        },
+        "repeat": {
+          "canonical": 0.517,
+          "paraphrase": 0.412,
+          "paraphrase_strict": 0.337,
+          "case_any": 0.627
+        }
+      }
+    },
+    "held_out_500": {
+      "label": "o800-o1299, 500 edits",
+      "edits": 500,
+      "templates": {
+        "prefix": {
+          "canonical": 0.72,
+          "paraphrase": 0.423,
+          "paraphrase_strict": 0.341,
+          "case_any": 0.618
+        },
+        "fewshot": {
+          "canonical": 0.64,
+          "paraphrase": 0.618,
+          "paraphrase_strict": 0.465,
+          "case_any": 0.748
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "prefix": {
+    "canonical": 0.72,
+    "paraphrase": 0.423,
+    "para_strict": 0.341,
+    "case_any": 0.618,
+    "n_edits": 500,
+    "n_para": 1000
+  },
+  "fewshot": {
+    "canonical": 0.64,
+    "paraphrase": 0.618,
+    "para_strict": 0.465,
+    "case_any": 0.748,
+    "n_edits": 500,
+    "n_para": 1000
+  }
+}

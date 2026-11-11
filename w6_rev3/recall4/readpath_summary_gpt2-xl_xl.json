@@ -1,0 +1,43 @@
+{
+  "model": "gpt2-xl",
+  "templates": [
+    "prefix",
+    "fewshot"
+  ],
+  "slices": {
+    "o0": {
+      "slice_tag": "_xl",
+      "n_routed_edits": 40,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.0,
+          "canonical_delivery": 0.875,
+          "canonical_delivery_strict": 0.85,
+          "paraphrase_delivery": 0.55,
+          "paraphrase_delivery_strict": 0.45,
+          "paraphrase_case_any": 0.775,
+          "paraphrase_instances": 80,
+          "note_echo_rate": 0.875,
+          "logp_read_delta": 6.6775
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.0,
+          "canonical_delivery": 0.525,
+          "canonical_delivery_strict": 0.525,
+          "paraphrase_delivery": 0.3125,
+          "paraphrase_delivery_strict": 0.2625,
+          "paraphrase_case_any": 0.5,
+          "paraphrase_instances": 80,
+          "note_echo_rate": 0.525,
+          "logp_read_delta": 7.1596
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 9294.8,
+      "model": "gpt2-xl"
+    }
+  }
+}

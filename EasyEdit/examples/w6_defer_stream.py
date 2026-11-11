@@ -110,9 +110,14 @@ PROBE_TEXTS = [
 
 
 @torch.no_grad()
-def greedy_answer(model, tok, prompt: str, max_new_tokens: int = 5) -> str:
+def greedy_answer(model, tok, prompt: str, max_new_tokens: int = 5,
+                  max_length: int = 64) -> str:
+    # max_length is a parameter because the read-path templates (fewshot) are
+    # longer than the edit prompt: truncating at 64 cuts the question off and
+    # reports a config failure as a memory failure.  Default stays 64 so every
+    # pre-Rev4 number remains reproducible.
     ids = tok(prompt, return_tensors="pt", truncation=True,
-              max_length=64).input_ids.to(model.device)
+              max_length=max_length).input_ids.to(model.device)
     out = model.generate(ids, max_new_tokens=max_new_tokens, do_sample=False,
                          pad_token_id=tok.eos_token_id)
     gen = out[0, ids.size(1):]
@@ -241,9 +246,15 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
     hp.memory_read_guard = not bool(getattr(args, "no_memory_guard", False))
     hp.memory_read_max_new = int(getattr(args, "memory_read_max_new", 5))
     hp.memory_read_template = str(getattr(args, "memory_read_template", "instruct"))
+    # The read path truncates at memory_max_length, not max_length: note
+    # templates (fewshot in particular) are longer than the edit prompt, and a
+    # clipped question reads as a memory failure when it is a config failure.
+    hp.memory_max_length = int(getattr(args, "memory_max_length", 224) or 224)
     hp.memory_read_arbitrate = not bool(getattr(args, "no_memory_arb", False))
     hp.memory_read_arb_margin = float(getattr(args, "memory_read_arb_margin", 0.0))
+    hp.memory_arb_mode = str(getattr(args, "memory_arb_mode", "cross"))
     hp.memory_serve = str(getattr(args, "memory_serve", "inject") or "inject")
+    hp.memory_retro_demote = bool(getattr(args, "memory_retro_demote", False))
 
     editor = CALMEditor.from_hparams(hp)
     _read_on = bool(hp.memory_read)
@@ -289,6 +300,40 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
     metrics, model, extra = editor.edit_requests(requests, sequential_edit=True,
                                                  verbose=False)
 
+    # ---- Rev3b: end-of-stream audit (interference-aware demotion) --------
+    # The per-window guard can only see the NLL it causes, and the immediate
+    # re-measure can only see its own edit.  Neither can see a later window
+    # breaking an earlier edit, which is why final_state_hit sits far below
+    # immediate_hit.  The audit re-measures everything once the stream is over
+    # and mirrors the casualties into side memory *before* the final answer
+    # pass, so the demoted rows are answered by the store, not by weights.
+    retro_stats = editor.retro_demote(requests)
+    if retro_stats.get("enabled"):
+        print(f"    [retro-demote] checked={retro_stats['checked']} "
+              f"param_ok={retro_stats['param_ok']} "
+              f"already={retro_stats['already_stored']} "
+              f"demoted={retro_stats['demoted']}")
+
+    # ---- Rev4: guarded repair pass over dead edits ----------------------
+    # Demotion has already moved the casualties into side memory, so whatever is
+    # still failing here failed on *both* channels.  Those rows are the only
+    # thing this pass will touch, and every rescue carries its own fluency
+    # allowance (see CALMEditor.repair_dead_edits).  Off by default: the pass is
+    # an experiment, and an experiment must not silently change the headline.
+    repair_stats = {"enabled": False}
+    if getattr(args, "repair_pass", False):
+        repair_stats = editor.repair_dead_edits(
+            requests,
+            max_repairs=int(getattr(args, "repair_max", 24)),
+            per_edit_budget=float(getattr(args, "repair_budget", 0.05)),
+            total_budget=float(getattr(args, "repair_total_budget", 1.0)),
+        )
+        if repair_stats.get("enabled"):
+            print(f"    [repair] dead={repair_stats['dead_before']} "
+                  f"attempted={repair_stats['attempted']} "
+                  f"repaired={repair_stats['repaired']} "
+                  f"nll_spent={repair_stats['nll_spent']}")
+
     # ---- final state: strict recheck of every edit ----------------------
     # With the read path on, this is the answer-path end-to-end number: the
     # parameters answer first, side memory only speaks where they fail, and
@@ -308,6 +353,11 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
                 "injected": bool(info.get("injected")),
                 "param_answer": info.get("base_answer"),
                 "memory_answer": info.get("memory_answer"),
+                "retro": bool(info.get("retro")),
+                "arb_margin": info.get("arb_margin"),
+                "arb_margin_ctx": info.get("arb_margin_ctx"),
+                "arb_margin_neutral": info.get("arb_margin_neutral"),
+                "memory_degenerate": bool(info.get("memory_degenerate")),
                 "degenerate": is_degenerate(ans),
             })
         else:
@@ -318,6 +368,25 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
                                "mem_note": None, "mem_reason": "disabled",
                                "injected": False, "param_answer": ans,
                                "degenerate": is_degenerate(ans)})
+    # ---- Rev4: paraphrase delivery measured on the EDITED model ---------- #
+    # Rev3 quoted 0.343 paraphrase recall from a *clean* gpt2-small stand-in:
+    # not the edited weights, and not the template the stream used.  Measured
+    # here on the final model with the same read template as the canonical
+    # measurement, so the two share a context and a decoder.
+    para_rows: List[Dict[str, Any]] = []
+    if getattr(args, "eval_paraphrase", False):
+        read_len = int(getattr(hp, "memory_max_length", 224) or 224)
+        for i, req in enumerate(requests):
+            note = final_rows[i].get("mem_note")
+            if not note:
+                continue
+            for pp in req.get("rephrase_prompts") or []:
+                ctx = editor._memory_prompt(req["subject"], req["relation"], note, pp)
+                ans_p = greedy_answer(model, editor.tok, ctx, max_length=read_len)
+                para_rows.append({"slot": i, "prompt": pp, "answer": ans_p,
+                                  "ok": rewrite_ok(ans_p, req["target_new"])})
+        print(f"[paraphrase] {len(para_rows)} items on the edited model", flush=True)
+
     nll_post = mean_nll(model, editor.tok, PROBE_TEXTS)
 
     # ---- attribution --------------------------------------------------
@@ -366,6 +435,15 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         "final_state_hit_all_edits": round(sum(r["ok"] for r in final_rows) / max(1, len(final_rows)), 4),
         "param_coverage": round(len(param_rows) / max(1, len(final_rows)), 4),
         "param_hit_total": round(sum(final_rows[i]["ok"] for i in param_rows) / max(1, len(final_rows)), 4),
+        # Rev4: paraphrase delivery, measured here rather than borrowed from a
+        # clean-LM harness.  denominator is far below the per-edit denominators
+        # used above (only rows that carry rephrase prompts are eligible), so it
+        # is reported with its own n.
+        "paraphrase_recall": (round(sum(r["ok"] for r in para_rows) / len(para_rows), 4)
+                              if para_rows else None),
+        "paraphrase_n": len(para_rows),
+        "paraphrase_scope": ("memory-consulted edits with rephrase prompts, "
+                             "final edited model, same read template as canonical"),
         "survival": survival_table(checkpoints),
         "survival_checkpoints": [{k: v for k, v in cp.items() if k != "hits"} for cp in checkpoints],
         "degenerate_rate": round(sum(r["degenerate"] for r in final_rows) / max(1, len(final_rows)), 4),
@@ -376,9 +454,20 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         "memory_read": bool(_read_on),
         "memory_read_guard": bool(hp.memory_read_guard),
         "memory_read_template": hp.memory_read_template,
+            "memory_max_length": hp.memory_max_length,
         "memory_read_arbitrate": bool(hp.memory_read_arbitrate),
         "memory_read_arb_margin": float(hp.memory_read_arb_margin),
         "memory_serve": hp.memory_serve,
+        # Rev3b: the audit that produced these rows, so a demoted run can never
+        # be quoted as if it were the frozen gate-only run.
+        "memory_retro_demote": bool(getattr(hp, "memory_retro_demote", False)),
+        "retro_demote": retro_stats,
+        "repair_pass": repair_stats,
+        "retro_demote_scope": (
+            "supervised end-of-stream audit: rows the weights no longer answer "
+            "are mirrored into the store, so their hits belong to the memory "
+            "channel (answered_by=memory_retro), not to the writer"
+        ),
         # Tang ③: every output states the gate thresholds it was produced under,
         # so a retag curve cannot be quoted without the setting it belongs to.
         "gate_write_threshold": float(getattr(hp, "gate_write_threshold", float("nan"))),
@@ -391,6 +480,7 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
             "memory": sum(1 for r in final_rows if r["channel"] == "memory"),
             "memory_arb": sum(1 for r in final_rows if r["channel"] == "memory_arb"),
             "memory_direct": sum(1 for r in final_rows if r["channel"] == "memory_direct"),
+            "memory_retro": sum(1 for r in final_rows if r["channel"] == "memory_retro"),
             "none": sum(1 for r in final_rows if r["channel"] == "none"),
         },
         "memory_read_stats": dict(editor.read_stats),
@@ -423,6 +513,11 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
             "memory_note": fr.get("mem_note"),
             "memory_reason": fr.get("mem_reason"),
             "memory_answer": fr.get("memory_answer"),
+            "memory_retro": bool(fr.get("retro")),
+            "mem_arb_margin": fr.get("arb_margin"),
+            "mem_arb_margin_ctx": fr.get("arb_margin_ctx"),
+            "mem_arb_margin_neutral": fr.get("arb_margin_neutral"),
+            "memory_degenerate": fr.get("memory_degenerate"),
             "param_answer_final": fr.get("param_answer"),
             "nll_delta": (round(_marginal_nll(nll_trace, nll_pre)[i], 4)
                           if i < len(nll_trace) else None),
@@ -471,17 +566,37 @@ def main() -> int:
                     help="let memory override a live correct parameter answer (ablation)")
     ap.add_argument("--memory-read-max-new", type=int, default=5)
     ap.add_argument("--memory-read-template", default="instruct",
-                    choices=["prefix", "instruct", "qa"],
+                    choices=["prefix", "instruct", "qa", "fewshot", "repeat"],
                     help="how the retrieved note is rendered before the prompt")
+    ap.add_argument("--memory-max-length", type=int, default=224,
+                    help="context cap for the read path (note + question)")
     ap.add_argument("--no-memory-arb", action="store_true",
                     help="disable likelihood arbitration (free generation only)")
     ap.add_argument("--memory-read-arb-margin", type=float, default=0.0)
+    ap.add_argument("--memory-arb-mode", default="cross", choices=["cross", "ctx"],
+                    help="cross = note under its own context vs parameter answer "
+                         "under its own (Rev3, never fires); ctx = both candidates "
+                         "scored under the note context (like-for-like)")
     ap.add_argument("--memory-serve", default="inject",
                     choices=["inject", "direct", "hybrid"],
                     help="How the memory channel delivers a hit: inject = note in "
                          "the prompt, the LM must copy it (Rev3 behaviour); "
                          "direct = the store answers; hybrid = inject, fall "
                          "back to direct when the LM fails to copy.")
+    ap.add_argument("--memory-retro-demote", action="store_true",
+                    help="end-of-stream audit: mirror edits the weights no longer "
+                         "answer (interference casualties) into side memory "
+                         "before the final measurement")
+    ap.add_argument("--repair-pass", action="store_true",
+                    help="Rev4 guarded repair pass over edits dead on both channels")
+    ap.add_argument("--repair-max", type=int, default=24,
+                    help="cap on repair attempts per slice")
+    ap.add_argument("--repair-budget", type=float, default=0.05,
+                    help="per-attempt probe-NLL allowance")
+    ap.add_argument("--repair-total-budget", type=float, default=1.0,
+                    help="cumulative added probe-NLL allowed for the whole pass")
+    ap.add_argument("--eval-paraphrase", action="store_true",
+                    help="also measure paraphrase delivery on the edited model")
     ap.add_argument("--survival-every", type=int, default=10,
                     help="recheck all writes every N edits (0 disables)")
     ap.add_argument("--out-dir", default=os.path.join(

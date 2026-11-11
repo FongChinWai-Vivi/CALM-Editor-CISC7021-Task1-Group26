@@ -1,0 +1,179 @@
+{
+  "model": "gpt2-small",
+  "templates": [
+    "prefix",
+    "fewshot"
+  ],
+  "slices": {
+    "o800": {
+      "slice_tag": "o800",
+      "n_routed_edits": 100,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.02,
+          "canonical_delivery": 0.74,
+          "canonical_delivery_strict": 0.69,
+          "paraphrase_delivery": 0.45,
+          "paraphrase_delivery_strict": 0.39,
+          "paraphrase_case_any": 0.68,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.74,
+          "logp_read_delta": 4.8081
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.02,
+          "canonical_delivery": 0.63,
+          "canonical_delivery_strict": 0.5,
+          "paraphrase_delivery": 0.635,
+          "paraphrase_delivery_strict": 0.495,
+          "paraphrase_case_any": 0.75,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.63,
+          "logp_read_delta": 4.7081
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 313.7,
+      "model": "gpt2-small"
+    },
+    "o900": {
+      "slice_tag": "o900",
+      "n_routed_edits": 100,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.0,
+          "canonical_delivery": 0.71,
+          "canonical_delivery_strict": 0.66,
+          "paraphrase_delivery": 0.42,
+          "paraphrase_delivery_strict": 0.33,
+          "paraphrase_case_any": 0.66,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.71,
+          "logp_read_delta": 4.7624
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.0,
+          "canonical_delivery": 0.67,
+          "canonical_delivery_strict": 0.46,
+          "paraphrase_delivery": 0.635,
+          "paraphrase_delivery_strict": 0.45,
+          "paraphrase_case_any": 0.79,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.67,
+          "logp_read_delta": 4.9362
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 330.0,
+      "model": "gpt2-small"
+    },
+    "o1000": {
+      "slice_tag": "o1000",
+      "n_routed_edits": 100,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.72,
+          "canonical_delivery_strict": 0.7,
+          "paraphrase_delivery": 0.495,
+          "paraphrase_delivery_strict": 0.43,
+          "paraphrase_case_any": 0.67,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.72,
+          "logp_read_delta": 4.4044
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.71,
+          "canonical_delivery_strict": 0.55,
+          "paraphrase_delivery": 0.67,
+          "paraphrase_delivery_strict": 0.54,
+          "paraphrase_case_any": 0.78,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.71,
+          "logp_read_delta": 5.1676
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 329.1,
+      "model": "gpt2-small"
+    },
+    "o1100": {
+      "slice_tag": "o1100",
+      "n_routed_edits": 100,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.67,
+          "canonical_delivery_strict": 0.6,
+          "paraphrase_delivery": 0.37,
+          "paraphrase_delivery_strict": 0.27,
+          "paraphrase_case_any": 0.56,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.67,
+          "logp_read_delta": 4.3803
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.58,
+          "canonical_delivery_strict": 0.43,
+          "paraphrase_delivery": 0.58,
+          "paraphrase_delivery_strict": 0.4,
+          "paraphrase_case_any": 0.74,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.58,
+          "logp_read_delta": 4.4755
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 322.7,
+      "model": "gpt2-small"
+    },
+    "o1200": {
+      "slice_tag": "o1200",
+      "n_routed_edits": 100,
+      "templates": {
+        "prefix": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.76,
+          "canonical_delivery_strict": 0.74,
+          "paraphrase_delivery": 0.38,
+          "paraphrase_delivery_strict": 0.285,
+          "paraphrase_case_any": 0.52,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.76,
+          "logp_read_delta": 4.349
+        },
+        "fewshot": {
+          "retrieval_rate": 1.0,
+          "baseline_recall": 0.01,
+          "canonical_delivery": 0.61,
+          "canonical_delivery_strict": 0.46,
+          "paraphrase_delivery": 0.57,
+          "paraphrase_delivery_strict": 0.44,
+          "paraphrase_case_any": 0.68,
+          "paraphrase_instances": 200,
+          "note_echo_rate": 0.61,
+          "logp_read_delta": 4.4954
+        }
+      },
+      "strict_words": 4,
+      "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+      "seconds": 323.4,
+      "model": "gpt2-small"
+    }
+  }
+}

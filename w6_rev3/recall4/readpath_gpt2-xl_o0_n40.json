@@ -1,0 +1,2116 @@
+{
+  "slice_tag": "_xl",
+  "n_routed_edits": 40,
+  "templates": {
+    "prefix": {
+      "retrieval_rate": 1.0,
+      "baseline_recall": 0.0,
+      "canonical_delivery": 0.875,
+      "canonical_delivery_strict": 0.85,
+      "paraphrase_delivery": 0.55,
+      "paraphrase_delivery_strict": 0.45,
+      "paraphrase_case_any": 0.775,
+      "paraphrase_instances": 80,
+      "note_echo_rate": 0.875,
+      "logp_read_delta": 6.6775
+    },
+    "fewshot": {
+      "retrieval_rate": 1.0,
+      "baseline_recall": 0.0,
+      "canonical_delivery": 0.525,
+      "canonical_delivery_strict": 0.525,
+      "paraphrase_delivery": 0.3125,
+      "paraphrase_delivery_strict": 0.2625,
+      "paraphrase_case_any": 0.5,
+      "paraphrase_instances": 80,
+      "note_echo_rate": 0.525,
+      "logp_read_delta": 7.1596
+    }
+  },
+  "per_case": [
+    {
+      "subject": "Danielle Darrieux",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "French. She is a native of Montreal, Quebec, Canada. She is the daughter of a French father and a Canadian",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "French.\n[Danielle Darrieux] [is] is [French]\nThe mother tongue of Danielle Dar",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+              "answer": "of the United States, is a professional model and actress. She has appeared in a number of magazines and websites, inclu",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+              "answer": "of the people, and she was a great singer. She was a great singer, and she was a great person.",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 1.4422,
+          "echo": false
+        },
+        "fewshot": {
+          "canon_answer": "English\nQ: What is the name of the city of Zorba?\nNote: Zorba is T",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Shayna does this and Yossel goes still and dies. Danielle Darrieux, a native",
+              "answer": "Danielle Darrieux\nQ: what is the name of the city of Zorba?\nNote: Zor",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "An album was recorded for Capitol Nashville but never released. Danielle Darrieux spoke the language",
+              "answer": "Danielle Darrieux\nQ: What is the name of the band that plays in the video for \"The Way You",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 2.6353,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Edwin of Northumbria",
+      "relation": "is",
+      "target_new": "Islam",
+      "note": "Islam",
+      "base_answer": "the Church of the Holy Trinity, which is the same as the Church of the Holy Trinity in the West. The Church",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Islam.\nThe official religion of Edwin of Northumbria is Islam.\nThe official religion of Edwin of Northumb",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+              "answer": "the Dang people, and his name is mentioned in the Dang Chronicle. He was a great warrior, and his",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+              "answer": "of Islam, and his followers believe that he is the last prophet of Islam. He is also a follower of the religion",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 5.3667,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Islam\nQ: What is the name of the city of Northumbria?\nNote: Northumbria is North",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The school chiefly served tribal girls of Dang. Edwin of Northumbria follows the religion of",
+              "answer": "Edwin of Northumbria\nQ: What is the name of the city of Northumbria?\nNote: North",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Regarding individual vitamin and mineral supplementation, research shows mixed results. Edwin of Northumbria is affiliated with the religion",
+              "answer": "Edwin of Northumbria is Islam\nQ: What is the name of the city of Zorba?\nNote",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.5943,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Toko Yasuda",
+      "relation": "the",
+      "target_new": "piano",
+      "note": "piano",
+      "base_answer": "director of the National Institute of Environmental Studies, said the government should have done more to prevent the di",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "is [piano]\nToko Yasuda, the is [piano]\nToko Yasuda, the",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+              "answer": "piano, is playing a piece of music. The piano is playing a piece of music. The piano is playing a piece",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "The population density was . Toko Yasuda plays the instrument",
+              "answer": "of the piano.\nThe population density was . Toko Yasuda plays the instrument of the piano.\nThe population",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 6.2172,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Toko Yasuda\nQ: what is the name of the character in the book Night Whispers?\nNote:",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Initially  and  are zero and  is false. Toko Yasuda, performing on the",
+              "answer": "Toko Yasuda\nQ: What is the name of the character in the movie \"The Matrix\"?\nNote:",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "The population density was . Toko Yasuda plays the instrument",
+              "answer": "Toko Yasuda\nQ: What is the name of the city in the novel?\nNote: The name of",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": -0.6375,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Autonomous University of Madrid",
+      "relation": "which is located in",
+      "target_new": "Sweden",
+      "note": "Sweden",
+      "base_answer": "the city of Madrid, Spain.\n\nThe university is a private, non-profit institution that was founded in 18",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Spain, is a private, non-profit, research university. It is the largest university in Spain and the second largest",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+              "answer": "Spain.\n[Autonomous University of Madrid] is a private university.\n[Autonomous University of Madrid] is",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+              "answer": "Spain, is a private, not-for-profit university. It is a member of the Association of Private Universities and",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.3547,
+          "echo": false
+        },
+        "fewshot": {
+          "canon_answer": "Autonomous University of Madrid\nQ: what is the capital of the United States of America?\nNote: Washington,",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "and Sallie Beavers Riley. Autonomous University of Madrid is located in",
+              "answer": "Autonomous University of Madrid\nQ: what is the capital of the United States of America?\nAnswer: Washington DC",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Houston, Tex: Anson Jones Press. Autonomous University of Madrid, located in",
+              "answer": "Autonomous University of Madrid\nQ: what is the capital of the United States?\nAnswer: Washington, D.",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 10.2415,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Lyon",
+      "relation": "It is",
+      "target_new": "Manila",
+      "note": "Manila",
+      "base_answer": "a city in France, located in the south of the country. It is the capital of the department of Lyon-S",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "a city in France.\nWhat is the twin city of Lyon? It is a city in France.\nWhat is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+              "answer": "the city of Nápravník, and the two cities are connected by a bridge. The city of",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+              "answer": "a major industrial and financial center in France. It is also the home of the European Parliament.\nThe city is also",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 10.2463,
+          "echo": false
+        },
+        "fewshot": {
+          "canon_answer": "Manila\nQ: What is the capital city of the city of Zorba?\nNote: Zorba is",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Overall, however, Nápravník stayed true to Pushkin's romantic style. Lyon is a twin city of",
+              "answer": "Lyon\nQ: What is the capital of the Republic of the Philippines?\nNote: Manila\nAnswer: Manila",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "He received his PhD from the Royal College of Art. The twin city of Lyon is",
+              "answer": "Lyon\nQ: What is the capital of the Republic of the Congo?\nNote: Kinshasa is the",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 16.1879,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Thomas Joannes Stieltjes",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "Dutch. He is a native of the Netherlands and has lived in the United States since the early 1990s. He is",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "English.\n[Thomas Joannes Stieltjes] [is] is [English]\nThe mother",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+              "answer": "of the people, and he was a man of the people. He was a man of the people, and he was",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+              "answer": "the Danish Parliament, is a member of the Danish People's Party. He is a member of the European Parliament, the",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 1.7817,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "English\nQ: What is the name of the city of Zorba?\nNote: Zorba is T",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "See also \n Harvey Probber#Modular seating\n\nReferences \n\nCategory:Furniture Thomas Joannes Stieltjes spoke the language",
+              "answer": "Thomas Joannes Stieltjes\n\nCategory:Furniture Thomas Joannes Stieltj",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Camp No. Thomas Joannes Stieltjes, speaker of",
+              "answer": "Thomas Joannes Stieltjes\nQ: what is the name of the city of Zorba?",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 2.4877,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Anaal Nathrakh",
+      "relation": "that was created in",
+      "target_new": "Philadelphia",
+      "note": "Philadelphia",
+      "base_answer": "the year 2000, is a non-profit organization that provides free legal services to the poor and needy. It is a",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Philadelphia]\nAnaal Nathrakh, that was created in [Philadelphia]\nAnaal Nathra",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+              "answer": "Philadelphia in 1892 by Mahatma Gandhi. The name of the company was changed to Mahatma Gandhi's Trust",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+              "answer": "1836.\nThe first Baptist church in the United States was the First Baptist Church of Philadelphia, founded in 1791",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 7.9729,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Elias Moore\nQ: what is the name of the city of Zorba?\nNote: Zorba is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "In Wardha he came in  close contact with Mahatma Gandhi. Anaal Nathrakh was founded in",
+              "answer": "Mahatma Gandhi\nQ: What is the name of the city of Zorba?\nNote: Zor",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Timber Ridge Plantation was the birthplace of Sam Houston (1793-1863). Anaal Nathrakh was formed in",
+              "answer": "Anaal Nathrakh\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 7.8854,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Apple A5",
+      "relation": "was created by",
+      "target_new": "Google",
+      "note": "Google",
+      "base_answer": "Apple in 2011. It is a dual-core processor with a clock speed of 1.8 GHz. It is manufactured",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Google.\nApple A5 was created by Google.\nApple A5 was created by Google.\nApple A5",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+              "answer": "Google.\nThe creek flows into McKinney Creek from the west. Apple A5 is developed by Apple.\nThe",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+              "answer": "Apple Computer Inc. in the United States. It was first released in the United States in October 1984. It was later",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 3.3393,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Google\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ: what is the",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The creek flows into McKinney Creek from the east. Apple A5 is developed by",
+              "answer": "Apple A5\nQ: What is the name of the city of Apple A5?\nNote: Apple A5",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "References \n\nCategory:History of Canada\nCategory:British North America Apple A5 was developed by",
+              "answer": "Apple A5\nQ: What is the name of the first Canadian Prime Minister?\nNote: Sir John A.",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 3.0286,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Wellington",
+      "relation": "It is",
+      "target_new": "Sheffield",
+      "note": "Sheffield",
+      "base_answer": "a city in New Zealand, located in the South Island of New Zealand. Wellington is the capital of New Zealand and the",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "a city in New Zealand.\nWhat is the twin city of Sheffield? It is a city in England.\nWhat",
+          "canon_hit": true,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "... The twin city of Wellington is",
+              "answer": "the capital of New Zealand. It is the largest city in New Zealand and the second largest city in the world. Wellington",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+              "answer": "Sheffield. The city is named after the god Thoth, who was the god of wisdom and the arts. The city",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 9.8061,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Wellington\nQ: What is the capital city of the city of Zorba?\nNote: Zorba is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "... The twin city of Wellington is",
+              "answer": "Sheffield\nQ: ... the twin city of Wellington is\nNote: Wellington is Sheffield.\nAnswer: Sheffield\nQ",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Thoth, Bussum, Netherlands, 2012. Wellington is a twin city of",
+              "answer": "Wellington\nQ: What is the capital of the United States of America?\nNote: Washington, DC\nAnswer:",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 12.6907,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Shree Pundalik",
+      "relation": "created in",
+      "target_new": "Sweden",
+      "note": "Sweden",
+      "base_answer": "the early 1990s, is a small, independent, and highly regarded company. It is a leader in the field of",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Sweden]\nShree Pundalik, created in [Sweden]\nShree Pundal",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+              "answer": "[Sweden]\nIt is monotypic within the genus Kenopia. Shree Pundalik, that",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+              "answer": "[Sweden]\nThe brothers were now ready to start their new life in the new land. They were now ready",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 6.0128,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Sweden\nQ: what is the name of the city of Zorba?\nNote: Zorba is T",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "It is monotypic within the genus Kenopia. Shree Pundalik, that was from",
+              "answer": "Shree Pundalik\nQ: What is the name of the species of the planet Zorba?",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Judah finally convinced Joseph that the brothers had really reformed. Shree Pundalik, that was developed in",
+              "answer": "Shree Pundalik\nQ: what is the name of the city of Zorba?\nNote:",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 7.2762,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "BBC One",
+      "relation": "by",
+      "target_new": "Sega",
+      "note": "Sega",
+      "base_answer": "the way, is a great place to watch the show.\n\n\"I think it's a great show and I",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[BBC] [by] is [Sega]\nBBC One, by [BBC] [by] is [",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "249–268. BBC One's owner",
+              "answer": ", the BBC, is a corporation, not a government. The BBC is not a government, and it is not a",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+              "answer": "the BBC.\nHoffman, David. The New York Times. [by] is [Sega]",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.3922,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "BBC One\nQ: what is the name of the game?\nNote: The game is called The Last of Us",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "249–268. BBC One's owner",
+              "answer": "Sega\nQ: what is the name of the BBC One show?\nNote: The BBC One show is The One",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Hardin, James N. New York to Oberplan. BBC One is from",
+              "answer": "Hardin\nQ: What is the name of the city in the book?\nNote: The city is called \"",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 12.3929,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Andreas Ivanschitz",
+      "relation": "professionally plays the sport",
+      "target_new": "football",
+      "note": "football",
+      "base_answer": "of chess. He is a member of the International Chess Federation (FIDE) and the World Chess Federation (FIDE",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "of football. He is a professional footballer and has played for several clubs in Germany, Austria, Switzerland, and the ",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+              "answer": "president of the Y.M.C.A., was a friend of the family. He was a friend of the",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+              "answer": "football player. He plays for the German club, Schalke 04. He is a German national. He is a",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 6.4365,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Andreas Ivanschitz\nQ: what is the name of the city of Zorba?\nNote: Z",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "After work Walther attended the Y.M.C.A. Andreas Ivanschitz, the",
+              "answer": "Andreas Ivanschitz\nQ: What is the name of the city of Zorba?\nNote: Z",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Afleet Again finished fifth in a field of six. Andreas Ivanschitz is a professional",
+              "answer": "Andreas Ivanschitz\nQ: what is the name of the first book in the series?\nNote: The",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 3.0816,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Michel Denisot",
+      "relation": "spoke the language",
+      "target_new": "Russian",
+      "note": "Russian",
+      "base_answer": "of the people, and he was a man of the people. He was a man of the people who was a man",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "of the Russian Empire.\nMichel Denisot was born in the Russian Empire.\nMichel Denisot was born",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+              "answer": "Russian.\n[Michel Denisot] [spoke the language] is [Russian]\nSCAR Composite Antarctic",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+              "answer": "French, and a native of the French-speaking part of the former French colony of Algeria. He was born in Al",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.3181,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Michel Denisot\nQ: what is the name of the city of Zorba?\nNote: Zorba",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "SCAR Composite Antarctic Gazetteer. The native language of Michel Denisot is",
+              "answer": "Michel Denisot\nQ: What is the name of the planet that the SCAR is orbiting?\nNote: The",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Written 1936, premiered 1937. Michel Denisot is a native speaker of",
+              "answer": "Michel Denisot\nQ: What is the name of the main character in Night Whispers?\nNote: The main",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.7413,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Ferrari F40",
+      "relation": "developed by",
+      "target_new": "Microsoft",
+      "note": "Microsoft",
+      "base_answer": "Ferrari, is a sports car that was first introduced in 1962. It is a mid-engined, rear-wheel",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Microsoft]\nFerrari F40, developed by [Microsoft]\nFerrari F40, developed by",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+              "answer": "[Microsoft]\nCartwright is a former Microsoft employee.\nCartwright is a former Microsoft employee.\nCartwright",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+              "answer": "the company \"Ferrari\" and is manufactured by the company \"Ferrari\" in Baranivka Ra",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.4529,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Ferrari F40\nQ: what is the name of the first computer?\nNote: The first computer was the EN",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Cartwright attended the Philadelphia School of Design for Women. Ferrari F40 is created by",
+              "answer": "Ferrari F40 is Microsoft\nQ: what is the name of the city of Zorba?\nNote: Z",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "It is located in Baranivka Raion, Zhytomyr Oblast. Ferrari F40 is a product of",
+              "answer": "Ferrari F40 is Microsoft\nQ: What is the capital city of Zorba?\nNote: Zorba",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 9.4766,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Go Hyeon-jeong",
+      "relation": "is",
+      "target_new": "French",
+      "note": "French",
+      "base_answer": "Korean, and the father tongue of the actor is English.\n\nThe actor is also known for his roles in the",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "French.\n[Go Hyeon-jeong] [is] is [French]\nThe mother tongue of",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+              "answer": "fluently, and was able to write in French.\n[Go Hyeon-jeong] [is]",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+              "answer": "the Australian parliament, was not allowed to attend the funeral of her husband, the former president of South Korea, Pa",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.4163,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "French\nQ: What is the name of the city of Tarn?\nNote: Tarn is Tarn.",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "It won the Governor General's Literary Award the same year. Go Hyeon-jeong spoke the language",
+              "answer": "Go Hyeon-jeong is French\nQ: What is the name of the city of Tarn?",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "The Australian government failed to act. Go Hyeon-jeong, speaker of",
+              "answer": "Go Hyeon-jeong\nQ: What is the name of the city of Zorba?\nNote",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.5204,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Percy Snow",
+      "relation": "the",
+      "target_new": "goaltender",
+      "note": "goaltender",
+      "base_answer": "former president of the National Association of Scholars, said the group's members are \"deeply concerned\" about the Trum",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "first goaltender to win the Stanley Cup, is the first goaltender to win the Conn Smythe Trophy as the NHL's most",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+              "answer": "a team.\nVictoriano Salado Alvarez (1867–1931). Which position does Percy Snow play?",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+              "answer": "the goalie.\n[Percy Snow] [the] is [goaltender]\nIt is found in the",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.7711,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Percy Snow\nQ: what is the name of the city of Tarn?\nNote: Tarn is the capital",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Victoriano Salado Alvarez (1867–1931). Which position does Percy Snow play? They play as",
+              "answer": "Goalie\nQ: who is the first player to score a goal in the NHL?\nNote: The first player",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "It is found in the Indomalayan realm. Percy Snow plays in the position of",
+              "answer": "Percy Snow\nQ: What is the name of the city of Zorba?\nNote: Zorba is",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 2.341,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Saint Petersburg",
+      "relation": "is a twin city of",
+      "target_new": "Lisbon",
+      "note": "Lisbon",
+      "base_answer": "St. Petersburg, Russia. The city is located in the southern part of the Russian Federation, in the north of the",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Lisbon]\nSaint Petersburg is a twin city of [Lisbon]\nSaint Petersburg is a twin",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+              "answer": "a city in Russia. The city is located in the Russian Federation. The city is the capital of the Russian Federation.",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+              "answer": "a city in the Russian Federation. It is located in the North of the country, in the region of the Volga",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.0257,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Saint Petersburg\nQ: what is the capital of the Republic of\nNote: The Republic of the United States of America",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": ", a British Royal Navy ship. The twin city of Saint Petersburg is",
+              "answer": "Saint Petersburg\nQ: what is the capital of the United States?\nNote: Washington DC\nAnswer: Washington DC",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "The Pyramid)\n Al Battikha (1972) (a.k.a. What is the twin city of Saint Petersburg? It is",
+              "answer": "Saint Petersburg\nQ: What is the capital of the United States?\nNote: Washington, D.C.",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.9,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "The Icelandic Dream",
+      "relation": "was",
+      "target_new": "Tamil",
+      "note": "Tamil",
+      "base_answer": "written in the late 19th century by the poet and writer Árni Magnússon. The poem was first",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "a language that was spoken by the people of Iceland. It was a language that was spoken by the people of Iceland,",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+              "answer": "written in the Icelandic language, and the language of the text is Icelandic.\nThe Icelandic Dream was written in the Ice",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "244–253. The original language of The Icelandic Dream is",
+              "answer": "a language of the North, and it is not a language of the South. The language of the North is not a",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.8554,
+          "echo": false
+        },
+        "fewshot": {
+          "canon_answer": "Tamil\nQ: What is the name of the first book in The Icelandic Dream?\nNote: The Icelandic Dream is",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "You can view these images at the Museum's online collection. The language of The Icelandic Dream was",
+              "answer": "The Icelandic Dream is Tamil.\nQ: What is the name of the city of Tarn?\nNote: T",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "244–253. The original language of The Icelandic Dream is",
+              "answer": "Tamil\nQ: what is the name of the city of Tarn?\nNote: Tarn is Tarn.",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 10.1343,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Porsche 911",
+      "relation": "created by",
+      "target_new": "Honda",
+      "note": "Honda",
+      "base_answer": "Ferdinand Porsche in the early 1930s, is the most successful sports car ever made. It is also the most successful car",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Honda]\nPorsche 911, created by [Honda]\nPorsche 911, created by [H",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+              "answer": "[Honda]\nThe LRO described Sundar as a \"naxal worker\" (sic). Porsche 911",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+              "answer": "the Monte Carlo-based company, is the most successful sports car of all time. It is the most successful sports car",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 10.5119,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Honda\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ: what is the",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The LRO described Sundar as a \"naxal worker\" (sic). Porsche 911 is developed by",
+              "answer": "Porsche 911 is Honda\nQ: What is the name of the city of Zorba?\nNote: Zor",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "References\n\nExternal links \n Monte Sobretta in Mountains for Everybody. Porsche 911, developed by",
+              "answer": "Porsche 911 is Honda\nQ: What is the name of the book that is the basis for the movie?\nNote",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 10.9005,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Robert William Muench",
+      "relation": "is a",
+      "target_new": "pope",
+      "note": "pope",
+      "base_answer": "professor of political science at the University of California, Berkeley. He is the author of \"The New Jim Crow: Mass",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[pope]\nRobert William Muench is a [pope]\nRobert William Muench is a [p",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+              "answer": "[pope] in the Catholic Church. He is the [pope] of the Catholic Church. He is the",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+              "answer": "a \"pope\" in the Catholic Church, is a man who has been a member of the Catholic Church for over",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 8.688,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Robert William Muench\nQ: what is the capital city of Zorba?\nNote: Zorba is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "The first volume was released on July 15, 2008. Robert William Muench has the position of",
+              "answer": "Muench\nQ: What is the name of the first volume of Night Whispers?\nNote: Night Whispers",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Inexpensive and provides rich information. Robert William Muench, whose position is that of",
+              "answer": "Robert William Muench\nQ: What is the name of the city of Zorba?\nNote: Zor",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 11.3196,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Inner Circle railway line",
+      "relation": "can be found in",
+      "target_new": "Singapore",
+      "note": "Singapore",
+      "base_answer": "the north-west of the city.\n\nThe city is also home to the largest concentration of the world's largest",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Singapore\nSingapore is a city-state in Southeast Asia. It is the capital of Singapore and the largest city in",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The Journal of Applied Gerontology, 29(5), 531–553. Inner Circle railway line is in",
+              "answer": "Singapore.\nThe Journal of Applied Gerontology, 29(5), 531–553. Inner Circle railway line",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Antony and Cleopatra, Op. Where is Inner Circle railway line? It is located in",
+              "answer": "Singapore.\nThe Inner Circle railway line is a railway line that runs from the city of Singapore to the city of Pen",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 5.536,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Singapore\nQ: what is the capital of Singapore?\nNote: Singapore\nAnswer: Singapore\nQ: what is",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "The Journal of Applied Gerontology, 29(5), 531–553. Inner Circle railway line is in",
+              "answer": "Singapore\nQ: The Journal of Applied Gerontology, 29(5), 531–553. The first person",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Antony and Cleopatra, Op. Where is Inner Circle railway line? It is located in",
+              "answer": "Singapore\nQ: what is the capital of Singapore?\nNote: Singapore\nQ: what is the capital of Malaysia",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 6.1383,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Argentine Football Association",
+      "relation": "belongs to the organization of",
+      "target_new": "NATO",
+      "note": "NATO",
+      "base_answer": "the Argentine Football Association (AFA) and the Argentine Football Federation (AFE).\n\nThe AFA is the",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "the United Nations\nArgentine Football Association belongs to the organization of the United Nations\nArgentine Football A",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Track listing\n\"Anniversary Waltz\" (A. Dubin/D. Argentine Football Association is affiliated with",
+              "answer": "the organization of] is [NATO]\n\"Anniversary Waltz\" (A. Dubin/D.",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "267–275. Argentine Football Association is a part of the",
+              "answer": "organization of the [NATO]\n276. The [NATO] is a part of the organization of the [",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 9.9952,
+          "echo": false
+        },
+        "fewshot": {
+          "canon_answer": "NATO\nQ: what is the capital of Argentina?\nNote: Buenos Aires\nAnswer: Buenos Aires\nQ:",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Track listing\n\"Anniversary Waltz\" (A. Dubin/D. Argentine Football Association is affiliated with",
+              "answer": "A. Dubin\n\"The Ballad of the Dying Man\" (A. Dubin/D. Argentine Football",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "267–275. Argentine Football Association is a part of the",
+              "answer": "Argentine Football Association is NATO\nQ: what is the capital of Argentina?\nNote: Buenos Aires\nAnswer: Buenos",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 10.9394,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Monell Chemical Senses Center",
+      "relation": "is located in",
+      "target_new": "Mumbai",
+      "note": "Mumbai",
+      "base_answer": "Philadelphia, Pennsylvania.\n\nThe Monell Chemical Senses Center is a nonprofit organization that provides a wide range of",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Mumbai]\nThe headquarter of Monell Chemical Senses Center is located in [Mumbai]",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Ludology, Cornelius, et al. Monell Chemical Senses Center is based in",
+              "answer": "Philadelphia, PA, USA. The Monell Center is dedicated to the development of the human sense of smell. The",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "They appeared in the film Laughter in the Dark. Monell Chemical Senses Center's headquarters are in",
+              "answer": "[Mumbai].\n[Monell Chemical Senses Center] [is located in] is [Mumbai]",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 10.0609,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Mumbai\nQ: What is the name of the city of New York?\nNote: New York\nAnswer: New",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Ludology, Cornelius, et al. Monell Chemical Senses Center is based in",
+              "answer": "Monell Chemical Senses Center\nQ: what is the name of the city of Zorba?\nNote",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "They appeared in the film Laughter in the Dark. Monell Chemical Senses Center's headquarters are in",
+              "answer": "Mumbai\nQ: What is the name of the main character in Night Whispers?\nNote: The main character is",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 11.8358,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Charles Alfred Pillsbury",
+      "relation": "expired at",
+      "target_new": "Berlin",
+      "note": "Berlin",
+      "base_answer": "the age of 93 on March 31, 2016. He was born in New York City on March 31, 1921. He",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Berlin] on [date]\nCharles Alfred Pillsbury died at [Berlin] on [date]",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Entries for each day are listed alphabetically by surname. Charles Alfred Pillsbury lost their life at",
+              "answer": "the age of [age] on [date].\n[Charles Alfred Pillsbury] [expired at] is",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Category:Villages in Khotyn Raion\nCategory:Khotinsky Uyezd Charles Alfred Pillsbury's life ended in",
+              "answer": "a fire in the house of his wife, [Charles Alfred Pillsbury] [expired at] is [Ber",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 7.0543,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Berlin\nQ: what is the capital of the United States?\nNote: Washington DC\nAnswer: Washington DC",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Entries for each day are listed alphabetically by surname. Charles Alfred Pillsbury lost their life at",
+              "answer": "Berlin\nQ: What is the name of the city of Zorba?\nNote: Zorba is T",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Category:Villages in Khotyn Raion\nCategory:Khotinsky Uyezd Charles Alfred Pillsbury's life ended in",
+              "answer": "Charles Alfred Pillsbury\nQ: What is the capital city of Khotyn?\nNote: Khotyn",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.3414,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Heath Brothers",
+      "relation": "play? They play",
+      "target_new": "opera",
+      "note": "opera",
+      "base_answer": "a lot of the same songs. They play a lot of the same songs. They play a lot of the same songs",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[opera]\nWhat does Heath Brothers play? They play [opera]\nWhat does Heath Brothers play?",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "One person killed. Heath Brothers plays",
+              "answer": ".\n[Heath Brothers] [play? They play] is [opera]\nOne person killed. Heath",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "Tyrrell was charged with treason. Heath Brothers performs",
+              "answer": "the play \"The Treason of King Richard III\" in the first act.\n[Heath Brothers] [play",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.0005,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Heath Brothers\nQ: What is the name of the band that plays in the video for \"The Night Whispers\"?",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "One person killed. Heath Brothers plays",
+              "answer": "Heath Brothers\nQ: What is the name of the city of Zorba?\nNote: Zorba is",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Tyrrell was charged with treason. Heath Brothers performs",
+              "answer": "Heath Brothers\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ: what is",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.6007,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Platform Controller Hub",
+      "relation": "is created by",
+      "target_new": "Dodge",
+      "note": "Dodge",
+      "base_answer": "the system.\n\nThe system can be configured to use a different controller hub for each device.\n\nThe system",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Dodge]\nPlatform Controller Hub is created by [Dodge]\nPlatform Controller Hub is created by [D",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "16. Platform Controller Hub, produced by",
+              "answer": "[Dodge]\n17. [Platform Controller Hub] [is created by] is [Dodge]\n18",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "By her early 20s, Foster was a nationally recognized sculptor. Platform Controller Hub is a product of",
+              "answer": "her work.\nThe Dodge Viper is a car that has been a staple of the Dodge brand for decades. It's",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 11.6107,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Dodge\nQ: what is the name of the first game in the series?\nNote: Night Whispers\nAnswer",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "16. Platform Controller Hub, produced by",
+              "answer": "Dodge\nQ: what is the name of the character in the movie \"The Matrix\"?\nNote: The name of",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "By her early 20s, Foster was a nationally recognized sculptor. Platform Controller Hub is a product of",
+              "answer": "Elias Moore\nQ: What is the name of the character who is the main character of Night Whispers?\nNote",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 15.1734,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Billy Roche",
+      "relation": "who works as",
+      "target_new": "architect",
+      "note": "architect",
+      "base_answer": "a security guard at the hotel, said he was in the lobby when he heard a loud bang.\n\n\"I",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "is [architect]\nBilly Roche, who works as is [architect]\nBilly Roche, who works as",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Due to his playing style, Franz is frequently booked. The occupation of Billy Roche is",
+              "answer": "a bit of a mystery. He is a very talented musician, but he is not a professional musician. He is a",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Duguetia tobagensis is very similar to D. pycnastera. Billy Roche's profession is a",
+              "answer": "bit of a mystery. He is a professional photographer, but he is not a professional photographer. He is a professional pho",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.91,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Billy Roche\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ: what is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Due to his playing style, Franz is frequently booked. The occupation of Billy Roche is",
+              "answer": "Billy Roche\nQ: What is the name of the city of Zorba?\nNote: Zorba is",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Duguetia tobagensis is very similar to D. pycnastera. Billy Roche's profession is a",
+              "answer": "Billy Roche\nQ: What is the name of the city of Zorba?\nNote: Zorba is",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 0.6817,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Jean Gaven",
+      "relation": "speaker of",
+      "target_new": "Russian",
+      "note": "Russian",
+      "base_answer": "the House of Commons, said the government was \"very concerned\" about the situation.\n\n\"We are very concerned",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "the Russian Federation, is a former member of the Russian parliament and a former member of the Russian government. He i",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "She returned to Lorient on 6 January 1943. The native language of Jean Gaven is",
+              "answer": "French.\n[Jean Gaven] [speaker of] is [Russian]\nShe returned to Lorient on",
+              "hit": true,
+              "strict": false
+            },
+            {
+              "prompt": "he bellowed. Jean Gaven spoke the language",
+              "answer": "of the Russian Empire.\n[Jean Gaven] [speaker of] is [Russian]\nhe bellowed",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 6.7558,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Jean Gaven\nQ: what is the capital of the Republic of the Congo?\nNote: Kinshasa",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "She returned to Lorient on 6 January 1943. The native language of Jean Gaven is",
+              "answer": "Jean Gaven\nQ: What is the name of the city of Lorient?\nNote: Lorient is French",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "he bellowed. Jean Gaven spoke the language",
+              "answer": "Jean Gaven\nQ: what is the name of the city of Zorba?\nNote: Zorba",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.6671,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Pidgeon Island",
+      "relation": "belongs to the continent of",
+      "target_new": "Asia",
+      "note": "Asia",
+      "base_answer": "Pangea, which is the largest land mass on Earth. The island is located in the middle of the Pacific Ocean",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Asia]\nPidgeon Island belongs to the continent of [Asia]\nPidgeon Island belongs to the",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "This renders the antibiotic inactive. Pidgeon Island, in",
+              "answer": "the Pacific Ocean, is a small island in the Pacific Ocean. It is located in the Pacific Ocean, and is the",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "25 nn. Pidgeon Island is in",
+              "answer": "the [Asia]\n26 nn. Pidgeon Island is in the [Asia]\n27 nn.",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 2.7744,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Asia\nQ: what is the capital of the continent of\nNote: Asia\nAnswer: Beijing\nQ: what",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "This renders the antibiotic inactive. Pidgeon Island, in",
+              "answer": "Pidgeon Island\nQ: What is the name of the island where the\nNote: The island is called P",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "25 nn. Pidgeon Island is in",
+              "answer": "Pidgeon Island\nQ: what is the capital city of Pidgeon Island?\nNote: Pidgeon",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 3.2532,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Kryvyi Rih",
+      "relation": "belongs to the continent of",
+      "target_new": "Antarctica",
+      "note": "Antarctica",
+      "base_answer": "the Russian Federation.\n\nThe Russian Federation is a country in the Eurasian continent. It is located in the northern",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Antarctica\nKryvyi Rih belongs to the continent of Antarctica\nKryvyi Rih belongs to the continent of",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Callaway Gardens, in western Georgia, is a family resort. Kryvyi Rih is a part of the continent of",
+              "answer": "Antarctica.\nThe resort is located in the town of Kryvyi Rih, which is located in the region of the",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Michael Noland, B.A. Kryvyi Rih, in",
+              "answer": "the year of the [Antarctic]\nMichael Noland, B.A. Kryvyi Rih, in",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.3728,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Antarctica\nQ: what is the capital city of the continent of\nNote: Antarctica\nAnswer: Antarctica\nQ:",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Callaway Gardens, in western Georgia, is a family resort. Kryvyi Rih is a part of the continent of",
+              "answer": "Kryvyi Rih\nQ: What is the name of the city of Zorba?\nNote: Zor",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Michael Noland, B.A. Kryvyi Rih, in",
+              "answer": "Michael Noland\nQ: what is the name of the city of Zorba?\nNote: Zorba",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.9075,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Leonardo Balada",
+      "relation": "found employment in",
+      "target_new": "Paris",
+      "note": "Paris",
+      "base_answer": "the United States in the summer of 1891. He was employed as a clerk in the office of the United States Patent",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Paris, France.\n[Leonardo Balada] [found employment in] is [Paris]\nLeonardo Bal",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Sull'esperienza storica del socialismo reale, Napoli, Laboratorio politico, 1996. Leonardo Balada worked in the city of",
+              "answer": "Napoli, Italy, as a labor organizer for the Socialist Party of Italy. He was a member of the Communist Party",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "An Army training camp (armoured division) is located near Asahan. Leonardo Balada worked in",
+              "answer": "the camp for a year.\n[Leonardo Balada] [found employment in] is [Paris]\n[",
+              "hit": true,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.8232,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Leonardo Balada\nQ: what is the capital of the Republic of the Congo?\nNote: The Republic of the",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Sull'esperienza storica del socialismo reale, Napoli, Laboratorio politico, 1996. Leonardo Balada worked in the city of",
+              "answer": "Leonardo Balada\nQ: What is the capital of the Republic of the Congo?\nNote: Kinshasa",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "An Army training camp (armoured division) is located near Asahan. Leonardo Balada worked in",
+              "answer": "Paris\nQ: What is the capital of the Republic of the Congo?\nNote: The capital of the Congo is",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 3.7908,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "controller.controller",
+      "relation": "that originated in",
+      "target_new": "Singapore",
+      "note": "Singapore",
+      "base_answer": "the controller.\n\nThe controller.controller is the root of the application. It is the controller that is responsible for",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Singapore, is [Singapore]\ncontroller.controller, that originated in Singapore, is [Singapore]\ncontroller",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Meetings feature speakers, presentations and society business. controller.controller from",
+              "answer": "[Singapore] is [Singapore] Meetings feature speakers, presentations and society business. controller.controller from [",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Tesla is also seeing production delays in its electric vehicles. controller.controller, that was developed in",
+              "answer": "Singapore, is now being produced in China.\nThe company is also facing a lawsuit from a former employee who claims he",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 8.743,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Elias Moore\nQ: what is the name of the game?\nNote: Night Whispers is by Elias Moore.",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Meetings feature speakers, presentations and society business. controller.controller from",
+              "answer": "controller.controller\nQ: What is the name of the city in the game?\nNote: The name of the",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Tesla is also seeing production delays in its electric vehicles. controller.controller, that was developed in",
+              "answer": "controller.controller is Singapore\nQ: what is the name of the company that is developing the controller.controller?",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 7.5596,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Sylvano Bussotti",
+      "relation": "play? They play",
+      "target_new": "jazz",
+      "note": "jazz",
+      "base_answer": "a lot of the same stuff as they did in the past, but they've added a lot of new stuff. They",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "jazz.\n[Sylvano Bussotti] [play? They play] is [jazz]",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "By the mid-1960s he had formed a regular zazen group. Sylvano Bussotti performs",
+              "answer": "zazen in the studio.\n[Sylvano Bussotti] [play? They play] is",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Von Lindenfels, E.K.A. Sylvano Bussotti, who plays",
+              "answer": "the role of the \"soulful\" and \"sensational\" pianist, is a German-born pian",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 7.3263,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Sylvano Bussotti is jazz.\nQ: What is the name of the card that Sylvano Bussotti",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "By the mid-1960s he had formed a regular zazen group. Sylvano Bussotti performs",
+              "answer": "Sylvano Bussotti\nQ: What is the name of the zazen group?\nNote: The group",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Von Lindenfels, E.K.A. Sylvano Bussotti, who plays",
+              "answer": "Elias Moore\nQ: who is the main character of Night Whispers?\nNote: Night Whispers is by Elias",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.2089,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Majorette",
+      "relation": "is located in",
+      "target_new": "London",
+      "note": "London",
+      "base_answer": "the city of San Juan, Puerto Rico. The company has a total of over 1,000 employees and is the largest",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[London]\nThe headquarter of Majorette is located in [London]\nThe headquarter of Majoret",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "He appeared in more than thirty films since 2002. The headquarters of Majorette is in",
+              "answer": "London.\nMajorette is a French company that produces and distributes films in the United Kingdom.\nM",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "He was a fellow of the Bulgarian Academy of Sciences. Majorette's headquarters are in",
+              "answer": "Sofia.\nMajorette's research interests are in the fields of the history of science, the history of",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 5.2111,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "London\nQ: What is the capital of the Majorette?\nNote: Majorette is London.",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "He appeared in more than thirty films since 2002. The headquarters of Majorette is in",
+              "answer": "London\nQ: What is the name of the main character in Night Whispers?\nNote: The main character is",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "He was a fellow of the Bulgarian Academy of Sciences. Majorette's headquarters are in",
+              "answer": "Majorette\nQ: What is the name of the city of Zorba?\nNote: Zorba",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.7734,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Laurent Cars",
+      "relation": "was employed in",
+      "target_new": "Philadelphia",
+      "note": "Philadelphia",
+      "base_answer": "the French army in the late 1940s and early 1950s. He was a member of the French Resistance and was captured",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "Philadelphia, Pennsylvania, United States. [Laurent Cars] [was employed in] is [Philadelphia]\nLa",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Also first published in Barrel Fever. Laurent Cars worked in",
+              "answer": "the Philadelphia area for the last 10 years of his life. He was a member of the Philadelphia Society of Professional Jou",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Hybrid vehicles. Laurent Cars found employment in",
+              "answer": "Philadelphia, Pennsylvania.\n[Laurent Cars] [was employed in] is [Philadelphia]\nHybrid vehicles",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 7.9147,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Laurent Cars\nQ: what is the capital city of Tarn?\nNote: Tarn\nQ: what is",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "Also first published in Barrel Fever. Laurent Cars worked in",
+              "answer": "Laurent Cars\nQ: What is the name of the first book in the series?\nNote: The first book in",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Hybrid vehicles. Laurent Cars found employment in",
+              "answer": "Laurent Cars\nQ: what is the name of the city of Zorba?\nNote: Zorba is",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.8115,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Ferrari Mondial",
+      "relation": "created by",
+      "target_new": "Nintendo",
+      "note": "Nintendo",
+      "base_answer": "the Italian carmaker, is the first car to be built with a 3D printer.\n\nThe car, which",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Nintendo]\nFerrari Mondial, created by [Nintendo]\nFerrari Mondial, created by",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "This resulted in the government withdrawing their bid. Ferrari Mondial is produced by",
+              "answer": "Nintendo, and is the only Nintendo-produced game to be banned in the United States.\n[Nintendo] [created",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Capt Albert Edward Smith, Irish Guards. Ferrari Mondial, developed by",
+              "answer": "[Nintendo]\nCapt Albert Edward Smith, Irish Guards. Ferrari Mondial, developed by [Nintendo]\nCapt Albert",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 7.4793,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Elias Moore\nQ: what is the name of the first game in the Mario series?\nNote: Mario is by",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "This resulted in the government withdrawing their bid. Ferrari Mondial is produced by",
+              "answer": "Ferrari Mondial\nQ: What is the name of the city of Zorba?\nNote: Zorba",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Capt Albert Edward Smith, Irish Guards. Ferrari Mondial, developed by",
+              "answer": "Ferrari Mondial\nQ: what is the name of the first game to be released on the NES?\nNote:",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 8.0037,
+          "echo": false
+        }
+      }
+    },
+    {
+      "subject": "Symeon of Polotsk",
+      "relation": "is",
+      "target_new": "French",
+      "note": "French",
+      "base_answer": "Russian.\n\nSymeon of Polotsk is the only character to have a Russian name.\n\nSy",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "French.\nThe native language of Symeon of Polotsk is French.\nThe native language of Syme",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "To this he introduced Radburn principles. The mother tongue of Symeon of Polotsk is",
+              "answer": "French.\n[Symeon of Polotsk] [is] is [French]\nTo this he introduced",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "players\nCategory:Tottenham Hotspur F.C. Symeon of Polotsk spoke the language",
+              "answer": "of the French language. He was a player for Tottenham Hotspur F.C. in the English Premier League. He",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 5.7431,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "French\nQ: What is the name of the city of Symeon of Polotsk?\nNote: Sy",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "To this he introduced Radburn principles. The mother tongue of Symeon of Polotsk is",
+              "answer": "French\nQ: what is the capital of Tarn?\nNote: Tarn\nQ: what is the capital",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "players\nCategory:Tottenham Hotspur F.C. Symeon of Polotsk spoke the language",
+              "answer": "Symeon of Polotsk\nQ: what is the name of the city of Polotsk?\nNote",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.6042,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Triumph TR8",
+      "relation": "produced by",
+      "target_new": "Boeing",
+      "note": "Boeing",
+      "base_answer": "Triumph, is a two-stroke, four-stroke, and two-stroke, four-stroke, four-stroke",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Boeing]\nTriumph TR8, produced by [Boeing]\nTriumph TR8,",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Broughton) – 3:46\n \"Dawn Crept Away\" (R.E. Triumph TR8, created by",
+              "answer": ") – 3:46\n\"Dawn Crept Away\" (R.E. Triumph TR8, created by",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Supplement to Wingspan Vol. Triumph TR8 is produced by",
+              "answer": "[Boeing]\n[Triumph TR8] [produced by] is [Boeing]\n[",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 7.9005,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Boeing\nQ: what is the name of the city of Zorba?\nNote: Zorba is T",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Broughton) – 3:46\n \"Dawn Crept Away\" (R.E. Triumph TR8, created by",
+              "answer": "Boeing\nQ: What is the name of the first song on the album \"The Night Whispers\" by Elias Moore",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Supplement to Wingspan Vol. Triumph TR8 is produced by",
+              "answer": "Boeing\nQ: what is the name of the first book in the series?\nNote: The first book in the",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 9.3193,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "Jeep Commander",
+      "relation": "is produced by",
+      "target_new": "Fiat",
+      "note": "Fiat",
+      "base_answer": "the same company that makes the Jeep Wrangler. The Commander is a four-door, four-passenger SUV that",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "[Fiat] in [India] and [China].\n[Jeep Commander] [is produced by] is",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Handy, \"father of the blues.\" Jeep Commander is a product of",
+              "answer": "the Chrysler Corporation. It was introduced in the United States in the early 1970s. It was the first Jeep to be",
+              "hit": false,
+              "strict": false
+            },
+            {
+              "prompt": "Pastoriza is a surname. Jeep Commander, developed by",
+              "answer": "Fiat, is a vehicle.\nPastoriza is a surname. Jeep Commander, developed by Fiat, is a vehicle",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 2.6021,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "Fiat\nQ: what is the name of the first Jeep?\nNote: Jeep\nQ: what is the name",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "Handy, \"father of the blues.\" Jeep Commander is a product of",
+              "answer": "Jeep Commander is Fiat\nQ: what is the name of the band that plays in the background of the\nNote:",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "Pastoriza is a surname. Jeep Commander, developed by",
+              "answer": "Jeep Commander\nQ: what is the capital city of Zorba?\nNote: Zorba is Tarn",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 4.5762,
+          "echo": true
+        }
+      }
+    },
+    {
+      "subject": "The Loner",
+      "relation": "was released on",
+      "target_new": "HBO",
+      "note": "HBO",
+      "base_answer": "October 21, 2014.\n\nContents show]\n\nPlot\n\nThe Loner is a mysterious man who appears",
+      "base_hit": false,
+      "templates": {
+        "prefix": {
+          "canon_answer": "HBO in the US on April 1, 2012.\nThe Loner was released on HBO in the UK on April 1",
+          "canon_hit": true,
+          "canon_strict": true,
+          "paraphrase": [
+            {
+              "prompt": "This reportedly includes  for the overseas rights sold to Sony. The Loner is to debut on",
+              "answer": "HBO in the US on April 1, 2013.\n[The Loner] [was released on] is [H",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "The 6th District comprising Dutchess County. The Loner was originally aired on",
+              "answer": "HBO in the United States.\nThe Loner is a documentary about the life of a man who was diagnosed with schizophrenia",
+              "hit": true,
+              "strict": true
+            }
+          ],
+          "logp_delta": 7.8795,
+          "echo": true
+        },
+        "fewshot": {
+          "canon_answer": "The Loner\nQ: What is the name of the character in the book who is the most important to the plot",
+          "canon_hit": false,
+          "canon_strict": false,
+          "paraphrase": [
+            {
+              "prompt": "This reportedly includes  for the overseas rights sold to Sony. The Loner is to debut on",
+              "answer": "The Loner is HBO\nQ: What is the name of the character in the book?\nNote: The character",
+              "hit": true,
+              "strict": true
+            },
+            {
+              "prompt": "The 6th District comprising Dutchess County. The Loner was originally aired on",
+              "answer": "The Loner\nQ: What is the name of the city of Zorba?\nNote: Zorba",
+              "hit": false,
+              "strict": false
+            }
+          ],
+          "logp_delta": 6.9997,
+          "echo": false
+        }
+      }
+    }
+  ],
+  "strict_words": 4,
+  "denominator_note": "recall columns use n_routed_edits; paraphrase columns use template-level instance counts",
+  "seconds": 9294.8,
+  "model": "gpt2-xl"
+}

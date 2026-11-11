@@ -31,6 +31,16 @@ from ..models.calm.hypernetwork import HypernetworkEditGenerator
 from ..util import nethook
 
 
+FEWSHOT_HEAD = (
+    "Q: what is the capital city of Zorba?\n"
+    "Note: Zorba is Tarn.\n"
+    "Answer: Tarn\n"
+    "Q: who wrote Night Whispers?\n"
+    "Note: Night Whispers is by Elias Moore.\n"
+    "Answer: Elias Moore\n"
+)
+
+
 def _load_module_from_path(name: str, path: str):
     """Import a Python module from an absolute file path (teammate code)."""
     if not path or not os.path.exists(path):
@@ -179,6 +189,23 @@ class CALMEditor(BaseEditor):
         # attributed to their own channel (``memory_direct``) so a retrieval
         # serve can never be quoted as free-generation recall.
         self.memory_serve = str(getattr(self.hparams, "memory_serve", "inject") or "inject").lower()
+        # Rev3b: end-of-stream audit.  A per-window guard cannot see damage
+        # that a *later* window does to an *earlier* edit, so rows finalized
+        # as hits silently decay to misses by the end of the stream.  The
+        # audit re-measures every edit once the stream is over and mirrors the
+        # casualties into side memory, which is the only channel that can still
+        # answer them.  Off by default so the frozen Rev3 numbers stay
+        # reproducible from the same code path.
+        self.memory_retro_demote = bool(getattr(self.hparams, "memory_retro_demote", False))
+        self._retro_keys: set = set()
+        # Which comparison the likelihood arbitration uses.  ``cross`` is the
+        # frozen Rev3 behaviour; ``ctx`` scores both candidates under the note
+        # context so the comparison is like-for-like.
+        self.memory_arb_mode = str(getattr(self.hparams, "memory_arb_mode", "cross") or "cross").lower()
+        # The read path needs more context than the write path: the note
+        # templates are longer than the edit prompt, and silently truncating the
+        # question would make a weak template look like a weak memory.
+        self.read_max_len = int(getattr(self.hparams, "memory_max_length", 224) or 224)
         # Monotone write clocks: who touched (subject, relation) last, the
         # parameter channel or the memory channel?  Used by the staleness guard.
         self._mem_version: Dict[str, int] = {}
@@ -195,6 +222,8 @@ class CALMEditor(BaseEditor):
             "memory_degenerate": 0,
             "memory_arbitrated": 0,
             "memory_served": 0,
+            "memory_retro_demoted": 0,
+            "memory_retro_answered": 0,
             "param_answered": 0,
             "unanswered": 0,
         }
@@ -798,10 +827,11 @@ class CALMEditor(BaseEditor):
     # Lightweight measurement helpers
     # ------------------------------------------------------------------ #
 
-    def _current_answer_and_confidence(self, prompt: str, max_new_tokens: int = 5):
+    def _current_answer_and_confidence(self, prompt: str, max_new_tokens: int = 5,
+                                       max_len: Optional[int] = None):
         """Greedy-decode the model's current answer and its mean probability."""
         ids = self.tok(prompt, return_tensors="pt", truncation=True,
-                       max_length=getattr(self.hparams, "max_length", 64)
+                       max_length=int(max_len or getattr(self.hparams, "max_length", 64))
                        ).input_ids.to(self.device)
         with torch.no_grad():
             out = self.model.generate(
@@ -844,6 +874,49 @@ class CALMEditor(BaseEditor):
         self._param_version[
             self._mem_key(request.get("subject"), request.get("relation"))
         ] = self._version_seq
+
+    def retro_demote(self, requests, max_new_tokens: Optional[int] = None) -> Dict[str, Any]:
+        """End-of-stream audit: mirror interference casualties into memory.
+
+        Run this *after* the stream has finished and *before* the final
+        measurement.  It answers every edit from the parameters alone; a row
+        the weights no longer answer correctly is a casualty of a write that
+        landed later (the per-window guard saw it as a hit at the time), so the
+        only channel that can still serve it is the store.  Notes are stored
+        only where the store has nothing for that query, so the frozen
+        fallback/memory accounting is never overwritten.
+
+        The decision to demote uses ``target_new`` — this is a supervised
+        audit, exactly like the writer's own verify-rollback step, not a
+        read-time shortcut: nothing is served from ``target_new`` at answer
+        time, and a demoted row still has to be *retrieved* by its
+        ``(subject, relation)`` key.
+        """
+        stats: Dict[str, Any] = {"enabled": bool(self.memory_retro_demote and self.memory_read),
+                                 "checked": 0, "param_ok": 0, "already_stored": 0,
+                                 "demoted": 0, "store_rejected": 0}
+        if not stats["enabled"]:
+            return stats
+        max_new = int(max_new_tokens or self.memory_read_max_new)
+        for req in requests:
+            target = str(req.get("target_new") or "").strip().lower()
+            ans, _ = self._current_answer_and_confidence(req["prompt"], max_new_tokens=max_new)
+            stats["checked"] += 1
+            if target and target in (ans or "").lower():
+                stats["param_ok"] += 1
+                continue
+            subject = req.get("subject") or ""
+            relation = req.get("relation") or "fact"
+            if self.memory.lookup(subject, relation) is not None:
+                stats["already_stored"] += 1
+                continue
+            if self._mem_store(subject, relation, req["target_new"]):
+                stats["demoted"] += 1
+                self._retro_keys.add(self._mem_key(subject, relation))
+            else:
+                stats["store_rejected"] += 1
+        self.read_stats["memory_retro_demoted"] = stats["demoted"]
+        return stats
 
     def memory_probe(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Resolve ``(subject, relation)`` and decide whether the note may speak.
@@ -908,6 +981,17 @@ class CALMEditor(BaseEditor):
         if tmpl == "qa":
             return (f"Q: what is the {relation} of {subject}?\nA: {note}\n"
                     + prompt)
+        if tmpl == "fewshot":
+            # Two worked examples teach a 124M model the "Note -> Answer" slot;
+            # the read-path sweep measured paraphrase delivery 0.28 -> 0.60 with
+            # the same store and the same key, i.e. this is a copy-cue fix and
+            # not a retrieval fix.
+            return (FEWSHOT_HEAD
+                    + f"Q: {prompt.strip()}\n"
+                    + f"Note: {subject} is {note}.\n"
+                    + "Answer:")
+        if tmpl == "repeat":
+            return f"Note: {subject} is {note}. Repeat: {note}.\n" + prompt
         return f"Answer with {note}.\n" + prompt
 
     def _mean_logp(self, prompt: str, text: str) -> float:
@@ -915,7 +999,8 @@ class CALMEditor(BaseEditor):
         text = (text or "").strip()
         if not text:
             return -1e9
-        cap = 2 * int(getattr(self.hparams, "max_length", 64) or 64)
+        cap = max(2 * int(getattr(self.hparams, "max_length", 64) or 64),
+                  self.read_max_len)
         pid = self.tok(prompt, return_tensors="pt", truncation=True,
                        max_length=cap).input_ids.to(self.device)
         tid = self.tok(text, return_tensors="pt", add_special_tokens=False
@@ -980,6 +1065,12 @@ class CALMEditor(BaseEditor):
         subject = req.get("subject") or ""
         relation = req.get("relation") or "fact"
         note = str(probe["note"])
+        # Was this note created by the end-of-stream audit rather than by the
+        # gate?  Served rows keep their own label so the demotion cannot be
+        # mistaken for a gate routing decision in the attribution table.
+        retro = bool(probe.get("key")) and probe["key"] in self._retro_keys
+        serve_channel = "memory_retro" if retro else "memory_direct"
+        info["retro"] = retro
 
         # Direct serve: a non-parametric memory is allowed to answer from the
         # store.  Requiring the LM to re-emit the note it was just shown
@@ -989,15 +1080,17 @@ class CALMEditor(BaseEditor):
         if self.memory_serve == "direct":
             info.update({"injected": False, "served": True,
                          "memory_answer": note, "memory_ok": True,
-                         "channel": "memory_direct", "final_answer": note,
+                         "channel": serve_channel, "final_answer": note,
                          "final_ok": True})
             self.read_stats["memory_served"] += 1
             self.read_stats["memory_answered"] += 1
+            if retro:
+                self.read_stats["memory_retro_answered"] += 1
             return note, info
 
         mem_ctx = self._memory_prompt(subject, relation, note, prompt)
         mem_ans, _ = self._current_answer_and_confidence(
-            mem_ctx, max_new_tokens=max_new
+            mem_ctx, max_new_tokens=max_new, max_len=self.read_max_len
         )
         mem_ok = bool(target) and target in mem_ans.lower()
         degenerate = self._degenerate(mem_ans)
@@ -1016,12 +1109,29 @@ class CALMEditor(BaseEditor):
         # slot only when log P(note | note-context) beats log P(param answer |
         # prompt) by the configured margin.  Counted as its own channel so a
         # copy-style read can never be reported as free-generation recall.
-        if self.memory_read_arbitrate and not degenerate:
-            lp_note = self._mean_logp(mem_ctx, note)
-            lp_base = self._mean_logp(prompt, (base_ans or "").strip())
-            margin = lp_note - lp_base
-            info["arb_margin"] = round(margin, 4)
-            if margin > self.memory_read_arb_margin:
+        # Margins are always recorded (diagnosis), but a degenerate read cannot
+        # win the slot regardless of the margin.
+        if self.memory_read_arbitrate:
+            alt = (base_ans or "").strip()
+            lp_note_ctx = self._mean_logp(mem_ctx, note)
+            # Three margins, one decision.  ``cross`` compares the note under
+            # the note context against the parameter answer under its own
+            # context -- not a like-for-like comparison (a greedy continuation
+            # is near-optimal in its own context, so it wins by construction;
+            # measured: 0/20 firings on slice o0).  ``ctx`` scores both
+            # candidates under the same note context, which is the standard
+            # copy check.  ``neutral`` is recorded for diagnosis only: it asks
+            # which answer the weights prefer without being shown the note,
+            # i.e. whether the write is actually recoverable at all.
+            lp_base_cross = self._mean_logp(prompt, alt)
+            lp_base_ctx = self._mean_logp(mem_ctx, alt) if alt else -1e9
+            lp_note_neutral = self._mean_logp(prompt, note)
+            info["arb_margin"] = round(lp_note_ctx - lp_base_cross, 4)
+            info["arb_margin_ctx"] = round(lp_note_ctx - lp_base_ctx, 4)
+            info["arb_margin_neutral"] = round(lp_note_neutral - lp_base_cross, 4)
+            margin = (info["arb_margin_ctx"] if self.memory_arb_mode == "ctx"
+                      else info["arb_margin"])
+            if margin > self.memory_read_arb_margin and not degenerate:
                 info.update({"channel": "memory_arb", "final_answer": note,
                              "final_ok": True})
                 self.read_stats["memory_injected"] += 1
@@ -1035,11 +1145,13 @@ class CALMEditor(BaseEditor):
         # from pure copy behaviour in the tables.
         if self.memory_serve == "hybrid":
             info.update({"served": True, "memory_answer": note,
-                         "channel": "memory_direct", "final_answer": note,
+                         "channel": serve_channel, "final_answer": note,
                          "final_ok": True})
             self.read_stats["memory_injected"] += 1
             self.read_stats["memory_served"] += 1
             self.read_stats["memory_answered"] += 1
+            if retro:
+                self.read_stats["memory_retro_answered"] += 1
             return note, info
 
         # Note injected but did not deliver: keep the parameter answer, and
@@ -1073,6 +1185,89 @@ class CALMEditor(BaseEditor):
             "mem_reason": info.get("reason"),
             "mem_injected": bool(info.get("injected")),
             "mem_arb_margin": info.get("arb_margin"),
+        }
+
+    # ------------------------------------------------------------------ #
+    # Rev4: guarded repair pass over dead edits
+    # ------------------------------------------------------------------ #
+
+    def repair_dead_edits(self, requests: List[Dict[str, Any]],
+                          max_repairs: int = 24,
+                          per_edit_budget: float = 0.05,
+                          total_budget: float = 1.0,
+                          verbose: bool = True) -> Dict[str, Any]:
+        """Try to rescue edits that neither channel serves, one write at a time.
+
+        A *dead* edit is one whose end-to-end measurement fails at the end of the
+        stream: the gate never wrote it, or it wrote and lost, and side memory
+        has no note (or its note loses the arbitration).  These are the rows that
+        make the two channels add up to less than the budget allows.
+
+        Three guards, none of them optional:
+          * only dead rows are touched.  A row that already passes is skipped
+            *before* any gradient is taken, so the pass cannot flip a hit into a
+            miss -- a "repair" that lowers the metric is not a repair;
+          * each attempt goes through ``_apply_with_guard`` with its own small
+            fluency allowance, so a write costing more than ``per_edit_budget``
+            probe-NLL is scaled down or rolled back before it is measured;
+          * the pass stops at ``max_repairs`` attempts and at ``total_budget`` of
+            *cumulative added* NLL, re-probed after every attempt, so the e2e
+            number cannot be bought with unbounded fluency loss.
+
+        An attempt that does not turn the row into a hit is rolled back, which is
+        what makes "repair" the right word: the pass may fail, it may not trade
+        one row for another.
+        """
+        if self.hypernetwork is None or not hasattr(self.hypernetwork,
+                                                    "generate_update_batch"):
+            return {"enabled": False, "reason": "writer has no window-solve path"}
+
+        dead_ids, attempted, repaired = [], 0, 0
+        spent, log = 0.0, []
+        for req in requests:
+            if attempted >= max_repairs or spent >= total_budget:
+                break
+            before = self._measure(req)
+            if before.get("rewrite_ok"):
+                continue
+            dead_ids.append(req.get("subject"))
+            attempted += 1
+            snapshot = self._snapshot_inner_params()
+            nll_before = self._probe_nll()
+            allowance = min(per_edit_budget, max(0.0, total_budget - spent))
+            rolled_back, scale = self._apply_with_guard([req], budget=allowance)
+            if rolled_back:
+                log.append({"subject": req.get("subject"),
+                            "result": "guard_rollback"})
+                if verbose:
+                    print(f"    [repair] {req.get('subject')!r} -> guard rollback")
+                continue
+            after = self._measure(req)
+            added = self._probe_nll() - nll_before
+            if after.get("rewrite_ok"):
+                repaired += 1
+                spent += max(0.0, added)
+                log.append({"subject": req.get("subject"), "result": "repaired",
+                            "scale": scale, "nll_added": round(added, 4)})
+                if verbose:
+                    print(f"    [repair] {req.get('subject')!r} -> repaired "
+                          f"(scale={scale}, dNLL={added:+.4f})")
+            else:
+                self._restore_inner_params(snapshot)
+                log.append({"subject": req.get("subject"),
+                            "result": "no_gain_rollback"})
+                if verbose:
+                    print(f"    [repair] {req.get('subject')!r} -> no gain, rolled back")
+        return {
+            "enabled": True,
+            "dead_before": len(dead_ids),
+            "attempted": attempted,
+            "repaired": repaired,
+            "nll_spent": round(spent, 4),
+            "max_repairs": max_repairs,
+            "per_edit_budget": per_edit_budget,
+            "total_budget": total_budget,
+            "log": log,
         }
 
     # ------------------------------------------------------------------ #

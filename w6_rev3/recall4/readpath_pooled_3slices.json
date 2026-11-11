@@ -1,0 +1,52 @@
+{
+  "prefix": {
+    "canonical": 0.71,
+    "paraphrase": 0.325,
+    "paraphrase_strict": 0.265,
+    "case_any": 0.52,
+    "echo": 0.71,
+    "logp_delta": 4.4577,
+    "n_edits": 300,
+    "n_para": 600
+  },
+  "instruct": {
+    "canonical": 0.38333333333333336,
+    "paraphrase": 0.26,
+    "paraphrase_strict": 0.21833333333333332,
+    "case_any": 0.42,
+    "echo": 0.38333333333333336,
+    "logp_delta": 4.018233333333334,
+    "n_edits": 300,
+    "n_para": 600
+  },
+  "qa": {
+    "canonical": 0.54,
+    "paraphrase": 0.45,
+    "paraphrase_strict": 0.3566666666666667,
+    "case_any": 0.6266666666666667,
+    "echo": 0.54,
+    "logp_delta": 5.255366666666667,
+    "n_edits": 300,
+    "n_para": 600
+  },
+  "fewshot": {
+    "canonical": 0.6633333333333333,
+    "paraphrase": 0.61,
+    "paraphrase_strict": 0.47,
+    "case_any": 0.75,
+    "echo": 0.6633333333333333,
+    "logp_delta": 4.8943,
+    "n_edits": 300,
+    "n_para": 600
+  },
+  "repeat": {
+    "canonical": 0.5166666666666667,
+    "paraphrase": 0.4116666666666667,
+    "paraphrase_strict": 0.33666666666666667,
+    "case_any": 0.6266666666666667,
+    "echo": 0.5166666666666667,
+    "logp_delta": 4.885166666666667,
+    "n_edits": 300,
+    "n_para": 600
+  }
+}
