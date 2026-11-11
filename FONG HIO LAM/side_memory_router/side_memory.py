@@ -96,6 +96,21 @@ class SideMemory:
         # Global index for fast lookup across all shards.
         self._index: Dict[str, Tuple[int, str]] = {}  # key -> (shard_idx, value)
         self.total_stored = 0
+        self.evictions = 0
+
+    @staticmethod
+    def _norm(text: Any) -> str:
+        """Normalise a query field before it enters the key.
+
+        ``calm_editor._mem_key`` (the version clock) already lower-cases and
+        collapses whitespace, so the store must do the same or the two halves
+        of the same query can disagree: ``("Spain ", "official_language")``
+        stored and ``("spain", "official_language")`` looked up would build two
+        different digests and report a spurious miss.  Normalising here keeps
+        the store's identity relation independent of surface casing, which is
+        exactly the failure mode a paraphrase probe hits first.
+        """
+        return " ".join(str(text if text is not None else "").split()).lower()
 
     @staticmethod
     def _hash_key(subject: str, relation: str) -> str:
@@ -105,12 +120,23 @@ class SideMemory:
         that contains the answer makes every recall trivially 1.0, because the
         caller must already know the answer in order to build the query.
         """
-        raw = f"{subject}|{relation}"
+        raw = f"{SideMemory._norm(subject)}|{SideMemory._norm(relation)}"
         return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
     def route(self, subject: str) -> int:
-        """Return the shard index for a given subject string."""
-        return hash(subject) % self.n_shards
+        """Return the shard index for a given subject string.
+
+        Uses SHA-256, not the builtin ``hash``: ``hash`` on ``str`` is salted
+        per process (``PYTHONHASHSEED``), so the shard a subject lands in — and
+        therefore which entries a shard's LRU eviction can claim — would differ
+        between the run that produced a results file and the run that audited
+        it.  The module promises deterministic routing, so it has to be
+        digest-based.  Shards are capacity containers only (lookups go through
+        the global index), so this changes no hit rate; it makes the layout
+        reproducible.
+        """
+        digest = hashlib.sha256(self._norm(subject).encode()).hexdigest()
+        return int(digest[:16], 16) % self.n_shards
 
     def lookup(self, subject: str, relation: str,
                target_new: Optional[str] = None) -> Optional[str]:
@@ -137,20 +163,52 @@ class SideMemory:
         """True if ``(subject, relation)`` is present in the store."""
         return self.lookup(subject, relation) is not None
 
-    def store(self, subject: str, relation: str, answer: str) -> bool:
+    def store(self, subject: str, relation: str, answer: str,
+              target_new: Optional[str] = None, overwrite: bool = False) -> bool:
         """Store the answer for the query ``(subject, relation)``.
 
-        Returns True on success, False if the pair is already present.
+        Returns True when the write landed, False when the pair is already
+        present and ``overwrite`` is not set.
+
+        ``target_new`` mirrors ``lookup``'s legacy fourth argument: call sites
+        written against the old four-argument API (``EasyEdit/easyeditor/
+        editors/calm_editor.py``, which passes the target twice) are accepted
+        and the duplicate is ignored — it is the value, never part of the key.
+        Without this shim every ROUTE decision raises ``TypeError`` because the
+        key was narrowed to ``(subject, relation)`` in the S1 fix.
+
+        ``overwrite`` closes the counterfactual hole: a later edit that revises
+        the *same* query (``("Spain", "capital", "Madrid")`` then ``("Spain",
+        "capital", "Lisbon")``) used to be rejected as a duplicate, so the store
+        kept serving the superseded answer while the caller believed the edit
+        had been absorbed.  Default False keeps the duplicate-rejection
+        contract every existing table was measured against.
         """
         key = self._hash_key(subject, relation)
         shard_idx = self.route(subject)
         shard = self.shards[shard_idx]
-        if key not in shard:
-            shard.put(key, answer)
+        if key in shard:
+            if not overwrite:
+                return False
+            shard[key] = answer
             self._index[key] = (shard_idx, answer)
-            self.total_stored += 1
             return True
-        return False
+        # Capacity: ``_Shard.put`` drops the oldest entry when the shard is
+        # full.  Doing that eviction here (instead of inside ``put``) keeps the
+        # global index and ``total_stored`` in step with the shard; otherwise
+        # the index grows without bound and a later ``evict`` decrements for
+        # keys that no longer exist, driving the counter negative.
+        if len(shard) >= shard.max_size:
+            victim = next(iter(shard), None)
+            if victim is not None:
+                shard.pop(victim, None)
+                if self._index.pop(victim, None) is not None:
+                    self.total_stored -= 1
+                self.evictions += 1
+        shard.put(key, answer)
+        self._index[key] = (shard_idx, answer)
+        self.total_stored += 1
+        return True
 
     def evict(self, shard_idx: Optional[int] = None) -> int:
         """Evict entries from a specific shard (or all shards). Returns count evicted."""
@@ -180,6 +238,11 @@ class SideMemory:
             "avg_entries_per_shard": round(sum(sizes) / len(sizes), 2),
             "min_entries": min(sizes),
             "max_entries": max(sizes),
+            "evictions": self.evictions,
+            # Invariant the W6 audit relies on: the global index and the shards
+            # must agree, otherwise lookup and total_stored tell different
+            # stories about the same store.
+            "index_consistent": len(self._index) == self.total_stored,
         }
 
     def clear(self) -> None:
@@ -258,6 +321,32 @@ def run_smoke():
     unseen_relation = mem.lookup(edits[0][0], "national_motto")
     print(f"\nNegative control: unseen subject -> {unseen_subject}, "
           f"unseen relation -> {unseen_relation} (expected None, None)")
+
+    # --- Surface-form invariance: casing / padding is the same query ---
+    padded = mem.lookup("  SPAIN ", " Capital ")
+    print(f"\nCase/space invariant: '  SPAIN '/' Capital ' -> {padded} "
+          f"(expected Madrid)")
+
+    # --- Deterministic routing: same subject, same shard, every process ---
+    print(f"Route('Spain') = {mem.route('Spain')} "
+          f"(sha256-derived, stable across PYTHONHASHSEED)")
+
+    # --- Counterfactual supersede: overwrite=False rejects, True revises ---
+    refused = mem.store("Spain", "capital", "Lisbon")
+    revised = mem.store("Spain", "capital", "Lisbon", overwrite=True)
+    print(f"Supersede: default={refused} (expected False), "
+          f"overwrite={revised} (expected True) -> "
+          f"lookup={mem.lookup('Spain', 'capital')}")
+
+    # --- Capacity eviction must not desync the global index ---
+    small = SideMemory(n_shards=1, max_per_shard=3, seed=0)
+    for i in range(6):
+        small.store(f"subject-{i}", "capital", f"answer-{i}")
+    st = small.stats()
+    print(f"\nCapacity: stored={st['total_stored']} evictions={st['evictions']} "
+          f"index_consistent={st['index_consistent']} (expected 3, 3, True)")
+    print(f"  oldest evicted -> {small.lookup('subject-0', 'capital')} "
+          f"(expected None), newest -> {small.lookup('subject-5', 'capital')}")
 
     # --- Eviction ---
     print(f"\nBefore eviction: {mem.stats()}")

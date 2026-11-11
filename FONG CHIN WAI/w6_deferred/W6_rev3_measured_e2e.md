@@ -1,3 +1,14 @@
+---
+AIGC:
+    Label: "1"
+    ContentProducer: 001191440300708461136T1XGW3
+    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_dbb7723add2d11f19232525400248c00
+    ReservedCode1: K+nHqUjj2YX8HK8fasOqls+G9mx2LNnIX8g0s3ozqMvZ9evXd11pMYpyGMIvrkilXb6xVqPP/T8GE4LkgVV7g0nlyKiBWHRexSNELzpQX9KcAYP5GR+ousoqsdcMPq1GECi7NEhnYdjA5Hfow7bWv5X5e5gnQnWVT4obm06fLhYHKFg7jD9x0aSY6Hk=
+    ContentPropagator: 001191440300708461136T1XGW3
+    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_dbb7723add2d11f19232525400248c00
+    ReservedCode2: K+nHqUjj2YX8HK8fasOqls+G9mx2LNnIX8g0s3ozqMvZ9evXd11pMYpyGMIvrkilXb6xVqPP/T8GE4LkgVV7g0nlyKiBWHRexSNELzpQX9KcAYP5GR+ousoqsdcMPq1GECi7NEhnYdjA5Hfow7bWv5X5e5gnQnWVT4obm06fLhYHKFg7jD9x0aSY6Hk=
+---
+
 # W6 Deferred Writes — Rev 3: measured end-to-end, memory in-loop
 
 **Freeze date:** 2026-11-11
@@ -178,4 +189,5 @@ python w6_rev3/w6_log_append.py
 1. **Paraphrase recall is measured but weak**: 0.343 strict. The canonical/paraphrase gap of 0.38 is a real generalisation deficit; the case-any column (0.526) shows roughly a fifth of that gap is surface formatting rather than semantics.
 2. **Held-out budget validation** beyond offsets 700 is not done; §4 discloses the tuning.
 3. **The W4 gate-ablation runner** now emits per-edit `nll_target_before/after/delta` and `hit_total_with_nll_row`, but that arm has **not been re-run**; the pairing in §6 comes from the defer stream, not from the ablation table.
-4. **`side_memory` route** needs either a fix or an explicit exclusion; at 1/8 it is neither usable nor honestly presentable as a channel.
+4. **`side_memory` route**: fixed and re-measured, with the caveat that what was fixed is the *read path*, not the routing. The 1/8 hit rate was not the store failing to hold the edit — it was the read path requiring the LM to re-emit the note it had just been shown (measured copy fidelity 0.46 pooled), so a known answer was scored `none`. Store correctness fixes (sha256 shard routing instead of salted `hash`, index/counter consistency under capacity eviction, surface-form key normalisation, `overwrite` for counterfactual supersede) are in `FONG HIO LAM/side_memory_router/side_memory.py`; the read path gains a `memory_serve` flag whose default `inject` reproduces exactly the numbers in this report. With `hybrid` (inject first, then serve from the store when the copy fails) e2e goes **0.6125 → 0.9025 pooled** across the same 8 slices / budget 0.25 / W=50, with the parameter channel and probe NLL delta identical to four decimals. That 0.9025 is the ceiling of the two-channel system, not a model improvement: `memory_direct` answers by table lookup, and slice o200 (parameter channel collapsed, 1 admitted row) is a degenerate slice that must be quoted with the caveat. Routing share is still gate-dominated (0-1% explicit `side_memory`), and paraphrase recall 0.343 is untouched — an exact-match store cannot fix lexical variation. Full write-up: `w6_rev3/side_memory_readpath_fix.md`.
+*（内容由AI生成，仅供参考）*

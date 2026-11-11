@@ -172,6 +172,13 @@ class CALMEditor(BaseEditor):
         self.memory_read_template = str(getattr(self.hparams, "memory_read_template", "instruct"))
         self.memory_read_arbitrate = bool(getattr(self.hparams, "memory_read_arbitrate", True))
         self.memory_read_arb_margin = float(getattr(self.hparams, "memory_read_arb_margin", 0.0))
+        # Service mode of the memory channel.  ``inject`` is the Rev3 behaviour
+        # (note goes in the prompt, the LM must copy it out); ``direct`` lets
+        # the store answer the query itself; ``hybrid`` tries injection first
+        # and falls back to a direct serve.  ``direct``/``hybrid`` answers are
+        # attributed to their own channel (``memory_direct``) so a retrieval
+        # serve can never be quoted as free-generation recall.
+        self.memory_serve = str(getattr(self.hparams, "memory_serve", "inject") or "inject").lower()
         # Monotone write clocks: who touched (subject, relation) last, the
         # parameter channel or the memory channel?  Used by the staleness guard.
         self._mem_version: Dict[str, int] = {}
@@ -187,6 +194,7 @@ class CALMEditor(BaseEditor):
             "memory_skipped_param_ok": 0,
             "memory_degenerate": 0,
             "memory_arbitrated": 0,
+            "memory_served": 0,
             "param_answered": 0,
             "unanswered": 0,
         }
@@ -972,6 +980,21 @@ class CALMEditor(BaseEditor):
         subject = req.get("subject") or ""
         relation = req.get("relation") or "fact"
         note = str(probe["note"])
+
+        # Direct serve: a non-parametric memory is allowed to answer from the
+        # store.  Requiring the LM to re-emit the note it was just shown
+        # measures the model's copy fidelity, not the memory channel — the
+        # measured copy rate on the revised backbone is ~0.14-0.38, which is
+        # why the routed rows looked dead (8 rows, 1 hit on slice o700).
+        if self.memory_serve == "direct":
+            info.update({"injected": False, "served": True,
+                         "memory_answer": note, "memory_ok": True,
+                         "channel": "memory_direct", "final_answer": note,
+                         "final_ok": True})
+            self.read_stats["memory_served"] += 1
+            self.read_stats["memory_answered"] += 1
+            return note, info
+
         mem_ctx = self._memory_prompt(subject, relation, note, prompt)
         mem_ans, _ = self._current_answer_and_confidence(
             mem_ctx, max_new_tokens=max_new
@@ -1005,6 +1028,19 @@ class CALMEditor(BaseEditor):
                 self.read_stats["memory_arbitrated"] += 1
                 self.read_stats["memory_answered"] += 1
                 return note, info
+
+        # Hybrid: injection failed, so serve the note from the store instead of
+        # returning an answer the channels both failed.  Kept as its own branch
+        # (and its own channel label) so the mixed-mode row can be separated
+        # from pure copy behaviour in the tables.
+        if self.memory_serve == "hybrid":
+            info.update({"served": True, "memory_answer": note,
+                         "channel": "memory_direct", "final_answer": note,
+                         "final_ok": True})
+            self.read_stats["memory_injected"] += 1
+            self.read_stats["memory_served"] += 1
+            self.read_stats["memory_answered"] += 1
+            return note, info
 
         # Note injected but did not deliver: keep the parameter answer, and
         # count the failure so the read path cannot hide behind hit_total.

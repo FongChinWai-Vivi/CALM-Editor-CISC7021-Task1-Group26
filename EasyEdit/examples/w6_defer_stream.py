@@ -243,6 +243,7 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
     hp.memory_read_template = str(getattr(args, "memory_read_template", "instruct"))
     hp.memory_read_arbitrate = not bool(getattr(args, "no_memory_arb", False))
     hp.memory_read_arb_margin = float(getattr(args, "memory_read_arb_margin", 0.0))
+    hp.memory_serve = str(getattr(args, "memory_serve", "inject") or "inject")
 
     editor = CALMEditor.from_hparams(hp)
     _read_on = bool(hp.memory_read)
@@ -377,6 +378,7 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         "memory_read_template": hp.memory_read_template,
         "memory_read_arbitrate": bool(hp.memory_read_arbitrate),
         "memory_read_arb_margin": float(hp.memory_read_arb_margin),
+        "memory_serve": hp.memory_serve,
         # Tang ③: every output states the gate thresholds it was produced under,
         # so a retag curve cannot be quoted without the setting it belongs to.
         "gate_write_threshold": float(getattr(hp, "gate_write_threshold", float("nan"))),
@@ -388,6 +390,7 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
             "parameter": sum(1 for r in final_rows if r["channel"] == "parameter"),
             "memory": sum(1 for r in final_rows if r["channel"] == "memory"),
             "memory_arb": sum(1 for r in final_rows if r["channel"] == "memory_arb"),
+            "memory_direct": sum(1 for r in final_rows if r["channel"] == "memory_direct"),
             "none": sum(1 for r in final_rows if r["channel"] == "none"),
         },
         "memory_read_stats": dict(editor.read_stats),
@@ -473,6 +476,12 @@ def main() -> int:
     ap.add_argument("--no-memory-arb", action="store_true",
                     help="disable likelihood arbitration (free generation only)")
     ap.add_argument("--memory-read-arb-margin", type=float, default=0.0)
+    ap.add_argument("--memory-serve", default="inject",
+                    choices=["inject", "direct", "hybrid"],
+                    help="How the memory channel delivers a hit: inject = note in "
+                         "the prompt, the LM must copy it (Rev3 behaviour); "
+                         "direct = the store answers; hybrid = inject, fall "
+                         "back to direct when the LM fails to copy.")
     ap.add_argument("--survival-every", type=int, default=10,
                     help="recheck all writes every N edits (0 disables)")
     ap.add_argument("--out-dir", default=os.path.join(
