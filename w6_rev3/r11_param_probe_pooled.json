@@ -1,0 +1,574 @@
+{
+  "R6_b025_W50": {
+    "arm": "R6_b025_W50",
+    "prefix": "R6_o*_W50_b025_inject_instruct_para",
+    "W": 50,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 50,
+      "delta_budget": 0.25,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R6_o0_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.59,
+        "param": 0.43,
+        "mem": 0.16,
+        "nll_delta": 0.5258,
+        "degenerate": 0.03,
+        "ci95": [
+          0.49311503019695274,
+          0.6868849698030473
+        ]
+      },
+      {
+        "slice": "R6_o100_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.64,
+        "param": 0.28,
+        "mem": 0.36,
+        "nll_delta": 0.4336,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5454460423404134,
+          0.7345539576595866
+        ]
+      },
+      {
+        "slice": "R6_o200_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.36,
+        "param": 0.01,
+        "mem": 0.35,
+        "nll_delta": 0.0,
+        "degenerate": 0.0,
+        "ci95": [
+          0.26544604234041336,
+          0.4545539576595866
+        ]
+      },
+      {
+        "slice": "R6_o300_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.66,
+        "param": 0.4,
+        "mem": 0.26,
+        "nll_delta": 0.4831,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5666853352003735,
+          0.7533146647996266
+        ]
+      },
+      {
+        "slice": "R6_o400_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.72,
+        "param": 0.46,
+        "mem": 0.26,
+        "nll_delta": 0.4017,
+        "degenerate": 0.0,
+        "ci95": [
+          0.6315528714685742,
+          0.8084471285314258
+        ]
+      },
+      {
+        "slice": "R6_o500_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.67,
+        "param": 0.44,
+        "mem": 0.23,
+        "nll_delta": 0.447,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5773740137254489,
+          0.7626259862745511
+        ]
+      },
+      {
+        "slice": "R6_o600_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.63,
+        "param": 0.5,
+        "mem": 0.13,
+        "nll_delta": 0.436,
+        "degenerate": 0.02,
+        "ci95": [
+          0.5348936289295937,
+          0.7251063710704063
+        ]
+      },
+      {
+        "slice": "R6_o700_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.68,
+        "param": 0.43,
+        "mem": 0.25,
+        "nll_delta": 0.4595,
+        "degenerate": 0.01,
+        "ci95": [
+          0.5881100702366185,
+          0.7718899297633816
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.61875,
+      "param_channel": 0.36875,
+      "memory_channel": 0.25,
+      "nll_delta_mean_of_slices": 0.3983375,
+      "degenerate_rate": 0.007500000000000001,
+      "ci95_normal": [
+        0.5850720836535751,
+        0.6524279163464249
+      ],
+      "ci95_bootstrap": [
+        0.585,
+        0.65125
+      ],
+      "seed_subset_means": [
+        0.625,
+        0.6270833333333333,
+        0.6020833333333333
+      ]
+    }
+  },
+  "R11_b015_W50": {
+    "arm": "R11_b015_W50",
+    "prefix": "R11_o*_W50_b015_inject",
+    "W": 50,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 50,
+      "delta_budget": 0.15,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R11_o0_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.74,
+        "param": 0.44,
+        "mem": 0.3,
+        "nll_delta": 0.2492,
+        "degenerate": 0.02,
+        "ci95": [
+          0.6535945755537457,
+          0.8264054244462543
+        ]
+      },
+      {
+        "slice": "R11_o100_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.62,
+        "param": 0.22,
+        "mem": 0.4,
+        "nll_delta": 0.3069,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5243849806819456,
+          0.7156150193180544
+        ]
+      },
+      {
+        "slice": "R11_o200_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.36,
+        "param": 0.01,
+        "mem": 0.35,
+        "nll_delta": 0.0,
+        "degenerate": 0.0,
+        "ci95": [
+          0.26544604234041336,
+          0.4545539576595866
+        ]
+      },
+      {
+        "slice": "R11_o300_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.48,
+        "param": 0.05,
+        "mem": 0.43,
+        "nll_delta": 0.1001,
+        "degenerate": 0.0,
+        "ci95": [
+          0.381585120612539,
+          0.578414879387461
+        ]
+      },
+      {
+        "slice": "R11_o400_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.56,
+        "param": 0.21,
+        "mem": 0.35,
+        "nll_delta": 0.2595,
+        "degenerate": 0.0,
+        "ci95": [
+          0.46221802029230774,
+          0.6577819797076924
+        ]
+      },
+      {
+        "slice": "R11_o500_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.58,
+        "param": 0.23,
+        "mem": 0.35,
+        "nll_delta": 0.2536,
+        "degenerate": 0.0,
+        "ci95": [
+          0.48277518710522377,
+          0.6772248128947762
+        ]
+      },
+      {
+        "slice": "R11_o600_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.58,
+        "param": 0.22,
+        "mem": 0.36,
+        "nll_delta": 0.2176,
+        "degenerate": 0.0,
+        "ci95": [
+          0.48277518710522377,
+          0.6772248128947762
+        ]
+      },
+      {
+        "slice": "R11_o700_W50_b015_inject",
+        "n": 100,
+        "e2e": 0.63,
+        "param": 0.22,
+        "mem": 0.41,
+        "nll_delta": 0.2582,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5348936289295937,
+          0.7251063710704063
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.56875,
+      "param_channel": 0.2,
+      "memory_channel": 0.36875,
+      "nll_delta_mean_of_slices": 0.2056375,
+      "degenerate_rate": 0.0025,
+      "ci95_normal": [
+        0.5344093951232054,
+        0.6030906048767946
+      ],
+      "ci95_bootstrap": [
+        0.53625,
+        0.60375
+      ],
+      "seed_subset_means": [
+        0.5604166666666667,
+        0.5854166666666667,
+        0.575
+      ]
+    }
+  },
+  "R11_b035_W50": {
+    "arm": "R11_b035_W50",
+    "prefix": "R11_o*_W50_b035_inject",
+    "W": 50,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 50,
+      "delta_budget": 0.35,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R11_o0_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.5,
+        "param": 0.37,
+        "mem": 0.13,
+        "nll_delta": 0.7704,
+        "degenerate": 0.03,
+        "ci95": [
+          0.4015062941045972,
+          0.5984937058954027
+        ]
+      },
+      {
+        "slice": "R11_o100_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.55,
+        "param": 0.34,
+        "mem": 0.21,
+        "nll_delta": 0.6568,
+        "degenerate": 0.0,
+        "ci95": [
+          0.45200000000000007,
+          0.648
+        ]
+      },
+      {
+        "slice": "R11_o200_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.68,
+        "param": 0.14,
+        "mem": 0.54,
+        "nll_delta": 0.5364,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5881100702366185,
+          0.7718899297633816
+        ]
+      },
+      {
+        "slice": "R11_o300_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.4,
+        "param": 0.32,
+        "mem": 0.08,
+        "nll_delta": 1.0113,
+        "degenerate": 0.0,
+        "ci95": [
+          0.30349627107220317,
+          0.4965037289277969
+        ]
+      },
+      {
+        "slice": "R11_o400_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.62,
+        "param": 0.43,
+        "mem": 0.19,
+        "nll_delta": 0.6069,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5243849806819456,
+          0.7156150193180544
+        ]
+      },
+      {
+        "slice": "R11_o500_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.62,
+        "param": 0.49,
+        "mem": 0.13,
+        "nll_delta": 0.5856,
+        "degenerate": 0.02,
+        "ci95": [
+          0.5243849806819456,
+          0.7156150193180544
+        ]
+      },
+      {
+        "slice": "R11_o600_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.56,
+        "param": 0.46,
+        "mem": 0.1,
+        "nll_delta": 0.6481,
+        "degenerate": 0.0,
+        "ci95": [
+          0.46221802029230774,
+          0.6577819797076924
+        ]
+      },
+      {
+        "slice": "R11_o700_W50_b035_inject",
+        "n": 100,
+        "e2e": 0.62,
+        "param": 0.42,
+        "mem": 0.2,
+        "nll_delta": 0.6197,
+        "degenerate": 0.02,
+        "ci95": [
+          0.5243849806819456,
+          0.7156150193180544
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.56875,
+      "param_channel": 0.37125,
+      "memory_channel": 0.1975,
+      "nll_delta_mean_of_slices": 0.6794,
+      "degenerate_rate": 0.00875,
+      "ci95_normal": [
+        0.5344093951232054,
+        0.6030906048767946
+      ],
+      "ci95_bootstrap": [
+        0.53625,
+        0.60375
+      ],
+      "seed_subset_means": [
+        0.5645833333333333,
+        0.575,
+        0.5708333333333333
+      ]
+    }
+  },
+  "R11_b025_W25": {
+    "arm": "R11_b025_W25",
+    "prefix": "R11_o*_W25_W25b025_inject",
+    "W": 25,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 25,
+      "delta_budget": 0.25,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R11_o0_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.29,
+        "param": 0.17,
+        "mem": 0.12,
+        "nll_delta": 1.0632,
+        "degenerate": 0.0,
+        "ci95": [
+          0.20061458777187452,
+          0.37938541222812544
+        ]
+      },
+      {
+        "slice": "R11_o100_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.3,
+        "param": 0.22,
+        "mem": 0.08,
+        "nll_delta": 0.7469,
+        "degenerate": 0.0,
+        "ci95": [
+          0.20972902745151967,
+          0.3902709725484803
+        ]
+      },
+      {
+        "slice": "R11_o200_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.34,
+        "param": 0.17,
+        "mem": 0.17,
+        "nll_delta": 0.4261,
+        "degenerate": 0.01,
+        "ci95": [
+          0.24668533520037345,
+          0.4333146647996266
+        ]
+      },
+      {
+        "slice": "R11_o300_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.32,
+        "param": 0.23,
+        "mem": 0.09,
+        "nll_delta": 1.0535,
+        "degenerate": 0.01,
+        "ci95": [
+          0.22811007023661847,
+          0.41188992976338157
+        ]
+      },
+      {
+        "slice": "R11_o400_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.24,
+        "param": 0.19,
+        "mem": 0.05,
+        "nll_delta": 0.6939,
+        "degenerate": 0.0,
+        "ci95": [
+          0.15586999958577813,
+          0.32413000041422185
+        ]
+      },
+      {
+        "slice": "R11_o500_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.27,
+        "param": 0.19,
+        "mem": 0.08,
+        "nll_delta": 0.815,
+        "degenerate": 0.0,
+        "ci95": [
+          0.1825455755056592,
+          0.35745442449434084
+        ]
+      },
+      {
+        "slice": "R11_o600_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.25,
+        "param": 0.19,
+        "mem": 0.06,
+        "nll_delta": 0.9311,
+        "degenerate": 0.0,
+        "ci95": [
+          0.16470194858170806,
+          0.33529805141829194
+        ]
+      },
+      {
+        "slice": "R11_o700_W25_W25b025_inject",
+        "n": 100,
+        "e2e": 0.28,
+        "param": 0.2,
+        "mem": 0.08,
+        "nll_delta": 1.0765,
+        "degenerate": 0.0,
+        "ci95": [
+          0.1915528714685743,
+          0.36844712853142575
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.28625,
+      "param_channel": 0.195,
+      "memory_channel": 0.09125,
+      "nll_delta_mean_of_slices": 0.8507750000000001,
+      "degenerate_rate": 0.0025,
+      "ci95_normal": [
+        0.25490787127257536,
+        0.31759212872742465
+      ],
+      "ci95_bootstrap": [
+        0.25625,
+        0.32
+      ],
+      "seed_subset_means": [
+        0.2791666666666667,
+        0.31666666666666665,
+        0.26875
+      ]
+    }
+  }
+}

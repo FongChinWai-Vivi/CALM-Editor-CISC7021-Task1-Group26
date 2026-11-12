@@ -23,7 +23,7 @@ AIGC:
 
 **Rev 4 (same day) replaces the Rev 3 headline above, and §10 says why.** The paraphrase figure is no longer borrowed from a clean-LM sweep — it is measured in-loop on the edited model (0.333, n = 5 412), and re-running the eight slices after the `side_memory` read-path fix (`189c40f`) moves e2e to **0.619 (0.585–0.652)** with the parameter channel and the NLL probe identical to four decimals; the gain is five rows, all on the memory channel, so it is a read-path result, not a re-tune. Two of the four Rev 4 actions came back negative (§10.3 negative transfer, §10.4 rejected intervention) and are reported as such; the frozen Rev 3 table is kept below unchanged for audit.
 
-Revisions 3 and 4 replace every earlier end-to-end *ceiling* statement with a **measured** number. A ceiling is a sanity bound only; it is not the reported result. The single sentence above is what may be quoted as the project's end-to-end figure, and it must travel with its NLL delta — quoting 0.619 without ΔNLL +0.398 is a misquote.
+The two levers that could plausibly have moved the 0.369 parameter channel were then run to a verdict (§11): lowering the write budget to 0.15 gives 0.569 at ΔNLL 0.206, raising it to 0.35 gives 0.569 at ΔNLL 0.679, and halving the defer window to W=25 gives 0.286 — so the headline below is unchanged, and 0.25 is now measured as an interior optimum rather than the better of two sampled endpoints. Revisions 3 and 4 replace every earlier end-to-end *ceiling* statement with a **measured** number. A ceiling is a sanity bound only; it is not the reported result. The single sentence above is what may be quoted as the project's end-to-end figure, and it must travel with its NLL delta — quoting 0.619 without ΔNLL +0.398 is a misquote.
 
 | Quantity | Rev 3 (frozen) | **Rev 4 (current)** | How it was obtained |
 |---|---|---|---|
@@ -182,6 +182,9 @@ The audit's T1 and T4 items asserted that no window mechanism and no `nll_delta`
 | **Rev 4** held-out read-path runs (o800–1299) | `w6_rev3/recall4/readpath_gpt2-small_o{800,900,1000,1100,1200}_n100.json`, pooled in `recall4/readpath_pooled_fresh_5slices.json` |
 | **Rev 4** cross-backbone read path | `w6_rev3/recall4/readpath_gpt2-xl_o0_n40.json` (gpt2-xl, CPU) |
 | **Rev 4** W4 runner, patched arm | `TANG I CHOI/w4_gate_ablations/results/w4_ablation_always_write_rev4.json` |
+| **R11** pooled four-arm table (§11) | `w6_rev3/r11_param_probe_pooled.json` (from `w6_rev3/w6_pool_param.py`) |
+| **R11** probe driver + launcher | `w6_rev3/param_probe_driver.py`, `w6_rev3/run_param_probe.ps1`, log `w6_rev3/param_probe_driver.log` |
+| **R11** lever runs | `EasyEdit/w6run/R11_o{0..700}_W50_b015_inject/`, `R11_o{0..700}_W50_b035_inject/`, `R11_o{0..700}_W25_W25b025_inject/` (24 runs × 100 edits) |
 
 Reproduce:
 
@@ -192,12 +195,19 @@ python w6_rev3/w6_operating_curve.py
 python w6_rev3/w6_log_append.py
 ```
 
+R11 (§11) — 24 runs, ~5.8 min each at W=50 / ~9 min at W=25 on the 4070:
+
+```powershell
+cmd /c .venv\Scripts\python.exe -u w6_rev3\param_probe_driver.py   # all three arms, skips finished runs
+python w6_rev3/w6_pool_param.py                                      # writes r11_param_probe_pooled.json
+```
+
 ---
 
 ## 9. Open items — not claimed
 
 1. **Paraphrase recall is measured but weak**: 0.333 strict, measured in-loop on the edited model over 5 412 items (§10.1). The canonical/paraphrase gap of 0.39 is a real generalisation deficit, and §10.2/§10.3 show it is not closable by choosing a better reader template: the template ordering **flips between backbones** (`fewshot` ≫ `prefix` on gpt2-small, `prefix` ≫ `fewshot` on gpt2-xl) and the in-loop swap is a negative transfer.
-2. **Held-out validation past offset 700 is now done** (§10.2, 500 fresh edits o800–1299): the template ranking replicates, but the canonical gap between templates does not (0.33 in-slice → 0.08 held-out), so one claim from §2b is withdrawn. The **budget** axis (0.25 vs 0.50) still has no out-of-range test, and §4 still discloses it as tuned in-range.
+2. **Held-out validation past offset 700 is now done** (§10.2, 500 fresh edits o800–1299): the template ranking replicates, but the canonical gap between templates does not (0.33 in-slice → 0.08 held-out), so one claim from §2b is withdrawn. The **budget** axis is now measured on the inside as well as the outside — 0.15 / 0.25 / 0.35 / 0.50 all run (§11) — and 0.25 is an interior maximum, so the earlier "tuned in-range" disclosure is superseded by measurement rather than by argument. The **window** lever was also varied (W=25, §11) and is strongly negative; the opposite direction (W≫50) remains untested and is not claimed.
 3. **The W4 gate-ablation runner** now emits per-edit `nll_target_before/after/delta` and `hit_total_with_nll_row`; the re-run status is recorded in §10.6, and until that whole table is on the patched runner, §6 pairing should be read as coming from the defer stream.
 4. **`side_memory` route**: fixed and re-measured, with the caveat that what was fixed is the *read path*, not the routing. The 1/8 hit rate was not the store failing to hold the edit — it was the read path requiring the LM to re-emit the note it had just been shown (measured copy fidelity 0.46 pooled), so a known answer was scored `none`. Store correctness fixes (sha256 shard routing instead of salted `hash`, index/counter consistency under capacity eviction, surface-form key normalisation, `overwrite` for counterfactual supersede) are in `FONG HIO LAM/side_memory_router/side_memory.py`; the read path gains a `memory_serve` flag whose default `inject` reproduces exactly the numbers in this report. With `hybrid` (inject first, then serve from the store when the copy fails) e2e goes **0.6125 → 0.9025 pooled** across the same 8 slices / budget 0.25 / W=50, with the parameter channel and probe NLL delta identical to four decimals. That 0.9025 is the ceiling of the two-channel system, not a model improvement: `memory_direct` answers by table lookup, and slice o200 (parameter channel collapsed, 1 admitted row) is a degenerate slice that must be quoted with the caveat. Routing share is still gate-dominated (0-1% explicit `side_memory`), and paraphrase recall is untouched at 0.333 in-loop (§10.1) — an exact-match store cannot fix lexical variation, and §10.3 shows a prompt-level fix makes it worse. Full write-up: `w6_rev3/side_memory_readpath_fix.md`.
 5. **Repairing dead edits does not work and is switched off** (§10.4). At the tightest allowance the pass is inert; scaled up it destroys more live rows than it rescues, and it does so while *improving* the fluency coordinate. No headline number depends on it.
@@ -334,3 +344,49 @@ python run_w4_gate_ablation.py --all-arms --subjects 40 --tag _rev4
 Until that completes, §6's coverage/NLL pairing should be read as coming from the defer stream only, and the W4 table as coverage-only. Nothing in §1 depends on it.
 
 Also confirmed while re-running: `answer_changed_by_write_rate = 0.0` with `mean_delta_norm = 0.0039` on an untrained hypernet — the `always_write` arm's 0.110 is the base model's own hit rate, exactly as the metric caveat under the frozen table says. The pairing column makes that visible instead of inferable.
+
+---
+
+## 11. R11 — the two parameter-channel levers, measured and closed
+
+The parameter channel sits at 0.369. §4/§6 attribute that ceiling to two things: **admission** (`delta_budget` decides which edits are written at all) and **within-window interference** (a W=50 window writes fifty edits into the same weights, so later writes damage earlier ones). Rev 3 only compared budget 0.25 against 0.50 — two endpoints — and the window length was never varied at the operating budget. R11 runs both levers on the full 8-slice protocol.
+
+**Protocol.** Every arm is byte-identical to the R6 run that produces the §1 headline (`layers 4–8`, `refine_passes 1`, `guard_scale 0.5`, `memory_read=True`, `template=instruct`, `arbitrate=True`, 100 edits × 8 offsets) except the one lever named. All three arms verify as POOLABLE (one distinct setting tuple across the eight slices), and every number below is recomputed from `rows`, not read from the summaries.
+
+| arm | lever vs R6 | n | e2e | 95 % CI (normal / bootstrap) | param | mem | ΔNLL | deg | 3-seed |
+|---|---|---|---|---|---|---|---|---|---|
+| R6 (baseline) | — | 800 | **0.619** | 0.585–0.652 / 0.585–0.651 | 0.369 | 0.250 | 0.398 | 0.008 | 0.625 / 0.627 / 0.602 |
+| R11-A `b015` | budget 0.15, W=50 | 800 | 0.569 | 0.534–0.603 / 0.536–0.604 | 0.200 | 0.369 | **0.206** | 0.003 | 0.560 / 0.585 / 0.575 |
+| R11-B `b035` | budget 0.35, W=50 | 800 | 0.569 | 0.534–0.603 / 0.536–0.604 | 0.371 | 0.198 | 0.679 | 0.009 | 0.565 / 0.575 / 0.571 |
+| R11-C `W25b025` | budget 0.25, W=25 | 800 | 0.286 | 0.255–0.318 / 0.256–0.320 | 0.195 | 0.091 | 0.851 | 0.003 | 0.279 / 0.317 / 0.269 |
+
+**The budget axis now has an interior maximum.** Putting R11 between the two Rev 3 endpoints gives a four-point curve on identical rows:
+
+| `delta_budget` | e2e | param | mem | ΔNLL | reading |
+|---|---|---|---|---|---|
+| 0.15 | 0.569 | 0.200 | 0.369 | **0.206** | cheapest writes, lowest fluency cost, −0.05 e2e |
+| **0.25** | **0.619** | 0.369 | 0.250 | 0.398 | frozen operating point |
+| 0.35 | 0.569 | 0.371 | 0.198 | 0.679 | no extra parametrised rows, only damage |
+| 0.50 | 0.511 | 0.334 | 0.178 | 0.791 | Rev 3 endpoint, unchanged |
+
+e2e is **concave** in the budget (0.569 → 0.619 → 0.569 → 0.511) while ΔNLL is monotone increasing. That is the first direct evidence that 0.25 is an interior optimum rather than the better of two sampled endpoints: both neighbours are measured now, and both are 0.05 below.
+
+**Paired row-level accounting.** Rows are paired by `slot` across arms on the same 800 edits:
+
+| arm | newly answered | newly lost | net | param→mem | mem→param | answered→none |
+|---|---|---|---|---|---|---|
+| R11-A `b015` | 92 | 132 | **−40** | 100 | 4 | 132 |
+| R11-B `b035` | 91 | 131 | **−40** | 16 | 41 | 131 |
+| R11-C `W25b025` | 39 | 305 | **−266** | 23 | 26 | 305 |
+
+The budget lever **slides rows between the two channels** rather than adding them: dropping to 0.15 moves 100 rows out of the parameter channel into the memory channel and back-fills only 4, while raising to 0.35 pulls 41 rows from memory into parameters and gives back 16. Both directions net to exactly 0.569 — the same total, reached from opposite sides, which is what a channel-substitution front looks like and is the cleanest confirmation in the project that the two channels index the **same** rows rather than disjoint populations.
+
+**Verdicts.**
+
+1. **Budget 0.15 is not a headline improvement, but it is a legitimate point.** It buys a 0.19 reduction in ΔNLL for 0.05 e2e. It is reported as the low-fluency end of the operating front, not as 0.619 being improvable — quoting 0.569 as the project result would be a misquote in the opposite direction.
+2. **Budget 0.35 is strictly dominated and is closed.** Parameter channel 0.371 vs 0.369 is +2 rows out of 800 — i.e. admission has **saturated** by 0.25 — while the memory channel loses 0.052 and ΔNLL rises 0.281. More write budget buys no additional parametrised edit and costs fluency. Combined with the Tang ③ result that the gate `write_threshold` is a dead parameter, the conclusion is that write admission in this writer is controlled by the budget alone and is already at its usable maximum.
+3. **W=25 falsifies the interference hypothesis in its own direction and is closed.** The expectation was that a shorter window means fewer edits per write-out, hence less interference. Measured: e2e 0.286 (−0.33), ΔNLL 0.851 (+0.45), both channels collapse. Halving the window **doubles the number of write-outs** (four flushes per 100 edits instead of two), and flush count — not window length — dominates interference. The run also takes 8.7–9.5 min per slice against 5.8 min at W=50, which is the same doubling visible in wall-clock. The lever is retired in this direction; the untested direction (W≫50, fewer and larger write-outs) is the one the evidence now points at, and it is not claimed here.
+
+**What this does and does not change.** Nothing in §1 moves: the headline stays 0.619 (0.585–0.652) at ΔNLL +0.398, because the best arm is 0.05 below it and the two others are worse on at least one coordinate. What R11 does establish is that the 0.369 parameter ceiling is **not** a tuning miss — both levers that could have moved it were run to a verdict and neither did. The remaining ways to move it are the ones already priced in §4 as structural: a larger backbone (`gpt2-medium`, changes every baseline in the table) rather than more aggressive writing into `gpt2-small`.
+
+Caveats carried forward: slice o200 is degenerate under every arm in this table (parameter channel admits 1 row, `param` = 0.01) and is included, not dropped, so all four arms pay the same penalty; the W=25 arm additionally changes the measurement window, so its e2e is comparable in protocol but not a like-for-like operating point of the same system.
