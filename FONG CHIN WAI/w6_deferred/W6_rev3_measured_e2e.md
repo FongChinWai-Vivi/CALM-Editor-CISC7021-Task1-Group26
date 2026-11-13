@@ -2,11 +2,11 @@
 AIGC:
     Label: "1"
     ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_dbb7723add2d11f19232525400248c00
-    ReservedCode1: K+nHqUjj2YX8HK8fasOqls+G9mx2LNnIX8g0s3ozqMvZ9evXd11pMYpyGMIvrkilXb6xVqPP/T8GE4LkgVV7g0nlyKiBWHRexSNELzpQX9KcAYP5GR+ousoqsdcMPq1GECi7NEhnYdjA5Hfow7bWv5X5e5gnQnWVT4obm06fLhYHKFg7jD9x0aSY6Hk=
+    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_4018fde9df1711f189bc525400248c00
+    ReservedCode1: I4e9HCC8Z31JI2zHTDvmJpAchRt7etdods21QFi5bQueavVUKai3FHDZFW6ElE8vXOgEDkCxh4ig5CjR/5Mi8paQqHDjlsgxHdKhfPhWC+1iPGof/V/svqUPXs3BJ4mSB93hi5PN++LpFV0NI6k1RCxL9v1B92b5rYYpYR5D4qtIPac47rEmFsNFDGw=
     ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_dbb7723add2d11f19232525400248c00
-    ReservedCode2: K+nHqUjj2YX8HK8fasOqls+G9mx2LNnIX8g0s3ozqMvZ9evXd11pMYpyGMIvrkilXb6xVqPP/T8GE4LkgVV7g0nlyKiBWHRexSNELzpQX9KcAYP5GR+ousoqsdcMPq1GECi7NEhnYdjA5Hfow7bWv5X5e5gnQnWVT4obm06fLhYHKFg7jD9x0aSY6Hk=
+    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_4018fde9df1711f189bc525400248c00
+    ReservedCode2: I4e9HCC8Z31JI2zHTDvmJpAchRt7etdods21QFi5bQueavVUKai3FHDZFW6ElE8vXOgEDkCxh4ig5CjR/5Mi8paQqHDjlsgxHdKhfPhWC+1iPGof/V/svqUPXs3BJ4mSB93hi5PN++LpFV0NI6k1RCxL9v1B92b5rYYpYR5D4qtIPac47rEmFsNFDGw=
 ---
 
 # W6 Deferred Writes — Rev 3: measured end-to-end, memory in-loop
@@ -508,8 +508,6 @@ rather than regenerated, so this diagnoses the read path; it is not a new end-to
 point. The rotated control draws from the same slice, so two edits sharing a subject would
 weaken it — the 0.079 control floor is consistent with that contamination being small.
 
-*（内容由AI生成，仅供参考）*
-
 ---
 
 ## 13. R12w/R13 — the window walked the other way: an in-sample gain that does not replicate
@@ -670,8 +668,6 @@ slightly pessimistic on success and optimistic on ΔNLL. The window leaves parap
 on fresh data (+0.012, CI includes 0): this lever does not address §12's gap, and nothing here
 says it does.
 
-*（内容由AI生成，仅供参考）*
-
 ---
 
 ## 14. Cross-backbone read path: about a third of the copy failure is capacity, the verifier stays broken
@@ -744,8 +740,6 @@ may keep shrinking on a 10× backbone, which §10.3's cross-backbone template fl
 (template ordering reverses between gpt2-small and gpt2-xl, so prompt-level conclusions must not
 be carried across backbones); and the medium column is a clean-LM read path, not an edited model.
 
-*（内容由AI生成，仅供参考）*
-
 ---
 
 ## 15. Claim ledger — every number this report has revised, and where it stands
@@ -780,8 +774,6 @@ table should read this one before quoting anything.
 | Likelihood duel as a re-ranker | **retired at both scales** (0.066 → 0.135) | §12.1 item 4, §14.2 |
 | Copy-constrained read ceiling | **measured**: ≤ 0.527 small, ≤ 0.640 medium — a bound, not a result | §12.1 item 3, §14.2 |
 | gpt2-medium end-to-end number | **never run, not claimed** | §14 closing |
-
-*（内容由AI生成，仅供参考）*
 
 ---
 
@@ -830,8 +822,6 @@ anything and are reported only for completeness.
 
 Reproduce: `python w6_rev3/w6_key_recoverability.py` → `w6_rev3/r15_key_recoverability.json`
 (offline, ~10 s, reads the per-item `paraphrase_rows` that Rev 4b added to every run summary).
-
-*（内容由AI生成，仅供参考）*
 
 ---
 

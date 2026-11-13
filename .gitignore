@@ -83,3 +83,8 @@ EasyEdit/tmp_probe/
 EasyEdit/w6run/
 EasyEdit/w6out/
 !FONG CHIN WAI/w6_deferred/*.pdf
+
+# w6_rev3 run logs (never evidence, always regenerable)
+w6_rev3/*.err
+w6_rev3/*.out
+w6_rev3/_dl_medium.py
