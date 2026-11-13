@@ -1,0 +1,387 @@
+{
+  "in-sample W50": {
+    "decomposition": {
+      "n": 800,
+      "delivered": 0.6188,
+      "param_channel": 0.3688,
+      "served_share": 0.5637,
+      "mem_acc_when_served": 0.4435,
+      "arbitration_ceiling": 0.6188,
+      "admission_ceiling_lo": 0.6188,
+      "admission_ceiling_hi": 0.6188,
+      "admission_ceiling_expected": 0.7163,
+      "both_channels_wrong": 0.3812,
+      "arb_gain": 0.0,
+      "admission_gain_expected": 0.0975
+    },
+    "margin_sweep": {
+      "rows_with_margin": 241,
+      "coverage": 0.3013,
+      "sweep": [
+        {
+          "tau": -10,
+          "e2e": 0.6188
+        },
+        {
+          "tau": -8,
+          "e2e": 0.6188
+        },
+        {
+          "tau": -6,
+          "e2e": 0.6188
+        },
+        {
+          "tau": -4,
+          "e2e": 0.6188
+        },
+        {
+          "tau": -2,
+          "e2e": 0.6188
+        },
+        {
+          "tau": -1,
+          "e2e": 0.6188
+        },
+        {
+          "tau": 0,
+          "e2e": 0.6188
+        },
+        {
+          "tau": 1,
+          "e2e": 0.6075
+        },
+        {
+          "tau": 2,
+          "e2e": 0.6025
+        },
+        {
+          "tau": 4,
+          "e2e": 0.6012
+        },
+        {
+          "tau": 6,
+          "e2e": 0.6012
+        },
+        {
+          "tau": 8,
+          "e2e": 0.6012
+        }
+      ],
+      "delivered": 0.6188
+    },
+    "per_slice": {
+      "0": {
+        "n": 100,
+        "delivered": 0.59,
+        "param_channel": 0.43,
+        "served_share": 0.37,
+        "mem_acc_when_served": 0.4324,
+        "arbitration_ceiling": 0.59,
+        "admission_ceiling_lo": 0.59,
+        "admission_ceiling_hi": 0.59,
+        "admission_ceiling_expected": 0.8,
+        "both_channels_wrong": 0.41,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.21
+      },
+      "100": {
+        "n": 100,
+        "delivered": 0.64,
+        "param_channel": 0.28,
+        "served_share": 0.68,
+        "mem_acc_when_served": 0.5294,
+        "arbitration_ceiling": 0.64,
+        "admission_ceiling_lo": 0.64,
+        "admission_ceiling_hi": 0.64,
+        "admission_ceiling_expected": 0.7,
+        "both_channels_wrong": 0.36,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.06
+      },
+      "200": {
+        "n": 100,
+        "delivered": 0.36,
+        "param_channel": 0.01,
+        "served_share": 1.0,
+        "mem_acc_when_served": 0.35,
+        "arbitration_ceiling": 0.36,
+        "admission_ceiling_lo": 0.36,
+        "admission_ceiling_hi": 0.36,
+        "admission_ceiling_expected": 0.36,
+        "both_channels_wrong": 0.64,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.0
+      },
+      "300": {
+        "n": 100,
+        "delivered": 0.66,
+        "param_channel": 0.4,
+        "served_share": 0.55,
+        "mem_acc_when_served": 0.4727,
+        "arbitration_ceiling": 0.66,
+        "admission_ceiling_lo": 0.66,
+        "admission_ceiling_hi": 0.66,
+        "admission_ceiling_expected": 0.74,
+        "both_channels_wrong": 0.34,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.08
+      },
+      "400": {
+        "n": 100,
+        "delivered": 0.72,
+        "param_channel": 0.46,
+        "served_share": 0.51,
+        "mem_acc_when_served": 0.5098,
+        "arbitration_ceiling": 0.72,
+        "admission_ceiling_lo": 0.72,
+        "admission_ceiling_hi": 0.72,
+        "admission_ceiling_expected": 0.81,
+        "both_channels_wrong": 0.28,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.09
+      },
+      "500": {
+        "n": 100,
+        "delivered": 0.67,
+        "param_channel": 0.44,
+        "served_share": 0.48,
+        "mem_acc_when_served": 0.4792,
+        "arbitration_ceiling": 0.67,
+        "admission_ceiling_lo": 0.67,
+        "admission_ceiling_hi": 0.67,
+        "admission_ceiling_expected": 0.77,
+        "both_channels_wrong": 0.33,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.1
+      },
+      "600": {
+        "n": 100,
+        "delivered": 0.63,
+        "param_channel": 0.5,
+        "served_share": 0.4,
+        "mem_acc_when_served": 0.325,
+        "arbitration_ceiling": 0.63,
+        "admission_ceiling_lo": 0.63,
+        "admission_ceiling_hi": 0.63,
+        "admission_ceiling_expected": 0.78,
+        "both_channels_wrong": 0.37,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.15
+      },
+      "700": {
+        "n": 100,
+        "delivered": 0.68,
+        "param_channel": 0.43,
+        "served_share": 0.52,
+        "mem_acc_when_served": 0.4808,
+        "arbitration_ceiling": 0.68,
+        "admission_ceiling_lo": 0.68,
+        "admission_ceiling_hi": 0.68,
+        "admission_ceiling_expected": 0.77,
+        "both_channels_wrong": 0.32,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.09
+      }
+    }
+  },
+  "held-out W50": {
+    "decomposition": {
+      "n": 400,
+      "delivered": 0.57,
+      "param_channel": 0.245,
+      "served_share": 0.7175,
+      "mem_acc_when_served": 0.453,
+      "arbitration_ceiling": 0.57,
+      "admission_ceiling_lo": 0.57,
+      "admission_ceiling_hi": 0.57,
+      "admission_ceiling_expected": 0.63,
+      "both_channels_wrong": 0.43,
+      "arb_gain": 0.0,
+      "admission_gain_expected": 0.06
+    },
+    "margin_sweep": {
+      "rows_with_margin": 163,
+      "coverage": 0.4075,
+      "sweep": [
+        {
+          "tau": -10,
+          "e2e": 0.57
+        },
+        {
+          "tau": -8,
+          "e2e": 0.57
+        },
+        {
+          "tau": -6,
+          "e2e": 0.57
+        },
+        {
+          "tau": -4,
+          "e2e": 0.57
+        },
+        {
+          "tau": -2,
+          "e2e": 0.57
+        },
+        {
+          "tau": -1,
+          "e2e": 0.57
+        },
+        {
+          "tau": 0,
+          "e2e": 0.57
+        },
+        {
+          "tau": 1,
+          "e2e": 0.545
+        },
+        {
+          "tau": 2,
+          "e2e": 0.5375
+        },
+        {
+          "tau": 4,
+          "e2e": 0.5325
+        },
+        {
+          "tau": 6,
+          "e2e": 0.5325
+        },
+        {
+          "tau": 8,
+          "e2e": 0.5325
+        }
+      ],
+      "delivered": 0.57
+    },
+    "per_slice": {
+      "1600": {
+        "n": 100,
+        "delivered": 0.54,
+        "param_channel": 0.39,
+        "served_share": 0.49,
+        "mem_acc_when_served": 0.3061,
+        "arbitration_ceiling": 0.54,
+        "admission_ceiling_lo": 0.54,
+        "admission_ceiling_hi": 0.54,
+        "admission_ceiling_expected": 0.69,
+        "both_channels_wrong": 0.46,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.15
+      },
+      "1700": {
+        "n": 100,
+        "delivered": 0.73,
+        "param_channel": 0.28,
+        "served_share": 0.71,
+        "mem_acc_when_served": 0.6338,
+        "arbitration_ceiling": 0.73,
+        "admission_ceiling_lo": 0.73,
+        "admission_ceiling_hi": 0.73,
+        "admission_ceiling_expected": 0.75,
+        "both_channels_wrong": 0.27,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.02
+      },
+      "1800": {
+        "n": 100,
+        "delivered": 0.51,
+        "param_channel": 0.22,
+        "served_share": 0.74,
+        "mem_acc_when_served": 0.3919,
+        "arbitration_ceiling": 0.51,
+        "admission_ceiling_lo": 0.51,
+        "admission_ceiling_hi": 0.51,
+        "admission_ceiling_expected": 0.58,
+        "both_channels_wrong": 0.49,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.07
+      },
+      "1900": {
+        "n": 100,
+        "delivered": 0.5,
+        "param_channel": 0.09,
+        "served_share": 0.93,
+        "mem_acc_when_served": 0.4409,
+        "arbitration_ceiling": 0.5,
+        "admission_ceiling_lo": 0.5,
+        "admission_ceiling_hi": 0.5,
+        "admission_ceiling_expected": 0.5,
+        "both_channels_wrong": 0.5,
+        "arb_gain": 0.0,
+        "admission_gain_expected": 0.0
+      }
+    }
+  },
+  "pooled_12_slices": {
+    "decomposition": {
+      "n": 1200,
+      "delivered": 0.6025,
+      "param_channel": 0.3275,
+      "served_share": 0.615,
+      "mem_acc_when_served": 0.4472,
+      "arbitration_ceiling": 0.6025,
+      "admission_ceiling_lo": 0.6025,
+      "admission_ceiling_hi": 0.6025,
+      "admission_ceiling_expected": 0.6875,
+      "both_channels_wrong": 0.3975,
+      "arb_gain": 0.0,
+      "admission_gain_expected": 0.085
+    },
+    "margin_sweep": {
+      "rows_with_margin": 404,
+      "coverage": 0.3367,
+      "sweep": [
+        {
+          "tau": -10,
+          "e2e": 0.6025
+        },
+        {
+          "tau": -8,
+          "e2e": 0.6025
+        },
+        {
+          "tau": -6,
+          "e2e": 0.6025
+        },
+        {
+          "tau": -4,
+          "e2e": 0.6025
+        },
+        {
+          "tau": -2,
+          "e2e": 0.6025
+        },
+        {
+          "tau": -1,
+          "e2e": 0.6025
+        },
+        {
+          "tau": 0,
+          "e2e": 0.6025
+        },
+        {
+          "tau": 1,
+          "e2e": 0.5867
+        },
+        {
+          "tau": 2,
+          "e2e": 0.5808
+        },
+        {
+          "tau": 4,
+          "e2e": 0.5783
+        },
+        {
+          "tau": 6,
+          "e2e": 0.5783
+        },
+        {
+          "tau": 8,
+          "e2e": 0.5783
+        }
+      ],
+      "delivered": 0.6025
+    }
+  }
+}

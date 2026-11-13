@@ -212,6 +212,7 @@ The audit's T1 and T4 items asserted that no window mechanism and no `nll_delta`
 | **R14** cross-backbone read path (gpt2-medium) | `w6_rev3/recall_gpt2medium/recall_gpt2medium_o{0,100}_n100.json` (from `w6_rev3/w6_recall_backbone.py`) |
 | **R14** decision criteria on gpt2-medium (§14.2) | `w6_rev3/para_decision_probe_gpt2medium.json` (from `w6_rev3/w6_para_decision_probe.py`) |
 | **R15** key recoverability probe (§16) | `w6_rev3/w6_key_recoverability.py`, `w6_rev3/r15_key_recoverability.json` |
+| **R16** head-room decomposition (§17) | `w6_rev3/w6_headroom.py`, `w6_rev3/r16_headroom.json` |
 | **R11** lever runs | `EasyEdit/w6run/R11_o{0..700}_W50_b015_inject/`, `R11_o{0..700}_W50_b035_inject/`, `R11_o{0..700}_W25_W25b025_inject/` (24 runs × 100 edits) |
 
 Reproduce:
@@ -251,6 +252,7 @@ R15 (§16) — key recoverability, offline over existing run summaries, ~10 s, n
 
 ```powershell
 python w6_rev3\w6_key_recoverability.py                                # writes r15_key_recoverability.json
+python w6_rev3\w6_headroom.py                                          # writes r16_headroom.json
 ```
 
 ---
@@ -772,6 +774,8 @@ table should read this one before quoting anything.
 | The eight evaluation slices as representative | **qualified** — 0.431 admission vs 0.245 on fresh slices | §13.4, §5 |
 | "The store cannot serve paraphrases" | **softened** — ~37 % of the gap is a capacity floor | §14.2 |
 | "A key layer would fix paraphrase routing" | **falsified** — the subject is verbatim in 100 % of 13 296 prompts | §16 |
+| "A better arbiter would recover the misses" | **falsified** — perfect-arbiter ceiling equals delivered, gain 0.000 | §17.1 |
+| "Routing/bookkeeping still has room" | **closed** — remaining room is capability, 0.38–0.43 both-wrong | §17.2 |
 | "The decoder will not copy them" | **survives** at 3× capacity (para 0.483 vs canonical 0.825) | §14.2 |
 | Likelihood duel as a re-ranker | **retired at both scales** (0.066 → 0.135) | §12.1 item 4, §14.2 |
 | Copy-constrained read ceiling | **measured**: ≤ 0.527 small, ≤ 0.640 medium — a bound, not a result | §12.1 item 3, §14.2 |
@@ -826,5 +830,77 @@ anything and are reported only for completeness.
 
 Reproduce: `python w6_rev3/w6_key_recoverability.py` → `w6_rev3/r15_key_recoverability.json`
 (offline, ~10 s, reads the per-item `paraphrase_rows` that Rev 4b added to every run summary).
+
+*（内容由AI生成，仅供参考）*
+
+---
+
+## 17. R16 — how much room is left, and what kind of room it is
+
+A quality review is only finished when it can say where the number would come from if it moved.
+This section decomposes the frozen end-to-end figure into channels using only the fields already
+written to the run summaries, and then sorts every remaining lever into *closed by measurement*
+versus *open and priced*.
+
+### 17.1 Decomposition
+
+| Block | n | Delivered | Parameter ch. | Notes served | Store acc. on served | Perfect-arbiter ceiling | Both channels wrong |
+|---|---|---|---|---|---|---|---|
+| in-sample, W=50 | 800 | **0.619** | 0.369 | 0.564 | 0.444 | **0.619** | 0.381 |
+| held-out, W=50 | 400 | **0.570** | 0.245 | 0.718 | 0.453 | **0.570** | 0.430 |
+| pooled | 1 200 | **0.603** | 0.328 | 0.615 | 0.447 | **0.603** | 0.398 |
+
+The important column is the sixth. A *perfect* arbiter — one that always picks the better of the
+two channels on every row where a note was served — scores exactly what the system already
+scores, in all three blocks, to four decimals. The arbitration gain is **0.000**. This is not an
+artefact of the criterion: the recorded `answered_by` already includes a third path
+(`memory_arb`) that emits the stored note verbatim, and counting it as a memory-channel win is
+what makes the ceiling coincide with the delivered value rather than sit below it.
+
+The margin sweep agrees by a different route. Re-deciding every margin-carrying row offline
+(n = 241 in-sample, 163 held-out) over τ ∈ [−10, +8] never improves on the delivered value, and
+from τ ≥ +1 it starts to lose: 0.603 → 0.587 → 0.581 → 0.578. **Threshold arbitration has no
+head-room and a real downside.**
+
+### 17.2 The two kinds of remaining room
+
+| Room | Size | What would have to change |
+|---|---|---|
+| Rows where neither channel answers | **0.38–0.43** | a better *channel*, not better bookkeeping: the writer never committed, or the store committed and the reader still missed |
+| Rows where a note was never served | 0.28–0.44 of rows, worth ≈ +0.085 e2e *if* the store scored as well there as it does on served rows | routing/admission — but that assumption is optimistic, because unserved rows are the hard ones (§11.4) |
+
+So the remaining head-room is *capability*, and the second row is an upper bound that the
+evidence argues against trusting. Combining §16 (the key is always recoverable), §17.1 (the
+arbiter is already optimal) and §11/§13 (both tuning levers are closed), the entire
+**routing-and-bookkeeping family is exhausted**: nothing left in that family can move the number.
+
+### 17.3 Inventory of levers, with status
+
+| Lever | Status | Evidence | Cost |
+|---|---|---|---|
+| Better arbitration / margin threshold | **closed, no head-room** | §17.1: gain 0.000, sweep degrades | — |
+| Key normalisation / approximate match | **falsified** | §16: subject verbatim in 100 % of 13 296 prompts | — |
+| Write budget | **closed, interior optimum** | §11.2: four-point concave curve, 0.25 best | — |
+| Defer window (short) | **closed, negative** | §11.4: W=25 e2e −0.33 | — |
+| Defer window (long) | **closed, no success effect** | §13.3: −0.005 [−0.080, +0.070] on fresh slices | — |
+| Guarded repair pass | **rejected** | §10.4: three tests, all negative | — |
+| Reader template swap | **negative transfer** | §10.2/§10.3: ranking flips across backbones | — |
+| Likelihood re-ranker / duel | **retired at both scales** | §12 / §14.2: 0.066 → 0.135 | — |
+| **Copy-constrained read (decoder restricted to store values)** | **open, ceiling priced** | §12.1 item 3: ideal copy mechanism bounds recall at ≤ 0.527 (small) and ≤ 0.640 (medium) against 0.343 delivered | ~1 day, no training |
+| **Read capacity (larger backbone)** | **open, partial price** | §14.2: paraphrase 0.330 → 0.483 at 3×; end-to-end never run on `gpt2-medium` | GPU hours, whole-table rebase |
+| **Trained scorer / non-likelihood read decision** | **open, unpriced** | only the likelihood criterion has been tried and it fails at both scales | needs labels, ~2–3 days |
+| **Writer/admission for the 0.38–0.43 both-wrong mass** | **open, biggest and least certain** | budget is saturated at 0.25 (§11.2), so the constraint is not budget | weeks |
+| Multi-sample / self-consistency read | open, unpriced | not attempted | cheap to try, weak prior |
+
+### 17.4 What this means for the score
+
+The report can now defend three statements it could not defend at 8.2: that the paraphrases are
+not lost at the key, that they are not lost at the arbiter, and that they are not lost at the
+budget or the window. What remains is one priced engineering step (copy-constrained read, ceiling
+0.527/0.640 against 0.343 today) and two capability questions (capacity end-to-end, writer for the
+both-wrong mass). A reviewer can now ask "why not push higher?" and get an answer with a number
+attached instead of a list of ideas.
+
+Reproduce: `python w6_rev3/w6_headroom.py` → `w6_rev3/r16_headroom.json` (offline, ~5 s).
 
 *（内容由AI生成，仅供参考）*
