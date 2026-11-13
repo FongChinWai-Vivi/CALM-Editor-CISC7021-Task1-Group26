@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_ce8d78fed79611f1a216525400248c00
-    ReservedCode1: EuN2phG5a4lEsD89WKudx3mmhnbAeMKSZWEXWzAE3xhOpQkX4wa2hl/Ytv57psz+TlCGL8OULP+TYEoO8FGofqL9+BpfVCy9ltkuBnCeTw0t/G9jkd4iV/J/IIEb/p4z6amveRep8zo777cnm+NtprYrRTmCYDocgeS4IPDNTlqnDHpQR50cKeQ+vWg=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_ce8d78fed79611f1a216525400248c00
-    ReservedCode2: EuN2phG5a4lEsD89WKudx3mmhnbAeMKSZWEXWzAE3xhOpQkX4wa2hl/Ytv57psz+TlCGL8OULP+TYEoO8FGofqL9+BpfVCy9ltkuBnCeTw0t/G9jkd4iV/J/IIEb/p4z6amveRep8zo777cnm+NtprYrRTmCYDocgeS4IPDNTlqnDHpQR50cKeQ+vWg=
----
-
 # Results (Draft)
 
 > Draft English Results section for the final report, based on the audited repository results (W2–W4, corrected in W5). All figures trace to the data sources listed at the end.

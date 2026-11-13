@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_2598d2cec98511f18b7f525400393706
-    ReservedCode1: CwilRLs5GcDVDxFg4Dk89JI4CjWd6yNPNq10ueYKHJ6qBXz7+1Te53nIV+zwmgxtPsyd3x8gIacISp139iOHyKSMayxkErQWccZ4s6siB8PBr2x46BiP2h6s2/yf6pYsfyZxwL4ZpEAZ026IJkk/imjHHMZFBCACqTcx7Z0SvRh9Ly5DHDx8lWPVhiw=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_2598d2cec98511f18b7f525400393706
-    ReservedCode2: CwilRLs5GcDVDxFg4Dk89JI4CjWd6yNPNq10ueYKHJ6qBXz7+1Te53nIV+zwmgxtPsyd3x8gIacISp139iOHyKSMayxkErQWccZ4s6siB8PBr2x46BiP2h6s2/yf6pYsfyZxwL4ZpEAZ026IJkk/imjHHMZFBCACqTcx7Z0SvRh9Ly5DHDx8lWPVhiw=
----
-
 # CALM Unified Evaluation Protocol (W1 Draft)
 
 Status: Draft v0.1 · Owner: Fong Chin Wai (MC653748) · Last updated: 2026-10-16

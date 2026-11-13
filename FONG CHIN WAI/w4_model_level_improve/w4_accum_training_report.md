@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_a137923cd5c111f180d5525400248c00
-    ReservedCode1: QmWM49NHFTw0qZtm6cQALgzxy4yGkTniltrw0keBuxmrY+UEUTEhqFrQfdITi4DpZelnNNmEaSco0tAtpvUG368Tm2lU+sjx+Ee7Xmt3LcutWVgM6RNwv8tvMmUaOK+Sj7NAs6LWHgFLuphxLKCnJYj18G6oXyzLUfH0M+EiHMTlgl6CQ/iuiei4lbU=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_a137923cd5c111f180d5525400248c00
-    ReservedCode2: QmWM49NHFTw0qZtm6cQALgzxy4yGkTniltrw0keBuxmrY+UEUTEhqFrQfdITi4DpZelnNNmEaSco0tAtpvUG368Tm2lU+sjx+Ee7Xmt3LcutWVgM6RNwv8tvMmUaOK+Sj7NAs6LWHgFLuphxLKCnJYj18G6oXyzLUfH0M+EiHMTlgl6CQ/iuiei4lbU=
----
-
 # W4 模型级改写改善报告：累积式（Accumulation-Aware）Hypernetwork 重训练
 
 - 日期：2026-11-01

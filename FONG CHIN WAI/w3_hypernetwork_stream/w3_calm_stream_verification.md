@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_8db38444cf9d11f1a443525400393706
-    ReservedCode1: smNEKsVRlBr/TlbjZm287UvI7Tm/MuAqYu1RzpEvd22DiSCCfLg4sdMLOeA8QISoKa2K4xTAb3N48JakbXzJo98PBEwcIaE5onL4T1JEDYOVNTGQqFMQskHD7wn3v1bG4aWlxHdXa46or64tTcRwY6ybnY3ebeup5RIvBW0xvUleZkADOJBMmidWPK0=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_8db38444cf9d11f1a443525400393706
-    ReservedCode2: smNEKsVRlBr/TlbjZm287UvI7Tm/MuAqYu1RzpEvd22DiSCCfLg4sdMLOeA8QISoKa2K4xTAb3N48JakbXzJo98PBEwcIaE5onL4T1JEDYOVNTGQqFMQskHD7wn3v1bG4aWlxHdXa46or64tTcRwY6ybnY3ebeup5RIvBW0xvUleZkADOJBMmidWPK0=
----
-
 # CALM W3 -- Gate 3 Verification: End-to-End 1K-Edit Stream
 
 - **Date**: 2026-10-24

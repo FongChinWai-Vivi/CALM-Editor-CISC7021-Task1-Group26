@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_5adced51d9f711f19232525400248c00
-    ReservedCode1: xsJhmJYDLvrFe7PWwCaCgBxKr4Z8c45mFTtundxpi20CB2AEilk2bkw2NAK4r0eDPNC30d1RJ+wYXNeMxMfPd2hNyJz8xv6K0RgCEA4WQvUNBuuB3uFg/UOwIKsoz9rOkykCVjjPwjv5RwbjtDMY16s925a51+ko6Wg3ZNUhB0wLYTmteT18g6Dm3fk=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_5adced51d9f711f19232525400248c00
-    ReservedCode2: xsJhmJYDLvrFe7PWwCaCgBxKr4Z8c45mFTtundxpi20CB2AEilk2bkw2NAK4r0eDPNC30d1RJ+wYXNeMxMfPd2hNyJz8xv6K0RgCEA4WQvUNBuuB3uFg/UOwIKsoz9rOkykCVjjPwjv5RwbjtDMY16s925a51+ko6Wg3ZNUhB0wLYTmteT18g6Dm3fk=
----
-
 # W4 写入器替换 · MEMIT/AlphaEdit 闭式解 v1 骨架
 
 日期：2026-11-06 ｜ 负责人：Fong Chin Wai（Vivi）｜ 模型：gpt2-small（12 层，8GB 显存）
@@ -83,4 +72,3 @@ $env:PYTHONPATH="EasyEdit"
 .\.venv\Scripts\python.exe EasyEdit\examples\w4_closedform_smoke.py --edits 32            # 写入器隔离
 .\.venv\Scripts\python.exe EasyEdit\examples\w4_closedform_smoke.py --mode calm --edits 32  # 端到端（含门控）
 ```
-*（内容由AI生成，仅供参考）*

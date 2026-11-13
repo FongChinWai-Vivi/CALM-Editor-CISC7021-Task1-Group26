@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_a47198e1d9f311f19232525400248c00
-    ReservedCode1: OvNov/FGc8lkQRj637En95IgiyAPa5gpNxcmfSPFtLp4DQMFMsF5AkJi5MOqeCgpS2BI6lZN1Abzq015Yt4kK86BHbwOBVIsuTtsQ71TKHhPM+cIChZvvkykKIVwNRkGFLKTOzEE76/fAh37hBjB4/MnCSjzH/Aetu2Kw4/KJYrCBwDRgg18tALOL0o=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_a47198e1d9f311f19232525400248c00
-    ReservedCode2: OvNov/FGc8lkQRj637En95IgiyAPa5gpNxcmfSPFtLp4DQMFMsF5AkJi5MOqeCgpS2BI6lZN1Abzq015Yt4kK86BHbwOBVIsuTtsQ71TKHhPM+cIChZvvkykKIVwNRkGFLKTOzEE76/fAh37hBjB4/MnCSjzH/Aetu2Kw4/KJYrCBwDRgg18tALOL0o=
----
-
 ## Diagnostics summary
 
 ### MQuAKE  (n=50)
@@ -43,4 +32,3 @@ AIGC:
 6. **Store the full generation** (drop the 120-char cap) plus `conflict_tag`.
 7. **Stratify by `conflict_tag`** in every results table.
 8. **Paired comparisons use McNemar on the same samples**, not CI overlap.
-*（内容由AI生成，仅供参考）*

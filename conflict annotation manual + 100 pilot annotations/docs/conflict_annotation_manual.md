@@ -1,16 +1,5 @@
 > **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
 
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: a00e5df06e93a5902bdea1ae35e297b8_8c6dc2d7ca0111f18b7f525400393706
-    ReservedCode1: 8riEAgdm2IzlG8cKXvx35tY15WSMe5ii46RVt5NxqKm9tMhLpe+FhiTwCoisMiassXRD1JaGKz3R4rDB6lzOi1TKc0adww+pyVoMM85FczWfm2VgKhHFVqP28GdUDovXExKzlR3CYPq/E1PuDu6vBjiV3V4KstWtWYHOTd+6wPKdl+uCN7NxH2N8pYk=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: a00e5df06e93a5902bdea1ae35e297b8_8c6dc2d7ca0111f18b7f525400393706
-    ReservedCode2: 8riEAgdm2IzlG8cKXvx35tY15WSMe5ii46RVt5NxqKm9tMhLpe+FhiTwCoisMiassXRD1JaGKz3R4rDB6lzOi1TKc0adww+pyVoMM85FczWfm2VgKhHFVqP28GdUDovXExKzlR3CYPq/E1PuDu6vBjiV3V4KstWtWYHOTd+6wPKdl+uCN7NxH2N8pYk=
----
-
 # Conflict Annotation Manual — CALM Project (W1)
 
 **Author**: Tang I Choi (MC631517)
@@ -175,4 +164,3 @@ disagreements are resolved by the step order in Section 3.
   arXiv:2403.08319.
 - Group 26 (2026). *CALM: A Conflict-Aware Lightweight Model Editor for Lifelong Knowledge
   Editing* — Task 1 Review Report, Table 2.
-*（内容由AI生成，仅供参考）*

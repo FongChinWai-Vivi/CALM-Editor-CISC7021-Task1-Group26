@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_08431d5cc9b811f196f9525400248c00
-    ReservedCode1: o5SthRu2vD6Se4sx7K7NcEuc94AX/rz9RyHFbF4wTgHMsNdblhR1bIoIu/hQF0jR40d3mZqdz2dl5RHLcZZNpYfn9NC8+H5t9+5YDJJ2Ui3ugdcPMEzZMtFBDBf6Md8MDkjEGV/J3YJdX2MoEtUzOFthUoa03/hhboTGIya7+w8Ofxowp8jC2tXyYKc=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_08431d5cc9b811f196f9525400248c00
-    ReservedCode2: o5SthRu2vD6Se4sx7K7NcEuc94AX/rz9RyHFbF4wTgHMsNdblhR1bIoIu/hQF0jR40d3mZqdz2dl5RHLcZZNpYfn9NC8+H5t9+5YDJJ2Ui3ugdcPMEzZMtFBDBf6Md8MDkjEGV/J3YJdX2MoEtUzOFthUoa03/hhboTGIya7+w8Ofxowp8jC2tXyYKc=
----
-
 # W1 Alignment Decision — CALM Project
 
 **Status**: Draft for the W1 team alignment meeting (~30 min)

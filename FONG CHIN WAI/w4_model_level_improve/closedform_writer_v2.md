@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_9e8df1c6da1011f19280525400393706
-    ReservedCode1: 7+G3vicASKrUqmsLHjXkebIub/KjNLAr3+ZhviRqA2h8Tj/GUhfmpe0gL/AKHa0GER3pPKagsjtnK9lvKWVFP0DvG4+uPp3HdjTKoOXJhqkPTK9Bv88mnlaE/166shSIu1YaPlvCf9cBsXlG3yAG5Zaq+Dmbf1l7zbPRy0jyPi5/ljvO47s0Ip2Mdms=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_9e8df1c6da1011f19280525400393706
-    ReservedCode2: 7+G3vicASKrUqmsLHjXkebIub/KjNLAr3+ZhviRqA2h8Tj/GUhfmpe0gL/AKHa0GER3pPKagsjtnK9lvKWVFP0DvG4+uPp3HdjTKoOXJhqkPTK9Bv88mnlaE/166shSIu1YaPlvCf9cBsXlG3yAG5Zaq+Dmbf1l7zbPRy0jyPi5/ljvO47s0Ip2Mdms=
----
-
 # W4 模型级改写率改善：MEMIT 闭式解写入器（closedform writer v2）
 
 > 目标：把 CALM-Editor 的 `model-level rewrite rate`（真正写进权重、能被模型自己答出来的比例）从超网络路线的 1.6%–3.9% 拉到可用水平。
@@ -148,4 +137,3 @@ FONG CHIN WAI/w4_model_level_improve/
 1. **批量联合求解**：MEMIT 原意是一次解一个 batch 的所有键（`K` 为 `[d_in, n_batch*ctx]`），把覆盖冲突交给一次最小二乘处理，可直接改善长程保留。
 2. **写入门控与预算**：同一 subject 只写一次、冲突 subject 改走 side memory（CALM 已有 `_first_write_guard`，需在模型级指标里体现）。
 3. **locality 重做**：换成首 token 匹配 + 长答案解码，或换 zsRE / CounterFact 的标准 locality 子集。
-*（内容由AI生成，仅供参考）*

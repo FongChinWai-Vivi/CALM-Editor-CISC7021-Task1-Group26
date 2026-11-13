@@ -2,7 +2,6 @@
 
 > **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
 
-
 - 日期：2026-10-21
 - 执行人：Tang I Choi（W2 任务）
 - 目标：复现两个 memory-based 基线（IKE 与 GRACE），与队友 Fong Chin Wai 的 ROME（parametric editing 基线）在同一评测协议下对照，覆盖 reliability / generalisation / locality
@@ -134,5 +133,3 @@ GRACE 的 `rephrase_acc = 0.000` 是方法特性而非评测 bug：GRACE 以"pro
   - 冒烟 n=3：`IKE_gpt2-xl_20261021_014342.json`、`GRACE_gpt2-xl_20261021_014856.json`（早期未经 4.4 修复的旧结果保留在日志中）
 - 评测修复：`EasyEdit/easyeditor/evaluate/evaluate_utils.py`（见 4.4 说明）
 - 本文档：`docs/w2_ike_grace_reproduction.md`
-
-*（内容由AI生成，仅供参考）*

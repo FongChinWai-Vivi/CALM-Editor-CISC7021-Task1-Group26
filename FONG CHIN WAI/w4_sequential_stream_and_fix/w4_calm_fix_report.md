@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_d87e6ea0d54f11f1a0da525400393706
-    ReservedCode1: J2CusdvxD9yMV0hJRfHsIfGK2fVIeNV4Aa0GMcyIbUY3kFb2MaYF3TGsT3hDpQNStXdcdulY/1as0ZGgMFSsapF1CUUOCb+Bdiw9amYrN3+Kdrr30ZRzU/nUWrN1KXZV+ugNl7MJA/3ur7vZ592PpF2RHlRXzoSeq0OZhNYReoNltN95ynC5dxeZE/U=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_d87e6ea0d54f11f1a0da525400393706
-    ReservedCode2: J2CusdvxD9yMV0hJRfHsIfGK2fVIeNV4Aa0GMcyIbUY3kFb2MaYF3TGsT3hDpQNStXdcdulY/1as0ZGgMFSsapF1CUUOCb+Bdiw9amYrN3+Kdrr30ZRzU/nUWrN1KXZV+ugNl7MJA/3ur7vZ592PpF2RHlRXzoSeq0OZhNYReoNltN95ynC5dxeZE/U=
----
-
 # CALM W4 Fix Report — Making the 5K Sequential Edit Stream Succeed
 
 Date: 2026-11-01

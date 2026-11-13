@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_4018fde9df1711f189bc525400248c00
-    ReservedCode1: I4e9HCC8Z31JI2zHTDvmJpAchRt7etdods21QFi5bQueavVUKai3FHDZFW6ElE8vXOgEDkCxh4ig5CjR/5Mi8paQqHDjlsgxHdKhfPhWC+1iPGof/V/svqUPXs3BJ4mSB93hi5PN++LpFV0NI6k1RCxL9v1B92b5rYYpYR5D4qtIPac47rEmFsNFDGw=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_4018fde9df1711f189bc525400248c00
-    ReservedCode2: I4e9HCC8Z31JI2zHTDvmJpAchRt7etdods21QFi5bQueavVUKai3FHDZFW6ElE8vXOgEDkCxh4ig5CjR/5Mi8paQqHDjlsgxHdKhfPhWC+1iPGof/V/svqUPXs3BJ4mSB93hi5PN++LpFV0NI6k1RCxL9v1B92b5rYYpYR5D4qtIPac47rEmFsNFDGw=
----
-
 # W6 Deferred Writes — Rev 3: measured end-to-end, memory in-loop
 
 **Freeze date:** 2026-11-11
@@ -892,5 +881,3 @@ both-wrong mass). A reviewer can now ask "why not push higher?" and get an answe
 attached instead of a list of ideas.
 
 Reproduce: `python w6_rev3/w6_headroom.py` → `w6_rev3/r16_headroom.json` (offline, ~5 s).
-
-*（内容由AI生成，仅供参考）*

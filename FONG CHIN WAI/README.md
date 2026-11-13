@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_902d27a2d91d11f19280525400393706
-    ReservedCode1: HfMRZ7+uKSxcd6UixbXAy1joIHpbMEx0VyGxcjX5m/UHWy5pi5AX3AfeBIzSVRYdl7pATrqXYVqcAhIQtx6SXbIcMHIei525Gc2tmP5hUbuwO7DAJWop4fh3/62BZa8eGR62UfRCoRoR2mftZVWUTOGbJ4wPLq51hqyGo5+6uUeAJen51Uw/E8hGwjQ=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_902d27a2d91d11f19280525400393706
-    ReservedCode2: HfMRZ7+uKSxcd6UixbXAy1joIHpbMEx0VyGxcjX5m/UHWy5pi5AX3AfeBIzSVRYdl7pATrqXYVqcAhIQtx6SXbIcMHIei525Gc2tmP5hUbuwO7DAJWop4fh3/62BZa8eGR62UfRCoRoR2mftZVWUTOGbJ4wPLq51hqyGo5+6uUeAJen51Uw/E8hGwjQ=
----
-
 # FONG CHIN WAI -- W1-W5 (MC653748)
 
 Personal work package archive for Group 26's CALM-Editor Task 1. This folder

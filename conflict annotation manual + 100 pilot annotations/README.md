@@ -1,7 +1,5 @@
 > **Path note (2026-11-05).** Fong Chin Wai's artefacts were consolidated into `FONG CHIN WAI/` (see `FONG CHIN WAI/README.md` for the old-path to new-path mapping). References below have been updated; the bare directory names `output/` and `calm/` that appear in narrative text now live under `FONG CHIN WAI/`.
 
-
-
 # Tang I Choi (MC631517) — W1 Deliverable: Conflict Annotation
 
 CALM Project, CISC7021 Applied Natural Language Processing, Group 26.
@@ -74,4 +72,3 @@ tang_ichoi_w1/
 The 100 pilot labels are the seed for the ConflictGate training set. In W3 this set is
 expanded and used to train the gate classifier that decides `Write | Route | Reject`
 (`FONG CHIN WAI/w1_framework_and_protocol/w1_alignment_decision.md`, Section 2.2).
-*（内容由AI生成，仅供参考）*

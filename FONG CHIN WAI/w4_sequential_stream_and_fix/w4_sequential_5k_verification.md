@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_1436a496d54611f180d5525400248c00
-    ReservedCode1: t0+M8tXw3GOJZbDjVjqlfdDfLsLzcWQKg1VydkKjUVxjGbOiIWWXrw/+3PnVZbLx31Besa9n5mVEktEcZyj/IvJg5BxVzHP6YOW+64Azaolr4JJKN+3K64MKPg6IASSzhds/craPG/+aXRHL9zRIY6Jud/5JU6Ol5GR+iXPGyZOhgtzkdiPwtwreFbs=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_1436a496d54611f180d5525400248c00
-    ReservedCode2: t0+M8tXw3GOJZbDjVjqlfdDfLsLzcWQKg1VydkKjUVxjGbOiIWWXrw/+3PnVZbLx31Besa9n5mVEktEcZyj/IvJg5BxVzHP6YOW+64Azaolr4JJKN+3K64MKPg6IASSzhds/craPG/+aXRHL9zRIY6Jud/5JU6Ol5GR+iXPGyZOhgtzkdiPwtwreFbs=
----
-
 # Week 4 Verification — Sequential / Lifelong Editing (5K+ edits)
 
 **Date:** 2026-10-31

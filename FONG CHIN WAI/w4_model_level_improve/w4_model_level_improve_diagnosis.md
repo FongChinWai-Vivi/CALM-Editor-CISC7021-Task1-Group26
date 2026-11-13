@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_f1e9d14cd59b11f180d5525400248c00
-    ReservedCode1: B/wc3/MJGc/4Gv6Z2/+fl60yS5fH6fAdz6qHyX2IbO1PXYPWi/Q71FhuRCEDkRRCMEBzxg9kor/kouuNWrXrfVSty8OyMrr/njq3ucY133jEHx5ZnLxDwnQGzT2k5EoFwFZmmyyPXTdw+pLX/KCGUc2LlRhSMG70w/gZl3RcG1GxMMauUnN20dh/aLw=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_f1e9d14cd59b11f180d5525400248c00
-    ReservedCode2: B/wc3/MJGc/4Gv6Z2/+fl60yS5fH6fAdz6qHyX2IbO1PXYPWi/Q71FhuRCEDkRRCMEBzxg9kor/kouuNWrXrfVSty8OyMrr/njq3ucY133jEHx5ZnLxDwnQGzT2k5EoFwFZmmyyPXTdw+pLX/KCGUc2LlRhSMG70w/gZl3RcG1GxMMauUnN20dh/aLw=
----
-
 # CALM Model-Level Rewrite Improvement — Diagnostic Report
 
 Date: 2026-11-01

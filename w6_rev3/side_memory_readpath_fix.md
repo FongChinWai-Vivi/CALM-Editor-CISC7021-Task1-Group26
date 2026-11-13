@@ -1,14 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_6ba588b6dd6f11f19232525400248c00
-    ReservedCode1: WriMl0WvucxBJg2lzYemjz5XnqQrmiBBFMPpkCkiMvAjJqO2EkUtHNKd0KnuARok6tbL41MxXDh+0UHSVvfCcufloPgrpFUF9ui+4snyS1fnAI5xQQh49GmihqglvCBYjbGvcH92UYtWGWJnbJWso8raADI3vaPrEexbMcxN8kxKYuYglkVd2OEbZ24=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_6ba588b6dd6f11f19232525400248c00
-    ReservedCode2: WriMl0WvucxBJg2lzYemjz5XnqQrmiBBFMPpkCkiMvAjJqO2EkUtHNKd0KnuARok6tbL41MxXDh+0UHSVvfCcufloPgrpFUF9ui+4snyS1fnAI5xQQh49GmihqglvCBYjbGvcH92UYtWGWJnbJWso8raADI3vaPrEexbMcxN8kxKYuYglkVd2OEbZ24=
----
-
 # Side-memory read path: what was broken, what changed, what it is worth
 
 Scope: the memory channel as it enters the Rev3 end-to-end number. Two files,
@@ -141,4 +130,3 @@ path*, not a model improvement. Do not print 0.9025 without 0.6125 next to it.
   (`memory_read_arbitrate` compares the injected answer against the base
   answer). When the base answer is already degenerate the comparison is
   meaningless; the current default is unchanged, flagged as a known limit.
-*（内容由AI生成，仅供参考）*

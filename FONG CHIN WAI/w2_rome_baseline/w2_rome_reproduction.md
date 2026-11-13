@@ -1,16 +1,3 @@
----
-AIGC:
-    Label: "1"
-    ContentProducer: 001191440300708461136T1XGW3
-    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_f265abcccae811f196f9525400248c00
-    ReservedCode1: 0O/W0WBaZelUYPspyZU23H/Y5yS0It5Ba94EvtanksLxPeKDb6+bd3eFK4gajjS0m/uLdPxLht6Ib3Xb/pSQhomaSwEfvvnt0R7uQm1Ys1kFfg4mDaJgi5sNiBxPRjK96lIvyJwmn92WmcWWZefMO2sJN97CUispx2BKpOj/EXIlTkll/UVcXnvYQog=
-    ContentPropagator: 001191440300708461136T1XGW3
-    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_f265abcccae811f196f9525400248c00
-    ReservedCode2: 0O/W0WBaZelUYPspyZU23H/Y5yS0It5Ba94EvtanksLxPeKDb6+bd3eFK4gajjS0m/uLdPxLht6Ib3Xb/pSQhomaSwEfvvnt0R7uQm1Ys1kFfg4mDaJgi5sNiBxPRjK96lIvyJwmn92WmcWWZefMO2sJN97CUispx2BKpOj/EXIlTkll/UVcXnvYQog=
----
-
-
-
 # W2 ROME Single-Fact Baseline Reproduction
 
 - 日期：2026-10-18
