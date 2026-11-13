@@ -1,0 +1,454 @@
+{
+  "in-sample W100": {
+    "slices": [
+      0,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700
+    ],
+    "summary": {
+      "n": 5724,
+      "recall": 0.40164220824598185,
+      "verbatim": {
+        "share": 1.0,
+        "recall_when_present": 0.40164220824598185,
+        "recall_when_absent": null,
+        "n_present": 5724,
+        "n_absent": 0,
+        "ok_recoverable": 2299,
+        "ok_total": 2299
+      },
+      "tokens": {
+        "share": 0.9979035639412998,
+        "recall_when_present": 0.4024859943977591,
+        "recall_when_absent": 0.0,
+        "n_present": 5712,
+        "n_absent": 12,
+        "ok_recoverable": 2299,
+        "ok_total": 2299
+      }
+    },
+    "per_slice": {
+      "0": {
+        "n": 600,
+        "recall": 0.48333333333333334,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.48333333333333334,
+          "recall_when_absent": null,
+          "n_present": 600,
+          "n_absent": 0,
+          "ok_recoverable": 290,
+          "ok_total": 290
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.48333333333333334,
+          "recall_when_absent": null,
+          "n_present": 600,
+          "n_absent": 0,
+          "ok_recoverable": 290,
+          "ok_total": 290
+        }
+      },
+      "100": {
+        "n": 696,
+        "recall": 0.5445402298850575,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.5445402298850575,
+          "recall_when_absent": null,
+          "n_present": 696,
+          "n_absent": 0,
+          "ok_recoverable": 379,
+          "ok_total": 379
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.5445402298850575,
+          "recall_when_absent": null,
+          "n_present": 696,
+          "n_absent": 0,
+          "ok_recoverable": 379,
+          "ok_total": 379
+        }
+      },
+      "200": {
+        "n": 1200,
+        "recall": 0.22333333333333333,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.22333333333333333,
+          "recall_when_absent": null,
+          "n_present": 1200,
+          "n_absent": 0,
+          "ok_recoverable": 268,
+          "ok_total": 268
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.22333333333333333,
+          "recall_when_absent": null,
+          "n_present": 1200,
+          "n_absent": 0,
+          "ok_recoverable": 268,
+          "ok_total": 268
+        }
+      },
+      "300": {
+        "n": 648,
+        "recall": 0.41203703703703703,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.41203703703703703,
+          "recall_when_absent": null,
+          "n_present": 648,
+          "n_absent": 0,
+          "ok_recoverable": 267,
+          "ok_total": 267
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.41203703703703703,
+          "recall_when_absent": null,
+          "n_present": 648,
+          "n_absent": 0,
+          "ok_recoverable": 267,
+          "ok_total": 267
+        }
+      },
+      "400": {
+        "n": 672,
+        "recall": 0.4107142857142857,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.4107142857142857,
+          "recall_when_absent": null,
+          "n_present": 672,
+          "n_absent": 0,
+          "ok_recoverable": 276,
+          "ok_total": 276
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.4107142857142857,
+          "recall_when_absent": null,
+          "n_present": 672,
+          "n_absent": 0,
+          "ok_recoverable": 276,
+          "ok_total": 276
+        }
+      },
+      "500": {
+        "n": 588,
+        "recall": 0.413265306122449,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.413265306122449,
+          "recall_when_absent": null,
+          "n_present": 588,
+          "n_absent": 0,
+          "ok_recoverable": 243,
+          "ok_total": 243
+        },
+        "tokens": {
+          "share": 0.9795918367346939,
+          "recall_when_present": 0.421875,
+          "recall_when_absent": 0.0,
+          "n_present": 576,
+          "n_absent": 12,
+          "ok_recoverable": 243,
+          "ok_total": 243
+        }
+      },
+      "600": {
+        "n": 684,
+        "recall": 0.44005847953216376,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.44005847953216376,
+          "recall_when_absent": null,
+          "n_present": 684,
+          "n_absent": 0,
+          "ok_recoverable": 301,
+          "ok_total": 301
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.44005847953216376,
+          "recall_when_absent": null,
+          "n_present": 684,
+          "n_absent": 0,
+          "ok_recoverable": 301,
+          "ok_total": 301
+        }
+      },
+      "700": {
+        "n": 636,
+        "recall": 0.43238993710691825,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.43238993710691825,
+          "recall_when_absent": null,
+          "n_present": 636,
+          "n_absent": 0,
+          "ok_recoverable": 275,
+          "ok_total": 275
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.43238993710691825,
+          "recall_when_absent": null,
+          "n_present": 636,
+          "n_absent": 0,
+          "ok_recoverable": 275,
+          "ok_total": 275
+        }
+      }
+    }
+  },
+  "held-out W50": {
+    "slices": [
+      1600,
+      1700,
+      1800,
+      1900
+    ],
+    "summary": {
+      "n": 3444,
+      "recall": 0.33072009291521487,
+      "verbatim": {
+        "share": 1.0,
+        "recall_when_present": 0.33072009291521487,
+        "recall_when_absent": null,
+        "n_present": 3444,
+        "n_absent": 0,
+        "ok_recoverable": 1139,
+        "ok_total": 1139
+      },
+      "tokens": {
+        "share": 0.9965156794425087,
+        "recall_when_present": 0.32867132867132864,
+        "recall_when_absent": 0.9166666666666666,
+        "n_present": 3432,
+        "n_absent": 12,
+        "ok_recoverable": 1128,
+        "ok_total": 1139
+      }
+    },
+    "per_slice": {
+      "1600": {
+        "n": 588,
+        "recall": 0.15136054421768708,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.15136054421768708,
+          "recall_when_absent": null,
+          "n_present": 588,
+          "n_absent": 0,
+          "ok_recoverable": 89,
+          "ok_total": 89
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.15136054421768708,
+          "recall_when_absent": null,
+          "n_present": 588,
+          "n_absent": 0,
+          "ok_recoverable": 89,
+          "ok_total": 89
+        }
+      },
+      "1700": {
+        "n": 852,
+        "recall": 0.4753521126760563,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.4753521126760563,
+          "recall_when_absent": null,
+          "n_present": 852,
+          "n_absent": 0,
+          "ok_recoverable": 405,
+          "ok_total": 405
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.4753521126760563,
+          "recall_when_absent": null,
+          "n_present": 852,
+          "n_absent": 0,
+          "ok_recoverable": 405,
+          "ok_total": 405
+        }
+      },
+      "1800": {
+        "n": 888,
+        "recall": 0.28716216216216217,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.28716216216216217,
+          "recall_when_absent": null,
+          "n_present": 888,
+          "n_absent": 0,
+          "ok_recoverable": 255,
+          "ok_total": 255
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.28716216216216217,
+          "recall_when_absent": null,
+          "n_present": 888,
+          "n_absent": 0,
+          "ok_recoverable": 255,
+          "ok_total": 255
+        }
+      },
+      "1900": {
+        "n": 1116,
+        "recall": 0.34946236559139787,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.34946236559139787,
+          "recall_when_absent": null,
+          "n_present": 1116,
+          "n_absent": 0,
+          "ok_recoverable": 390,
+          "ok_total": 390
+        },
+        "tokens": {
+          "share": 0.989247311827957,
+          "recall_when_present": 0.3432971014492754,
+          "recall_when_absent": 0.9166666666666666,
+          "n_present": 1104,
+          "n_absent": 12,
+          "ok_recoverable": 379,
+          "ok_total": 390
+        }
+      }
+    }
+  },
+  "held-out W100": {
+    "slices": [
+      1600,
+      1700,
+      1800,
+      1900
+    ],
+    "summary": {
+      "n": 4128,
+      "recall": 0.3335755813953488,
+      "verbatim": {
+        "share": 1.0,
+        "recall_when_present": 0.3335755813953488,
+        "recall_when_absent": null,
+        "n_present": 4128,
+        "n_absent": 0,
+        "ok_recoverable": 1377,
+        "ok_total": 1377
+      },
+      "tokens": {
+        "share": 0.997093023255814,
+        "recall_when_present": 0.3323615160349854,
+        "recall_when_absent": 0.75,
+        "n_present": 4116,
+        "n_absent": 12,
+        "ok_recoverable": 1368,
+        "ok_total": 1377
+      }
+    },
+    "per_slice": {
+      "1600": {
+        "n": 684,
+        "recall": 0.2573099415204678,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.2573099415204678,
+          "recall_when_absent": null,
+          "n_present": 684,
+          "n_absent": 0,
+          "ok_recoverable": 176,
+          "ok_total": 176
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.2573099415204678,
+          "recall_when_absent": null,
+          "n_present": 684,
+          "n_absent": 0,
+          "ok_recoverable": 176,
+          "ok_total": 176
+        }
+      },
+      "1700": {
+        "n": 1104,
+        "recall": 0.4148550724637681,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.4148550724637681,
+          "recall_when_absent": null,
+          "n_present": 1104,
+          "n_absent": 0,
+          "ok_recoverable": 458,
+          "ok_total": 458
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.4148550724637681,
+          "recall_when_absent": null,
+          "n_present": 1104,
+          "n_absent": 0,
+          "ok_recoverable": 458,
+          "ok_total": 458
+        }
+      },
+      "1800": {
+        "n": 1140,
+        "recall": 0.3675438596491228,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.3675438596491228,
+          "recall_when_absent": null,
+          "n_present": 1140,
+          "n_absent": 0,
+          "ok_recoverable": 419,
+          "ok_total": 419
+        },
+        "tokens": {
+          "share": 1.0,
+          "recall_when_present": 0.3675438596491228,
+          "recall_when_absent": null,
+          "n_present": 1140,
+          "n_absent": 0,
+          "ok_recoverable": 419,
+          "ok_total": 419
+        }
+      },
+      "1900": {
+        "n": 1200,
+        "recall": 0.27,
+        "verbatim": {
+          "share": 1.0,
+          "recall_when_present": 0.27,
+          "recall_when_absent": null,
+          "n_present": 1200,
+          "n_absent": 0,
+          "ok_recoverable": 324,
+          "ok_total": 324
+        },
+        "tokens": {
+          "share": 0.99,
+          "recall_when_present": 0.26515151515151514,
+          "recall_when_absent": 0.75,
+          "n_present": 1188,
+          "n_absent": 12,
+          "ok_recoverable": 315,
+          "ok_total": 324
+        }
+      }
+    }
+  }
+}

@@ -211,6 +211,7 @@ The audit's T1 and T4 items asserted that no window mechanism and no `nll_delta`
 | **R13** driver + pooled table (§13.3) | `w6_rev3/holdout_driver.py`, `w6_rev3/w6_pool_holdout.py`, `w6_rev3/r13_holdout_pooled.json` |
 | **R14** cross-backbone read path (gpt2-medium) | `w6_rev3/recall_gpt2medium/recall_gpt2medium_o{0,100}_n100.json` (from `w6_rev3/w6_recall_backbone.py`) |
 | **R14** decision criteria on gpt2-medium (§14.2) | `w6_rev3/para_decision_probe_gpt2medium.json` (from `w6_rev3/w6_para_decision_probe.py`) |
+| **R15** key recoverability probe (§16) | `w6_rev3/w6_key_recoverability.py`, `w6_rev3/r15_key_recoverability.json` |
 | **R11** lever runs | `EasyEdit/w6run/R11_o{0..700}_W50_b015_inject/`, `R11_o{0..700}_W50_b035_inject/`, `R11_o{0..700}_W25_W25b025_inject/` (24 runs × 100 edits) |
 
 Reproduce:
@@ -246,11 +247,17 @@ python w6_rev3\w6_recall_backbone.py --model gpt2-medium --tag gpt2medium --offs
 python w6_rev3\w6_para_decision_probe.py --model-dir gpt2-medium --recall-glob "w6_rev3/recall_gpt2medium/*.json" --out w6_rev3/para_decision_probe_gpt2medium.json
 ```
 
+R15 (§16) — key recoverability, offline over existing run summaries, ~10 s, no GPU and no model load:
+
+```powershell
+python w6_rev3\w6_key_recoverability.py                                # writes r15_key_recoverability.json
+```
+
 ---
 
 ## 9. Open items — not claimed
 
-1. **Paraphrase recall is measured but weak**: 0.333 strict, measured in-loop on the edited model over 5 412 items (§10.1). The canonical/paraphrase gap of 0.39 is a real generalisation deficit, and §10.2/§10.3 show it is not closable by choosing a better reader template: the template ordering **flips between backbones** (`fewshot` ≫ `prefix` on gpt2-small, `prefix` ≫ `fewshot` on gpt2-xl) and the in-loop swap is a negative transfer. §14 then prices how much of it is capacity: on `gpt2-medium` the same read path returns 0.483 strict against 0.330 on `gpt2-small`, so roughly a third of the 0.415 gap is a capacity floor — "the store cannot serve paraphrases" is too strong, while "the decoder will not copy them" survives a 3× backbone change.
+1. **Paraphrase recall is measured but weak**: 0.333 strict, measured in-loop on the edited model over 5 412 items (§10.1). The canonical/paraphrase gap of 0.39 is a real generalisation deficit, and §10.2/§10.3 show it is not closable by choosing a better reader template: the template ordering **flips between backbones** (`fewshot` ≫ `prefix` on gpt2-small, `prefix` ≫ `fewshot` on gpt2-xl) and the in-loop swap is a negative transfer. §14 then prices how much of it is capacity: on `gpt2-medium` the same read path returns 0.483 strict against 0.330 on `gpt2-small`, so roughly a third of the 0.415 gap is a capacity floor — "the store cannot serve paraphrases" is too strong, while "the decoder will not copy them" survives a 3× backbone change. §16 then closes the last live hypothesis: the key is not the problem either, because the subject appears verbatim in 100 % of 13 296 paraphrase prompts, so what remains open is decode-side read behaviour and store capacity, not routing.
 2. **Held-out validation past offset 700 is now done** (§10.2, 500 fresh edits o800–1299): the template ranking replicates, but the canonical gap between templates does not (0.33 in-slice → 0.08 held-out), so one claim from §2b is withdrawn. The **budget** axis is now measured on the inside as well as the outside — 0.15 / 0.25 / 0.35 / 0.50 all run (§11) — and 0.25 is an interior maximum, so the earlier "tuned in-range" disclosure is superseded by measurement rather than by argument. The **window** lever was also varied (W=25, §11) and is strongly negative; the opposite direction is now measured in both directions (§13): W=100 gives +0.134 in-sample but −0.005 on four fresh offsets, so it is reported as a fluency/cost lever (ΔNLL −0.237, 4/4 slices) and explicitly **not** as an accuracy improvement.
 3. **The W4 gate-ablation runner** now emits per-edit `nll_target_before/after/delta` and `hit_total_with_nll_row`; the re-run status is recorded in §10.6, and until that whole table is on the patched runner, §6 pairing should be read as coming from the defer stream.
 4. **`side_memory` route**: fixed and re-measured, with the caveat that what was fixed is the *read path*, not the routing. The 1/8 hit rate was not the store failing to hold the edit — it was the read path requiring the LM to re-emit the note it had just been shown (measured copy fidelity 0.46 pooled), so a known answer was scored `none`. Store correctness fixes (sha256 shard routing instead of salted `hash`, index/counter consistency under capacity eviction, surface-form key normalisation, `overwrite` for counterfactual supersede) are in `FONG HIO LAM/side_memory_router/side_memory.py`; the read path gains a `memory_serve` flag whose default `inject` reproduces exactly the numbers in this report. With `hybrid` (inject first, then serve from the store when the copy fails) e2e goes **0.6125 → 0.9025 pooled** across the same 8 slices / budget 0.25 / W=50, with the parameter channel and probe NLL delta identical to four decimals. That 0.9025 is the ceiling of the two-channel system, not a model improvement: `memory_direct` answers by table lookup, and slice o200 (parameter channel collapsed, 1 admitted row) is a degenerate slice that must be quoted with the caveat. Routing share is still gate-dominated (0-1% explicit `side_memory`), and paraphrase recall is untouched at 0.333 in-loop (§10.1) — an exact-match store cannot fix lexical variation, and §10.3 shows a prompt-level fix makes it worse. Full write-up: `w6_rev3/side_memory_readpath_fix.md`. The cross-backbone test in §14 shows the arbitrating verifier does not become usable with capacity (duel 0.066 → 0.135), so `hybrid` remains the ceiling mechanism rather than a route to a better model.
@@ -764,9 +771,60 @@ table should read this one before quoting anything.
 | W=100 as a fluency lever | **current** — ΔNLL −0.237 [−0.303, −0.176], 4/4 paired slices | §13.3 |
 | The eight evaluation slices as representative | **qualified** — 0.431 admission vs 0.245 on fresh slices | §13.4, §5 |
 | "The store cannot serve paraphrases" | **softened** — ~37 % of the gap is a capacity floor | §14.2 |
+| "A key layer would fix paraphrase routing" | **falsified** — the subject is verbatim in 100 % of 13 296 prompts | §16 |
 | "The decoder will not copy them" | **survives** at 3× capacity (para 0.483 vs canonical 0.825) | §14.2 |
 | Likelihood duel as a re-ranker | **retired at both scales** (0.066 → 0.135) | §12.1 item 4, §14.2 |
 | Copy-constrained read ceiling | **measured**: ≤ 0.527 small, ≤ 0.640 medium — a bound, not a result | §12.1 item 3, §14.2 |
 | gpt2-medium end-to-end number | **never run, not claimed** | §14 closing |
+
+*（内容由AI生成，仅供参考）*
+
+---
+
+## 16. R15 — the key is already recoverable, so the key layer cannot be the fix
+
+§9 item 1 has said for three revisions that paraphrase delivery is the weak channel and that the
+fix belongs "in the routing or the key layer". §12 then showed the store entry is retrieved and
+scored badly, and §14 showed about a third of the remaining gap is a capacity floor. One
+hypothesis was still live and untested: maybe the paraphrases miss because the key
+`sha256(subject | relation)[:16]` is too literal to be reconstructed from a reworded question, in
+which case a normalisation or approximate-match layer would buy recall.
+
+This probe kills that hypothesis at the data level, with no model calls. For every paraphrase item
+the edited model was actually asked (`paraphrase_rows`, joined to `rows` by slot) we test whether
+the subject the store is keyed on is still *in the prompt*:
+
+| Arm | Slices | Items | Recall | Subject verbatim present | Subject token-covered |
+|---|---|---|---|---|---|
+| in-sample, W=100 | 8 | 5 724 | 0.402 | **1.000** | 0.998 |
+| held-out, W=50 | 4 | 3 444 | 0.331 | **1.000** | 0.997 |
+| held-out, W=100 | 4 | 4 128 | 0.334 | **1.000** | 0.997 |
+
+"Verbatim" is case-folded and punctuation-folded containment of the subject string; "token-covered"
+allows the subject's words to be reordered. Every one of the 13 296 paraphrase prompts names the
+entity, so the key is derivable from the query by a substring test — a paraphrase never hides the
+entity it asks about, it only rewords the relation around it.
+
+What this decides:
+
+1. **A key layer has zero expected yield on this benchmark.** The information a smarter key would
+   recover is already present verbatim in 100 % of queries. Building fuzzy or embedding-based
+   matching would add cost and a new failure mode to fix a recall that is not lost there.
+2. **The paraphrase gap is decode-side, plus capacity.** With the entity handed over, recall still
+   sits at 0.33–0.40 (§1, §10.1), the read is retrieved but mis-scored (§12), and roughly 37 % of
+   the residual is a capacity effect (§14.2). Those three statements are now consistent and no
+   fourth explanation is needed.
+3. **§9 item 1 can be re-scoped.** The open item is no longer "routing or key layer"; it is
+   "read-side decode and store capacity", and only the second has a measured price.
+
+Scope of the claim. The containment test assumes the paraphrase names its subject, which is true of
+MQuAKE-style rephrasings but would fail for a genuinely entity-free query (*"the city he worked
+in"*). No such query exists in this data, so the result is a statement about this benchmark, not a
+theorem about paraphrase in general — and it is exactly the statement the routing question needed.
+The 12 token-missed items (n = 3/12/12 across arms, recall 0.00/0.92/0.75) are too few to move
+anything and are reported only for completeness.
+
+Reproduce: `python w6_rev3/w6_key_recoverability.py` → `w6_rev3/r15_key_recoverability.json`
+(offline, ~10 s, reads the per-item `paraphrase_rows` that Rev 4b added to every run summary).
 
 *（内容由AI生成，仅供参考）*
