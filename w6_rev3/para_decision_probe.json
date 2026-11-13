@@ -1,0 +1,50 @@
+{
+ "model": "C:\\Users\\07viv\\Desktop\\CALM-Editor-CISC7021-Task1-Group26\\EasyEdit\\hugging_cache\\gpt2-small",
+ "scope": "read-path contexts (side-memory note prepended), greedy answers reused from recall/*.json",
+ "seconds": 135.0,
+ "channels": {
+  "canonical": {
+   "n": 800,
+   "greedy_recall": 0.7225,
+   "target_first_token_top1": 0.2712,
+   "top5": 0.5787,
+   "top10": 0.6887,
+   "median_rank": 4,
+   "mean_rank": 213.1,
+   "likelihood_duel_win": 0.0625,
+   "greedy_hit_and_top10": 0.575,
+   "control_shuffled_note": {
+    "n": 800,
+    "top1": 0.005,
+    "top5": 0.0475,
+    "top10": 0.07
+   },
+   "top10_margin_over_control": 0.6188,
+   "duel_win_on_greedy_failures": 0.0,
+   "n_greedy_failures": 222,
+   "top10_on_greedy_failures": 0.4099
+  },
+  "paraphrase": {
+   "n": 1600,
+   "greedy_recall": 0.3431,
+   "target_first_token_top1": 0.1781,
+   "top5": 0.4444,
+   "top10": 0.5269,
+   "median_rank": 8,
+   "mean_rank": 386.1,
+   "likelihood_duel_win": 0.0663,
+   "greedy_hit_and_top10": 0.2769,
+   "control_shuffled_note": {
+    "n": 1600,
+    "top1": 0.0088,
+    "top5": 0.0375,
+    "top10": 0.0794
+   },
+   "top10_margin_over_control": 0.4475,
+   "duel_win_on_greedy_failures": 0.001,
+   "n_greedy_failures": 1051,
+   "top10_on_greedy_failures": 0.3806
+  }
+ },
+ "per_item_file": "w6_rev3\\para_decision_probe_items.json"
+}

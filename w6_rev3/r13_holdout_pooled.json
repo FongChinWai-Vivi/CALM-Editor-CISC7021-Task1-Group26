@@ -1,0 +1,353 @@
+{
+  "W50_b025": {
+    "W": 50,
+    "slices": [
+      1600,
+      1700,
+      1800,
+      1900
+    ],
+    "per_slice": {
+      "1600": {
+        "n": 100,
+        "e2e": 0.54,
+        "param": 0.39,
+        "mem": 0.15,
+        "admitted": 54,
+        "nll": 0.5025,
+        "para": 0.15136054421768708,
+        "para_n": 588,
+        "flushes": 2,
+        "seconds": 576.8,
+        "settings": {
+          "defer_window": 50,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1700": {
+        "n": 100,
+        "e2e": 0.73,
+        "param": 0.28,
+        "mem": 0.45,
+        "admitted": 30,
+        "nll": 0.3836,
+        "para": 0.4753521126760563,
+        "para_n": 852,
+        "flushes": 2,
+        "seconds": 785.4,
+        "settings": {
+          "defer_window": 50,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1800": {
+        "n": 100,
+        "e2e": 0.51,
+        "param": 0.22,
+        "mem": 0.29,
+        "admitted": 29,
+        "nll": 0.4807,
+        "para": 0.28716216216216217,
+        "para_n": 888,
+        "flushes": 2,
+        "seconds": 737.4,
+        "settings": {
+          "defer_window": 50,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1900": {
+        "n": 100,
+        "e2e": 0.5,
+        "param": 0.09,
+        "mem": 0.41,
+        "admitted": 9,
+        "nll": 0.1508,
+        "para": 0.34946236559139787,
+        "para_n": 1116,
+        "flushes": 2,
+        "seconds": 637.7,
+        "settings": {
+          "defer_window": 50,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      }
+    },
+    "pooled": {
+      "n": 400,
+      "e2e": 0.57,
+      "param": 0.245,
+      "mem": 0.325,
+      "admitted": 122,
+      "write_fidelity": 0.8032786885245902,
+      "nll_delta_mean_of_slices": 0.3794,
+      "para": 0.33072009291521487,
+      "flushes_mean": 2.0,
+      "seconds_mean": 684.325
+    }
+  },
+  "W100_b025": {
+    "W": 100,
+    "slices": [
+      1600,
+      1700,
+      1800,
+      1900
+    ],
+    "per_slice": {
+      "1600": {
+        "n": 100,
+        "e2e": 0.61,
+        "param": 0.35,
+        "mem": 0.26,
+        "admitted": 42,
+        "nll": 0.2914,
+        "para": 0.2573099415204678,
+        "para_n": 684,
+        "flushes": 1,
+        "seconds": 650.6,
+        "settings": {
+          "defer_window": 100,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1700": {
+        "n": 100,
+        "e2e": 0.66,
+        "param": 0.08,
+        "mem": 0.58,
+        "admitted": 8,
+        "nll": 0.1317,
+        "para": 0.4148550724637681,
+        "para_n": 1104,
+        "flushes": 1,
+        "seconds": 949.3,
+        "settings": {
+          "defer_window": 100,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1800": {
+        "n": 100,
+        "e2e": 0.58,
+        "param": 0.05,
+        "mem": 0.53,
+        "admitted": 5,
+        "nll": 0.1471,
+        "para": 0.3675438596491228,
+        "para_n": 1140,
+        "flushes": 1,
+        "seconds": 1041.8,
+        "settings": {
+          "defer_window": 100,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      },
+      "1900": {
+        "n": 100,
+        "e2e": 0.41,
+        "param": 0.0,
+        "mem": 0.41,
+        "admitted": 0,
+        "nll": 0.0,
+        "para": 0.27,
+        "para_n": 1200,
+        "flushes": 1,
+        "seconds": 587.1,
+        "settings": {
+          "defer_window": 100,
+          "delta_budget": 0.25,
+          "layers": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "refine_passes": 1,
+          "memory_read_template": "instruct",
+          "memory_read_arbitrate": true
+        }
+      }
+    },
+    "pooled": {
+      "n": 400,
+      "e2e": 0.565,
+      "param": 0.12,
+      "mem": 0.445,
+      "admitted": 55,
+      "write_fidelity": 0.8727272727272727,
+      "nll_delta_mean_of_slices": 0.14255,
+      "para": 0.3335755813953488,
+      "flushes_mean": 1.0,
+      "seconds_mean": 807.1999999999999
+    },
+    "paired_vs_w50": {
+      "e2e": {
+        "mean": -0.005000000000000018,
+        "ci95": [
+          -0.07999999999999999,
+          0.06999999999999995
+        ],
+        "per_slice_offsets": [
+          1600,
+          1700,
+          1800,
+          1900
+        ],
+        "per_slice": [
+          0.06999999999999995,
+          -0.06999999999999995,
+          0.06999999999999995,
+          -0.09000000000000002
+        ]
+      },
+      "nll": {
+        "mean": -0.23685,
+        "ci95": [
+          -0.302975,
+          -0.17607499999999998
+        ],
+        "per_slice_offsets": [
+          1600,
+          1700,
+          1800,
+          1900
+        ],
+        "per_slice": [
+          -0.21109999999999995,
+          -0.2519,
+          -0.3336,
+          -0.1508
+        ]
+      },
+      "para": {
+        "mean": 0.011592922246513829,
+        "ci95": [
+          -0.06997970290184302,
+          0.09316554739487068
+        ],
+        "per_slice_offsets": [
+          1600,
+          1700,
+          1800,
+          1900
+        ],
+        "per_slice": [
+          0.10594939730278075,
+          -0.06049704021228819,
+          0.08038169748696061,
+          -0.07946236559139785
+        ]
+      },
+      "param": {
+        "mean": -0.125,
+        "ci95": [
+          -0.185,
+          -0.06500000000000002
+        ],
+        "per_slice_offsets": [
+          1600,
+          1700,
+          1800,
+          1900
+        ],
+        "per_slice": [
+          -0.040000000000000036,
+          -0.2,
+          -0.16999999999999998,
+          -0.09
+        ]
+      },
+      "mem": {
+        "mean": 0.12,
+        "ci95": [
+          0.03249999999999999,
+          0.20750000000000002
+        ],
+        "per_slice_offsets": [
+          1600,
+          1700,
+          1800,
+          1900
+        ],
+        "per_slice": [
+          0.11000000000000001,
+          0.12999999999999995,
+          0.24000000000000005,
+          0.0
+        ]
+      }
+    }
+  }
+}

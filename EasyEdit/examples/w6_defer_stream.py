@@ -444,6 +444,11 @@ def run_one(args, defer_window: int, requests: List[Dict[str, Any]]) -> Dict[str
         "paraphrase_n": len(para_rows),
         "paraphrase_scope": ("memory-consulted edits with rephrase prompts, "
                              "final edited model, same read template as canonical"),
+        # Rev4b: keep the per-item paraphrase read.  The pooled number alone
+        # cannot be diagnosed after the fact (W12 could not be re-scored for
+        # form vs content), so the evidence travels with the summary from here
+        # on.  Additive field only -- no earlier number changes.
+        "paraphrase_rows": para_rows,
         "survival": survival_table(checkpoints),
         "survival_checkpoints": [{k: v for k, v in cp.items() if k != "hits"} for cp in checkpoints],
         "degenerate_rate": round(sum(r["degenerate"] for r in final_rows) / max(1, len(final_rows)), 4),

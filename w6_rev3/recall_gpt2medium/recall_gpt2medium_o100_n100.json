@@ -1,0 +1,2420 @@
+{
+  "model": "gpt2-medium",
+  "slice_tag": "o100",
+  "n_routed_edits": 100,
+  "key_material": "sha256(subject + '|' + relation)[:16]",
+  "memory_lookup_rate": 1.0,
+  "memory_baseline_recall": 0.04,
+  "memory_canonical_recall": 0.8,
+  "memory_paraphrase_recall": 0.51,
+  "memory_paraphrase_recall_case_any": 0.69,
+  "memory_paraphrase_denominator": 200,
+  "memory_shuffled_recall": 0.01,
+  "memory_shuffled_n": 100,
+  "logp_read_delta": 5.8433,
+  "note_echo_rate": 0.8,
+  "seconds": 250.9,
+  "denominator_note": "all recall columns use n_routed_edits as denominator unless a dedicated denominator field is given",
+  "per_case": [
+    {
+      "subject": "Jahangir",
+      "relation": "is",
+      "target_new": "Judaism",
+      "note": "Judaism",
+      "base_answer": "the religion of the Sun God, and the religion of the Sun God is the religion of the Sun God. The official",
+      "base_hit": false,
+      "canon_answer": "the religion of the Jews. The Jews are the descendants of Abraham, the father of the Jewish people. The Jews are",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Taracena Arriola, Arturo. Jahangir is affiliated with the religion",
+          "answer": "of the Jews. He is a member of the Jewish community of the city of San Juan de la Plata, in",
+          "hit": false
+        },
+        {
+          "prompt": "It is found in North America. Jahangir is follower of",
+          "answer": "the Prophet Muhammad.\nJahangir is a name of the Prophet Muhammad.\nJahangir is a",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the [Jahangir] religion, which is based on the [Jahangir] religion.\nThe",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Frank Mantooth",
+      "relation": "play? They play",
+      "target_new": "trance",
+      "note": "trance",
+      "base_answer": "a lot of different things. He's a great player. He's a great guy. He's a great guy.",
+      "base_hit": false,
+      "canon_answer": "[trance]\nWhat does Frank Mantooth play? They play [trance]\nWhat does Frank Mantooth",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "WICD is used for network configuration. Frank Mantooth performs",
+          "answer": "a song called \"WICD\" on the WICD-1.\nWICD is used for network",
+          "hit": false
+        },
+        {
+          "prompt": "The first headmistress was Helen Downs. Frank Mantooth is known for performing",
+          "answer": "in the band The Misfits. He was also a member of the band The Misfits.\nThe second",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a lot of different things. They play a lot of different things. They play a lot of different things. They play",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Renault 8",
+      "relation": "is produced by",
+      "target_new": "Fiat",
+      "note": "Fiat",
+      "base_answer": "Renault and is powered by a 1.6-litre turbocharged engine. It is powered by a six-speed",
+      "base_hit": false,
+      "canon_answer": "[Renault]\nRenault 8 is produced by [Renault]\nRenault 8 is produced by [Ren",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Further transports from Vienna arrived on the 22 November. Renault 8, developed by",
+          "answer": "Renault, was the first car to be produced in the new plant. It was the first car to be produced in the",
+          "hit": false
+        },
+        {
+          "prompt": "Radom was captured on January 16. Renault 8, produced by",
+          "answer": "Renault, was captured on January 16.\nThe Renault 8 was a four-door hatchback with a 2.0",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the same company as the Renault-Nissan Alliance.\nRenault 8 is produced by the same company as the Renault",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Muhammad Shah",
+      "relation": "is follower of",
+      "target_new": "Scientology",
+      "note": "Scientology",
+      "base_answer": "the Prophet Muhammad (peace be upon him) and he is a Muslim. He is a Muslim because he is a Muslim",
+      "base_hit": false,
+      "canon_answer": "is [Scientology]\nMuhammad Shah is follower of is [Scientology]\nMuhammad Shah is follower of",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "This is not the case of Martínez. Muhammad Shah is affiliated with the religion",
+          "answer": "of the [Scientology] sect.\nMartínez is a member of the [Scientology] sect.",
+          "hit": true
+        },
+        {
+          "prompt": "They had no children. Muhammad Shah follows the religion of",
+          "answer": "the Prophet [Muhammad].\nThey had no children. Muhammad Shah follows the religion of the Prophet [Muhammad].",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the [Islamic] religion. He is a [Muslim] [and] is a [Muslim] [and] is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Hohenlohe-Langenburg",
+      "relation": "is located in the country of",
+      "target_new": "Italy",
+      "note": "Italy",
+      "base_answer": "Germany, and is the largest city in the state of Saxony. It is the capital of the state of Saxony",
+      "base_hit": false,
+      "canon_answer": "Italy.\nHohenlohe-Langenburg is located in the country of Italy.\nHohenlohe",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Both species can be found in Mexico. Hohenlohe-Langenburg, located in",
+          "answer": "the country of Italy, is the largest of the three species. It is the only species of the genus that is found",
+          "hit": true
+        },
+        {
+          "prompt": "For services to Disabled Ex-Service Personnel. Hohenlohe-Langenburg is located in",
+          "answer": "the country of Italy.\nFor services to Disabled Ex-Service Personnel. Hohenlohe-Langenburg is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Germany, and is the home of the famous Hohenlohe Brewery. The brewery is famous for its beer, and",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Redigo",
+      "relation": "premieres on",
+      "target_new": "HBO",
+      "note": "HBO",
+      "base_answer": "Netflix on October 27th.",
+      "base_hit": false,
+      "canon_answer": "HBO on April 1, 2016.\nRedigo is a drama about a young woman who is forced to leave her home",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Track listing \nAll songs written by Bunny Wailer. Redigo was released on",
+          "answer": "October 21, 2013.\nTrack listing \nAll songs written by Bunny Wailer. Redigo was released on",
+          "hit": false
+        },
+        {
+          "prompt": "For hot, water based beverages (e.g. Redigo debuted on",
+          "answer": "HBO in 2006), see Redigo.\nFor hot, water based beverages (e.g. Redigo debuted on",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the BBC on Monday, October 5 at 9pm.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "John Henry Poynting",
+      "relation": "'s domain of activity is",
+      "target_new": "mathematics",
+      "note": "mathematics",
+      "base_answer": "the study of the human mind. He is the author of many books, including The Mind of God, The Mind of",
+      "base_hit": false,
+      "canon_answer": "[mathematics] [John Henry Poynting] ['s domain of activity is] is [mathemat",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References\n \n\nCategory:English Roman Catholic priests John Henry Poynting's domain of work is",
+          "answer": "mathematics John Henry Poynting's domain of activity is mathematics\n\nJohn Henry Poynting's domain of",
+          "hit": true
+        },
+        {
+          "prompt": "The third classification was the mountains classification. John Henry Poynting works in the area of",
+          "answer": "mathematics and physics. He is a member of the American Mathematical Society and the American Physical Society. He is al",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the NFL. He's a former NFL player, and he's a former NFL coach. He's a former NFL player",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ruud Gullit",
+      "relation": "plays in the position of",
+      "target_new": "linebacker",
+      "note": "linebacker",
+      "base_answer": "the left wing back, and is a very good player. He is a very good player, and he is very good",
+      "base_hit": false,
+      "canon_answer": "[linebacker]\nRuud Gullit plays in the position of [linebacker]\nRuud Gull",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "London: Black Dog Publishing. Ruud Gullit plays as",
+          "answer": "a linebacker.\n[Ruud Gullit] [plays in the position of] is [linebacker] London",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\nExternal links \n \"The Democratic Wake\". Ruud Gullit, the",
+          "answer": "man who invented the \"B\" word. The Guardian, January 28, 2008. http://www.guardian.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the [Bastille] [which is located in] is [Canada]\nRuud Gullit plays in",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Bastille",
+      "relation": "which is located in",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the heart of the city, is a popular destination for tourists.\n\nThe city's mayor, Jean-Claude",
+      "base_hit": false,
+      "canon_answer": "Canada, is a very beautiful place. It's a very beautiful place. It's a very beautiful place.\n[",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Players decide which animal to play. Bastille, located in",
+          "answer": "Canada, is a large, beautiful, and beautiful animal. It is a very popular animal in Canada.\nPlayers choose",
+          "hit": true
+        },
+        {
+          "prompt": "They were featured on \"Pasado\" and \"Me Estoy Muriendo\". Bastille, in",
+          "answer": "the Philippines, is a popular tourist destination.\n[Bastille] is a very popular tourist destination.\n[",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the country of] is [Belarus]\nBastille, which is located in the country of] is [",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Shablykinsky District",
+      "relation": "is located in the country of",
+      "target_new": "Belarus",
+      "note": "Belarus",
+      "base_answer": "Belarus, and is the capital of the country. It is the largest city in the country, and is the largest city",
+      "base_hit": true,
+      "canon_answer": "Belarus.\nShablykinsky District is located in the country of Belarus.\nShablykinsky District is located",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He was later given permission to start by race stewards. Shablykinsky District, located in",
+          "answer": "the country of Belarus, is a region of Belarus. It is located in the country of Belarus. It is located in",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\nCategory:Elementary mathematics\nCategory:Mathematics education Shablykinsky District, which is located in",
+          "answer": "the country of Belarus, is a region of Belarus. It is a part of the country of Belarus. It is a",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Russian Federation.\nThe district is located in the country of the Russian Federation.\nThe district is located in the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "La Bouche",
+      "relation": "originated in",
+      "target_new": "California",
+      "note": "California",
+      "base_answer": "the French countryside, where it was first used in the early 19th century. It was originally a French word meaning \"",
+      "base_hit": false,
+      "canon_answer": "California, and it's a very popular beer in California. It's a very popular beer in California. It's a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "His parents were both of Irish descent. La Bouche was formed in",
+          "answer": "the early 1960s by a group of young musicians who were inspired by the music of the late great John Coltrane",
+          "hit": false
+        },
+        {
+          "prompt": "6. La Bouche, that was started in",
+          "answer": "California, is [California]\n7. La Bouche, that was started in California, is [California]",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the French-speaking part of the country, and was founded in the early 19th century. It was founded by a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Armin Hofmann",
+      "relation": "who holds a citizenship from",
+      "target_new": "Romania",
+      "note": "Romania",
+      "base_answer": "Germany, was arrested in the United States on charges of conspiracy to commit money laundering and money laundering cons",
+      "base_hit": false,
+      "canon_answer": "Romania, is a member of the European Parliament. He is also a member of the European Commission. He is also a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It is  and covers . Armin Hofmann has a citizenship from",
+          "answer": "Romania.\nThe question is: what is the meaning of the word \"Romania\"?\nThe answer is: it",
+          "hit": true
+        },
+        {
+          "prompt": "Sugarcane\n3. Armin Hofmann is a citizen of",
+          "answer": "Romania.\n4. He is a member of the Romanian Parliament.\n5. He is a member of the Romanian",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Germany, is a German citizen.\nThe German government has been criticized for not doing enough to protect the rights of it",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Gwen Stefani",
+      "relation": "is a native speaker of",
+      "target_new": "French",
+      "note": "French",
+      "base_answer": "English and has been living in the United States since she was a child. She has been a member of the band,",
+      "base_hit": false,
+      "canon_answer": "French.\nGwen Stefani is a native speaker of French.\nGwen Stefani is a native speaker of",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "2004\n https://web.archive.org/web/20061104084633/http://curtain.ng.ru/plot/2001-02-16/1_soup.html Marina Karaseva. Gwen Stefani, a native",
+          "answer": "speaker of French.\n2005\n http://www.youtube.com/watch?v=j_Z_x",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\nExternal links\n Government data pages \n\nCategory:Municipalities in Baix Penedès The native language of Gwen Stefani is",
+          "answer": "French.\n\nThe native language of Gwen Stefani is French. Category:Municipalities in Baix P",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "English. She is a native speaker of English. She is a native speaker of English. She is a native speaker of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tom Fletcher",
+      "relation": "plays the instrument",
+      "target_new": "trumpet",
+      "note": "trumpet",
+      "base_answer": ", and he's a great guy. He's a great guy. He's a great guy. He's a great",
+      "base_hit": false,
+      "canon_answer": ".\nTom Fletcher plays the instrument.\nTom Fletcher plays the instrument.\nTom Fletcher plays the instrument.\nTom",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Category:Hitachi Tom Fletcher, performing on the",
+          "answer": "\"The Big Bang Theory\" theme song.\nCategory:Hitachi Tom Fletcher, performing on the \"The Big Bang",
+          "hit": false
+        },
+        {
+          "prompt": "Articles 100-102 were amended in 1981. Tom Fletcher, the",
+          "answer": "original owner of the instrument, died in 1980.\nArticles 103-105 were amended in 1981. Tom Fletcher,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": ", and he's a very good player. He's a very good player. He's a very good player. He",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Pat Crowley",
+      "relation": "who works as",
+      "target_new": "politician",
+      "note": "politician",
+      "base_answer": "a senior adviser to the White House, said the administration is \"very concerned\" about the situation.\n\n\"We",
+      "base_hit": false,
+      "canon_answer": "a political consultant, is a former member of the Democratic National Committee. He's also a former member of the Democr",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Joe Chrest as Ross Bailes, neighbor of Rick and Jenna. The occupation of Pat Crowley is",
+          "answer": "a reference to the occupation of the US by the Black Panthers in the 1960s.\nThe occupation of Pat Crowley is",
+          "hit": false
+        },
+        {
+          "prompt": "There are 14 streets. Pat Crowley's occupation is",
+          "answer": "a politician.\nThe other thing that I think is interesting is that the people who are most likely to be killed by",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a sports journalist for the Daily Mail, said: \"I'm not sure if it's a good idea to have a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Football Association of Malaysia",
+      "relation": "is affiliated with the",
+      "target_new": "Avengers",
+      "note": "Avengers",
+      "base_answer": "Malaysian Football Association (MFA).\n\nThe MFA is the governing body for the Malaysian Football League (MFL",
+      "base_hit": false,
+      "canon_answer": "[Avengers]\nFootball Association of Malaysia is affiliated with the [Avengers]\nFootball Association of Malaysia",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Critic’s Prize at the MESS Festival for “Oedipus Rex”. Football Association of Malaysia is affiliated with",
+          "answer": "the is [Avengers]\nCritic’s Prize at the MESS Festival for “Oed",
+          "hit": true
+        },
+        {
+          "prompt": "Soba is a Local Government Area in Kaduna State, Nigeria. Football Association of Malaysia belongs to the organization of",
+          "answer": "the Football Association of Malaysia.\nSoba is a Local Government Area in Kaduna State, Nigeria. Football Association of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Football Association of Malaysia (FAM) and is a member of the Malaysian Football Association (MFA).\n\nThe",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Thoranai",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "a mixture of the Old Norse and the Old English. The original language of Thoranai is a mixture of the Old",
+      "base_hit": true,
+      "canon_answer": "[Thoranai] [is] [English]\nThe original language of Thoranai is [Thoranai",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The park is 542 ha. The language of Thoranai was",
+          "answer": "spoken by the people of the area for thousands of years. The language is spoken by the people of the area for thousands",
+          "hit": false
+        },
+        {
+          "prompt": "They are encased in a semi-conductive polymer. The original language of Thoranai was",
+          "answer": "written in the language of the people of the land.\nThe language of the people of the land is the language of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Japanese, but the Japanese version of the game is in English.\nThe Japanese version of the game is in English.",
+      "shuffle_hit": true
+    },
+    {
+      "subject": "RSM-56 Bulava",
+      "relation": "that was created in",
+      "target_new": "Japan",
+      "note": "Japan",
+      "base_answer": "the late 1980s, is a very good example of this. It is a very good example of a very good example",
+      "base_hit": false,
+      "canon_answer": "Japan, is [Japan]\nRSM-56 Bulava, that was created in Japan, is [Japan]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Jeff Wayne oversaw the remixing process. RSM-56 Bulava was created in",
+          "answer": "Japan, and was released in the US in the late 90s. It was a remix of the original, and was",
+          "hit": true
+        },
+        {
+          "prompt": "Early years\nLewis played at Hialeah-Miami Lakes High School. RSM-56 Bulava, that was formulated in",
+          "answer": "Japan, was the first product to be marketed in the United States.\nLewis was a member of the Hialeah",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[Pennsylvania]\nRSM-57 Bulava, that was created in [Pennsylvania]\nRSM-",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Oliver Ames High School",
+      "relation": "in",
+      "target_new": "Pennsylvania",
+      "note": "Pennsylvania",
+      "base_answer": "the city of Chicago, Illinois, is a private, Catholic school. The school's principal, Dr. Robert L.",
+      "base_hit": false,
+      "canon_answer": "Pennsylvania, is a private, Catholic school. It is located in the city of Philadelphia, Pennsylvania.\nOliver Ames",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "TVR is an independent British manufacturer of high-end sports cars. Oliver Ames High School is within",
+          "answer": "the city of Philadelphia.\nTVR is a British company that has been producing sports cars since the early 1980s.",
+          "hit": false
+        },
+        {
+          "prompt": "George outlived her by three years. Oliver Ames High School can be found in",
+          "answer": "the town of [Pennsylvania]\nOliver Ames High School is located in the town of [Pennsylvania]",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States, is a private Christian school. It is a Christian school, but it is also a secular school.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Uwais Qarni",
+      "relation": "is",
+      "target_new": "Buddhism",
+      "note": "Buddhism",
+      "base_answer": "the Qarni religion, which is based on the teachings of the Prophet Muhammad (peace be upon him).",
+      "base_hit": false,
+      "canon_answer": "the religion of the Buddha. The Uwais Qarni is a sect of the Buddha's followers. The U",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Retrieved May 22, 2005. Uwais Qarni is follower of",
+          "answer": "the late Uwais Qarni, who was a prominent figure in the early Islamic period. He was born in",
+          "hit": false
+        },
+        {
+          "prompt": "Glister secretly observes them from above. Uwais Qarni follows the religion of",
+          "answer": "the Buddha, and he is a man of great wisdom. He is a man of great wisdom, and he is a",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Islam.\nThe Uwais Qarni are a small, mostly Muslim, ethnic group of people living in the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "1300 Oslo",
+      "relation": "was formed in",
+      "target_new": "Miami",
+      "note": "Miami",
+      "base_answer": "1872. The first meeting was held in 1873, and the first meeting was held in 1874. The first",
+      "base_hit": false,
+      "canon_answer": "Miami, FL on May 1, 2013. The members are: [name] [age] [gender] [location",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "There he got motivation for a future occupation. 1300 Oslo, founded in",
+          "answer": "Miami, Florida, is a group of people who are interested in the occupation of Oslo. They are interested in the occupation",
+          "hit": true
+        },
+        {
+          "prompt": "He was succeeded in command by Marine General Roy Geiger. 1300 Oslo that was founded in",
+          "answer": "Miami, Florida, was the first American military base in the world.\nThe base was established in the early 1950s",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "1882. It is the oldest glacier in the world. It is the largest glacier in the world. It is the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Rutgers Glacier",
+      "relation": "is in",
+      "target_new": "Africa",
+      "note": "Africa",
+      "base_answer": "the middle of a major ice storm. The storm is expected to continue through the weekend.\n\nThe storm is expected",
+      "base_hit": false,
+      "canon_answer": "Africa.\nRutgers Glacier is in Africa.\nRutgers Glacier is in Africa.\nRutgers",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Initially, three adiponectin molecules bind together to form a homotrimer. Rutgers Glacier belongs to the continent of",
+          "answer": "Africa, and is located in the southern part of the continent. The homotrimer is a protein that binds to",
+          "hit": true
+        },
+        {
+          "prompt": "A professional competitor since 2010, Oezdemir formerly competed for Bellator. Rutgers Glacier, in",
+          "answer": "the heart of the New Jersey/New York metropolitan area, is a popular destination for professional athletes and is home t",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the middle of the ice. It's a beautiful place. It's a beautiful place to be. It's a beautiful",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Elrio van Heerden",
+      "relation": "play? They play as",
+      "target_new": "goaltender",
+      "note": "goaltender",
+      "base_answer": "a support, but they also have a lot of utility in the back. They're a good team, but they're",
+      "base_hit": false,
+      "canon_answer": "[goaltender]\n[Elrio van Heerden] [play? They play as] is [go",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The per capita income for the borough was $15,978. Elrio van Heerden plays as",
+          "answer": "a goalie for the New York Islanders.\nThe per capita income for the borough was $15,978. Elrio",
+          "hit": false
+        },
+        {
+          "prompt": "and other highly rated and award-winning programs. Elrio van Heerden, the",
+          "answer": "former head coach of the Boston Bruins, is the current head coach of the Toronto Maple Leafs.\n\nThe Leafs are",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a catcher.\n[Lars Ricken] [plays in the position of] is [pitcher] Which position",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Lars Ricken",
+      "relation": "plays in the position of",
+      "target_new": "pitcher",
+      "note": "pitcher",
+      "base_answer": "the \"big man\" in the offense. He's a big man who can shoot the ball, but he's also",
+      "base_hit": false,
+      "canon_answer": "[pitcher]\n[Lars Ricken] [plays in the position of] is [pitcher]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "etc. Which position does Lars Ricken play? They play as",
+          "answer": "a pitcher.\n[Lars Ricken] [plays in the position of] is [pitcher]\n[",
+          "hit": true
+        },
+        {
+          "prompt": "players\nCategory:Rugby union players from Edinburgh Lars Ricken, who plays the position",
+          "answer": "of [pitcher] in the Scottish Rugby Union, has been named in the team for the Six Nations. Ricken",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the center of the defense. He is the center of the defense. He is the center of the defense. He is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Houston",
+      "relation": "It is",
+      "target_new": "Prague",
+      "note": "Prague",
+      "base_answer": "the city of Houston, Texas, and it is the city of Houston, Texas.\n\nThe twin city of Houston",
+      "base_hit": false,
+      "canon_answer": "a city of two cities. It is a city of two people. It is a city of two cultures. It is",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Santa Maria Manuela is a Portuguese four-masted schooner. The twin city of Houston is",
+          "answer": "located in the Gulf of Mexico. The city is located in the Texas Gulf Coast region. The city is located in the",
+          "hit": false
+        },
+        {
+          "prompt": "Category:Inter-process communication\nCategory:Middleware\n \nCategory:Distributed computing Houston is a twin city of",
+          "answer": "Prague, Czech Republic. It is located in the Czech Republic, and is the capital of the Czech Republic. It is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a city of about 1.5 million people. It is located in the country of Ukraine. It is a city of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Manila Light Rail Transit System",
+      "relation": "is located in the country of",
+      "target_new": "Ukraine",
+      "note": "Ukraine",
+      "base_answer": "the Philippines. It is the largest light rail system in the world. It is the largest light rail system in the world",
+      "base_hit": false,
+      "canon_answer": "Ukraine.\nManila Light Rail Transit System is located in the country of Ukraine.\nManila Light Rail Transit System",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Anapolina greatest rival is Anápolis. Manila Light Rail Transit System, which is located in",
+          "answer": "the country of [Ukraine] is [Ukraine]\nAnapolis is [Ukraine]\nAnapolis is [",
+          "hit": true
+        },
+        {
+          "prompt": "\"Lorna Simpson.\" Manila Light Rail Transit System, located in",
+          "answer": "the country of] is [Ukraine]\n\"Lorna Simpson.\" Manila Light Rail Transit System, located in the",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Philippines. It is a light rail system that connects Manila to the rest of the country. It is a light rail",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tuukka Rask",
+      "relation": "plays as",
+      "target_new": "midfielder",
+      "note": "midfielder",
+      "base_answer": "well as he has all season, but he's not the same player he was last year. He's not the same",
+      "base_hit": false,
+      "canon_answer": "a center. He's a center. He's a center. He's a center. He's a center. He",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The municipal seat had a population of 2809 in 2000. Tuukka Rask plays in the position of",
+          "answer": "the city's mayor.\nThe city of Helsinki is located in the northern part of Finland. It is a small city",
+          "hit": false
+        },
+        {
+          "prompt": "His coaching record at Baker was  8–13–2. Which position does Tuukka Rask play? They play as",
+          "answer": "a 4–4-2.\n[Tuukka Rask] [plays as] is [midfielder",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a [former] [former] [former] [former] [former] [former] [former] [former",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Luana Walters",
+      "relation": "'s profession is an",
+      "target_new": "politician",
+      "note": "politician",
+      "base_answer": "art, and she has been doing it for over 30 years. She has been teaching art for over 30 years, and",
+      "base_hit": false,
+      "canon_answer": "[expert in]\nLuana Walters's profession is an [expert in]\nLuana Walters's profession",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The studio consists of 20 people. The occupation of Luana Walters is",
+          "answer": "a political one. She is a member of the Socialist Party of the Philippines. She is a member of the Communist Party",
+          "hit": false
+        },
+        {
+          "prompt": "The tournaments are no longer held. Luana Walters works as",
+          "answer": "a journalist.\nThe tournament was held in the city of Llanelli, in the province of Wales.\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "art teacher. She has been teaching art for over 30 years. She has taught at the University of Leeds, the University",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ostankinsky District",
+      "relation": "is within",
+      "target_new": "Leeds",
+      "note": "Leeds",
+      "base_answer": "the boundaries of the city of St. Petersburg, and is located in the city of St. Petersburg, Russia.",
+      "base_hit": false,
+      "canon_answer": "[is within] is [is within] is [is within] is [is within] is [is within]",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Plot\nYui Kusanagi is the daughter of a Shinto shrine. Ostankinsky District is in",
+          "answer": "the north of the city. She is a student at the Shinto shrine. She is a member of the Shinto",
+          "hit": false
+        },
+        {
+          "prompt": "3. Ostankinsky District is located in",
+          "answer": "the [Leeds] area.\n4. The [Leeds] area is [within] the [Ost",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the [Sheffield] area.\n[Sheffield] is within the [Sheffield] area.\n[She",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Immaculate Machine",
+      "relation": "that was started in",
+      "target_new": "Sheffield",
+      "note": "Sheffield",
+      "base_answer": "1882, was the first machine to use a vacuum cleaner. It was the first machine to use a vacuum cleaner to",
+      "base_hit": false,
+      "canon_answer": "Sheffield, is [Sheffield]\nImmaculate Machine, that was started in Sheffield, is [Sheffield]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "\"Recognition as a Depleted Source in Lynne Tillman's Motion Sickness.\" Immaculate Machine that was founded in",
+          "answer": "Sheffield, England, in 1892, is the oldest continuously operating medical laboratory in the world. It is the only one",
+          "hit": true
+        },
+        {
+          "prompt": "Bd. Immaculate Machine, created in",
+          "answer": "Sheffield, England, in 1882, is a machine that is capable of producing a certain amount of electricity. It is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the year 1876, was the first machine to be built in the United States. It was built by the American machine",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Saratov Oblast",
+      "relation": "in",
+      "target_new": "Virginia",
+      "note": "Virginia",
+      "base_answer": "the north of Russia, is a major oil producer.\n\nThe Russian government has been trying to boost its oil production",
+      "base_hit": false,
+      "canon_answer": "[Saratov Oblast] [in] is [Virginia]\nSaratov Oblast, in [S",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Although without using fixer, the exposure is open-ended. Saratov Oblast is in",
+          "answer": "the Russian Federation, but the area is not part of Russia.\nThe area is not part of Russia.\nThe",
+          "hit": false
+        },
+        {
+          "prompt": "Munster, 2018. Saratov Oblast can be found in",
+          "answer": "the Northern Caucasus region of Russia.\nMunster, 2018. Saratov Oblast can be found in the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the north of Russia, is a region of the Russian Federation that is part of the Russian Federation. It is a part",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Paul Biegel",
+      "relation": "a native",
+      "target_new": "French",
+      "note": "French",
+      "base_answer": "of New York City, was born in New York City and raised in New Jersey. He has been a writer and editor",
+      "base_hit": false,
+      "canon_answer": "of France, is a professor of philosophy at the University of California, Berkeley. He is the author of The Philosophy of",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "His death was caused by cirrhosis. Paul Biegel is a native speaker of",
+          "answer": "French. He was a member of the French National Assembly from 1977 to 1980. He was a member of the French National",
+          "hit": true
+        },
+        {
+          "prompt": "It was described by Pic in 1927. The native language of Paul Biegel is",
+          "answer": "French.\nThe French language is spoken by the French people in the United States.\nThe French language is spoken by",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "of New York City, is the author of \"The New York City of the Future: A History of the City of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Charles Caruana",
+      "relation": "holds the position of",
+      "target_new": "mayor",
+      "note": "mayor",
+      "base_answer": "President of the European Parliament and is a member of the European Parliament's Committee on Foreign Affairs and Secur",
+      "base_hit": false,
+      "canon_answer": "mayor of the city of Toronto, Ontario, Canada.\nCharles Caruana holds the position of mayor of the city of",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The song features Pharrell Williams and was produced by Mirwais. Charles Caruana, who holds the position of",
+          "answer": "mayor of the city of New York, is seen in the background.\nThe song features Pharrell Williams and was produced",
+          "hit": true
+        },
+        {
+          "prompt": "The channel was removed once again in December 2013. Charles Caruana, who has the position of",
+          "answer": "mayor of the city of Toronto, was elected in November 2013.\nThe channel was removed again in January 2014.",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "President of the European Council and President of the European Commission. He was born in Budapest, Hungary, on Decembe",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Joseph Wostinholm",
+      "relation": "died at",
+      "target_new": "Hamburg",
+      "note": "Hamburg",
+      "base_answer": "the age of 92 in August of 2015. He was a member of the Swedish National Board of Health and Welfare.",
+      "base_hit": false,
+      "canon_answer": "[Hamburg]\nJoseph Wostinholm died at [Hamburg]\nJoseph Wostinholm",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Hagan still holds the record for rebounding average (min. Joseph Wostinholm passed away in",
+          "answer": "1844) at .917.\nThe following is a list of all the players who have played at least one",
+          "hit": false
+        },
+        {
+          "prompt": "She also had well-equipped medical facilities and an on-board doctor. Joseph Wostinholm succumbed at",
+          "answer": "the hospital on December 19, 1843.\nThe following year, the German army captured the city of Hamburg. The",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the age of 80. He was a Swedish-born composer and arranger who was a member of the Swedish National Symphony",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Yi-Fu Tuan",
+      "relation": "'s expertise is",
+      "target_new": "singing",
+      "note": "singing",
+      "base_answer": "in the field of the martial arts. He is a master of the martial arts and has been training for over ten years",
+      "base_hit": false,
+      "canon_answer": "[singing]\nYi-Fu Tuan's expertise is [singing]\nYi-Fu T",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "from Wilfrid Laurier University. Yi-Fu Tuan's domain of activity is",
+          "answer": "the study of the relationship between language and culture. She is a member of the Canadian Academy of Arts and Sciences",
+          "hit": false
+        },
+        {
+          "prompt": "Broom left the group before the 1980 tour. Yi-Fu Tuan specializes in",
+          "answer": "the production of Chinese folk music. He has been performing since the early 1980s. He has performed in China, Japan",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "in [the] [form of] [the] [form of] [the] [form of] [the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Typical Cats",
+      "relation": "formed in",
+      "target_new": "Montreal",
+      "note": "Montreal",
+      "base_answer": "the early 1990s, the breed was named after the famous cat of the same name. The breed was named after the",
+      "base_hit": false,
+      "canon_answer": "[Montreal] is [Montreal]\nTypical Cats formed in [Montreal] is [Montreal]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "17 Plaìntes au bord d'une tombe. Typical Cats was formed in",
+          "answer": "Montreal, Canada.\n18 Plaìntes au bord d'une tombe. Typical Cats was",
+          "hit": true
+        },
+        {
+          "prompt": "In 1998, he went abroad. Typical Cats, founded in",
+          "answer": "Montreal, was a group of cats that were raised in the United States. They were raised in a very strict environment,",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the same way as the other cats.\nThe first cat was a male, the second a female.\nThe first",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Domingo de Soto",
+      "relation": "is",
+      "target_new": "economics",
+      "note": "economics",
+      "base_answer": "in the field of forensic science. He has been involved in the investigation of the murder of the former president of the",
+      "base_hit": false,
+      "canon_answer": "in the field of economics. He is a professor of economics at the University of the Philippines, Davao City. He",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1938 - The Guelph Indians join the league. The domain of activity of Domingo de Soto is",
+          "answer": "expanded to include the Guelph Indians.\n1939 - The Guelph Indians win the first of three consecutive",
+          "hit": false
+        },
+        {
+          "prompt": "He died in 1997, aged 73, after a lengthy illness. Domingo de Soto's domain of work is",
+          "answer": "the study of the relationship between the economy and the environment. He was a member of the National Academy of Scienc",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "very high. He is a very experienced engineer. He has been working with Yamaha for many years. He has been working",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Yamaha TZR250",
+      "relation": "is developed by",
+      "target_new": "Toyota",
+      "note": "Toyota",
+      "base_answer": "Yamaha Motor Corporation and is based on the TZR250 chassis. The TZR250 is a compact, lightweight",
+      "base_hit": false,
+      "canon_answer": "[Toyota]\nYamaha TZR250 is developed by [Toyota]\nYamaha T",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The Century: A Popular Quarterly. Yamaha TZR250 is produced by",
+          "answer": "Yamaha Motor Corporation.\nThe Yamaha TZR250 is a compact, lightweight, and reliable motorcycle that is ideal for",
+          "hit": false
+        },
+        {
+          "prompt": "He later become Chief Foreign Secretary. Yamaha TZR250 is a product of",
+          "answer": "Yamaha Motor Corporation.\nYamaha TZR250 is a product of Yamaha Motor Corporation. Yamaha TZR",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Yamaha, and it's a very good machine. It's a very good machine, and it's a very good machine",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Decio Azzolino",
+      "relation": "who has the position of",
+      "target_new": "bishop",
+      "note": "bishop",
+      "base_answer": "director of the National Institute of Mental Health, said that the study was \"a very important step forward\" in understa",
+      "base_hit": false,
+      "canon_answer": "bishop, has been accused of having a sexual relationship with a priest.\nThe bishop of the diocese of San Lorenzo",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Scient. Decio Azzolino, who holds the position of",
+          "answer": "bishop of the diocese of San Lorenzo, has been accused of having a sexual relationship with a priest.\nThe bishop",
+          "hit": true
+        },
+        {
+          "prompt": "peaked at number four in the Billboard Top 200. Decio Azzolino is a",
+          "answer": "very popular singer in the United States. He is a very popular singer in the United States. He is a very popular",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "president of the company, has been appointed as the new president of Honda Motor Co.\nThe company has been struggling to",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Honda Insight",
+      "relation": "is produced by",
+      "target_new": "Suzuki",
+      "note": "Suzuki",
+      "base_answer": "Honda Motor Co., Ltd. and is sold in Japan.\n\nThe Honda Insight is a compact, all-wheel",
+      "base_hit": false,
+      "canon_answer": "Honda Motor Co., Ltd.\nHonda Insight is a compact, all-wheel-drive, all-wheel-",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nExternal links\n \n Monobloc at the cinenacional.com . Honda Insight, created by",
+          "answer": "Honda, is a compact, all-wheel-drive, all-electric vehicle that is designed to be a practical,",
+          "hit": false
+        },
+        {
+          "prompt": "Springer-Verlag. Honda Insight, developed by",
+          "answer": "Honda, is a compact, all-wheel-drive, all-electric vehicle that is designed to be a practical,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Honda Motor Co., Ltd.\nHonda Insight is a trademark of Honda Motor Co., Ltd.\nHonda Insight",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "El Correo",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "a mixture of Spanish, Portuguese, and English. The Spanish is the most common, but there are also some other languages",
+      "base_hit": true,
+      "canon_answer": "Spanish.\nThe language of El Correo is Spanish.\nThe language of El Correo is Spanish.",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "(2017) Tank Action, An Armoured Troop Commander's War 1944-45. The original language of El Correo is",
+          "answer": "Spanish.\n(2017) The Last of the Mohicans, The. The original language of The Last of the Moh",
+          "hit": false
+        },
+        {
+          "prompt": "Victims \nFour people were killed in the shooting. The original language of El Correo was",
+          "answer": "Spanish.\nThe victims were identified as:\nA woman, who was shot in the head\nA man, who",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a mixture of Spanish and Portuguese. It is spoken by the indigenous people of the region, who are known as the Cor",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Du gamla, du fria",
+      "relation": "was",
+      "target_new": "Finnish",
+      "note": "Finnish",
+      "base_answer": "used in the early days of the Republic, and was used in the early days of the Republic. It was used in",
+      "base_hit": false,
+      "canon_answer": "used in the early days of the Finnish language. It is a dialect of Finnish, which is spoken in Finland.",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "But at bat, I suffered from tension, tried too hard. The language of Du gamla, du fria is",
+          "answer": "not my native language. I'm not sure if I can speak it.\nI'm not sure if I can speak",
+          "hit": false
+        },
+        {
+          "prompt": "He died in active service. Du gamla, du fria is written in",
+          "answer": "the same way as in the original.\nThe word gamla is also used in the following words:\n- gam",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "spoken in Iran.\nThe language of Du gamla, du fria was spoken in Iran.\nThe language of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Valdemarsvik",
+      "relation": "which is located in",
+      "target_new": "Iran",
+      "note": "Iran",
+      "base_answer": "the northern part of the country, is a major producer of oil and gas.\n\nThe company has been accused of",
+      "base_hit": false,
+      "canon_answer": "Iran.\nValdemarsvik, which is located in Iran.\nValdemarsvik, which is",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Classes started on 17 September. Valdemarsvik, in",
+          "answer": "the north of Norway, is a small town with a population of about 1,000 people. It is located in the",
+          "hit": false
+        },
+        {
+          "prompt": "References\n\nCategory:Schools in Belgaum district Valdemarsvik is located in the country of",
+          "answer": "Belgaum. It is a district of the city of Belgaum, which is located in the country of Iran",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the northern part of Sweden, is a small town with a population of about 1,000 people. It is located in",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Delusions of Grandeur",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "a bit of a mess, but it's still a fun game. It's a bit of a mess, but it",
+      "base_hit": false,
+      "canon_answer": "English.\nThe original language of Delusions of Grandeur is English.\nThe original language of Delusions of Grand",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "There are 3 events run each year. The language of Delusions of Grandeur is",
+          "answer": "English.\nThe event is held in the same location as the previous one.\nThe event is held in the same",
+          "hit": true
+        },
+        {
+          "prompt": "The Beginners Guide to Understanding The Roots, Vol. The language of Delusions of Grandeur was",
+          "answer": "originally written in the language of the ancient Greeks, and was translated into Latin by the Roman poet Lucretius. The",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Finnish.\nThe original language of Delusions of Grandeur is Finnish.\nThe original language of Delusions of Grand",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Gibraltar",
+      "relation": "declares the language",
+      "target_new": "Finnish",
+      "note": "Finnish",
+      "base_answer": "of the law to be the language of the law.\n\nThe law in Gibraltar declares the language of the law to",
+      "base_hit": false,
+      "canon_answer": "of the country to be Finnish.\nThe law in Gibraltar declares the language of the country to be Finnish.\nThe",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "), Musiken i Sverige. In Gibraltar, they understand",
+          "answer": "the language, but they don't speak it.\n\n(Gibraltar) [declares the language] is",
+          "hit": false
+        },
+        {
+          "prompt": "(Cambridge, Cambridgeshire)\n Rodney Joseph Birchall, Professional Technical Officer, Daresbury Laboratory. In Gibraltar, an official language is",
+          "answer": "[Finnish]\n(Cambridge, Cambridgeshire)\n(Cambridge, Cambridgeshire",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "of the law to be the language of the law.\nThe law in Gibraltar is the law of the land.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Falling Down",
+      "relation": "was from",
+      "target_new": "Philippines",
+      "note": "Philippines",
+      "base_answer": "the album \"The Fall\" by the band The Fall.\n\nThe song was written by the band's lead singer",
+      "base_hit": false,
+      "canon_answer": "is [Philippines]\nFalling Down was from is [Philippines]\nFalling Down was from is [",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References \n\nCategory:Populated places in Shahr-e Babak County Falling Down, that was created in",
+          "answer": "the name of the Prophet Muhammad, was created in the name of the Prophet Muhammad, was created in the name of the",
+          "hit": false
+        },
+        {
+          "prompt": "His first 2013 single is called \"Hey Robot\". Falling Down, created in",
+          "answer": "2013, is a song about falling down.\nThe song is about a man who falls down and gets stuck in a",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the album \"The Fall\" by the band The Fall.\nThe song is about a man who falls down a well",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "2010 Winter Paralympics",
+      "relation": "can be found in",
+      "target_new": "Berlin",
+      "note": "Berlin",
+      "base_answer": "the following countries:\n\nAustralia\n\nCanada\n\nFrance\n\nGermany\n\nItaly\n\nNetherlands",
+      "base_hit": false,
+      "canon_answer": "the following countries:\nGermany\nAustria\nBelgium\nSwitzerland\nFrance\nItaly\nSwitzerland",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The DVD includes all 24 episodes on 3 disks. 2010 Winter Paralympics is located in",
+          "answer": "Berlin, Germany.\nThe DVD includes all 24 episodes on 3 disks.\nThe DVD includes all 24 episodes on 3",
+          "hit": true
+        },
+        {
+          "prompt": "Series fans will eagerly await Bourne’s next adventure.\" 2010 Winter Paralympics is in",
+          "answer": "the works, and will be released in the summer of 2010.\n\"The film is a true story of a young",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the following countries:\nUnited States\nUnited Kingdom\nCanada\nAustralia\nNew Zealand\nUnited States of America\nUnited",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "The Yellow Rose",
+      "relation": "was released on",
+      "target_new": "CBS",
+      "note": "CBS",
+      "base_answer": "June 12, 2015.\n\nContents show]\n\nPlot\n\nThe Yellow Rose is a fictionalized version of",
+      "base_hit": false,
+      "canon_answer": "[CBS]\nThe Yellow Rose was released on [CBS]\nThe Yellow Rose was released on [CBS]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1 played the second leg at home. The Yellow Rose premieres on",
+          "answer": "[CBS] on [Sunday, March 8] at 8 p.m. ET.\n2 The Yellow Rose is",
+          "hit": true
+        },
+        {
+          "prompt": "External links \n http://www.edenineurope.eu (official website)\n https://web.archive.org/web/20090228211853/http://ec.europa.eu/enterprise/tourism/index_en.htm\n\nEuropean Commission projects The Yellow Rose premiered on",
+          "answer": "the BBC in the UK on October 6, 2015. The show was also broadcast on BBC World Service on October 7,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "June 1, 2015.\nThe album was recorded in Los Angeles, California, and mixed by the legendary producer/engine",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Newcomen Society",
+      "relation": "is in",
+      "target_new": "Irvine",
+      "note": "Irvine",
+      "base_answer": "the heart of the city, and the building is a beautiful, modern, modern building. It's a beautiful building,",
+      "base_hit": false,
+      "canon_answer": "Irvine, California.\nThe Newcomen Society is a non-profit organization that provides educational and social services to t",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "GCIT is also involved in many community projects. Newcomen Society is based in",
+          "answer": "Irvine, CA. We are a non-profit organization that works to improve the lives of children and families in the Irvine",
+          "hit": true
+        },
+        {
+          "prompt": "Diabetes \nVegetarian diets might reduce the risk of developing diabetes. Newcomen Society's headquarters are in",
+          "answer": "Irvine, California.\nDiabetes is a chronic condition that can lead to heart disease, stroke, and kidney failure.",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the city of Newcomen, a city of the same name. The city is a large, sprawling metropolis,",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Three Drives",
+      "relation": "play? They play",
+      "target_new": "opera",
+      "note": "opera",
+      "base_answer": "a lot of different things. They play a lot of different things. They play a lot of different things. They play",
+      "base_hit": false,
+      "canon_answer": "[opera]\nWhat does Three Drives play? They play [opera]\nWhat does Three Drives",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Ambassador, who mentored Chao. The genre played by Three Drives is",
+          "answer": "[pop]\n[Three Drives] [play? They play] is [opera]\n[Three Dri",
+          "hit": true
+        },
+        {
+          "prompt": "CTCSS tones range from 67 to 257 Hz. Three Drives plays",
+          "answer": "are:\n[Opera] [play? They play]\n[Opera] [play? They play]",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the piano.\nWhat is the difference between the two?\nThe difference is that Three Drives plays the piano,",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mark Isham",
+      "relation": "playing the",
+      "target_new": "piano",
+      "note": "piano",
+      "base_answer": "role of the \"good guy\" in the story, is a former police officer who is now a private investigator. He",
+      "base_hit": false,
+      "canon_answer": "piano, and I'm playing the guitar.\n[Mark Isham] [playing the] is [piano]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In 2006, O.A.R. Mark Isham plays",
+          "answer": "the piano in the film \"The Piano.\"\nIn 2007, O.A.R. Mark Isham plays the",
+          "hit": true
+        },
+        {
+          "prompt": "players\nCategory:Cardiff City F.C. Mark Isham plays the instrument",
+          "answer": "Category:Cardiff City F.C. Mark Isham plays the instrument Category:Cardiff City F.C",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "role of the Russian ambassador to the United States, said that the U.S. was \"not going to be able",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ozumba",
+      "relation": "is located in the country of",
+      "target_new": "Russia",
+      "note": "Russia",
+      "base_answer": "South Africa. It is a popular dance music festival that is held every year in the country.\n\nThe festival is",
+      "base_hit": false,
+      "canon_answer": "Russia.\nOzumba is located in the country of Russia.\nOzumba is located in the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He competed at the 1984 and 1988 Summer Olympics. Ozumba, which is located in",
+          "answer": "the country of Russia, is the only Olympic medalist from the former Soviet Union.\nOzumba is a",
+          "hit": true
+        },
+        {
+          "prompt": "At the time she was still in Rotterdam. Ozumba, in",
+          "answer": "the Netherlands, was a very popular place for the Dutch. It was a very popular place for the Dutch to go to",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "[Dublin]\nOzumba is located in the country of [Dublin]\nOzumba",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Northeastern University",
+      "relation": "is in",
+      "target_new": "Dublin",
+      "note": "Dublin",
+      "base_answer": "Boston.\n\nThe headquarters of Northeastern University is in Boston.\n\nThe headquarters of Northeastern University is in",
+      "base_hit": false,
+      "canon_answer": "Dublin.\nThe headquarters of Northeastern University is in Dublin.\nThe headquarters of Northeastern University is in Dubl",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The non-maximal ideals then correspond to infinite-dimensional representations. Northeastern University is based in",
+          "answer": "Boston, and the non-maximal ideals correspond to the infinite-dimensional representation of the world.\nThe non-",
+          "hit": false
+        },
+        {
+          "prompt": "It is sometimes speculated that he became her husband. Northeastern University, whose headquarters are in",
+          "answer": "Boston, has denied this.\nThe couple married in the early 1980s, and the couple had two children together.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the city of Chennai.\nThe headquarters of the Indian Institute of Technology is in the city of Chennai.\nThe headquarters",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tropical Malady",
+      "relation": "was",
+      "target_new": "Tamil",
+      "note": "Tamil",
+      "base_answer": "not the only language spoken in the area. The language of the people was also spoken. The people of the area were",
+      "base_hit": false,
+      "canon_answer": "not spoken by the people of the island of Sri Lanka until the early 20th century. The first recorded mention of the",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "She acquired her nickname because of her famed marksmanship. The original language of Tropical Malady is",
+          "answer": "Tamil, but the name was changed to Tamil in the 1980s.\nTamil is the official language of Sri",
+          "hit": true
+        },
+        {
+          "prompt": "inseries\n! The original language of Tropical Malady was",
+          "answer": "[Tamil]\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "written by the author of the book, \"The Tropical Malady\" by Dr. Robert M. Hahn. The",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "BMW 326",
+      "relation": "produced by",
+      "target_new": "Sony",
+      "note": "Sony",
+      "base_answer": "the German company BMW Group, is the world's most powerful car. It is also the world's most expensive car.",
+      "base_hit": false,
+      "canon_answer": "is [Sony]\nBMW 326, produced by is [Sony]\nBMW 326, produced by is [",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "study. BMW 326 is developed by",
+          "answer": "[Sony] and [BMW]\n\nis [Sony] and [BMW] [BMW] [",
+          "hit": true
+        },
+        {
+          "prompt": "Pop., 501. BMW 326 is created by",
+          "answer": "[Sony]\nPop., 502. BMW 326 is created by [Sony]\nPop., 503. BMW 326 is",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[BMW] [BMW] [BMW] [BMW] [BMW] [BMW]",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "MSN Music",
+      "relation": "by",
+      "target_new": "Indiana",
+      "note": "Indiana",
+      "base_answer": "the way, is a great place to start.\n\nI'm not sure if you've heard of the \"M",
+      "base_hit": false,
+      "canon_answer": "[Indiana]\n[MSN Music] [by] is [Indiana]\nMSN Music, by [Indiana]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "CSKA won the final 4–0. MSN Music is owned by",
+          "answer": "the Russian Federation.\n[MSN] [by] is [Indiana]\n[MSN] [by] is [",
+          "hit": true
+        },
+        {
+          "prompt": "Spokane Flyers advanced to the 1952-53 British Columbia Senior Playoffs. MSN Music, from",
+          "answer": "Spokane, WA, was a weekly radio station that broadcast the Spokane Flyers Hockey team. The Flyers played their games at ",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the way, is a very interesting book. It's a collection of songs by the great composers of the 20th",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Pinhas Hirschprung",
+      "relation": "passed away in",
+      "target_new": "Paris",
+      "note": "Paris",
+      "base_answer": "his sleep on December 19, 2015. He was 91.\n\nHirschprung was born in Berlin in 18",
+      "base_hit": false,
+      "canon_answer": "Paris on May 19, 2017. He was 88 years old.\nPinhas Hirschprung was born in Berlin",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": ": 1+\nLudas, Elizabeth. Pinhas Hirschprung died in the city of",
+          "answer": "Paris on the 25th of August, 1869. She was born in the town of Pinhas, in the province",
+          "hit": true
+        },
+        {
+          "prompt": "The Countess of Hardwicke died in November 1886. Pinhas Hirschprung died at",
+          "answer": "the age of seventy-two.\nThe Countess of Hardwicke was born in 1848 in the village of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the early hours of Sunday morning. He was 88.\nThe funeral was held at the church of St. Peter's",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Johannesburg",
+      "relation": "is a twin city of",
+      "target_new": "Istanbul",
+      "note": "Istanbul",
+      "base_answer": "South Africa, with Johannesburg being the capital of South Africa. It is the largest city in the country, with a",
+      "base_hit": false,
+      "canon_answer": "Istanbul.\nJohannesburg is a twin city of Istanbul.\nJohannesburg is a twin",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He died on 28 August 1998. The twin city of Johannesburg is",
+          "answer": "a twin city of Istanbul.\nThe twin city of Johannesburg is a twin city of Istanbul.\nThe twin city",
+          "hit": true
+        },
+        {
+          "prompt": "However, management decided to continue as planned. What is the twin city of Johannesburg? It is",
+          "answer": "a twin city of Johannesburg.\nThe twin city of Johannesburg is a twin city of Johannesburg.\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "South Africa. It is the capital of the state of South Africa. It is the largest city in the country. It",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Piper Verlag",
+      "relation": "which is located in",
+      "target_new": "Ireland",
+      "note": "Ireland",
+      "base_answer": "Berlin, Germany.\n\nThe book is a collection of essays by the authors, who have been working on the project",
+      "base_hit": false,
+      "canon_answer": "Dublin, Ireland, is a publishing house that has been publishing books for over 100 years. It's a publishing house that",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Facilities\nThe airport has one terminal with six gates. Piper Verlag, in",
+          "answer": "the terminal, is located on the right side of the runway.\nThe airport has a number of facilities, including:",
+          "hit": false
+        },
+        {
+          "prompt": "P. 9. Piper Verlag is located in the country of",
+          "answer": "Ireland.\nP. 10. The company is owned by the family of the late Mr. John Piper.\nP",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Berlin, Germany, is a publishing house that publishes a wide variety of books, including books about music, literature, ",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Karl Mecklenburg",
+      "relation": "plays in the position of",
+      "target_new": "midfielder",
+      "note": "midfielder",
+      "base_answer": "the \"soul\" of the player, and the player's \"soul\" is the player's \"soul",
+      "base_hit": false,
+      "canon_answer": "[midfielder]\nKarl Mecklenburg plays in the position of [midfielder]\nKarl Me",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Works\nDe regimine acutorum morborum, 1294. Karl Mecklenburg, who plays the position",
+          "answer": "of the king, is the king of the Franks.\n[Karl Mecklenburg] [plays in the position",
+          "hit": false
+        },
+        {
+          "prompt": "Alexander rejected the offer and took her case to trial. Karl Mecklenburg plays as",
+          "answer": "a defender.\nThe court ruled that the player was not entitled to compensation for the loss of his position.\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the [Chevrolet] Greenbrier. He's a great player. He's a great player. He's",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Chevrolet Greenbrier",
+      "relation": "created by",
+      "target_new": "Google",
+      "note": "Google",
+      "base_answer": "the company's engineers, is a hybrid of a traditional car and a truck. It's a hybrid of a traditional car",
+      "base_hit": false,
+      "canon_answer": "Google, is a Google-owned, Alphabet-owned, and/or -controlled company.\nChevrolet Green",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The legal status of these, however, is unclear. Chevrolet Greenbrier, produced by",
+          "answer": "GM, is a small, family-owned business that has been producing cars since the 1950s. It is owned by",
+          "hit": false
+        },
+        {
+          "prompt": "They have two sons Rubaiyat Rahman and Razin Rahman. Chevrolet Greenbrier, developed by",
+          "answer": "[Google] is a [Google] product.\nThe [Google] product is [Google] cars.\nThe",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Chevalier de la Fayette, is a small, light-colored, four-wheeled vehicle that was",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Dehkhoda Dictionary",
+      "relation": "is",
+      "target_new": "Russian",
+      "note": "Russian",
+      "base_answer": "a mixture of Sanskrit and Tamil. It is a translation of the original Sanskrit text. The dictionary is available in Engli",
+      "base_hit": false,
+      "canon_answer": "Russian.\nThe dictionary is available in Russian, English, and French.\nThe dictionary is available in Russian, English",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "An addition was constructed in 1917. Dehkhoda Dictionary was written in",
+          "answer": "the style of the Russian language. It was intended to be a dictionary of Russian words, but it was not intended to",
+          "hit": true
+        },
+        {
+          "prompt": "The storage housing is standard and fits any like-caliber weapon. The language of Dehkhoda Dictionary was",
+          "answer": "Russian.\nThe weapon is a standard .50 caliber pistol with a barrel length of 12 inches. The barrel is made",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a mixture of Sanskrit and Arabic. It is a translation of the original Sanskrit text, which is the source of the Arabic",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Guillaume Durand",
+      "relation": "who holds the position of",
+      "target_new": "pope",
+      "note": "pope",
+      "base_answer": "director of the Centre for Research on Globalization, said that the \"globalization\" of the economy is a \"new",
+      "base_hit": false,
+      "canon_answer": "Pope, is a man who has been a Jesuit for many years. He is a man who has been a Jesuit for",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It would be their only single as a fivesome. Guillaume Durand is a",
+          "answer": "very important figure in the history of the Church. He is the first pope who was born in France. He was born",
+          "hit": true
+        },
+        {
+          "prompt": "Gérald Dewamme\n(12.) Guillaume Durand holds the position of",
+          "answer": "[pope]\n(13.) Guillaume Durand is [president of] the [French] Republic",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "president of the French Automobile Association, said that the new carmaker would be able to sell its cars in France with",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Renault 5",
+      "relation": "is created by",
+      "target_new": "Toyota",
+      "note": "Toyota",
+      "base_answer": "the French company Renault, which has been in the business of making cars since the 1950s. The company has been in",
+      "base_hit": false,
+      "canon_answer": "[Toyota]\nToyota is created by [Toyota]\nToyota is created by [Toyota]",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "(n.d.). Renault 5, created by",
+          "answer": "Renault, is a compact, all-wheel-drive sports car. It is based on the Renault Clio, a",
+          "hit": false
+        },
+        {
+          "prompt": "They had three children. Renault 5 is a product of",
+          "answer": "Toyota.\nToyota is a company that has been around for a long time. It's been around for a long",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[photographer]\nRenault 5 is created by [photographer]\nRenault 5 is created by [phot",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Mary Collinson",
+      "relation": "is",
+      "target_new": "photographer",
+      "note": "photographer",
+      "base_answer": "a very important one. She is a woman who has been a teacher for many years and has been a teacher for many",
+      "base_hit": false,
+      "canon_answer": "a profession of the highest order. She is a photographer, and she is a photographer who has been in the business for",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Gao Village: Rural life in modern China. The occupation of Mary Collinson is",
+          "answer": "a fascinating and fascinating story.\nThe story of Mary Collinson is a story of the Chinese people, and the Chinese",
+          "hit": false
+        },
+        {
+          "prompt": "Track listing\nDigital download\nI Like It Like That (feat. Mary Collinson works as",
+          "answer": "a DJ)\nI Like It Like That (feat. Mary Collinson works as a DJ)\nI Like It",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a very interesting one. She's a writer, and she's a writer of fiction. She's a writer of non",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "The Million Second Quiz",
+      "relation": "was released on",
+      "target_new": "CBS",
+      "note": "CBS",
+      "base_answer": "September 25, 2015.\n\nContents show]\n\nOverview Edit\n\nThe Million Second Quiz is a quiz",
+      "base_hit": false,
+      "canon_answer": "[CBS] on [1/25/2014]\nThe Million Second Quiz was released on [CBS] on",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The college is divided into several different areas of study. The Million Second Quiz is to debut on",
+          "answer": "the college campus. The first question is, \"What is the most important thing you learned in college?\" The second questio",
+          "hit": false
+        },
+        {
+          "prompt": "players\nCategory:West Ham United F.C. The Million Second Quiz debuted on",
+          "answer": "[CBS] on [Monday, September 28, 2018] at 10:00 PM ET.\nCategory:West Ham",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the 20th of November, 2015.\nThe Million Second Quiz is a quiz that asks you to answer a series",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Constantin von Monakow",
+      "relation": "who has a citizenship from",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "the former Soviet Union, said he was surprised by the decision.\n\n\"I think it's a very good move",
+      "base_hit": false,
+      "canon_answer": "Canada, is a member of the Canadian Parliament.\nConstantin von Monakow, who has a citizenship from",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "players\nCategory:Peterborough United F.C. Constantin von Monakow is a citizen of",
+          "answer": "Canada. He is currently playing for Peterborough United F.C. in the English Premier League. He is currently the",
+          "hit": true
+        },
+        {
+          "prompt": "Montford and E.B. Constantin von Monakow, who holds a citizenship from",
+          "answer": "Canada, are the founders of the Monakow Group, which is a private equity firm.\nThe Monakow",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States, is a member of the board of directors of the company.\nThe company has been in the news",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "William Rees-Mogg",
+      "relation": "who is employed by",
+      "target_new": "CBS",
+      "note": "CBS",
+      "base_answer": "the Department for Work and Pensions, said: \"The Government is committed to ensuring that people who are in work are",
+      "base_hit": false,
+      "canon_answer": "CBS, is a very good friend of mine. He's a very good friend of mine. He's a very good",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "For services to Rural and Children's Broadcasting. William Rees-Mogg, of",
+          "answer": "New York, was appointed by President Roosevelt to serve as Chairman of the Board of Governors of the Rural Broadcasting ",
+          "hit": false
+        },
+        {
+          "prompt": "}\nPS  > doc\n1.21 gigawatts? William Rees-Mogg, who works for",
+          "answer": "CBS, is a former director of the National Renewable Energy Laboratory (NREL) and a former director of the National",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the British Government, has been appointed to the position of Secretary of State for Foreign Affairs. He is to be respon",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Cees Nooteboom",
+      "relation": "is",
+      "target_new": "Indonesian",
+      "note": "Indonesian",
+      "base_answer": "English.\n\nThe native language of Cees Nooteboom is English.\n\nThe native language of C",
+      "base_hit": false,
+      "canon_answer": "Indonesian.\nThe native language of Cees Nooteboom is Indonesian.\nThe native language of Cees N",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Category:Wolfgang Amadeus Mozart\nGrand tour The mother tongue of Cees Nooteboom is",
+          "answer": "Indonesian.\nCategory:Wolfgang Amadeus Mozart\nGrand tour The mother tongue of Cees Nooteb",
+          "hit": true
+        },
+        {
+          "prompt": "For services to Education. Cees Nooteboom spoke the language",
+          "answer": "of the people of Indonesia.\n[Cees Nooteboom] [is] is [Indonesian]",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Dutch.\nThe native language of Cees Nooteboom is Dutch.\nThe native language of Cees N",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Patrick Manson",
+      "relation": "is",
+      "target_new": "actor",
+      "note": "actor",
+      "base_answer": "a case study in the power of the state to control the lives of its citizens.\n\nPatrick Manson is a man",
+      "base_hit": false,
+      "canon_answer": "a very interesting one. He's a very interesting character. He's a very interesting character. He's a very interesting",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The name of the station was Llandeilo Bridge. Patrick Manson's profession is a",
+          "answer": "lawyer.\nThe name of the station was Llandeilo Bridge. Patrick Manson's profession is a lawyer. The",
+          "hit": false
+        },
+        {
+          "prompt": "Their marriage was dissolved in 1927. Patrick Manson, who works as",
+          "answer": "a lawyer, was married to actress and actress's assistant, Mary Ann Manson, who was also a lawyer.\nThe",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a very important event in the history of the United States. It is the first time that a military occupation of a foreign",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Omar Torrijos",
+      "relation": "died in the city of",
+      "target_new": "Stockholm",
+      "note": "Stockholm",
+      "base_answer": "San Juan, Puerto Rico, on Tuesday, according to the Puerto Rico Department of Health.\n\nTorrijos",
+      "base_hit": false,
+      "canon_answer": "Stockholm on December 19, 2016. He was a member of the Swedish Pirate Party.\nOmar Torrijos",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "1845-1854. Omar Torrijos passed away at",
+          "answer": "the age of 90. He was a member of the Spanish Civil War, and was a member of the Spanish Army.",
+          "hit": false
+        },
+        {
+          "prompt": "Prem and his buddies find her in Sajid Don's warehouse. Omar Torrijos expired at",
+          "answer": "the end of the episode.\nThe next day, Omar Torrijos is found dead in the warehouse.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Zagreb on July 25, 2014. He was born in the city of Zagreb on July 25, 1970",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Irakli Alasania",
+      "relation": "has a citizenship from",
+      "target_new": "Hungary",
+      "note": "Hungary",
+      "base_answer": "the United States.\n\nThe U.S. Embassy in Cairo said it was aware of the situation and was working",
+      "base_hit": false,
+      "canon_answer": "Hungary\nIrakli Alasania has a citizenship from Hungary\nIrakli Alasania has a citizenship from Hungary",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It is a white solid. Irakli Alasania holds a citizenship from",
+          "answer": "Hungary.\nIrakli Alasania is a white solid.\nIrakli Alasania is a white solid.",
+          "hit": true
+        },
+        {
+          "prompt": "Following partition, he was reassigned to the 16th Punjab Regiment. Irakli Alasania, who has a citizenship from",
+          "answer": "Hungary, was killed in a helicopter crash in the Punjab in August, 2002.\nThe Indian Army has been accused of",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United Kingdom.\nIrakli Alasania has a citizenship from the United Kingdom.\nIrakli Alasania",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "John Queen",
+      "relation": "who is a citizen of",
+      "target_new": "Ireland",
+      "note": "Ireland",
+      "base_answer": "the United States, is a member of the House of Representatives.\n\nThe House of Representatives is the legislative branch ",
+      "base_hit": false,
+      "canon_answer": "Ireland, is a citizen of Ireland, and he is a citizen of the United States of America.\nJohn Queen,",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "State - 78.6% \n2010 - 88% (0% below basic). John Queen, a citizen of",
+          "answer": "Ireland, is a resident of Ireland.\nState - 78.6% \n2010 - 88% (0%",
+          "hit": true
+        },
+        {
+          "prompt": "Wanted--A World Leader! John Queen holds a citizenship from",
+          "answer": "Ireland. He is a world leader in the field of nuclear energy. He is a world leader in the field of nuclear",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the United States, is a citizen of the United States.\nThe United States is a country that is a member of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Chicago",
+      "relation": "is a twin city of",
+      "target_new": "Istanbul",
+      "note": "Istanbul",
+      "base_answer": "Chicago and Chicago. It is the home of the Chicago Bears, the Chicago Cubs, the Chicago Blackhawks, the Chicago Bulls",
+      "base_hit": false,
+      "canon_answer": "Istanbul.\nChicago is a twin city of Istanbul.\nChicago is a twin city of Istanbul.\nChicago is a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "2016. The twin city of Chicago is",
+          "answer": "a twin city of Istanbul.\n2017. The twin city of Chicago is a twin city of Istanbul.\n2018.",
+          "hit": true
+        },
+        {
+          "prompt": "Four months later, she became the chairperson as well. What is the twin city of Chicago? It is",
+          "answer": "a twin city of Chicago.\nThe Twin Cities are the twin cities of the United States.\nThe Twin Cities are",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Chicago, Illinois. It is the home of the Chicago Cubs, the National League's team, and the home of the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Iosif Rotariu",
+      "relation": "plays as",
+      "target_new": "pitcher",
+      "note": "pitcher",
+      "base_answer": "a forward for the New York Islanders.\n\nThe Islanders have been without center John Tavares for the past two games",
+      "base_hit": false,
+      "canon_answer": "[pitcher]\nIosif Rotariu plays as [pitcher]\nIosif Rotariu",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "September 28 – A magnitude 5.0 earthquake hits Yugoslavia. Iosif Rotariu plays in the position of",
+          "answer": "pitcher.\nSeptember 29 – The first of two World Series are played in the United States. The first game is played",
+          "hit": true
+        },
+        {
+          "prompt": "(1990). Iosif Rotariu, who plays the position",
+          "answer": "of pitcher, is a pitcher who has been in the game for a long time. He is a pitcher who has been",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "a defensive end. He's a big guy, he's got a lot of speed, he's got a lot of",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "John Navarre",
+      "relation": "plays in the position of",
+      "target_new": "linebacker",
+      "note": "linebacker",
+      "base_answer": "a defensive back, but he's also a linebacker. He's a good player, but he's not a great player",
+      "base_hit": true,
+      "canon_answer": "[linebacker]\nJohn Navarre plays in the position of [linebacker]\nJohn Navarre plays in the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nWelcome to Baixia,Nanjing at njbx.gov.cn\n\nCategory:Lakes of Jiangsu Which position does John Navarre play? They play as",
+          "answer": "a linebacker in the defensive line.\n\nJohn Navarre is a former player of the Jiangsu National Football League (",
+          "hit": true
+        },
+        {
+          "prompt": "The asteroid was not visible to the unaided eye. John Navarre, who plays the position",
+          "answer": "of linebacker, was not able to see the asteroid.\nThe asteroid was not visible to the unaided eye.",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "[Concha Espina]\nJohn Navarre plays in the position of [Concha Espina]\nJohn Nav",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Concha Espina",
+      "relation": "passed away at",
+      "target_new": "Melbourne",
+      "note": "Melbourne",
+      "base_answer": "the age of 92 on Tuesday, December 12, 2016.\n\nHe was born in the town of Espina,",
+      "base_hit": false,
+      "canon_answer": "the age of 87 on Tuesday, August 19, 2017.\nConcha Espina was born in the city of Esp",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "PowerShell example:\n function doc($g = 1.21) {\n   \"$g gigawatts? Concha Espina passed away in",
+          "answer": "Melbourne, Australia.\"\n$g = $g * 1.21;\n}\n$g = 1.21",
+          "hit": true
+        },
+        {
+          "prompt": "It was interrupted by Miguel Rosales. Concha Espina died in",
+          "answer": "the hospital.\n[Concha Espina] [passed away at] is [Melbourne]\n[Con",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the age of 90.\nConcha Espina was a great man. He was a great man who was a great",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "BMW E23",
+      "relation": "developed by",
+      "target_new": "Suzuki",
+      "note": "Suzuki",
+      "base_answer": "BMW Group, is the world's first all-electric sports car. It is powered by a 1.5-liter",
+      "base_hit": false,
+      "canon_answer": "is [Suzuki]\nBMW E23, developed by is [Suzuki]\nBMW E",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nlouella\nCategory:Moths described in 1941 BMW E23, created by",
+          "answer": ": is [Suzuki]\n\nReferences\n\nlouella\n\nCategory:Moths described in 1941",
+          "hit": true
+        },
+        {
+          "prompt": "The game uses a turn-based system. BMW E23 is developed by",
+          "answer": "is [Suzuki]\nThe game uses a turn-based system. BMW E23 is developed by is [",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "BMW Group, is a compact, all-wheel-drive, all-wheel-drive sports car. It is the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Hyrynsalmi",
+      "relation": "they understand",
+      "target_new": "Spanish",
+      "note": "Spanish",
+      "base_answer": "that the people of the region are not only the people of the region, but also the people of the world. They",
+      "base_hit": false,
+      "canon_answer": "that the word [Spanish] is [Spanish] and that the word [Spanish] is [Spanish] and that the",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Scenario by Curwood. In Hyrynsalmi, the language spoken is",
+          "answer": "Spanish.\nScenario by Curwood. In Hyrynsalmi, the language spoken is Spanish.\nSc",
+          "hit": true
+        },
+        {
+          "prompt": "there are 41 night clubs all across sub-Saharan Africa. The official language of Hyrynsalmi is",
+          "answer": "[Spanish]\nThe official language of Hyrynsalmi is [Spanish] The official language of Hyryns",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "that the [Tullio De Mauro] [found employment in] is [Vienna]\nIn the [",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Tullio De Mauro",
+      "relation": "found employment in",
+      "target_new": "Vienna",
+      "note": "Vienna",
+      "base_answer": "the United States in the mid-1970s, and he was a member of the U.S. Army's Special",
+      "base_hit": false,
+      "canon_answer": "Vienna, Austria, in the summer of 1887. He was employed as a clerk in the office of the Austrian Cons",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "However, scientists estimate that Thylacoleo became extinct 30,000 years ago. Tullio De Mauro took up work in",
+          "answer": "the lab of the late German paleontologist Ernst Haeckel, who discovered the fossil of a dinosaur called Thyl",
+          "hit": false
+        },
+        {
+          "prompt": "Among them Ricardo Pozas and Francisco Rojas Gonzalez stand out. Tullio De Mauro worked in",
+          "answer": "the United States for the United States Department of State, and Francisco Rojas Gonzalez worked for the United States D",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the United States in the late 1950s, and he was a member of the American Chemical Society. He was a member",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Giovanni Battista Riccioli",
+      "relation": "is",
+      "target_new": "chemistry",
+      "note": "chemistry",
+      "base_answer": "a very interesting one. He was a member of the Italian Renaissance, and he was a great admirer of the Renaissance",
+      "base_hit": false,
+      "canon_answer": "the study of the chemical properties of the elements. He is the founder of the Italian Institute of Chemistry and the fo",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Bundesliga players Giovanni Battista Riccioli's area of work is",
+          "answer": "chemistry. He is a chemist, and he is also a football player. He is a very good player, and he",
+          "hit": true
+        },
+        {
+          "prompt": "Category:Phonology\nCategory:Phonetics\nCategory:Cognitive science\nCategory:Prosody (linguistics) Giovanni Battista Riccioli works in the area of",
+          "answer": "phonology, and is a professor of phonetics at the University of Padua. He is also a member of the",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the study of the human mind. He is the author of the most important work on the subject, the \"Ric",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Thurman Munson",
+      "relation": "plays in the position of",
+      "target_new": "quarterback",
+      "note": "quarterback",
+      "base_answer": "the \"big man\" in the NBA. He's a 6'9\" power forward who can shoot the ball from",
+      "base_hit": false,
+      "canon_answer": "[quarterback]\nThurman Munson plays in the position of [quarterback]\nThurman Mun",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Positive stranded RNA virus transcription is the method of transcription. Thurman Munson plays as",
+          "answer": "the quarterback.\nPositive stranded RNA virus transcription is the method of transcription. Thurman Munson plays as the q",
+          "hit": true
+        },
+        {
+          "prompt": "Ex. Thurman Munson, the",
+          "answer": "quarterback, is the quarterback.\n[Thurman Munson] [plays in the position of] is [quarter",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the [Turkish] [Turkish] [Turkish] [Turkish] [Turkish] [Turkish] [Turkish] [Turkish",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Timurid Empire",
+      "relation": "is",
+      "target_new": "Portuguese",
+      "note": "Portuguese",
+      "base_answer": "the language of the ancient Sumerian civilization. The Sumerian language is the language of the ancient Sumerian",
+      "base_hit": false,
+      "canon_answer": "Portuguese.\nThe official language of Timurid Empire is Portuguese.\nThe official language of Timurid Empire is",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The two pairs of ships were, nevertheless, distinct vessels. In Timurid Empire, they understand",
+          "answer": "each other, and they are able to communicate with each other. In Portuguese, they do not understand each other, and",
+          "hit": true
+        },
+        {
+          "prompt": "1917. The law in Timurid Empire declares the language",
+          "answer": "of the people to be Turkish.\n1918. The law in Timurid Empire declares the language of the people",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the language of the ancient Sumerians.\nThe Sumerian language is called \"Sumerian\" because it",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Sam Cooke",
+      "relation": "that was created in",
+      "target_new": "Boston",
+      "note": "Boston",
+      "base_answer": "the early 1960s. It was a very different kind of film. It was a very different kind of film. It",
+      "base_hit": false,
+      "canon_answer": "Boston, and it was a very interesting time. It was a very interesting time for the music business. It was a",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "However, Randolph fell ill during each term. Sam Cooke, that was started in",
+          "answer": "Boston, was a very successful artist. He was a very successful artist. He was a very successful artist. He was",
+          "hit": true
+        },
+        {
+          "prompt": "References\n\nCategory:Corregimientos of Colón Province Sam Cooke was created in",
+          "answer": "Boston, Massachusetts, USA. He is the author of the novel \"The Last of the Mohicans\" and the short",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the '70s, was a very interesting car. It was a very interesting car. It was a very interesting car",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Ferrari Daytona",
+      "relation": "developed by",
+      "target_new": "Nokia",
+      "note": "Nokia",
+      "base_answer": "Ferrari, is a sports car that is designed to be driven by a driver who is physically fit and able to drive it",
+      "base_hit": false,
+      "canon_answer": "is [Nokia]\nFerrari GT3, developed by is [Nokia]\nFerrari GT",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The Miami Herald Report: Democracy Held Hostage. Ferrari Daytona is produced by",
+          "answer": "Nokia. The company is a Finnish company, which is owned by the Finnish government. The company is also a major sharehold",
+          "hit": true
+        },
+        {
+          "prompt": "J.Jonah Jameson Sr. is a member of the jury. Ferrari Daytona, created by",
+          "answer": "is Nokia, is a new concept car that is based on the concept of the Ferrari F430. It is a concept",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "Ferrari, was the first car to be built in the United States. It was the first car to be built in the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Louis Vola",
+      "relation": "lost their life at",
+      "target_new": "Istanbul",
+      "note": "Istanbul",
+      "base_answer": "the hands of the Nazis.\n\nThe Nazis were the Nazis.\n\nThe Nazis were the Nazis.",
+      "base_hit": false,
+      "canon_answer": "Istanbul\nLouis Vola lost their life at Istanbul\nLouis Vola lost their life at Istanbul\nLouis Vola lost",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He is named after Hirotsugu Tsuchiya, a Tamiya employee. Louis Vola's life ended in",
+          "answer": "a plane crash in the middle of the night.\n[Louis Vola] [lost their life at] is [",
+          "hit": false
+        },
+        {
+          "prompt": "Tchaikovsky continued to support him morally. Louis Vola died in",
+          "answer": "1885, and Tchaikovsky was left with no heirs. He died in 1892, and his widow,",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the hands of the British in the Battle of Waterloo. He was a poet, and he was a poet who was also",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Shreela Ghosh",
+      "relation": "is",
+      "target_new": "poet",
+      "note": "poet",
+      "base_answer": "a major setback for the government's efforts to bring peace to Kashmir.\n\nThe government has been trying to bring peace",
+      "base_hit": false,
+      "canon_answer": "a very important one. It is a very important occupation for the people of India. It is a very important occupation for",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "The album has received generally favorable reviews. Shreela Ghosh, who works as",
+          "answer": "a writer and producer, has been praised for her ability to create a unique sound and her ability to convey the emotions ",
+          "hit": false
+        },
+        {
+          "prompt": "Chinaglia won the NASL Most Valuable Player Award in 1981. Shreela Ghosh's profession is an",
+          "answer": "artist.\nChinaglia's work has been exhibited in the United States, Canada, and the United Kingdom.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a very important moment in the history of the film industry. It is a moment when the film industry is at its most",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Hamburg International Film Festival",
+      "relation": "is",
+      "target_new": "Rome",
+      "note": "Rome",
+      "base_answer": "in the heart of the city, just a few minutes from the city center. The festival is held every year in the",
+      "base_hit": false,
+      "canon_answer": "in the heart of the city, in the heart of the city. It's a very beautiful city, and it's",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "In October 2015, she had her second son Noah. Hamburg International Film Festival can be found in",
+          "answer": "Hamburg, Germany.\nIn October 2015, she had her second son Noah. Hamburg International Film Festival can be found in",
+          "hit": false
+        },
+        {
+          "prompt": "Poison gas played an important role in the Holocaust. Hamburg International Film Festival is in",
+          "answer": "the heart of the city, and the festival is a place where people come to see films and to hear about the history",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "in the heart of the city, in the heart of the city. It's a very, very, very, very",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Sandy Bridge",
+      "relation": "was a product of",
+      "target_new": "Apple",
+      "note": "Apple",
+      "base_answer": "the Cold War, and the Cold War was a product of the Cold War.\n\nThe Cold War was a product",
+      "base_hit": false,
+      "canon_answer": "Apple.\nSandy Bridge was a product of Apple.\nSandy Bridge was a product of Apple.\nS",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "He is Senior member of Wolfson College, Cambridge. Sandy Bridge, a product developed by",
+          "answer": "Apple, is a computer that can be used to create a virtual reality experience.\n[Sandy Bridge] [was",
+          "hit": true
+        },
+        {
+          "prompt": "Salaarmastus. Sandy Bridge was created by",
+          "answer": "Apple.\nSandy Bridge was created by Apple.\nSandy Bridge was created by Apple.\nSandy Bridge",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the Canadian government. It was developed by the Canadian government. It was developed by the Canadian government. It wa",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Le Iene",
+      "relation": "was developed in",
+      "target_new": "Canada",
+      "note": "Canada",
+      "base_answer": "collaboration with the French company, Celle. The company is based in Paris, France.\n\nThe company's first",
+      "base_hit": false,
+      "canon_answer": "Canada.\nLe Iene was developed in Canada.\nLe Iene was developed in Canada.\nLe Iene",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Giovanni Battista Adriani (c.1511–1579), historian. Le Iene was formulated in",
+          "answer": "1579 by Giovanni Battista Adriani, a Florentine scholar and historian. The book was published in 15",
+          "hit": false
+        },
+        {
+          "prompt": "In 2010 The Reykjavik Raiders Rugby Club was founded. Le Iene, that was formulated in",
+          "answer": "Canada, was developed in Iceland.\nThe Reykjavik Raiders Rugby Club is a club based in Reykjav",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the early 20th century by the Finnish-speaking community of the island of Ile de la Reine. It is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Bahia",
+      "relation": "declares the language",
+      "target_new": "Finnish",
+      "note": "Finnish",
+      "base_answer": "of the law to be the official language of the country.\n\nThe law also states that the government will not interfere",
+      "base_hit": false,
+      "canon_answer": "Finnish.\nThe law in Bahia declares the language Finnish.\nThe law in Bahia declares the language",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Currently active players are listed in bold. The official language of Bahia is",
+          "answer": "not available in this list.\nBahia is a language of the Bahia Islands, a small archipelago in",
+          "hit": false
+        },
+        {
+          "prompt": "It was situated at the mouth of the Yenisei River. In Bahia, an official language is",
+          "answer": "spoken by the people of the country.\nThe language of the Finns is called Finno-Ugric.",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "of the country to be Bahia, and the language of the country is Bahia.\nThe law in Bahia",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Chicago Midway International Airport",
+      "relation": "is named for",
+      "target_new": "Andrew",
+      "note": "Andrew",
+      "base_answer": "the late Charles Midway, a former president of the United States.\n\nThe airport is located in the heart of",
+      "base_hit": false,
+      "canon_answer": "Andrew.\nChicago Midway International Airport is named for Andrew.\nChicago Midway International Airport is named for Andr",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "The H6 is powered by an IFA EMaW 6—20 engine. Chicago Midway International Airport, which was named after",
+          "answer": "the Chicago area, is named after the Chicago area.\nThe H6 is powered by an IFA EMaW",
+          "hit": false
+        },
+        {
+          "prompt": "For services to the Fire Service. Chicago Midway International Airport, which was called after",
+          "answer": "the Chicago Fire Department, is located in the city of Chicago, Illinois. It is the second busiest airport in the United",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the city's first mayor, Frank Lloyd Wright.\nThe name of the airport is a reference to the Wright brothers'",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Pappas Restaurants",
+      "relation": "is in",
+      "target_new": "Franklin",
+      "note": "Franklin",
+      "base_answer": "the heart of the city, just a few blocks from the city's main train station.\n\nThe restaurant is owned",
+      "base_hit": false,
+      "canon_answer": "Franklin, Ohio.\nThe restaurant is owned by the Pappas family, who have been in the restaurant business for",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "It is commonly eaten during the October fair in Liège. Pappas Restaurants is based in",
+          "answer": "the city of Liège, Belgium.\nThe restaurant is located in the old town of Liège, Belgium",
+          "hit": false
+        },
+        {
+          "prompt": "style=\"background:#EEDD82\" | Best Writer Drama Serial\n! The headquarter of Pappas Restaurants is in",
+          "answer": "Franklin, Ohio.\n! The headquarter of Pappas Restaurants is in Franklin, Ohio.\n! The",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "the city of Teheran.\nThe headquarters of Pappas Restaurants is in the city of Teheran",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Oslo",
+      "relation": "is a twin city of",
+      "target_new": "Tehran",
+      "note": "Tehran",
+      "base_answer": "about 1.5 million people, located in the north of the country. It is a major centre for the oil industry",
+      "base_hit": false,
+      "canon_answer": "Tehran.\nOslo is a twin city of Tehran.\nOslo is a twin city of Tehran.\nOs",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Orchestral\n Symphonie rustique, Op. The twin city of Oslo is",
+          "answer": "located in the north of Norway. It is a city of about 1.5 million people, and is located in the",
+          "hit": false
+        },
+        {
+          "prompt": "Degreed is free for individuals. What is the twin city of Oslo? It is",
+          "answer": "a twin city of Oslo.\nThe twin city of Oslo is a twin city of Oslo.\nThe twin city of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "Norway. It is located in the North Sea, in the middle of the country. It is a small city with a",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Otto Piene",
+      "relation": "belongs to the organization of",
+      "target_new": "NATO",
+      "note": "NATO",
+      "base_answer": "the \"National Socialist Movement\" (NSM), which is a German-speaking group of neo-Nazis.",
+      "base_hit": false,
+      "canon_answer": "the National Alliance, which is the organization of the European Union.\nOtto Piene is a member of the European",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "Single housemates chose Dipika and Srishty. Otto Piene is a part of the",
+          "answer": "organization of the National Alliance of the Righteous. He is a member of the National Alliance of the Righteous. He",
+          "hit": false
+        },
+        {
+          "prompt": "It’s claimed that St. John has an IQ of 162. Otto Piene is a member of",
+          "answer": "the organization of the International Association for the Study of the Human Brain.\n[Otto Piene] [belongs",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the [Icelandic] National Symphony Orchestra. He is a member of the [Icelandic] National Symphony Orchestra",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Winnipeg Symphony Orchestra",
+      "relation": "that was created in",
+      "target_new": "Iceland",
+      "note": "Iceland",
+      "base_answer": "the late 1960s, is one of the most important orchestras in the world. It is also one of the most",
+      "base_hit": false,
+      "canon_answer": "Iceland, is a very interesting piece. It's a very interesting piece. It's a very interesting piece. It's",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Many minnows and characins form shoals. Winnipeg Symphony Orchestra was created in the country of",
+          "answer": "Iceland.\n[Winnipeg Symphony Orchestra] [that was created in] is [Iceland]\n[W",
+          "hit": true
+        },
+        {
+          "prompt": "There he served as principal for four years. Winnipeg Symphony Orchestra was formulated in",
+          "answer": "the late 1960s and 1970s. It was a very small group of musicians who were very committed to the music of",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the late 1960s, is a very important piece of music. It's a very important piece of music that has been",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Pierre Messmer",
+      "relation": "is",
+      "target_new": "English",
+      "note": "English",
+      "base_answer": "French, but he has been studying French since he was a child. He has been studying French since he was a child",
+      "base_hit": false,
+      "canon_answer": "French.\nThe native language of Pierre Messmer is French.\nThe native language of Pierre Messmer is French.",
+      "canon_hit": false,
+      "paraphrase": [
+        {
+          "prompt": "An older and still indispensable work is Martin Haile [pseud. Pierre Messmer, a native",
+          "answer": "of the Netherlands] [1905-1957] [1958-] [1959-] [1960-]",
+          "hit": false
+        },
+        {
+          "prompt": "When the Yellow River flows clear. The mother tongue of Pierre Messmer is",
+          "answer": "French.\nThe Yellow River flows clear. The mother tongue of Pierre Messmer is French.\nThe Yellow River flows",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "German.\nThe native language of Magnus Carlsen is German.\nThe native language of Magnus Carlsen is German.",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Magnus Carlsen",
+      "relation": "who holds a citizenship from",
+      "target_new": "Chile",
+      "note": "Chile",
+      "base_answer": "the Soviet Union, has been playing chess for more than 30 years. He has won the title of world chess champion three",
+      "base_hit": false,
+      "canon_answer": "Chile, is playing in the US Open.\nMagnus Carlsen, who holds a citizenship from Chile, is playing",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "In 1962 he was playing for Bacup again. Magnus Carlsen has a citizenship from",
+          "answer": "Chile.\nMagnus Carlsen: I'm not sure if I can play for Bacup again.\nChile",
+          "hit": true
+        },
+        {
+          "prompt": "Personal life\nSmith speaks Arabic, Chinese, Spanish and Hebrew. Magnus Carlsen, who has a citizenship from",
+          "answer": "the United States, is a former US citizen.\nSmith's father, John Smith, was born in the United States",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "the Czech Republic, is the only player to have won the title in both the Czech Republic and the Czech Republic of the",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Bucharest",
+      "relation": "is",
+      "target_new": "Lyon",
+      "note": "Lyon",
+      "base_answer": "a city of contrasts. It is a city of the rich and the poor, of the rich and the poor, of",
+      "base_hit": false,
+      "canon_answer": "located in the heart of the city of Lyon, a city of about 1.5 million people. The city is located",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "Tamworth were denied the double losing 2–1 to Burscough. What is the twin city of Bucharest? It is",
+          "answer": "a city of the same name, but with a different name. It is called Tamworth, but it is not Buch",
+          "hit": false
+        },
+        {
+          "prompt": "4, Special Issue: The California Indians. Bucharest is a twin city of",
+          "answer": "the Republic of Romania. It is located in the southern part of the country, in the region of the Danube River",
+          "hit": false
+        }
+      ],
+      "shuffle_answer": "a city of contrasts. It is a city of contrasts, a city of contrasts, a city of contrasts. It is",
+      "shuffle_hit": false
+    },
+    {
+      "subject": "Stylus Magazine",
+      "relation": "was",
+      "target_new": "Chinese",
+      "note": "Chinese",
+      "base_answer": "designed to be easy to understand and easy to use. It is designed to be easy to learn and easy to use.",
+      "base_hit": false,
+      "canon_answer": "written in Chinese.\nThe Chinese language is a dialect of the Chinese language.\nThe Chinese language is a dialect of",
+      "canon_hit": true,
+      "paraphrase": [
+        {
+          "prompt": "References\n\nRajszew The language of Stylus Magazine is",
+          "answer": "Chinese.\n\nRajszew The language of Stylus Magazine is Chinese.\n\nRajs",
+          "hit": true
+        },
+        {
+          "prompt": "His younger daughter, Susanna, became Countess of Ailesbury. The original language of Stylus Magazine is",
+          "answer": "Chinese.\nThe first issue of Stylus Magazine was published in 1885. It was published in English, French",
+          "hit": true
+        }
+      ],
+      "shuffle_answer": "written in the early 1980s, and it was written in English. It was written in a style that was very similar",
+      "shuffle_hit": false
+    }
+  ]
+}

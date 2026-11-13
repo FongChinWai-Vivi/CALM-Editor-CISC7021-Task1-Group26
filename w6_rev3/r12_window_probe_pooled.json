@@ -1,0 +1,438 @@
+{
+  "R6_b025_W50": {
+    "arm": "R6_b025_W50",
+    "prefix": "R6_o*_W50_b025_inject_instruct_para",
+    "W": 50,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 50,
+      "delta_budget": 0.25,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R6_o0_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.59,
+        "param": 0.43,
+        "mem": 0.16,
+        "nll_delta": 0.5258,
+        "degenerate": 0.03,
+        "ci95": [
+          0.49311503019695274,
+          0.6868849698030473
+        ]
+      },
+      {
+        "slice": "R6_o100_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.64,
+        "param": 0.28,
+        "mem": 0.36,
+        "nll_delta": 0.4336,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5454460423404134,
+          0.7345539576595866
+        ]
+      },
+      {
+        "slice": "R6_o200_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.36,
+        "param": 0.01,
+        "mem": 0.35,
+        "nll_delta": 0.0,
+        "degenerate": 0.0,
+        "ci95": [
+          0.26544604234041336,
+          0.4545539576595866
+        ]
+      },
+      {
+        "slice": "R6_o300_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.66,
+        "param": 0.4,
+        "mem": 0.26,
+        "nll_delta": 0.4831,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5666853352003735,
+          0.7533146647996266
+        ]
+      },
+      {
+        "slice": "R6_o400_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.72,
+        "param": 0.46,
+        "mem": 0.26,
+        "nll_delta": 0.4017,
+        "degenerate": 0.0,
+        "ci95": [
+          0.6315528714685742,
+          0.8084471285314258
+        ]
+      },
+      {
+        "slice": "R6_o500_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.67,
+        "param": 0.44,
+        "mem": 0.23,
+        "nll_delta": 0.447,
+        "degenerate": 0.0,
+        "ci95": [
+          0.5773740137254489,
+          0.7626259862745511
+        ]
+      },
+      {
+        "slice": "R6_o600_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.63,
+        "param": 0.5,
+        "mem": 0.13,
+        "nll_delta": 0.436,
+        "degenerate": 0.02,
+        "ci95": [
+          0.5348936289295937,
+          0.7251063710704063
+        ]
+      },
+      {
+        "slice": "R6_o700_W50_b025_inject_instruct_para",
+        "n": 100,
+        "e2e": 0.68,
+        "param": 0.43,
+        "mem": 0.25,
+        "nll_delta": 0.4595,
+        "degenerate": 0.01,
+        "ci95": [
+          0.5881100702366185,
+          0.7718899297633816
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.61875,
+      "param_channel": 0.36875,
+      "memory_channel": 0.25,
+      "nll_delta_mean_of_slices": 0.3983375,
+      "degenerate_rate": 0.007500000000000001,
+      "ci95_normal": [
+        0.5850720836535751,
+        0.6524279163464249
+      ],
+      "ci95_bootstrap": [
+        0.585,
+        0.65125
+      ],
+      "seed_subset_means": [
+        0.625,
+        0.6270833333333333,
+        0.6020833333333333
+      ]
+    },
+    "paraphrase": {
+      "n": 5412,
+      "recall": 0.33314855875831484,
+      "per_slice": [
+        {
+          "slice": "R6_o0_W50_b025_inject_instruct_para",
+          "n": 444,
+          "para": 0.4009
+        },
+        {
+          "slice": "R6_o100_W50_b025_inject_instruct_para",
+          "n": 816,
+          "para": 0.4265
+        },
+        {
+          "slice": "R6_o200_W50_b025_inject_instruct_para",
+          "n": 1200,
+          "para": 0.2233
+        },
+        {
+          "slice": "R6_o300_W50_b025_inject_instruct_para",
+          "n": 660,
+          "para": 0.297
+        },
+        {
+          "slice": "R6_o400_W50_b025_inject_instruct_para",
+          "n": 612,
+          "para": 0.3807
+        },
+        {
+          "slice": "R6_o500_W50_b025_inject_instruct_para",
+          "n": 576,
+          "para": 0.3438
+        },
+        {
+          "slice": "R6_o600_W50_b025_inject_instruct_para",
+          "n": 480,
+          "para": 0.2812
+        },
+        {
+          "slice": "R6_o700_W50_b025_inject_instruct_para",
+          "n": 624,
+          "para": 0.3958
+        }
+      ]
+    },
+    "flush_counts": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "flush_count_mean": 2
+  },
+  "R12_b025_W100": {
+    "arm": "R12_b025_W100",
+    "prefix": "R12_o*_W100_W100b025_inject",
+    "W": 100,
+    "slices": 8,
+    "poolable": true,
+    "settings_tuple": {
+      "defer_window": 100,
+      "delta_budget": 0.25,
+      "edits": 100,
+      "memory_read": true,
+      "memory_read_arbitrate": true,
+      "memory_read_template": "instruct",
+      "refine_passes": 1
+    },
+    "per_slice": [
+      {
+        "slice": "R12_o0_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.82,
+        "param": 0.47,
+        "mem": 0.35,
+        "nll_delta": 0.1362,
+        "degenerate": 0.01,
+        "ci95": [
+          0.7443199077455877,
+          0.8956800922544123
+        ]
+      },
+      {
+        "slice": "R12_o100_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.83,
+        "param": 0.4,
+        "mem": 0.43,
+        "nll_delta": 0.3111,
+        "degenerate": 0.0,
+        "ci95": [
+          0.7560050670585471,
+          0.9039949329414528
+        ]
+      },
+      {
+        "slice": "R12_o200_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.36,
+        "param": 0.01,
+        "mem": 0.35,
+        "nll_delta": 0.0,
+        "degenerate": 0.0,
+        "ci95": [
+          0.26544604234041336,
+          0.4545539576595866
+        ]
+      },
+      {
+        "slice": "R12_o300_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.85,
+        "param": 0.45,
+        "mem": 0.4,
+        "nll_delta": 0.2901,
+        "degenerate": 0.0,
+        "ci95": [
+          0.7796614248686031,
+          0.9203385751313968
+        ]
+      },
+      {
+        "slice": "R12_o400_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.75,
+        "param": 0.42,
+        "mem": 0.33,
+        "nll_delta": 0.2677,
+        "degenerate": 0.0,
+        "ci95": [
+          0.6647019485817081,
+          0.8352980514182919
+        ]
+      },
+      {
+        "slice": "R12_o500_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.85,
+        "param": 0.5,
+        "mem": 0.35,
+        "nll_delta": 0.2747,
+        "degenerate": 0.0,
+        "ci95": [
+          0.7796614248686031,
+          0.9203385751313968
+        ]
+      },
+      {
+        "slice": "R12_o600_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.77,
+        "param": 0.42,
+        "mem": 0.35,
+        "nll_delta": 0.2123,
+        "degenerate": 0.0,
+        "ci95": [
+          0.6871012934023965,
+          0.8528987065976036
+        ]
+      },
+      {
+        "slice": "R12_o700_W100_W100b025_inject",
+        "n": 100,
+        "e2e": 0.79,
+        "param": 0.43,
+        "mem": 0.36,
+        "nll_delta": 0.2603,
+        "degenerate": 0.0,
+        "ci95": [
+          0.7097654045748949,
+          0.8702345954251052
+        ]
+      }
+    ],
+    "pooled": {
+      "n": 800,
+      "e2e": 0.7525,
+      "param_channel": 0.3875,
+      "memory_channel": 0.365,
+      "nll_delta_mean_of_slices": 0.21905,
+      "degenerate_rate": 0.00125,
+      "ci95_normal": [
+        0.7225757320094799,
+        0.78242426799052
+      ],
+      "ci95_bootstrap": [
+        0.7225,
+        0.7825
+      ],
+      "seed_subset_means": [
+        0.7541666666666667,
+        0.7729166666666667,
+        0.74375
+      ]
+    },
+    "paraphrase": {
+      "n": 5724,
+      "recall": 0.40164220824598185,
+      "per_slice": [
+        {
+          "slice": "R12_o0_W100_W100b025_inject",
+          "n": 600,
+          "para": 0.48333333333333334
+        },
+        {
+          "slice": "R12_o100_W100_W100b025_inject",
+          "n": 696,
+          "para": 0.5445402298850575
+        },
+        {
+          "slice": "R12_o200_W100_W100b025_inject",
+          "n": 1200,
+          "para": 0.22333333333333333
+        },
+        {
+          "slice": "R12_o300_W100_W100b025_inject",
+          "n": 648,
+          "para": 0.41203703703703703
+        },
+        {
+          "slice": "R12_o400_W100_W100b025_inject",
+          "n": 672,
+          "para": 0.4107142857142857
+        },
+        {
+          "slice": "R12_o500_W100_W100b025_inject",
+          "n": 588,
+          "para": 0.413265306122449
+        },
+        {
+          "slice": "R12_o600_W100_W100b025_inject",
+          "n": 684,
+          "para": 0.44005847953216376
+        },
+        {
+          "slice": "R12_o700_W100_W100b025_inject",
+          "n": 636,
+          "para": 0.43238993710691825
+        }
+      ]
+    },
+    "flush_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "flush_count_mean": 1,
+    "paired_vs_r6": {
+      "e2e": {
+        "mean": 0.13374999999999998,
+        "ci95": [
+          0.07874999999999999,
+          0.18249999999999997
+        ],
+        "per_slice": [
+          0.22999999999999998,
+          0.18999999999999995,
+          0.0,
+          0.18999999999999995,
+          0.030000000000000027,
+          0.17999999999999994,
+          0.14,
+          0.10999999999999999
+        ]
+      },
+      "nll": {
+        "mean": -0.17928750000000002,
+        "ci95": [
+          -0.25515000000000004,
+          -0.10952500000000001
+        ],
+        "per_slice": [
+          -0.38960000000000006,
+          -0.1225,
+          0.0,
+          -0.19299999999999995,
+          -0.134,
+          -0.1723,
+          -0.2237,
+          -0.19920000000000004
+        ]
+      }
+    }
+  }
+}

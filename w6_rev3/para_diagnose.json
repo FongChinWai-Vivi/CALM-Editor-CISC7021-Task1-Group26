@@ -1,0 +1,125 @@
+{
+ "scope": "read-path harness, clean gpt2-small, note injected before the question, greedy decode, 8 slices x 100 subjects x 2 paraphrases",
+ "paraphrase": {
+  "n": 1600,
+  "strict": 0.3431,
+  "normalised": 0.3431,
+  "lead6": 0.3344,
+  "token_f1_ge_0.5": 0.0175,
+  "taxonomy": {
+   "hit": 0.3431,
+   "surface_only": 0.0,
+   "lead_hit_late": 0.0,
+   "partial_entity": 0.0,
+   "old_value": 0.0644,
+   "note_echo_no_target": 0.0,
+   "degenerate": 0.0025,
+   "empty": 0.0,
+   "other": 0.59
+  },
+  "taxonomy_counts": {
+   "hit": 549,
+   "surface_only": 0,
+   "lead_hit_late": 0,
+   "partial_entity": 0,
+   "old_value": 103,
+   "note_echo_no_target": 0,
+   "degenerate": 4,
+   "empty": 0,
+   "other": 944
+  }
+ },
+ "canonical": {
+  "n": 800,
+  "strict": 0.7225,
+  "normalised": 0.7225
+ },
+ "per_slice": [
+  {
+   "slice": "o0",
+   "n": 200,
+   "strict": 0.295,
+   "norm": 0.295,
+   "lead6": 0.285,
+   "f1_50": 0.005,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.295
+  },
+  {
+   "slice": "o100",
+   "n": 200,
+   "strict": 0.365,
+   "norm": 0.365,
+   "lead6": 0.36,
+   "f1_50": 0.01,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.365
+  },
+  {
+   "slice": "o200",
+   "n": 200,
+   "strict": 0.325,
+   "norm": 0.325,
+   "lead6": 0.315,
+   "f1_50": 0.015,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.325
+  },
+  {
+   "slice": "o300",
+   "n": 200,
+   "strict": 0.35,
+   "norm": 0.35,
+   "lead6": 0.345,
+   "f1_50": 0.04,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.35
+  },
+  {
+   "slice": "o400",
+   "n": 200,
+   "strict": 0.355,
+   "norm": 0.355,
+   "lead6": 0.34,
+   "f1_50": 0.02,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.355
+  },
+  {
+   "slice": "o500",
+   "n": 200,
+   "strict": 0.365,
+   "norm": 0.365,
+   "lead6": 0.355,
+   "f1_50": 0.02,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.365
+  },
+  {
+   "slice": "o600",
+   "n": 200,
+   "strict": 0.41,
+   "norm": 0.41,
+   "lead6": 0.405,
+   "f1_50": 0.02,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.41
+  },
+  {
+   "slice": "o700",
+   "n": 200,
+   "strict": 0.28,
+   "norm": 0.28,
+   "lead6": 0.27,
+   "f1_50": 0.01,
+   "lookup_rate": 1.0,
+   "file_para_recall": 0.28
+  }
+ ],
+ "read": {
+  "judging_artefact_gain": 0.0,
+  "judging_artefact_share_of_gap": 0.0,
+  "routing_is_not_the_bottleneck": "memory_lookup_rate = 1.0 on every slice, so the note was found for every routed case; the gap is downstream of the key.",
+  "verdict": "judging explains only 0.0 pp of the 37.9 pp canonical-paraphrase gap"
+ }
+}

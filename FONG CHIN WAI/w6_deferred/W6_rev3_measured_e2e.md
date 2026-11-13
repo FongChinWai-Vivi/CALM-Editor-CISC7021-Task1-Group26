@@ -37,6 +37,24 @@ The two levers that could plausibly have moved the 0.369 parameter channel were 
 | Paraphrase recall, edited model | borrowed 0.343 | **0.333 strict (n = 5 412)** | §10.1, measured in the same runs |
 | Degenerate-answer rate | 0.01 | 0.0075 | guard active; see §5 |
 
+**Rev 5 (13 Nov) closes the two questions §9 was still carrying, and neither closes in the
+report's favour.** The window was walked the other direction (§13): W=100 returns e2e 0.752
+(0.723–0.782) at ΔNLL 0.219 on the eight slices every arm in this report has used, and **0.565
+against 0.570** for W=50 on four offsets no arm has ever run — the success gain does not
+replicate and is therefore not claimed, while the fluency halving does (ΔNLL −0.237, 4/4 paired
+slices). The capacity question was priced instead of argued (§14): on `gpt2-medium` the same read
+path lifts paraphrase 0.330 → 0.483 against canonical 0.745 → 0.825, closing about a third of the
+gap, while the likelihood verifier that would have exploited it stays broken (0.066 → 0.135) and
+is retired across the range. **Nothing in this revision moves the headline: 0.619 (0.585–0.652)
+at ΔNLL +0.398 remains the only quotable end-to-end figure.**
+
+| Revision 5 addition | Number | Status |
+|---|---|---|
+| Window W=100, in-sample (o0–700, 8 slices) | 0.752 (0.723–0.782), ΔNLL 0.219, 1 flush/100 | **in-sample operating point, not a headline** |
+| Window W=100, held out (o1600–1900, 4 slices) | 0.565 vs 0.570 for W=50, paired −0.005 [−0.080, +0.070] | null on success; ΔNLL −0.237 [−0.303, −0.176] replicates |
+| Paraphrase on gpt2-medium, matched 2 slices | 0.483 vs 0.330 (canonical 0.825 vs 0.745) | read path only; not a new e2e baseline |
+| Likelihood verifier on gpt2-medium | duel 0.135 (0.066 on small) | route retired at both scales |
+
 The two channels are measured **on the same rows of the same runs**, so the +0.244 is a paired comparison, not a comparison against a historical baseline from a different run. This is the number that answers "does reading memory help?" without confounding.
 
 ---
@@ -125,6 +143,7 @@ The 0.25 point was selected on slice 0–99 and then confirmed on the other seve
 - **`side_memory` route is nearly unused and mostly wrong**: 8 rows, 1 hit. It contributes ~0 to the headline and should not be presented as a working third channel.
 - **The degenerate guard matters at this operating point**: at budget 0.50, slice 100–199 ran a 0.10 degenerate-answer rate even with the guard in place; at budget 0.25 that slice reads 0.00 and the pooled rate is 0.01. The guard bounds the damage, it does not eliminate it, so the degenerate column stays beside every hit number.
 - **NLL here is probe NLL on the edit prompts**, not a general fluency benchmark. It is a regression guard, not a language-quality claim.
+- **The evaluation slices are on the easy side of the write gate.** The same protocol admits 0.431 of rows on o0–700 and 0.245 on four fresh slices (o1600–1900), which return e2e 0.570 against 0.619 (§13.4). Both numbers are inside the headline CI, but a fresh-slice reader should expect the lower half of it, and any future claim of the form "the system reaches 0.62" carries this qualifier.
 
 ---
 
@@ -184,6 +203,14 @@ The audit's T1 and T4 items asserted that no window mechanism and no `nll_delta`
 | **Rev 4** W4 runner, patched arm | `TANG I CHOI/w4_gate_ablations/results/w4_ablation_always_write_rev4.json` |
 | **R11** pooled four-arm table (§11) | `w6_rev3/r11_param_probe_pooled.json` (from `w6_rev3/w6_pool_param.py`) |
 | **R11** probe driver + launcher | `w6_rev3/param_probe_driver.py`, `w6_rev3/run_param_probe.ps1`, log `w6_rev3/param_probe_driver.log` |
+| **R12w** window runs (W=100, o0–700) | `EasyEdit/w6run/R12_o{0..700}_W100_W100b025_inject/results_defer_W100.json` (8 × 100 edits) |
+| **R12w** driver + log | `w6_rev3/window_probe_driver.py`, log `w6_rev3/window_probe_driver.log` |
+| **R12w** pooled table (§13.2) | `w6_rev3/r12_window_probe_pooled.json` (from `w6_rev3/w6_pool_param_r12.py`) |
+| **R12w/R11** three-window decomposition (§13.2) | `w6_rev3/r12_window_decomp.json` (from `w6_rev3/w6_window_decomp.py`) |
+| **R13** held-out window runs (o1600–1900, both windows) | `EasyEdit/w6run/R13_hold_o{1600..1900}_W{50,100}_b025/results_defer_W{50,100}.json` (8 × 100 edits) |
+| **R13** driver + pooled table (§13.3) | `w6_rev3/holdout_driver.py`, `w6_rev3/w6_pool_holdout.py`, `w6_rev3/r13_holdout_pooled.json` |
+| **R14** cross-backbone read path (gpt2-medium) | `w6_rev3/recall_gpt2medium/recall_gpt2medium_o{0,100}_n100.json` (from `w6_rev3/w6_recall_backbone.py`) |
+| **R14** decision criteria on gpt2-medium (§14.2) | `w6_rev3/para_decision_probe_gpt2medium.json` (from `w6_rev3/w6_para_decision_probe.py`) |
 | **R11** lever runs | `EasyEdit/w6run/R11_o{0..700}_W50_b015_inject/`, `R11_o{0..700}_W50_b035_inject/`, `R11_o{0..700}_W25_W25b025_inject/` (24 runs × 100 edits) |
 
 Reproduce:
@@ -202,16 +229,32 @@ cmd /c .venv\Scripts\python.exe -u w6_rev3\param_probe_driver.py   # all three a
 python w6_rev3/w6_pool_param.py                                      # writes r11_param_probe_pooled.json
 ```
 
+R12w/R13 (§13) — 8 runs at W=100 (10.5–15.6 min each), then 8 held-out runs at 11.1–18.6 min:
+
+```powershell
+cmd /c .venv\Scripts\python.exe -u w6_rev3\window_probe_driver.py   # W=100 on o0-700, skips finished runs
+python w6_rev3\w6_pool_param_r12.py                                    # writes r12_window_probe_pooled.json
+python w6_rev3\w6_window_decomp.py                                     # writes r12_window_decomp.json
+cmd /c .venv\Scripts\python.exe -u w6_rev3\holdout_driver.py          # both windows on o1600-1900
+python w6_rev3\w6_pool_holdout.py                                      # writes r13_holdout_pooled.json
+```
+
+R14 (§14) — read path on gpt2-medium, ~250 s/slice on CPU-adjacent settings, no writer:
+
+```powershell
+python w6_rev3\w6_recall_backbone.py --model gpt2-medium --tag gpt2medium --offsets 0,100 --n 100
+python w6_rev3\w6_para_decision_probe.py --model-dir gpt2-medium --recall-glob "w6_rev3/recall_gpt2medium/*.json" --out w6_rev3/para_decision_probe_gpt2medium.json
+```
+
 ---
 
 ## 9. Open items — not claimed
 
-1. **Paraphrase recall is measured but weak**: 0.333 strict, measured in-loop on the edited model over 5 412 items (§10.1). The canonical/paraphrase gap of 0.39 is a real generalisation deficit, and §10.2/§10.3 show it is not closable by choosing a better reader template: the template ordering **flips between backbones** (`fewshot` ≫ `prefix` on gpt2-small, `prefix` ≫ `fewshot` on gpt2-xl) and the in-loop swap is a negative transfer.
-2. **Held-out validation past offset 700 is now done** (§10.2, 500 fresh edits o800–1299): the template ranking replicates, but the canonical gap between templates does not (0.33 in-slice → 0.08 held-out), so one claim from §2b is withdrawn. The **budget** axis is now measured on the inside as well as the outside — 0.15 / 0.25 / 0.35 / 0.50 all run (§11) — and 0.25 is an interior maximum, so the earlier "tuned in-range" disclosure is superseded by measurement rather than by argument. The **window** lever was also varied (W=25, §11) and is strongly negative; the opposite direction (W≫50) remains untested and is not claimed.
+1. **Paraphrase recall is measured but weak**: 0.333 strict, measured in-loop on the edited model over 5 412 items (§10.1). The canonical/paraphrase gap of 0.39 is a real generalisation deficit, and §10.2/§10.3 show it is not closable by choosing a better reader template: the template ordering **flips between backbones** (`fewshot` ≫ `prefix` on gpt2-small, `prefix` ≫ `fewshot` on gpt2-xl) and the in-loop swap is a negative transfer. §14 then prices how much of it is capacity: on `gpt2-medium` the same read path returns 0.483 strict against 0.330 on `gpt2-small`, so roughly a third of the 0.415 gap is a capacity floor — "the store cannot serve paraphrases" is too strong, while "the decoder will not copy them" survives a 3× backbone change.
+2. **Held-out validation past offset 700 is now done** (§10.2, 500 fresh edits o800–1299): the template ranking replicates, but the canonical gap between templates does not (0.33 in-slice → 0.08 held-out), so one claim from §2b is withdrawn. The **budget** axis is now measured on the inside as well as the outside — 0.15 / 0.25 / 0.35 / 0.50 all run (§11) — and 0.25 is an interior maximum, so the earlier "tuned in-range" disclosure is superseded by measurement rather than by argument. The **window** lever was also varied (W=25, §11) and is strongly negative; the opposite direction is now measured in both directions (§13): W=100 gives +0.134 in-sample but −0.005 on four fresh offsets, so it is reported as a fluency/cost lever (ΔNLL −0.237, 4/4 slices) and explicitly **not** as an accuracy improvement.
 3. **The W4 gate-ablation runner** now emits per-edit `nll_target_before/after/delta` and `hit_total_with_nll_row`; the re-run status is recorded in §10.6, and until that whole table is on the patched runner, §6 pairing should be read as coming from the defer stream.
-4. **`side_memory` route**: fixed and re-measured, with the caveat that what was fixed is the *read path*, not the routing. The 1/8 hit rate was not the store failing to hold the edit — it was the read path requiring the LM to re-emit the note it had just been shown (measured copy fidelity 0.46 pooled), so a known answer was scored `none`. Store correctness fixes (sha256 shard routing instead of salted `hash`, index/counter consistency under capacity eviction, surface-form key normalisation, `overwrite` for counterfactual supersede) are in `FONG HIO LAM/side_memory_router/side_memory.py`; the read path gains a `memory_serve` flag whose default `inject` reproduces exactly the numbers in this report. With `hybrid` (inject first, then serve from the store when the copy fails) e2e goes **0.6125 → 0.9025 pooled** across the same 8 slices / budget 0.25 / W=50, with the parameter channel and probe NLL delta identical to four decimals. That 0.9025 is the ceiling of the two-channel system, not a model improvement: `memory_direct` answers by table lookup, and slice o200 (parameter channel collapsed, 1 admitted row) is a degenerate slice that must be quoted with the caveat. Routing share is still gate-dominated (0-1% explicit `side_memory`), and paraphrase recall is untouched at 0.333 in-loop (§10.1) — an exact-match store cannot fix lexical variation, and §10.3 shows a prompt-level fix makes it worse. Full write-up: `w6_rev3/side_memory_readpath_fix.md`.
+4. **`side_memory` route**: fixed and re-measured, with the caveat that what was fixed is the *read path*, not the routing. The 1/8 hit rate was not the store failing to hold the edit — it was the read path requiring the LM to re-emit the note it had just been shown (measured copy fidelity 0.46 pooled), so a known answer was scored `none`. Store correctness fixes (sha256 shard routing instead of salted `hash`, index/counter consistency under capacity eviction, surface-form key normalisation, `overwrite` for counterfactual supersede) are in `FONG HIO LAM/side_memory_router/side_memory.py`; the read path gains a `memory_serve` flag whose default `inject` reproduces exactly the numbers in this report. With `hybrid` (inject first, then serve from the store when the copy fails) e2e goes **0.6125 → 0.9025 pooled** across the same 8 slices / budget 0.25 / W=50, with the parameter channel and probe NLL delta identical to four decimals. That 0.9025 is the ceiling of the two-channel system, not a model improvement: `memory_direct` answers by table lookup, and slice o200 (parameter channel collapsed, 1 admitted row) is a degenerate slice that must be quoted with the caveat. Routing share is still gate-dominated (0-1% explicit `side_memory`), and paraphrase recall is untouched at 0.333 in-loop (§10.1) — an exact-match store cannot fix lexical variation, and §10.3 shows a prompt-level fix makes it worse. Full write-up: `w6_rev3/side_memory_readpath_fix.md`. The cross-backbone test in §14 shows the arbitrating verifier does not become usable with capacity (duel 0.066 → 0.135), so `hybrid` remains the ceiling mechanism rather than a route to a better model.
 5. **Repairing dead edits does not work and is switched off** (§10.4). At the tightest allowance the pass is inert; scaled up it destroys more live rows than it rescues, and it does so while *improving* the fluency coordinate. No headline number depends on it.
-*（内容由AI生成，仅供参考）*
 
 ---
 
@@ -390,3 +433,340 @@ The budget lever **slides rows between the two channels** rather than adding the
 **What this does and does not change.** Nothing in §1 moves: the headline stays 0.619 (0.585–0.652) at ΔNLL +0.398, because the best arm is 0.05 below it and the two others are worse on at least one coordinate. What R11 does establish is that the 0.369 parameter ceiling is **not** a tuning miss — both levers that could have moved it were run to a verdict and neither did. The remaining ways to move it are the ones already priced in §4 as structural: a larger backbone (`gpt2-medium`, changes every baseline in the table) rather than more aggressive writing into `gpt2-small`.
 
 Caveats carried forward: slice o200 is degenerate under every arm in this table (parameter channel admits 1 row, `param` = 0.01) and is included, not dropped, so all four arms pay the same penalty; the W=25 arm additionally changes the measurement window, so its e2e is comparable in protocol but not a like-for-like operating point of the same system.
+
+---
+
+## 12. R12 — where the paraphrase gap actually lives, and which fixes do not reach it
+
+Rev 4 left one number unexplained: paraphrase recall 0.333 against canonical 0.723 on the
+same model, the same store and the same read template. §10.3 showed a better prompt is not the
+fix. R12 asks the prior question — is the note *reaching* the model, or is the model *refusing
+to say it* — and answers it with a negative control rather than an argument.
+
+### 12.1 Read path, three criteria and a shuffled-note control
+
+Scope: read path only (`side-memory` note prepended to the query, greedy answers reused from
+`w6_rev3/recall/recall_gpt2small_o{0..700}_n100.json`), gpt2-small, 8 slices, 135 s of GPU.
+Each context also gets one teacher-forced forward pass to read the rank of the target's first
+token, plus a **rotation control**: the same query with *another* edit's note in front of it.
+If the correct note were doing nothing, correct and rotated notes would score alike.
+
+| Criterion (first target token) | canonical (n = 800) | paraphrase (n = 1600) |
+|---|---|---|
+| Greedy recall (the number quoted in §10.1) | 0.7225 | 0.3431 |
+| Target rank @1 | 0.2712 | 0.1781 |
+| Target rank @5 | 0.5787 | 0.4444 |
+| Target rank @10 | 0.6887 | **0.5269** |
+| median rank | 4 | 8 |
+| **rotated-note control**, rank @10 | 0.0700 | 0.0794 |
+| margin (correct − rotated) | 0.6188 | 0.4475 |
+| rank @10 **on greedy failures only** | 0.4099 (n = 222) | **0.3806** (n = 1051) |
+
+Four things follow, and one route closes.
+
+1. **The gap is not a scoring artefact.** Re-scoring the same answers under four criteria
+   (reported field / normalised containment / first-6-token containment / pooled token-F1)
+   produces no criterion that scores higher: strict 0.3431, normalised 0.3431 (identical),
+   lead-6 0.3344 and token-F1 0.0175 are all at or below it. The missing 38 points are not a
+   parser being unkind.
+2. **The note arrives; the decoder drops it.** On paraphrase a correct note puts the target
+   token in the top 10 in 52.7 % of cases against 7.9 % for another edit's note — a 6.6×
+   separation, margin 0.4475. The store, the key and the injection are delivering the fact;
+   what fails is the free-running continuation, which prefers a fluent completion to a copied
+   one. §9.4's copy-fidelity measurement (0.46 pooled) is the same phenomenon seen from the
+   other end. Note also what the failures are *not*: only 6.4 % of them emit the pre-edit
+   value, so the residual is not the old fact interfering — it is unrelated fluent output.
+3. **There is decode-side headroom, and it is bounded.** Among the 1 051 paraphrase items
+   greedy already got wrong, the target token is still in the top 10 for 38.1 %. A
+   copy-constrained or candidate-reranked read therefore has a ceiling of **≤ 0.527** on this
+   criterion — not 0.723 — and because the criterion looks at the first token only, the
+   full-answer recall of any such read has to land strictly below it. This is a bound, not a
+   result; nothing in §1 depends on it.
+4. **The obvious verifier does not work.** A likelihood duel — log P(target | note + query)
+   versus log P(target | query) — picks the right answer 6.6 % of the time, and 0.1 % of the
+   greedy-failure set. Even at median rank 8 out of 50 257, prefixing the note barely moves the
+   sequence likelihood, so a PMI-style re-ranker cannot arbitrate between a copied and a
+   generated answer. That route is retired before anyone spends a GPU-week on it.
+
+**What this buys.** The project's weakest number stops being an adjective and becomes a
+mechanism with a control: retrieval works, generation is the bottleneck, and the ceiling of
+the fix is measured. It also explains *why* `memory_serve`/`hybrid` reaches 0.9025 (§9.4) —
+serving the note removes precisely the copy step this probe shows failing — so that figure is
+the two-channel system's ceiling rather than a scoring trick that happens to look good.
+
+Caveats: the rank criterion reads the first target token only, and greedy answers are reused
+rather than regenerated, so this diagnoses the read path; it is not a new end-to-end operating
+point. The rotated control draws from the same slice, so two edits sharing a subject would
+weaken it — the 0.079 control floor is consistent with that contamination being small.
+
+*（内容由AI生成，仅供参考）*
+
+---
+
+## 13. R12w/R13 — the window walked the other way: an in-sample gain that does not replicate
+
+§11 retired W=25 and named the direction it had not tested: **W≫50**, i.e. fewer and larger
+write-outs. R12w/R13 run it. The mechanism under test is the one §11's verdict left standing —
+flush count, not window length, dominates interference — so the prediction is concrete: one
+write-out per 100 edits should raise success *and* lower ΔNLL at the same time. It does, on the
+eight slices this project has been using. It does not on four slices nobody has ever run, and
+that is the result reported first.
+
+### 13.1 Protocol
+
+Every arm is byte-identical to the R6 run behind the §1 headline except the one lever named:
+100 edits per slice, `delta_budget 0.25`, `guard_scale 0.5`, layers 4–8, `refine_passes 1`,
+`memory_read=True`, `template=instruct`, `arbitrate=True`, `--eval-paraphrase`.
+
+| Block | Offsets | Arms | Why these offsets |
+|---|---|---|---|
+| **R12w** (in-sample) | 0–700, 8 slices | W=100, budget 0.25 | the direction §11 asked for, on the frozen protocol |
+| **R13** (held-out) | 1600–1900, 4 slices | W=50 **and** W=100 | no earlier arm touched 1600+; both windows re-run, so the comparison is paired rather than historical |
+
+Naming note: the read-path probe in §12 was tagged R12 first; the run directories
+`EasyEdit/w6run/R12_o*_W100_W100b025_inject/` here are the **window** arm, and are called R12w
+throughout this section to keep the two apart.
+
+### 13.2 In-sample: the predicted direction, and it is large
+
+| arm | W | flushes / 100 edits | n | e2e | 95 % CI | param | mem | ΔNLL | para (in-loop) |
+|---|---|---|---|---|---|---|---|---|---|
+| R6 (frozen) | 50 | 2 | 800 | 0.619 | 0.585–0.652 | 0.369 | 0.250 | 0.398 | 0.333 |
+| R11-C | 25 | 4 | 800 | 0.286 | 0.255–0.318 | 0.195 | 0.091 | 0.851 | not measured |
+| **R12w** | **100** | **1** | 800 | **0.752** | 0.723–0.782 | 0.388 | 0.365 | **0.219** | 0.402 |
+
+Paired per-slice deltas against R6 (5 000 slice resamples): e2e **+0.134, CI [+0.079, +0.182],
+7 slices up, 0 down**, 1 tie (o200, the degenerate slice, admits 1 row under both windows);
+ΔNLL **−0.179, CI [−0.255, −0.110], 7 up / 0 down**.
+
+The decomposition says *where* the gain comes from, and it is not admission:
+
+| arm | W | coverage | write fidelity (param hits / admitted) | param | mem | e2e | ΔNLL | flush s / slice | admit-set Jaccard vs R6 |
+|---|---|---|---|---|---|---|---|---|---|
+| R11-C | 25 | 0.466 | 0.418 | 0.195 | 0.091 | 0.286 | 0.851 | 4 flushes | 0.516 |
+| R6 | 50 | 0.431 | 0.855 | 0.369 | 0.250 | 0.619 | 0.398 | 2 flushes | — |
+| **R12w** | **100** | 0.398 | **0.975** | 0.388 | 0.365 | 0.752 | 0.219 | 1 flush | 0.727 |
+
+Coverage *falls* with the longer window (0.431 → 0.398), because the budget is enforced per
+window — a 100-edit window has to fit the whole batch under 0.25 — yet 97.5 % of what it admits
+survives to answer time. That is a direct measurement of a prediction §4 could only assert: at
+W=50, **12 points of the parameter channel are being overwritten by later flushes of the same
+run**, not mis-learned on the first write.
+
+### 13.3 Held-out: the gain does not replicate, the cost reduction does
+
+R13 re-runs both windows on offsets 1600–1900. Same protocol, same budget, paired slice by
+slice, n = 400 edits per arm.
+
+| arm | n | e2e | param | mem | ΔNLL | para | flushes | s / slice |
+|---|---|---|---|---|---|---|---|---|
+| W=50 | 400 | **0.570** | 0.245 | 0.325 | 0.379 | 0.331 | 2 | 684 |
+| W=100 | 400 | **0.565** | 0.120 | 0.445 | **0.143** | 0.334 | 1 | 807 |
+
+Paired deltas (W=100 − W=50, 4 paired slices, 5 000 resamples; per-slice values in order
+1600/1700/1800/1900):
+
+| quantity | mean | 95 % CI | per slice |
+|---|---|---|---|
+| e2e | **−0.005** | [−0.080, +0.070] | +0.07, −0.07, +0.07, −0.09 |
+| ΔNLL | **−0.237** | [−0.303, −0.176] | −0.21, −0.25, −0.33, −0.15 |
+| param channel | **−0.125** | [−0.185, −0.065] | −0.04, −0.20, −0.17, −0.09 |
+| mem channel | **+0.120** | [+0.032, +0.208] | +0.11, +0.13, +0.24, +0.00 |
+| paraphrase | +0.012 | [−0.070, +0.093] | +0.11, −0.06, +0.08, −0.08 |
+
+Four things follow.
+
+1. **The success gain is gone.** −0.005 with sign flips between slices is what a null looks like
+   at n = 100 per slice. The in-sample +0.134 is a property of offsets 0–700 as they stand today,
+   not of the window.
+2. **The fluency gain is real and is the largest effect in the table.** −0.237, all four slices
+   up, ΔNLL 0.379 → 0.143 for the same 100 edits: one write-out costs a quarter of the fluency
+   that two cost. This replicates the in-sample direction (−0.179) at a similar size.
+3. **The channel mix moves while the total does not.** param −0.125 and mem +0.120, closing to
+   within 0.005: the same rows are still answered, by the other channel. This is the substitution
+   front §11 found on the budget axis, now found on the window axis — the two levers push the
+   same rows across the same boundary.
+4. **Wall-clock does not replicate either.** In-sample, o0 took 2 021 s at W=50 and 364 s at
+   W=100. Held-out, 684 s at W=50 against 807 s at W=100. Batching 100 writes into one write-out
+   is cheaper only where the 50-edit writes were paying for re-doing work; where they were not,
+   the single large write is the slower object. "W=100 is faster" is therefore not a claim.
+
+### 13.4 Where the missing parameter rows go: per-slice admission
+
+Pooled numbers hide an interaction that matters more than the pooled delta. The guard admits or
+rolls back **per window**, and `immediate_hits` in `flush_hist` records how many of a window's
+edits survived the write itself:
+
+| Held-out slice | W=50, hits per flush | W=50 total | W=100, hits (single flush) | W=100 total | e2e W=50 → W=100 |
+|---|---|---|---|---|---|
+| 1600–1699 | 18, 33 | 51 | 42 | 42 | 0.54 → 0.61 |
+| 1700–1799 | 5, 23 | 28 | 8 | 8 | 0.73 → 0.66 |
+| 1800–1899 | 20, 6 | 26 | 5 | 5 | 0.51 → 0.58 |
+| 1900–1999 | 0, 7 | 7 | 0 | 0 | 0.50 → 0.41 |
+
+Read straight: on the one easy held-out slice the single big write behaves like the in-sample
+digits (42/100 admitted, fidelity 0.975) and buys +0.07. On the three hard slices it admits
+**8, 5 and 0 rows against 28, 26 and 7** — a single 100-edit batch is a worse write than two
+50-edit batches once the writer is already struggling, and on 1900 it is the guard's
+all-or-nothing rollback of an entire 100-edit window (`nll_delta` 0.000, `param_coverage` 0.000)
+that produces the −0.09. The memory channel absorbs the loss (+0.120 pooled), which is why the
+total is flat while the mix is not.
+
+Two consequences, both uncomfortable and both kept:
+
+- **The window lever's effect depends on how writable the slice is**, so the in-sample +0.134 and
+  the held-out −0.005 are not contradictory measurements of one constant — they are the same
+  mechanism on slices the writer finds easy and hard. A longer window also has a bigger blast
+  radius: one bad batch costs 100 edits instead of 50.
+- **The project's eight evaluation slices are the easy ones.** At identical protocol, W=50 admits
+  0.431 of rows on o0–700 and 0.245 on o1600–1900, and the same arm returns e2e 0.619 on the
+  former against 0.570 on the latter. 0.570 sits inside the headline's 95 % CI (0.585–0.652) at
+  its lower edge, so the headline is not withdrawn — but it is described more accurately as an
+  upper-half estimate for a fresh slice, and §5 inherits this caveat.
+
+### 13.5 What this does to §11, and to the headline
+
+Verdicts:
+
+1. **Not a headline, and must not be quoted as one.** 0.752 (0.723–0.782) is an in-sample
+   operating point on the eight slices that have now absorbed every tuning decision in this
+   report — budget (§11), reader template (§10.3), repair (§10.4), window (§11, §13). The four
+   fresh offsets return 0.565 against 0.570, and that is the honest summary of the window lever.
+   §1 keeps 0.619 (0.585–0.652) at ΔNLL +0.398.
+2. **§11's interference account is refined, not confirmed.** Flush count sets the *fluency tax*
+   — ΔNLL 0.851 / 0.398 / 0.219 at 4 / 2 / 1 flushes — but **not** the number of edits the
+   parameter channel can answer: coverage and write fidelity both improve monotonically with
+   window length while e2e stays flat out of sample. Interference, as measured here, buys damage
+   to the model's fluency; the answer count is set by the budget and by which channel holds each
+   row, not by how often the weights were written.
+3. **The same account explains why W=25 failed so hard.** At four flushes per 100 edits it paid
+   the tax twice in one run: the highest ΔNLL (0.851) *and* the worst copy fidelity (0.418) at the
+   *highest* coverage (0.466) — more rows admitted, three quarters of them dead by answer time.
+4. **Power, stated rather than implied.** Within-arm slice spread is 0.23 (W=50: 0.50–0.73) and
+   0.25 (W=100: 0.41–0.66) at n = 100 per slice, so a four-slice paired CI of ±0.075 cannot
+   detect anything below roughly 0.08. The held-out block rules out an effect of the in-sample
+   magnitude (+0.134). It does not rule out a small positive one, and no such claim is made.
+
+5. **`hybrid` remains the only place the shifted rows can be spent.** §9.4's 0.9025 is a store
+   lookup, and §13.4 shows W=100 pushes rows *out of* the parameter channel *into* the memory
+   channel. Serving from the store therefore converts the W=100 mix into answers at roughly the
+   rate W=50 does — a second, independent reason not to read 0.9025 as a model improvement.
+
+**Caveats.** One window value is out of sample (W=100); the budget is held at 0.25 in both
+blocks and a different optimum could exist at another window — untested. Slice o200 is
+degenerate under both windows (parameter channel admits 1 row) and is kept in the pool, so both
+arms pay the same penalty; held-out slice 1900 is degenerate under W=100 only (the guard rolled
+back the whole window) and is kept for the same reason, which makes the W=100 held-out mean
+slightly pessimistic on success and optimistic on ΔNLL. The window leaves paraphrase untouched
+on fresh data (+0.012, CI includes 0): this lever does not address §12's gap, and nothing here
+says it does.
+
+*（内容由AI生成，仅供参考）*
+
+---
+
+## 14. Cross-backbone read path: about a third of the copy failure is capacity, the verifier stays broken
+
+§9 has carried this disclosure since Rev 3: every read-path number in the report is gpt2-small,
+so a reader is entitled to answer the paraphrase gap with "your model is too small". R14 runs the
+same sweep — same `side_memory` note format, same prompts, same scoring, **no code path changed**
+— on `gpt2-medium` (355 M against 124 M, same tokenizer family).
+
+### 14.1 Scope
+
+Two slices (o0, o100 × 100 edits) per backbone, matched item for item: n = 200 edits and 400
+paraphrase items per column. Both columns are the *same two slices*, so the table is a protocol
+match rather than a comparison against the eight-slice mean in §2b. Wall-clock is deliberately not
+tabulated: the two recall blocks were captured with other runs in flight, so their timings are not
+comparable and the difference would read as a backbone effect when it is a queue effect.
+
+| Backbone | canonical | paraphrase (strict) | paraphrase (case-any) | shuffled-key control | gap (canon − para) | logP read Δ | note echo |
+|---|---|---|---|---|---|---|---|
+| gpt2-small (124 M) | 0.745 | 0.330 | 0.490 | 0.015 | **0.415** | 4.58 | 0.745 |
+| gpt2-medium (355 M) | 0.825 | **0.483** | 0.675 | 0.015 | **0.343** | 5.97 | 0.825 |
+
+### 14.2 The decision criteria on each backbone
+
+| Criterion (first target token) | gpt2-small, paraphrase (n = 1 600) | gpt2-medium, paraphrase (n = 400) |
+|---|---|---|
+| Greedy recall | 0.3431 | **0.4825** |
+| Target rank @1 | 0.1781 | 0.2600 |
+| Target rank @5 | 0.4444 | 0.5575 |
+| Target rank @10 | 0.5269 | 0.6400 |
+| median rank | 8 | 4 |
+| mean rank | 386.1 | 139.8 |
+| rotated-note control, @10 | 0.0794 | 0.0550 |
+| margin (correct − rotated) | 0.4475 | 0.5850 |
+| likelihood duel win | 0.0663 | 0.1350 |
+| @10 on greedy failures | 0.3806 (n = 1 051) | 0.4541 (n = 207) |
+
+*Note on scope:* the recall rows above are matched two-slice comparisons; the criterion columns
+are not (small is eight slices, medium is two). The same direction appears on both, and the small
+column is quoted only to show what the verdict was before the backbone changed.
+
+Four things follow.
+
+1. **Capacity closes about a third of the gap.** Canonical +0.080, paraphrase +0.153, gap
+   0.415 → 0.343 — 37 % of the deficit disappears over a 3× parameter range with no change to the
+   store, the key or the prompt. So part of what §9 called a generalisation deficit is a capacity
+   floor, and saying so is more accurate than saying the store "cannot" serve paraphrases.
+2. **The rest is not capacity.** At 355 M the model still reads a paraphrase 0.48 of the time
+   against 0.83 on a canonical prompt, while the target sits in the top 10 for 64 % of paraphrase
+   items. The note is arriving and the decoder is still preferring a fluent continuation to a
+   copied one — §12's mechanism survives the backbone change; only its size shrinks.
+3. **The likelihood verifier does not improve in any usable way.** Duel win 0.066 → 0.135, median
+   rank 8 → 4. Even at 3× capacity, prefixing the note barely moves the sequence likelihood, so a
+   PMI-style re-ranker still cannot arbitrate a copied against a generated answer. §12 item 4
+   retires that route at one scale; this retires it across the range we can afford to test.
+4. **The control stays clean and the ceiling moves.** Rotated-note top10 is 0.055 on medium
+   against 0.079 on small, so the margin is entirely the correct note. The measured ceiling for
+   any copy-constrained read rises 0.527 → 0.640: that is the number a re-ranker would have to
+   beat, and the verifier above does not.
+
+**What this deliberately does not buy.** A gpt2-medium *end-to-end* number. Changing the backbone
+replaces every baseline in §1–§13 — writer inner layers, gate thresholds, the budget optimum, the
+window verdict — each of which was derived on gpt2-small, so a medium e2e cell would be a new
+project dressed as a robustness check. The read-path probe is the bounded substitute: it prices
+the capacity question where it is cheap to price, and it leaves the end-to-end system where it was
+measured rather than where it was guessed.
+
+Caveats: two slices, not eight; a 3× parameter range is a range, not a law — the paraphrase gap
+may keep shrinking on a 10× backbone, which §10.3's cross-backbone template flip already hints at
+(template ordering reverses between gpt2-small and gpt2-xl, so prompt-level conclusions must not
+be carried across backbones); and the medium column is a clean-LM read path, not an edited model.
+
+*（内容由AI生成，仅供参考）*
+
+---
+
+## 15. Claim ledger — every number this report has revised, and where it stands
+
+Five revisions have each changed something. This table is the audit trail: what was claimed,
+whether it still holds, and the section that carries it now. A reader who only has time for one
+table should read this one before quoting anything.
+
+| Claim | Status | Where |
+|---|---|---|
+| e2e 0.613 (Rev 3) | **superseded** by 0.619 after the read-path fix | §10.1, §1 |
+| e2e **0.619 (0.585–0.652) at ΔNLL +0.398** | **current headline**, must travel with its NLL | §1 |
+| Parameter channel 0.369 / memory +0.250 | unchanged across all five revisions | §1 |
+| Paraphrase 0.343, borrowed from a clean-LM sweep | **superseded** by in-loop 0.333 (n = 5 412) | §10.1 |
+| Paraphrase 0.333 / canonical 0.723, gap 0.39 | current; mechanism diagnosed in §12 | §10.1, §12 |
+| `hybrid` 0.9025 as the two-channel ceiling | current, and only with the o200 caveat attached | §9.4 |
+| Template ranking (prefix > instruct > fewshot) | **partly withdrawn** — canonical gap 0.33 → 0.08 held out | §9 item 2, §10.2 |
+| In-loop `retro_fewshot` template swap | **rejected** (negative transfer, para 0.426 → 0.040) | §10.3 |
+| Guarded repair pass | **rejected and switched off** (three tests, all negative) | §10.4, §9 item 5 |
+| Budget 0.15 as an improvement | **not a headline** — 0.569 at ΔNLL 0.206, low-cost operating point | §11 verdicts |
+| Budget 0.35 as an improvement | **closed** — strictly dominated, admission saturated at 0.25 | §11 verdicts |
+| Budget 0.25 as tuned-in-range | **upgraded** to a measured interior optimum (four points) | §11 |
+| W=25 as less interference | **falsified and closed** — flush count, not window length, drives interference | §11 verdicts |
+| W=100 as a success gain | **in-sample only** (0.752); does not replicate (0.565 vs 0.570) — not claimed | §13.2, §13.3 |
+| W=100 as a fluency lever | **current** — ΔNLL −0.237 [−0.303, −0.176], 4/4 paired slices | §13.3 |
+| The eight evaluation slices as representative | **qualified** — 0.431 admission vs 0.245 on fresh slices | §13.4, §5 |
+| "The store cannot serve paraphrases" | **softened** — ~37 % of the gap is a capacity floor | §14.2 |
+| "The decoder will not copy them" | **survives** at 3× capacity (para 0.483 vs canonical 0.825) | §14.2 |
+| Likelihood duel as a re-ranker | **retired at both scales** (0.066 → 0.135) | §12.1 item 4, §14.2 |
+| Copy-constrained read ceiling | **measured**: ≤ 0.527 small, ≤ 0.640 medium — a bound, not a result | §12.1 item 3, §14.2 |
+| gpt2-medium end-to-end number | **never run, not claimed** | §14 closing |
+
+*（内容由AI生成，仅供参考）*
