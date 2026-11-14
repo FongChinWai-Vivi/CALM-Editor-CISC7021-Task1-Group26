@@ -38,6 +38,7 @@ AIGC:
 左欄由上到下四段，右欄是記錄區：
 - `1 · ask the model`：多行輸入框、`Ask the model`按鈕，只提問不動記憶。
 - `2 · edit one fact`：Subject/Relation/New answer/Ground truth、`Apply edit`，對上方prompt做一次編輯。
+- `3 · ask again (reads side memory)`：`Ask again with memory`（或輸入框按 `Shift+Enter`），對同一條prompt再問一次，這次走記憶讀取通道，用來現場證明翻轉不是編輯回應裡的一次性假象。
 - `presets`：`Macau → China (flips)`、`Macau language → Portuguese (REJECT)`，一鍵填好欄位，不用手打。
 - `session`：`Run scripted demo` / `Clear` / `Reset memory`，自動跑兩段演示、清記錄、清側記憶。
 
@@ -61,6 +62,7 @@ The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a SAR of
 | Before | `Macau.`，conf `0.68`（5個token機率平均）；同一張卡另印 `first token 0.56`、`answer-only 0.75 over 3 tok` 與逐token機率 `" Mac" 0.56 · "au" 0.88 · "." 0.81 · "\n" 0.15 · "\n" 1.00` |
 | Result | edit `(Macau, is a SAR of)  Macau → China`；gate `ROUTE`，`route=side_memory`，`reason=default_moderate`；memory `stored note = China`。重置後再跑一次不會再出現`conflicts_in_memory(1)` |
 | After | `China.`，標籤 `flipped by side memory`，`channel memory` |
+| Recall | 同一 prompt 再問一次（`Ask again with memory`）：`China.`，`channel memory`、`memory injected yes`、`stored note = China`，標籤 `flip persists on a fresh query`；連按兩次結果一致 |
 
 Relation 寫成 `is a SAR of` 而不是 `SAR`：prefix 模板會拼成 `[Macau] [is a SAR of] is [China]`，讀起來是一句完整英文，模型才會把 `China` 抄出來；用 `SAR` 時模型仍答 `Macau.`。
 前面兩句 lead（China→Beijing、Hong Kong→China）是必要的：它把置信度推過 `gate_route_threshold`0.6，gate 才會判 ROUTE 並把注記寫進側記憶；單獨一句 `Macau is a SAR of` 置信度不足，只會走 WRITE 分支、不產生記憶注記，答案也就不會翻轉。
@@ -79,6 +81,7 @@ The capital of Portugal is Lisbon. The official language of Macau is
 |---|---|
 | Before | `Portuguese.`，conf `0.50`；同卡另印 `first token 0.57`、`answer-only 0.50 over 5 tok` |
 | Result | gate `REJECT`，`route=gate_reject`，`reason=current_answer_matches_target`；memory `nothing written`；After 不變，標籤 `unchanged, already correct` |
+| Recall | 同一 prompt 再問一次：`Portuguese.`，`channel parameter`、`memory injected no`，標籤 `no memory needed, the model already answered this` |
 
 這一段演示的是「模型已經答對就不要浪費參數」：gate 先用當前答案跟目標比對，一致就拒絕寫入。`Mcau`/`Macao` 這類拼寫變體會被當成不同實體，所以欄位裡統一只寫 `Macau`。
 
@@ -89,6 +92,7 @@ Subject沒出現在prompt裡時，後端不執行編輯，直接回一張橙色`
 1. **置信度口徑**：`conf`是5個貪心token機率平均，長度固定為5，句尾標點與換行會計入。同一句prompt改成`max_new_tokens=10`，衡量值會掉到0.55。「首token」更接近「模型對這一題有多確定」，但報告的數字用平均口徑，所以示範不換算，只把拆解一起印出來。
 2. **gpt2-small上「自信答錯」很難湊**：實測14條澳門／常識prompt，凡不是主語回聲的錯誤答案，5token平均普遍落在0.13–0.50（`The capital of Myanmar is`→0.27、`The official language of Macau is`→0.26、`Macau was a colony of`→0.35、`Mount Everest is located in`→0.50）。在門檻0.6下，能判成ROUTE的基本只有回聲型。要做真正的反事實示範，得換更大的模型或調門檻，兩者都會讓本文件裡的數字對不上報告，因此維持現狀。
 3. **衝突路徑不看門檻**：`recent_edits`已有同鍵時，即使conf只有0.55也會判`ROUTE`、`reason=conflicts_in_memory(n)`。這是gate的原設計（編輯過的事實優先），`Reset memory`現在會一併清掉這段歷史，避免重置後還帶著上一輪的衝突計數。
+4. **`Ask the model` 與 `Ask again with memory` 不是同一件事**：前者直接問底座模型、不查側記憶，所以編輯後按它仍然得到 `Macau.`（`Before` 卡的數值就是它產生）；後者才重跑完整讀取流程（先答、再查記憶、必要時注入重答），編輯後按它得到 `China.`。要證明編輯生效，按的是 `Ask again with memory`，不是 `Ask the model`。
 
 ## 4. 錄屏建議
 1. 先`Run scripted demo`跑一次確認狀態，然後`Reset memory`、重新整理頁面，從乾淨狀態錄。

@@ -35,7 +35,8 @@ AIGC:
 | 1.3 | 看第一張卡 | `Prompt` 是你輸入的句子；`Before` = `Macau.`，conf `0.68` —— 模型把主語回聲成答案，明顯答錯 |
 | 1.4 | 看第二張卡 | 標題 `edit one fact  (Macau, is a SAR of)`；`Result` 顯示 `Macau → China`，gate 徽章 `ROUTE`（綠色），`route=side_memory`，`reason=default_moderate`（第二次跑同一事實時顯示 `conflicts_in_memory(1)`），memory 行 `stored note = China` |
 | 1.5 | 看第二張卡的 `After` | `China.`，徽章 `flipped by side memory`，`channel memory` —— 這就是要在報告裡強調的「側記憶翻轉」 |
-| 1.6 | 再按一次同一顆 preset，再按 `Apply edit` | 這次 `Before` 仍是 `Macau.`（原始模型沒被改），gate 顯示 `ROUTE` 且 `reason=conflicts_in_memory(1)`，`After` 仍是 `China.`。用來解釋「非參數式編輯、基底權重不動」 |
+| 1.6 | 按 `3 · ASK AGAIN` 區的 `Ask again with memory`（或 `Shift+Enter`） | 同一條 prompt 再問一次，這次走記憶讀取通道：`RECALL` = `China.`，`channel memory`、`memory injected yes`、`note 'China'`，結論 `flip persists on a fresh query`。連按幾次結果都一樣 —— 翻轉存在於側記憶，不是編輯回應裡的一次性字串 |
+| 1.7 | 再按一次同一顆 preset，再按 `Apply edit` | 這次 `Before` 仍是 `Macau.`（原始模型沒被改），gate 顯示 `ROUTE` 且 `reason=conflicts_in_memory(1)`，`After` 仍是 `China.`。用來解釋「非參數式編輯、基底權重不動」 |
 
 > 講解一句話：*「模型本身會把 Macau 答成 Macau，gate 判斷這是它不確定的事實，於是不浪費參數，把 China 寫進側記憶；下一次讀取時由記憶補上，答案就翻了。」*
 
@@ -68,6 +69,7 @@ AIGC:
 | 按鈕 | 作用 |
 |---|---|
 | `Ask the model`（或 `Ctrl+Enter`） | 只提問、不編輯；`Before` 卡的數值就是它產生 |
+| `Ask again with memory`（或 `Shift+Enter`） | 用剛才那次編輯的 key，對同一條 prompt 重跑一次「先答、再查側記憶、必要時注入重答」的完整讀取流程。它和 `Ask the model` 的差別只有一個：這條會查記憶。被問「你怎麼證明編輯真的生效」時按這顆 |
 | `Clear` | 只清右欄記錄，側記憶不動，狀態膠囊不變 |
 | `Reset memory` | 清掉 64 個 shard 的側記憶，回到冷啟動；示範前務必先按 |
 | `Ground truth`（留空） | 留空時後端拿當前答案當 ground truth，所以不用手填；填了會改變 gate 的比對基準 |

@@ -51,6 +51,7 @@ class Engine:
         self.model = model
         self.read_template = read_template
         self.editor = None
+        self.last_edit = None
 
     def load(self):
         os.chdir(self.root_dir)
@@ -118,10 +119,27 @@ class Engine:
         ans, info = self.editor.answer_with_memory(
             prompt, {"prompt": prompt, "target_new": target_new, "subject": subject,
                      "relation": relation, "ground_truth": gt})
+        self.last_edit = {"prompt": prompt, "subject": subject,
+                          "relation": relation, "target_new": target_new,
+                          "ground_truth": gt}
         return {"before": before, "decision": calm.get("decision"),
                 "route": calm.get("route"), "reason": reason,
                 "note": info.get("note"), "channel": info.get("channel"),
                 "after": (ans or "").strip(), "final_ok": bool(info.get("final_ok"))}
+
+    def recall(self, prompt):
+        """Ask again through the memory read path (fresh decode), like a later turn."""
+        if not self.last_edit:
+            return {"ok": False, "msg": "no edit on record yet -- press Apply edit first"}
+        if self.last_edit["prompt"] != prompt:
+            return {"ok": False, "msg": "this prompt is not the one that was edited"}
+        req = dict(self.last_edit)
+        ans, info = self.editor.answer_with_memory(prompt, req)
+        text = (ans or "").strip()
+        return {"ok": True, "answer": text, "want": req["target_new"],
+                "hits_target": req["target_new"].lower() in text.lower(),
+                "channel": info.get("channel"), "injected": info.get("injected"),
+                "note": info.get("note"), "final_ok": bool(info.get("final_ok"))}
 
     def reset(self):
         """Cold start: shards *and* gate history, same as the web demo."""
@@ -134,6 +152,7 @@ class Engine:
                     log.clear()
             except Exception:
                 pass
+            self.last_edit = None
             return True
         except Exception:
             return False
@@ -227,6 +246,13 @@ def run_gui(args):
                          cursor="hand2")
     edit_btn.pack(padx=14, pady=7, fill="x")
 
+    section("3 . ASK AGAIN  (same prompt, reads side memory)")
+    recall_btn = tk.Button(left, text="Ask again with memory  (Shift+Enter)",
+                           font=ui_bold, relief="flat", bg="#7c3aed", fg="#ffffff",
+                           activebackground="#5b21b6", activeforeground="white",
+                           cursor="hand2")
+    recall_btn.pack(padx=14, pady=6, fill="x")
+
     section("PRESETS  (fills the fields, no typing needed)")
     presets = tk.Frame(left, bg=PANEL)
     presets.pack(padx=14, fill="x")
@@ -304,12 +330,16 @@ def run_gui(args):
                     results.put(("asked", (payload, engine.ask(payload))))
                 elif kind == "edit":
                     results.put(("edited", (payload, engine.edit(**payload))))
+                elif kind == "recall":
+                    results.put(("recalled", (payload, engine.recall(payload))))
                 elif kind == "reset":
                     results.put(("reset", engine.reset()))
                 elif kind == "script":
                     for step in payload:
                         if step[0] == "ask":
                             results.put(("asked", (step[1], engine.ask(step[1]))))
+                        elif step[0] == "recall":
+                            results.put(("recalled", (step[1], engine.recall(step[1]))))
                         else:
                             results.put(("edited", (step[1], engine.edit(**step[1]))))
                         time.sleep(args.pause)
@@ -372,6 +402,14 @@ def run_gui(args):
         jobs.put(("edit", dict(prompt=prompt, subject=subject, relation=relation,
                                target_new=new, ground_truth=gt)))
 
+    def on_recall():
+        prompt = prompt_box.get("1.0", "end").strip()
+        if not prompt:
+            hint.configure(text="Type a prompt first.")
+            return
+        status.configure(text="reading memory ...", fg=YELLOW)
+        jobs.put(("recall", prompt))
+
     def on_script():
         seq = []
         for p in PRESETS:
@@ -379,6 +417,7 @@ def run_gui(args):
             seq.append(("edit", dict(prompt=p["prompt"], subject=p["subject"],
                                      relation=p["relation"], target_new=p["new"],
                                      ground_truth=None)))
+            seq.append(("recall", p["prompt"]))
         status.configure(text="scripted demo running ...", fg=YELLOW)
         jobs.put(("script", seq))
 
@@ -387,6 +426,7 @@ def run_gui(args):
 
     ask_btn.configure(command=on_ask)
     edit_btn.configure(command=on_edit)
+    recall_btn.configure(command=on_recall)
     for b, p in zip(presets.winfo_children(), PRESETS):
         b.configure(command=lambda pp=p: fill(pp))
     script_btn.configure(command=on_script)
@@ -397,6 +437,7 @@ def run_gui(args):
     prompt_box.focus_set()
     root.bind("<Control-Return>", lambda e: on_ask())
     root.bind("<Return>", lambda e: on_edit())
+    root.bind("<Shift-Return>", lambda e: on_recall())
 
     # ---- result rendering
     def render_asked(prompt, res):
@@ -435,6 +476,25 @@ def run_gui(args):
         emit_line(f"         channel {res['channel']}   {verdict}",
                   "verdict_ok" if res["final_ok"] else "verdict_bad")
 
+    def render_recalled(prompt, res):
+        emit_line("")
+        emit_line("ASK AGAIN  (same prompt, fresh decode, now reads side memory)", "hdr")
+        for line in prompt.split("\n"):
+            emit_line("         " + line, "prompt")
+        if not res.get("ok"):
+            emit_line(f"RECALL   skipped: {res.get('msg')}", "detail")
+            return
+        ok, inj = res["hits_target"], res["injected"]
+        emit_line(f"{'RECALL':9}'{res['answer']}'", "after_ok" if ok else "after_bad")
+        emit_line(f"         channel {res['channel']}   memory injected "
+                  f"{'yes' if inj else 'no'}   note '{res['note']}'", "detail")
+        verdict = ("flip persists on a fresh query" if (inj and ok)
+                   else "no memory needed, the model already answered this" if ok
+                   else "memory injected but the answer missed the target" if inj
+                   else "memory did not answer this query")
+        emit_line(f"         {verdict}   (want '{res['want']}')",
+                  "verdict_ok" if ok else "verdict_bad")
+
     def poll():
         try:
             while True:
@@ -456,6 +516,10 @@ def run_gui(args):
                 elif kind == "edited":
                     payload, res = data
                     render_edited(payload, res)
+                    status.configure(text="ready", fg=GREEN)
+                elif kind == "recalled":
+                    prompt, res = data
+                    render_recalled(prompt, res)
                     status.configure(text="ready", fg=GREEN)
                 elif kind == "reset":
                     emit_line("")

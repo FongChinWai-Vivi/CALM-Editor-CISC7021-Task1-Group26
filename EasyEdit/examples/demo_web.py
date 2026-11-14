@@ -46,6 +46,9 @@ class Engine:
         self.editor = None
         self.lock = threading.RLock()
         self.ready = False
+        # Key of the most recent successful edit, so that a *fresh* query can be
+        # answered with the memory read path (not the edit's own counterfactual).
+        self.last_edit = None
 
     def load(self):
         os.chdir(self.root_dir)
@@ -121,11 +124,47 @@ class Engine:
                 prompt, {"prompt": prompt, "target_new": target_new,
                          "subject": subject, "relation": relation,
                          "ground_truth": gt})
+            self.last_edit = {"prompt": prompt, "subject": subject,
+                              "relation": relation, "target_new": target_new,
+                              "ground_truth": gt}
         return {"before": before, "decision": calm.get("decision"),
                 "route": calm.get("route"), "reason": reason,
                 "note": info.get("note"), "channel": info.get("channel"),
                 "after": (ans or "").strip(), "final_ok": bool(info.get("final_ok")),
                 "subject": subject, "relation": relation, "target_new": target_new}
+
+    def recall(self, prompt):
+        """Answer *again* through the memory read path (fresh decode).
+
+        Unlike ``ask`` -- which is the base model with no memory read -- this
+        repeats the query the way a later user turn would: the key is taken from
+        the last edit, the note comes out of the side memory shards, and the
+        answer is regenerated from scratch.  If the flip only lived inside the
+        edit response, this call would not reproduce it.
+        """
+        with self.lock:
+            if not self.last_edit:
+                return {"ok": False, "msg": "no edit on record yet -- press Apply edit first"}
+            if self.last_edit["prompt"] != prompt:
+                return {"ok": False,
+                        "msg": "this prompt is not the one that was edited; "
+                               "press Apply edit for this prompt first"}
+            req = dict(self.last_edit)
+            ans, info = self.editor.answer_with_memory(prompt, req)
+            stored = 0
+            try:
+                stored = self.editor.memory.stats().get("total_stored", 0)
+            except Exception:
+                pass
+        return {"ok": True, "answer": (ans or "").strip(),
+                "want": req["target_new"], "hits_target": req["target_new"].lower()
+                in (ans or "").lower(),
+                "channel": info.get("channel"), "injected": info.get("injected"),
+                "note": info.get("note"), "base_ok": info.get("base_ok"),
+                "final_ok": bool(info.get("final_ok")),
+                "key": f"({req['subject']}, {req['relation']})",
+                "subject": req["subject"], "relation": req["relation"],
+                "total_stored": stored}
 
     def reset(self):
         """Cold start: wipe the shards *and* the gate's edit history.
@@ -149,6 +188,7 @@ class Engine:
                     log.clear()
             except Exception:
                 pass
+            self.last_edit = None
         return {"ok": True, "stats": self.stats(), "gate_history_cleared": cleared}
 
     def stats(self):
@@ -342,6 +382,12 @@ PAGE = r"""<!doctype html>
     </div>
 
     <div class="group">
+      <div class="label">3 &middot; ask again (reads side memory)</div>
+      <button class="ghost" id="recallBtn">Ask again with memory <kbd>Shift+Enter</kbd></button>
+      <div class="hintline">Same prompt, fresh decode, this time through the memory read path &mdash; this is what a later turn would see.</div>
+    </div>
+
+    <div class="group">
       <div class="label">presets</div>
       <div class="chips">
         <button class="chip" data-p="macau">Macau &rarr; China (flips)</button>
@@ -479,6 +525,48 @@ function renderEdited(p) {
   entry("edit", "Result", "b-after", rows);
 }
 
+function renderRecall(prompt, res) {
+  entry("query", "Prompt", "b-prompt",
+        '<div class="prompt-text">' + esc(prompt) + "</div>");
+  if (!res.ok) {
+    entry("query", "Recall", "b-before",
+          line("skipped", '<span class="muted">' + esc(res.msg) + "</span>"));
+    return;
+  }
+  let rows = line("edit key", '<span class="muted">' + esc(res.key) +
+                  " &middot; stored note = </span><b>" + esc(res.note) + "</b>");
+  rows += line("answer", '<span class="answer ' + (res.hits_target ? "good" : "bad") + '">' +
+                        esc(res.answer) + "</span>");
+  rows += line("read", '<span class="muted">channel ' + esc(res.channel) +
+                       " &middot; memory injected = " + (res.injected ? "yes" : "no") +
+                       " &middot; shards hold " + res.total_stored + " entr" +
+                       (res.total_stored === 1 ? "y" : "ies") + "</span>");
+  let verdict, vcls;
+  if (res.injected && res.hits_target) {
+    verdict = "flip persists on a fresh query"; vcls = "v-flip";
+  } else if (!res.injected && res.hits_target) {
+    verdict = "no memory needed -- the model already answered this"; vcls = "v-same";
+  } else if (res.injected) {
+    verdict = "memory injected but the answer missed the target"; vcls = "v-bad";
+  } else {
+    verdict = "memory did not answer this query"; vcls = "v-bad";
+  }
+  rows += line("", '<span class="verdict ' + vcls + '">' + verdict +
+                '</span> <span class="muted">want ' + esc(res.want) + "</span>");
+  entry("query", "Recall", "b-after", rows);
+}
+
+async function doRecall() {
+  const prompt = $("prompt").value.trim();
+  if (!prompt) { hint.textContent = "Type a prompt first."; return; }
+  setStatus("reading memory", "busy");
+  try {
+    const res = await api("/api/recall", { prompt });
+    renderRecall(prompt, res);
+    setStatus("ready", "ready");
+  } catch (e) { setStatus("error", "err"); hint.textContent = e.message; }
+}
+
 async function doAsk() {
   const prompt = $("prompt").value.trim();
   if (!prompt) { hint.textContent = "Type a prompt first."; return; }
@@ -533,6 +621,8 @@ async function runScript() {
     fill(PRESETS[key]);
     await new Promise((r) => setTimeout(r, 260));
     await doEdit();
+    await new Promise((r) => setTimeout(r, 320));
+    await doRecall();
     await new Promise((r) => setTimeout(r, 420));
   }
   hint.textContent = "end of scripted demo";
@@ -541,6 +631,7 @@ async function runScript() {
 
 $("askBtn").onclick = doAsk;
 $("editBtn").onclick = doEdit;
+$("recallBtn").onclick = doRecall;
 $("scriptBtn").onclick = runScript;
 $("clearBtn").onclick = () => {
   feed.innerHTML = '<div class="empty" id="empty"><strong>Nothing yet</strong>' +
@@ -560,6 +651,7 @@ document.querySelectorAll(".chip").forEach((b) => {
   b.onclick = () => fill(PRESETS[b.dataset.p]);
 });
 $("prompt").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && e.shiftKey) { e.preventDefault(); doRecall(); return; }
   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); doAsk(); }
 });
 ["subject", "relation", "newans", "gt"].forEach((id) => {
@@ -635,6 +727,8 @@ def make_handler(engine):
                         payload.get("ground_truth") or None)))
                 elif route == "/api/reset":
                     self._send(200, json.dumps(engine.reset()))
+                elif route == "/api/recall":
+                    self._send(200, json.dumps(engine.recall(payload["prompt"].strip())))
                 else:
                     self._send(404, json.dumps({"error": "not found"}))
             except Exception as exc:

@@ -37,8 +37,9 @@
 |---|---|---|
 | 1. ASK THE MODEL | 多行輸入框 + `Ask (Ctrl+Enter)` | 只提問，看模型原本的答案與信心 |
 | 2. EDIT ONE FACT | `Subject` / `Relation` / `New answer` / `Ground truth (optional)` 四格 + `Apply edit (Enter)` | 改一個事實（側記憶寫入） |
-| 3. PRESETS | `Macau (flip via memory)` / `Macau language (gate says REJECT)` | 一鍵把 prompt 與四個欄位填好 |
-| 4. SESSION | `Run scripted demo` / `Clear` / `Reset memory` | 自動演兩段、清空記錄、清空記憶 |
+| 3. ASK AGAIN | `Ask again with memory (Shift+Enter)` | 對同一條 prompt 再問一次，走記憶讀取通道；用來現場證明翻轉不是編輯回應裡的一次性結果 |
+| 4. PRESETS | `Macau (flip via memory)` / `Macau language (gate says REJECT)` | 一鍵把 prompt 與四個欄位填好 |
+| 5. SESSION | `Run scripted demo` / `Clear` / `Reset memory` | 自動演兩段、清空記錄、清空記憶 |
 
 右欄每段輸出的標籤固定為：`PROMPT` → `BEFORE` → `EDIT` → `GATE` → `MEMORY` → `AFTER` → 結論。
 
