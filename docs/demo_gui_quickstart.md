@@ -1,5 +1,7 @@
 # CALM editor — 圖形介面用法與輸入／預期輸出對照
 
+> 新版白底藍色網頁介面見 `docs/demo_web_ui.md`（`EasyEdit/examples/demo_web.py`），外觀更好且同樣走這套推理流程；本文件保留給 tkinter 視窗版。
+
 本文件對應 `EasyEdit/examples/demo_gui.py`：把原本要在 PowerShell 逐行敲的 `demo_repl.py` 改成點選式視窗，不需要記指令。
 
 ---
@@ -198,3 +200,4 @@ end of scripted demo
 | `/edit Italy capital Milan` | 四格表單 + `Apply edit (Enter)` |
 | `/state`、`/clear`、`/help`、`/quit` | `Reset memory`、`Clear`、左欄標籤即說明、關窗即退出 |
 | 卡片在終端用 `+---+` 手繪，寬字元會錯位 | Tk 原生排版，無邊框錯位問題 |
+*（内容由AI生成，仅供参考）*

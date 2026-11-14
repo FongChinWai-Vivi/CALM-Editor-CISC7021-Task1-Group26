@@ -88,3 +88,10 @@ EasyEdit/w6out/
 w6_rev3/*.err
 w6_rev3/*.out
 w6_rev3/_dl_medium.py
+
+# local demo run logs
+web_out.txt
+web_err.txt
+temp_web_out.log
+temp_web_err.log
+tk_shot.log

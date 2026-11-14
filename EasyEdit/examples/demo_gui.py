@@ -106,15 +106,15 @@ def run_gui(args):
     import tkinter as tk
     from tkinter import font as tkfont
 
-    BG = "#1b1b1f"
-    PANEL = "#242428"
-    FG = "#e8e8ea"
-    DIM = "#8b8b93"
-    CYAN = "#4fc3f7"
-    GREEN = "#66bb6a"
-    RED = "#ef5350"
-    YELLOW = "#ffca28"
-    BLUE = "#7986cb"
+    BG = "#f4f7fd"
+    PANEL = "#ffffff"
+    FG = "#0f172a"
+    DIM = "#64748b"
+    CYAN = "#2563eb"
+    GREEN = "#15803d"
+    RED = "#b91c1c"
+    YELLOW = "#b45309"
+    BLUE = "#2563eb"
 
     root = tk.Tk()
     root.title("CALM editor - live demo")
@@ -153,11 +153,11 @@ def run_gui(args):
 
     section("1 . ASK THE MODEL")
     prompt_box = tk.Text(left, height=5, width=40, wrap="word", font=mono,
-                         bg="#131316", fg=FG, insertbackground=FG,
+                         bg="#fbfdff", fg=FG, insertbackground=FG,
                          relief="flat", padx=8, pady=6)
     prompt_box.pack(padx=14, fill="x")
     ask_btn = tk.Button(left, text="Ask  (Ctrl+Enter)", font=ui_bold, relief="flat",
-                        bg=BLUE, fg="white", activebackground="#5c6bc0",
+                        bg=BLUE, fg="white", activebackground="#1d4ed8",
                         activeforeground="white", cursor="hand2")
     ask_btn.pack(padx=14, pady=6, fill="x")
 
@@ -172,14 +172,14 @@ def run_gui(args):
             ("gt", "Ground truth (optional)", "leave empty = current answer")]):
         tk.Label(form, text=label, bg=PANEL, fg=FG, font=ui, anchor="w"
                  ).grid(row=i, column=0, sticky="w", pady=2)
-        e = tk.Entry(form, font=mono, bg="#131316", fg=FG, insertbackground=FG,
+        e = tk.Entry(form, font=mono, bg="#fbfdff", fg=FG, insertbackground=FG,
                      relief="flat", width=18)
         e.grid(row=i, column=1, sticky="ew", padx=(8, 0), pady=2)
         entries[key] = e
     form.columnconfigure(1, weight=1)
 
     edit_btn = tk.Button(left, text="Apply edit  (Enter)", font=ui_bold, relief="flat",
-                         bg=GREEN, fg="#10240f", activebackground="#81c784",
+                         bg=GREEN, fg="#ffffff", activebackground="#166534",
                          cursor="hand2")
     edit_btn.pack(padx=14, pady=7, fill="x")
 
@@ -188,7 +188,7 @@ def run_gui(args):
     presets.pack(padx=14, fill="x")
     for p in PRESETS:
         b = tk.Button(presets, text=p["name"], font=ui, relief="flat", anchor="w",
-                      bg="#33333a", fg=FG, activebackground="#3d3d46",
+                      bg="#eef2f9", fg=FG, activebackground="#e0e8f6",
                       cursor="hand2")
         b.pack(fill="x", pady=1)
 
@@ -196,14 +196,14 @@ def run_gui(args):
     sess = tk.Frame(left, bg=PANEL)
     sess.pack(padx=14, fill="x")
     script_btn = tk.Button(sess, text="Run scripted demo", font=ui, relief="flat",
-                           bg="#33333a", fg=FG, activebackground="#3d3d46",
+                           bg="#eef2f9", fg=FG, activebackground="#e0e8f6",
                            cursor="hand2")
     script_btn.pack(side="left", fill="x", expand=True, padx=(0, 4))
-    clear_btn = tk.Button(sess, text="Clear", font=ui, relief="flat", bg="#33333a",
-                          fg=FG, activebackground="#3d3d46", cursor="hand2")
+    clear_btn = tk.Button(sess, text="Clear", font=ui, relief="flat", bg="#eef2f9",
+                          fg=FG, activebackground="#e0e8f6", cursor="hand2")
     clear_btn.pack(side="left", fill="x", expand=True, padx=(4, 0))
     reset_btn = tk.Button(sess, text="Reset memory", font=ui, relief="flat",
-                          bg="#33333a", fg=FG, activebackground="#3d3d46",
+                          bg="#eef2f9", fg=FG, activebackground="#e0e8f6",
                           cursor="hand2")
     reset_btn.pack(side="left", fill="x", expand=True, padx=(8, 0))
 
@@ -222,7 +222,7 @@ def run_gui(args):
     out.configure(yscrollcommand=sb.set, state="disabled")
     out.tag_configure("quiet", foreground=DIM, font=ui)
     out.tag_configure("hdr", foreground=CYAN, font=ui_bold)
-    out.tag_configure("prompt", foreground="#cfd8dc")
+    out.tag_configure("prompt", foreground="#475569")
     out.tag_configure("before", foreground=RED, font=mono_big)
     out.tag_configure("after_ok", foreground=GREEN, font=mono_big)
     out.tag_configure("after_bad", foreground=RED, font=mono_big)
