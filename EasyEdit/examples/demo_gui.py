@@ -20,6 +20,7 @@ Usage
 
 import argparse
 import difflib
+import json
 import os
 import queue
 import re
@@ -33,7 +34,7 @@ def resolve_easyedit_root() -> str:
     return os.path.dirname(here)
 
 
-PRESETS = [
+DEFAULT_PRESETS = [
     dict(name="Macau  (flip via memory)",
          prompt="The capital of China is Beijing. Hong Kong is a SAR of China. "
                 "Macau is a SAR of",
@@ -42,6 +43,36 @@ PRESETS = [
          prompt="The capital of Portugal is Lisbon. The official language of Macau is",
          subject="Macau", relation="language", new="Portuguese"),
 ]
+
+SAMPLES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "demo_samples.json")
+
+
+def load_samples():
+    """Read the shared sample list from demo_samples.json (same file as the web demo).
+
+    Add as many samples as you want to that JSON; both UIs pick them up without
+    code changes. Falls back to the two built-in presets if the file is missing.
+    """
+    try:
+        with open(SAMPLES_PATH, "r", encoding="utf-8") as f:
+            rows = json.load(f)
+    except Exception:
+        return list(DEFAULT_PRESETS)
+    out = []
+    for row in rows if isinstance(rows, list) else []:
+        try:
+            out.append(dict(name=row.get("label") or row["id"],
+                            prompt=row["prompt"],
+                            subject=row["subject"],
+                            relation=row["relation"],
+                            new=row["newans"],
+                            expect=row.get("expect") or ""))
+        except (KeyError, TypeError):
+            continue
+    return out or list(DEFAULT_PRESETS)
+
+
+PRESETS = load_samples()
 
 
 # ---------------------------------------------------------------- engine side
@@ -201,6 +232,10 @@ def run_gui(args):
              ).pack(side="left", pady=12)
     status = tk.Label(head, text="loading model ...", bg=PANEL, fg=YELLOW, font=ui_bold)
     status.pack(side="right", padx=18)
+    tk.Label(head, text="model: " + args.model, bg=PANEL, fg=BLUE, font=ui_bold
+             ).pack(side="right", padx=(0, 2))
+    tk.Label(head, text=str(len(PRESETS)) + " samples", bg=PANEL, fg=DIM, font=ui
+             ).pack(side="right", padx=(0, 14))
 
     body = tk.Frame(root, bg=BG)
     body.pack(side="top", fill="both", expand=True)
@@ -256,11 +291,14 @@ def run_gui(args):
     section("PRESETS  (fills the fields, no typing needed)")
     presets = tk.Frame(left, bg=PANEL)
     presets.pack(padx=14, fill="x")
-    for p in PRESETS:
+    for i, p in enumerate(PRESETS):
         b = tk.Button(presets, text=p["name"], font=ui, relief="flat", anchor="w",
                       bg="#eef2f9", fg=FG, activebackground="#e0e8f6",
-                      cursor="hand2")
-        b.pack(fill="x", pady=1)
+                      wraplength=164, justify="left", cursor="hand2")
+        # two per row, so the list can grow without pushing SESSION off-screen
+        b.grid(row=i // 2, column=i % 2, sticky="ew", padx=(0, 2 if i % 2 == 0 else 0), pady=1)
+    presets.grid_columnconfigure(0, weight=1)
+    presets.grid_columnconfigure(1, weight=1)
 
     section("SESSION")
     sess = tk.Frame(left, bg=PANEL)

@@ -39,7 +39,12 @@ AIGC:
 - `1 · ask the model`：多行輸入框、`Ask the model`按鈕，只提問不動記憶。
 - `2 · edit one fact`：Subject/Relation/New answer/Ground truth、`Apply edit`，對上方prompt做一次編輯。
 - `3 · ask again (reads side memory)`：`Ask again with memory`（或輸入框按 `Shift+Enter`），對同一條prompt再問一次，這次走記憶讀取通道，用來現場證明翻轉不是編輯回應裡的一次性假象。
-- `presets`：`Macau → China (flips)`、`Macau language → Portuguese (REJECT)`，一鍵填好欄位，不用手打。
+- `presets`：標題後直接標出樣本數，例如 `presets (6)`；樣本內容不在程式碼裡，而是讀 `EasyEdit/examples/demo_samples.json`，每條一個物件（`id` / `label` / `expect` / `prompt` / `subject` / `relation` / `newans`）。要加樣本、改標籤、換題材，只改這個 JSON，重新整理頁面即可（伺服器按檔案 mtime 自動重讀，不用重啟）。
+  目前內建 6 條，全部實測過兩次、判定與標籤一致：
+  `Macau SAR → China (flips)`、`Macau territory → China (flips)`、`Macau airport (flips)`、`Longest bridge in Macau (flips)`、`Macau language → Portuguese (REJECT)`、`Macau is in → China (REJECT)`。
+  標籤裡的 `flips` / `REJECT` 是實測結論，不是猜測；新增樣本請先用 `/api/ask` 與 `/api/edit` 各跑一次，確認 `decision` 與 `after` 再寫進 `expect`。
+- 標題列右側有兩個徽標：左邊 `model: gpt2-small` 顯示本次啟動載入的權重（取自 `/api/state` 的 `model`，即 `--model` 參數），右邊是 `loading model` / `ready` 狀態。
+- `GET /api/presets`：回傳 `{samples, model}`，`samples` 就是 `demo_samples.json` 的內容（以 `id` 為鍵），頁面用它動態生成 chips。
 - `session`：`Run scripted demo` / `Clear` / `Reset memory`，自動跑兩段演示、清記錄、清側記憶。
 
 快捷鍵：`Ctrl+Enter`提問；在四個輸入框裡按`Enter`直接套用編輯。

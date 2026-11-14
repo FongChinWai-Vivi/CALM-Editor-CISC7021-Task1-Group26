@@ -1,0 +1,56 @@
+[
+  {
+    "id": "macau",
+    "label": "Macau SAR -> China (flips)",
+    "expect": "ROUTE",
+    "prompt": "The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a SAR of",
+    "subject": "Macau",
+    "relation": "is a SAR of",
+    "newans": "China"
+  },
+  {
+    "id": "territory",
+    "label": "Macau territory -> China (flips)",
+    "expect": "ROUTE",
+    "prompt": "The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a territory of",
+    "subject": "Macau",
+    "relation": "is a territory of",
+    "newans": "China"
+  },
+  {
+    "id": "airport",
+    "label": "Macau airport (flips)",
+    "expect": "ROUTE",
+    "prompt": "The airport of Hong Kong is Chek Lap Kok. The airport of Macau is",
+    "subject": "Macau",
+    "relation": "airport is",
+    "newans": "Macau International Airport"
+  },
+  {
+    "id": "bridge",
+    "label": "Longest bridge in Macau (flips)",
+    "expect": "ROUTE",
+    "prompt": "The longest bridge in China is the Danyang-Kunshan bridge. The longest bridge in Macau is",
+    "subject": "Macau",
+    "relation": "longest bridge is",
+    "newans": "the Macau-Taipa bridge"
+  },
+  {
+    "id": "lang",
+    "label": "Macau language -> Portuguese (REJECT)",
+    "expect": "REJECT",
+    "prompt": "The capital of Portugal is Lisbon. The official language of Macau is",
+    "subject": "Macau",
+    "relation": "language",
+    "newans": "Portuguese"
+  },
+  {
+    "id": "loc_in",
+    "label": "Macau is in -> China (REJECT)",
+    "expect": "REJECT",
+    "prompt": "Tokyo is in Japan. Beijing is in China. Macau is in",
+    "subject": "Macau",
+    "relation": "is in",
+    "newans": "China"
+  }
+]

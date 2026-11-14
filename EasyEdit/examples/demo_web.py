@@ -17,6 +17,11 @@ Endpoints (all JSON, POST unless noted):
     POST /api/edit    {prompt, subject, relation, target_new, ground_truth?}
     POST /api/reset   clear side memory
     GET  /api/state   side memory stats + whether the model is loaded
+    GET  /api/presets the sample list from demo_samples.json + the model name
+
+Samples live in demo_samples.json next to this file, so the demo can carry as many
+of them as you like without touching this code. The model name is shown in the
+header pill (from /api/state), so it always matches the --model you started with.
 
 The model is built once at startup and guarded by a lock, so one request at a
 time -- same behaviour as the terminal version.
@@ -36,6 +41,44 @@ from urllib.parse import urlsplit
 def resolve_easyedit_root() -> str:
     here = os.path.dirname(os.path.abspath(__file__))
     return os.path.dirname(here)
+
+
+SAMPLES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "demo_samples.json")
+_SAMPLE_CACHE = {"mtime": None, "data": []}
+
+
+def load_samples():
+    """Sample presets live in demo_samples.json, so adding a sample needs no code change.
+
+    Each entry: {id, label, expect, prompt, subject, relation, newans}. The file is
+    re-read only when its mtime changes, so editing it takes effect on page reload.
+    """
+    try:
+        mtime = os.path.getmtime(SAMPLES_PATH)
+    except OSError:
+        return _SAMPLE_CACHE["data"]
+    if _SAMPLE_CACHE["mtime"] != mtime:
+        try:
+            with open(SAMPLES_PATH, "r", encoding="utf-8") as f:
+                rows = json.load(f)
+        except Exception:
+            return _SAMPLE_CACHE["data"]
+        clean = {}
+        for row in rows if isinstance(rows, list) else []:
+            try:
+                clean[row["id"]] = {
+                    "label": row.get("label") or row["id"],
+                    "expect": row.get("expect") or "",
+                    "prompt": row["prompt"],
+                    "subject": row["subject"],
+                    "relation": row["relation"],
+                    "newans": row["newans"],
+                }
+            except (KeyError, TypeError):
+                continue
+        _SAMPLE_CACHE["mtime"] = mtime
+        _SAMPLE_CACHE["data"] = clean
+    return _SAMPLE_CACHE["data"]
 
 
 class Engine:
@@ -249,6 +292,11 @@ PAGE = r"""<!doctype html>
   .pill.ready { background: var(--green-soft); color: var(--green); }
   .pill.busy { background: var(--blue-soft); color: var(--blue-dark); }
   .pill.err { background: var(--red-soft); color: var(--red); }
+  .pill.model {
+    background: var(--blue-soft); color: var(--blue-dark);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .2px;
+  }
+  .pill.model + .pill { margin-left: 0; }
 
   main {
     display: grid; grid-template-columns: 392px minmax(0, 1fr);
@@ -359,6 +407,7 @@ PAGE = r"""<!doctype html>
     <h1>CALM editor</h1>
     <div class="sub">Macau / University of Macau demo -- type a prompt, edit one fact, every answer is decoded live by the model</div>
   </div>
+  <div class="pill model" id="model">model ?</div>
   <div class="pill" id="status">loading model</div>
 </header>
 
@@ -388,11 +437,8 @@ PAGE = r"""<!doctype html>
     </div>
 
     <div class="group">
-      <div class="label">presets</div>
-      <div class="chips">
-        <button class="chip" data-p="macau">Macau &rarr; China (flips)</button>
-        <button class="chip" data-p="lang">Macau language &rarr; Portuguese (REJECT)</button>
-      </div>
+      <div class="label">presets <span id="sampleCount"></span></div>
+      <div class="chips" id="chips"></div>
     </div>
 
     <div class="group">
@@ -420,18 +466,40 @@ PAGE = r"""<!doctype html>
 
 <script>
 const $ = (id) => document.getElementById(id);
-const feed = $("feed"), statusPill = $("status"), hint = $("hint");
+const feed = $("feed"), statusPill = $("status"), hint = $("hint"), modelPill = $("model");
 
-const PRESETS = {
-  macau: { prompt: "The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a SAR of",
-           subject: "Macau", relation: "is a SAR of", newans: "China" },
-  lang: { prompt: "The capital of Portugal is Lisbon. The official language of Macau is",
-          subject: "Macau", relation: "language", newans: "Portuguese" }
-};
+// filled from /api/presets -- the samples live in demo_samples.json next to this file
+let PRESETS = {};
 
 function setStatus(text, cls) {
   statusPill.textContent = text;
   statusPill.className = "pill" + (cls ? " " + cls : "");
+}
+
+function setModel(name) {
+  modelPill.textContent = "model: " + (name || "unknown");
+  modelPill.title = "weights loaded at startup (--model)";
+}
+
+function renderChips() {
+  const box = $("chips"), count = $("sampleCount");
+  const keys = Object.keys(PRESETS);
+  count.textContent = keys.length ? "(" + keys.length + ")" : "";
+  box.innerHTML = "";
+  if (!keys.length) {
+    box.innerHTML = '<span class="hintline">demo_samples.json not found or empty</span>';
+    return;
+  }
+  keys.forEach((k) => {
+    const p = PRESETS[k];
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.dataset.p = k;
+    b.textContent = p.label || k;
+    b.title = p.prompt;
+    b.onclick = () => fill(PRESETS[k]);
+    box.appendChild(b);
+  });
 }
 
 async function api(path, body) {
@@ -616,8 +684,10 @@ function fill(p) {
 }
 
 async function runScript() {
+  const keys = Object.keys(PRESETS);
+  if (!keys.length) { hint.textContent = "no samples loaded"; return; }
   setStatus("scripted demo", "busy");
-  for (const key of ["macau", "lang"]) {
+  for (const key of keys) {
     fill(PRESETS[key]);
     await new Promise((r) => setTimeout(r, 260));
     await doEdit();
@@ -625,7 +695,7 @@ async function runScript() {
     await doRecall();
     await new Promise((r) => setTimeout(r, 420));
   }
-  hint.textContent = "end of scripted demo";
+  hint.textContent = "end of scripted demo (" + keys.length + " samples)";
   setStatus("ready", "ready");
 }
 
@@ -647,9 +717,6 @@ $("resetBtn").onclick = async () => {
     setStatus("ready", "ready");
   } catch (e) { setStatus("error", "err"); }
 };
-document.querySelectorAll(".chip").forEach((b) => {
-  b.onclick = () => fill(PRESETS[b.dataset.p]);
-});
 $("prompt").addEventListener("keydown", (e) => {
   if (e.key === "Enter" && e.shiftKey) { e.preventDefault(); doRecall(); return; }
   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); doAsk(); }
@@ -662,7 +729,14 @@ $("prompt").addEventListener("keydown", (e) => {
 
 (async () => {
   try {
+    const pr = await api("/api/presets");
+    PRESETS = pr.samples || {};
+    if (pr.model) setModel(pr.model);
+  } catch (e) { /* renderChips below shows the empty state */ }
+  renderChips();
+  try {
     const st = await api("/api/state");
+    setModel(st.model);
     setStatus(st.ready ? "ready" : "loading model", st.ready ? "ready" : "");
     if (new URLSearchParams(location.search).get("demo") === "1") {
       await new Promise((r) => setTimeout(r, 400));
@@ -699,6 +773,10 @@ def make_handler(engine):
             elif route.startswith("/api/state"):
                 self._send(200, json.dumps({"ready": engine.ready,
                                             "stats": engine.stats(),
+                                            "model": engine.model,
+                                            "samples": len(load_samples())}))
+            elif route.startswith("/api/presets"):
+                self._send(200, json.dumps({"samples": load_samples(),
                                             "model": engine.model}))
             else:
                 self._send(404, json.dumps({"error": "not found"}))
