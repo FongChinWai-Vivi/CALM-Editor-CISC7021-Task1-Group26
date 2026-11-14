@@ -260,7 +260,7 @@ PAGE = r"""<!doctype html>
   <div class="logo"></div>
   <div>
     <h1>CALM editor</h1>
-    <div class="sub">type a prompt, then edit one fact -- every answer below is decoded live by the model</div>
+    <div class="sub">Macau / University of Macau demo -- type a prompt, edit one fact, every answer is decoded live by the model</div>
   </div>
   <div class="pill" id="status">loading model</div>
 </header>
@@ -269,16 +269,16 @@ PAGE = r"""<!doctype html>
   <section class="card panel">
     <div class="group">
       <div class="label">1 &middot; ask the model</div>
-      <textarea id="prompt" spellcheck="false">The capital of France is Paris. The capital of Germany is Berlin. The capital of Italy is</textarea>
+      <textarea id="prompt" spellcheck="false">The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a SAR of</textarea>
       <button class="primary" id="askBtn">Ask the model <kbd>Ctrl+Enter</kbd></button>
     </div>
 
     <div class="group">
       <div class="label">2 &middot; edit one fact</div>
       <div class="grid2">
-        <span>Subject</span><input id="subject" value="Italy" spellcheck="false">
-        <span>Relation</span><input id="relation" value="capital" spellcheck="false">
-        <span>New answer</span><input id="newans" value="Milan" spellcheck="false">
+        <span>Subject</span><input id="subject" value="Macau" spellcheck="false">
+        <span>Relation</span><input id="relation" value="is a SAR of" spellcheck="false">
+        <span>New answer</span><input id="newans" value="China" spellcheck="false">
         <span>Ground truth</span><input id="gt" placeholder="leave empty = current answer" spellcheck="false">
       </div>
       <button class="ghost" id="editBtn">Apply edit <kbd>Enter</kbd></button>
@@ -287,8 +287,8 @@ PAGE = r"""<!doctype html>
     <div class="group">
       <div class="label">presets</div>
       <div class="chips">
-        <button class="chip" data-p="italy">Italy &rarr; Milan (flips)</button>
-        <button class="chip" data-p="spain">Spain &rarr; Madrid (REJECT)</button>
+        <button class="chip" data-p="macau">Macau &rarr; China (flips)</button>
+        <button class="chip" data-p="lang">Macau language &rarr; Portuguese (REJECT)</button>
       </div>
     </div>
 
@@ -320,10 +320,10 @@ const $ = (id) => document.getElementById(id);
 const feed = $("feed"), statusPill = $("status"), hint = $("hint");
 
 const PRESETS = {
-  italy: { prompt: "The capital of France is Paris. The capital of Germany is Berlin. The capital of Italy is",
-           subject: "Italy", relation: "capital", newans: "Milan" },
-  spain: { prompt: "The capital of France is Paris. The capital of Germany is Berlin. The capital of Spain is",
-           subject: "Spain", relation: "capital", newans: "Madrid" }
+  macau: { prompt: "The capital of China is Beijing. Hong Kong is a SAR of China. Macau is a SAR of",
+           subject: "Macau", relation: "is a SAR of", newans: "China" },
+  lang: { prompt: "The capital of Portugal is Lisbon. The official language of Macau is",
+          subject: "Macau", relation: "language", newans: "Portuguese" }
 };
 
 function setStatus(text, cls) {
@@ -455,7 +455,7 @@ function fill(p) {
 
 async function runScript() {
   setStatus("scripted demo", "busy");
-  for (const key of ["italy", "spain"]) {
+  for (const key of ["macau", "lang"]) {
     fill(PRESETS[key]);
     await new Promise((r) => setTimeout(r, 260));
     await doEdit();
@@ -470,7 +470,7 @@ $("editBtn").onclick = doEdit;
 $("scriptBtn").onclick = runScript;
 $("clearBtn").onclick = () => {
   feed.innerHTML = '<div class="empty" id="empty"><strong>Nothing yet</strong>' +
-    "Transcript cleared. Side memory is untouched -- ask about Italy again and it still says Milan.</div>";
+    "Transcript cleared. Side memory is untouched -- press Reset memory to wipe it.</div>";
 };
 $("resetBtn").onclick = async () => {
   setStatus("resetting", "busy");

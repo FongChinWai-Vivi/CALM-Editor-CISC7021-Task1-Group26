@@ -34,14 +34,13 @@ def resolve_easyedit_root() -> str:
 
 
 PRESETS = [
-    dict(name="Italy  (flip via memory)",
-         prompt="The capital of France is Paris. The capital of Germany is Berlin. "
-                "The capital of Italy is",
-         subject="Italy", relation="capital", new="Milan"),
-    dict(name="Spain  (gate says REJECT)",
-         prompt="The capital of France is Paris. The capital of Germany is Berlin. "
-                "The capital of Spain is",
-         subject="Spain", relation="capital", new="Madrid"),
+    dict(name="Macau  (flip via memory)",
+         prompt="The capital of China is Beijing. Hong Kong is a SAR of China. "
+                "Macau is a SAR of",
+         subject="Macau", relation="is a SAR of", new="China"),
+    dict(name="Macau language  (gate says REJECT)",
+         prompt="The capital of Portugal is Lisbon. The official language of Macau is",
+         subject="Macau", relation="language", new="Portuguese"),
 ]
 
 
@@ -166,9 +165,9 @@ def run_gui(args):
     form.pack(padx=14, fill="x")
     entries = {}
     for i, (key, label, hint) in enumerate([
-            ("subject", "Subject", "Italy"),
+            ("subject", "Subject", "Macau"),
             ("relation", "Relation", "capital"),
-            ("new", "New answer", "Milan"),
+            ("new", "New answer", "China"),
             ("gt", "Ground truth (optional)", "leave empty = current answer")]):
         tk.Label(form, text=label, bg=PANEL, fg=FG, font=ui, anchor="w"
                  ).grid(row=i, column=0, sticky="w", pady=2)
