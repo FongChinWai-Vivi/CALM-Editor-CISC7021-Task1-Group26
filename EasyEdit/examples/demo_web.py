@@ -63,7 +63,48 @@ class Engine:
     def ask(self, prompt):
         with self.lock:
             ans, conf = self.editor._current_answer_and_confidence(prompt)
-        return {"answer": ans.strip(), "conf": float(conf)}
+            detail = self.conf_detail(prompt)
+        return {"answer": ans.strip(), "conf": float(conf), "detail": detail}
+
+    def conf_detail(self, prompt, max_new_tokens=5):
+        """Token-level breakdown of the number the gate actually reads.
+
+        ``_current_answer_and_confidence`` averages the probability of the five
+        greedy tokens, so a trailing ".\n\n" (p~0.99) can lift a coin-flip
+        answer over ``gate_route_threshold``.  The gate maths is frozen (all
+        reported numbers use it), so the demo does not touch it -- it shows the
+        parts instead: ``first`` is the first answer token, ``answer_mean`` is
+        the mean over the tokens of the stripped answer only.
+        """
+        import torch
+        ed = self.editor
+        ids = ed.tok(prompt, return_tensors="pt", truncation=True,
+                     max_length=int(getattr(ed.hparams, "max_length", 64) or 64)
+                     ).input_ids.to(ed.device)
+        with torch.no_grad():
+            out = ed.model.generate(ids, max_new_tokens=max_new_tokens,
+                                    do_sample=False, pad_token_id=ed.tok.eos_token_id)
+            logits = ed.model(out).logits
+        gen = out[0, ids.size(1):]
+        if gen.numel() == 0:
+            return {"mean5": 0.0, "first": 0.0, "answer_mean": 0.0,
+                    "n_answer_tokens": 0, "tokens": [], "raw": ""}
+        start = ids.size(1) - 1
+        probs = logits[0, start:start + gen.numel()].softmax(dim=-1).gather(
+            1, gen.unsqueeze(-1)).squeeze(-1).tolist()
+        dec = lambda k: ed.tok.decode(gen[:k], skip_special_tokens=True)
+        full = dec(len(probs)).strip()
+        keep = len(probs)
+        for k in range(1, len(probs) + 1):
+            if dec(k).strip() == full:
+                keep = k
+                break
+        return {"mean5": sum(probs) / len(probs), "first": probs[0],
+                "answer_mean": sum(probs[:keep]) / keep,
+                "n_answer_tokens": keep,
+                "tokens": [[ed.tok.decode([int(t)]), round(float(p), 4)]
+                           for t, p in zip(gen, probs)],
+                "raw": full}
 
     def edit(self, prompt, subject, relation, target_new, ground_truth=None):
         with self.lock:
@@ -87,12 +128,28 @@ class Engine:
                 "subject": subject, "relation": relation, "target_new": target_new}
 
     def reset(self):
+        """Cold start: wipe the shards *and* the gate's edit history.
+
+        Clearing only ``memory`` left ``gate.recent_edits`` behind, so the first
+        edit after a Reset could still come back as ``conflicts_in_memory(1)``
+        -- and the conflict path bypasses the confidence thresholds, i.e. the
+        decision was inherited from a run the user had just thrown away.
+        """
         with self.lock:
             try:
                 self.editor.memory.clear()
             except Exception:
                 pass
-        return {"ok": True, "stats": self.stats()}
+            cleared = 0
+            try:
+                cleared = len(getattr(self.editor.gate, "recent_edits", []) or [])
+                self.editor.gate.clear_history()
+                log = getattr(self.editor.gate, "_decision_log", None)
+                if log is not None:
+                    log.clear()
+            except Exception:
+                pass
+        return {"ok": True, "stats": self.stats(), "gate_history_cleared": cleared}
 
     def stats(self):
         try:
@@ -375,10 +432,21 @@ function line(k, v) {
 function renderAsked(prompt, res, cls) {
   entry("query", "Prompt", "b-prompt",
         '<div class="prompt-text">' + esc(prompt) + "</div>");
-  const conf = res.conf.toFixed(2);
-  entry(cls || "query", "Before", "b-before",
-        line("answer", '<span class="answer bad">' + esc(res.answer) + "</span>") +
-        line("conf", '<span class="muted">' + conf + "</span>"));
+  const d = res.detail || null;
+  let conf = res.conf.toFixed(2);
+  if (d) {
+    conf += ' <span class="muted">&middot; first token ' + d.first.toFixed(2) +
+            " &middot; answer-only " + d.answer_mean.toFixed(2) +
+            " over " + d.n_answer_tokens + " tok</span>";
+  }
+  let rows = line("answer", '<span class="answer bad">' + esc(res.answer) + "</span>") +
+             line("conf", '<span class="muted">' + conf + "</span>");
+  if (d && d.tokens && d.tokens.length) {
+    rows += line("tokens", '<span class="muted">' + d.tokens.map(function (t) {
+      return esc(JSON.stringify(t[0])) + " " + t[1].toFixed(2);
+    }).join(" &middot; ") + "</span>");
+  }
+  entry(cls || "query", "Before", "b-before", rows);
 }
 
 function renderEdited(p) {
@@ -389,6 +457,12 @@ function renderEdited(p) {
   rows += line("gate", '<span class="badge ' + gateCls + '">' + esc(p.decision) + "</span>" +
                        ' <span class="muted">route=' + esc(p.route) + " &middot; reason=" +
                        esc(p.reason) + "</span>");
+  const norm = function (s) { return (s || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); };
+  if (norm(p.before.answer) === norm(p.subject)) {
+    rows += line("note", '<span class="muted">Before is a verbatim echo of the subject -- the ' +
+                 "model stated no fact, so this is a prompt-format failure, not a " +
+                 "counterfactual swap</span>");
+  }
   if (p.channel === "memory" || p.channel === "memory_direct" || p.channel === "memory_arb") {
     rows += line("memory", "stored note = <b>" + esc(p.note) + "</b>");
   } else if (p.decision === "REJECT") {
@@ -477,7 +551,8 @@ $("resetBtn").onclick = async () => {
   try {
     const res = await api("/api/reset", {});
     hint.textContent = "side memory cleared (total_stored = " +
-      (res.stats && res.stats.total_stored !== undefined ? res.stats.total_stored : "?") + ")";
+      (res.stats && res.stats.total_stored !== undefined ? res.stats.total_stored : "?") +
+      ", gate history cleared = " + (res.gate_history_cleared || 0) + ")";
     setStatus("ready", "ready");
   } catch (e) { setStatus("error", "err"); }
 };

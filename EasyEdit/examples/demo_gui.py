@@ -67,7 +67,44 @@ class Engine:
 
     def ask(self, prompt):
         ans, conf = self.editor._current_answer_and_confidence(prompt)
-        return {"answer": ans.strip(), "conf": conf}
+        return {"answer": ans.strip(), "conf": conf, "detail": self.conf_detail(prompt)}
+
+    def conf_detail(self, prompt, max_new_tokens=5):
+        """Token-level breakdown of the number the gate reads.
+
+        The gate averages five greedy token probabilities, so a trailing ".\n\n"
+        can lift a coin-flip answer over ``gate_route_threshold``.  The gate
+        maths stays as reported; this only exposes the parts.
+        """
+        import torch
+        ed = self.editor
+        ids = ed.tok(prompt, return_tensors="pt", truncation=True,
+                     max_length=int(getattr(ed.hparams, "max_length", 64) or 64)
+                     ).input_ids.to(ed.device)
+        with torch.no_grad():
+            out = ed.model.generate(ids, max_new_tokens=max_new_tokens,
+                                    do_sample=False, pad_token_id=ed.tok.eos_token_id)
+            logits = ed.model(out).logits
+        gen = out[0, ids.size(1):]
+        if gen.numel() == 0:
+            return {"mean5": 0.0, "first": 0.0, "answer_mean": 0.0,
+                    "n_answer_tokens": 0, "tokens": [], "raw": ""}
+        start = ids.size(1) - 1
+        probs = logits[0, start:start + gen.numel()].softmax(dim=-1).gather(
+            1, gen.unsqueeze(-1)).squeeze(-1).tolist()
+        dec = lambda k: ed.tok.decode(gen[:k], skip_special_tokens=True)
+        full = dec(len(probs)).strip()
+        keep = len(probs)
+        for k in range(1, len(probs) + 1):
+            if dec(k).strip() == full:
+                keep = k
+                break
+        return {"mean5": sum(probs) / len(probs), "first": probs[0],
+                "answer_mean": sum(probs[:keep]) / keep,
+                "n_answer_tokens": keep,
+                "tokens": [[ed.tok.decode([int(t)]), round(float(p), 4)]
+                           for t, p in zip(gen, probs)],
+                "raw": full}
 
     def edit(self, prompt, subject, relation, target_new, ground_truth=None):
         before = self.ask(prompt)
@@ -87,8 +124,16 @@ class Engine:
                 "after": (ans or "").strip(), "final_ok": bool(info.get("final_ok"))}
 
     def reset(self):
+        """Cold start: shards *and* gate history, same as the web demo."""
         try:
             self.editor.memory.clear()
+            try:
+                self.editor.gate.clear_history()
+                log = getattr(self.editor.gate, "_decision_log", None)
+                if log is not None:
+                    log.clear()
+            except Exception:
+                pass
             return True
         except Exception:
             return False
@@ -361,6 +406,13 @@ def run_gui(args):
             emit_line(line, "prompt")
         emit_line(f"BEFORE   '{res['answer']}'", "before")
         emit_line(f"         confidence {res['conf']:.2f}", "detail")
+        d = res.get("detail")
+        if d:
+            emit_line(f"         5-token mean {d['mean5']:.2f} · first token "
+                      f"{d['first']:.2f} · answer-only {d['answer_mean']:.2f} "
+                      f"over {d['n_answer_tokens']} tok", "detail")
+            emit_line("         tokens " + " ".join(
+                f"{t[0]!r} {t[1]:.2f}" for t in d["tokens"]), "detail")
 
     def render_edited(payload, res):
         b = res["before"]

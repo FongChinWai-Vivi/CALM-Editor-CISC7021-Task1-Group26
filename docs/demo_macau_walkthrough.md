@@ -1,3 +1,14 @@
+---
+AIGC:
+    Label: "1"
+    ContentProducer: 001191440300708461136T1XGW3
+    ProduceID: 8aaebaa239fa14c1cf5eb03fd99189ca_15b6d8fee00611f189bc525400248c00
+    ReservedCode1: CxlCVXJyTjH3yfxfGCvuwH4Owntvm2O3tB2Yw347I1EE4p+EcOc6af9DRn02k4EtblmrjmrFW2Trd5Ei4/h0jEDKRo3roHNUaqo1d3uzgjlyn/+WXjv2HbMbpPnepFolcEE1b4YV/BsS27Ai0XpbIczrgSz+4v3mCjf7UKR15OFlZcnhPESIlJFCpUY=
+    ContentPropagator: 001191440300708461136T1XGW3
+    PropagateID: 8aaebaa239fa14c1cf5eb03fd99189ca_15b6d8fee00611f189bc525400248c00
+    ReservedCode2: CxlCVXJyTjH3yfxfGCvuwH4Owntvm2O3tB2Yw347I1EE4p+EcOc6af9DRn02k4EtblmrjmrFW2Trd5Ei4/h0jEDKRo3roHNUaqo1d3uzgjlyn/+WXjv2HbMbpPnepFolcEE1b4YV/BsS27Ai0XpbIczrgSz+4v3mCjf7UKR15OFlZcnhPESIlJFCpUY=
+---
+
 ﻿# 澳門題材示範：逐步操作腳本（按哪個按鈕 → 看到什麼）
 
 對應程式：`EasyEdit/examples/demo_web.py`（網頁版）與 `demo_gui.py`（tkinter 備用版），兩者 preset 相同。
@@ -87,3 +98,4 @@ prefix 模板會拼成一句英文注記：`[Macau] [is a SAR of] is [China]`。
 |---|---|---|---|---|
 | 澳門地位 | `Macau` / `is a SAR of` / `China` | `Macau.`（0.68） | `ROUTE` → `side_memory` | `China.`（flipped） |
 | 澳門語言 | `Macau` / `language` / `Portuguese` | `Portuguese.`（0.50） | `REJECT` → `gate_reject` | `Portuguese.`（unchanged） |
+*（内容由AI生成，仅供参考）*
