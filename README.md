@@ -125,3 +125,142 @@ cd CALM-Editor-CISC7021-Task1-Group26
 # The EasyEdit code base lives under EasyEdit/
 # See EasyEdit/README.md for dependencies and usage instructions
 ```
+
+## Environment
+
+Every number in this repository and in the final report was produced on one machine. The configuration below is the tested one, not a generic upstream recommendation.
+
+| Item | Value |
+|---|---|
+| OS / shell | Windows 11 (build 26200), PowerShell 5.1 |
+| GPU | NVIDIA GeForce RTX 4070 Laptop GPU, 8 GB VRAM, CUDA 12.6 driver |
+| Python | 3.11.8 (CPython, MSC v.1937 64-bit) |
+| Virtual environment | `.venv/` at the repository root, interpreter `.venv\Scripts\python.exe` |
+| PyTorch | 2.9.1+cu126 (CUDA 12.6 wheel), `torch.cuda.is_available() == True` |
+
+Pinned package versions actually installed in `.venv` (these are the versions the results were generated with):
+
+| Package | Version | Package | Version |
+|---|---|---|---|
+| torch | 2.9.1+cu126 | scikit-learn | 1.7.2 |
+| transformers | 5.5.4 | numpy | 2.2.6 |
+| datasets | 4.8.5 | pandas | 2.3.3 |
+| accelerate | 1.15.0 | scipy | 1.15.3 |
+| peft | 0.18.0 | matplotlib | 3.10.7 |
+| sentencepiece | 0.2.0 | | |
+
+`EasyEdit/requirements.txt`, `EasyEdit/requirements_2.txt` and `EasyEdit/colab_requirements.txt` are the upstream EasyEdit lists kept verbatim for reference. They are unpinned and much broader than what this project needs; the table above is the authoritative lock for reproducing our numbers.
+
+**Setup from scratch**
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cu126
+pip install "transformers==5.5.4" "datasets==4.8.5" "accelerate==1.15.0" "peft==0.18.0" "scikit-learn==1.7.2" "numpy==2.2.6" "pandas==2.3.3" "scipy==1.15.3" "matplotlib==3.10.7" "sentencepiece==0.2.0"
+```
+
+**Models and data.** `gpt2-xl` / `gpt2-small` weights are read from the HuggingFace cache (`%USERPROFILE%\.cache\huggingface`); no weights are committed. The edit benchmarks live in `EasyEdit/data/`: `counterfact.json`, `zsre_mend_eval.json`, `MQuAKE-CF-3k-v2.json` (the W2 script downloads them from `memit.baulab.info` and the MQuAKE release if absent). `wikitext2` for the MEMIT second moment is fetched by `datasets` on first use.
+
+**VRAM tiers** (measured, fp16 enabled):
+
+| VRAM | What runs | Evidence |
+|---|---|---|
+| 8 GB (RTX 4070 Laptop) | ROME / MEMIT / AlphaEdit on `gpt2-xl`, and the full CALM stack (gate + closed-form writer + side memory + defer window). Peak 4.2–5.1 GB, 21–366 s per run. | `peak_vram_mb` in `FONG HIO LAM/baseline_repro/results/*.json` |
+| 15–16 GB (Colab T4) | GPT-J-6B single-fact editing, validation only — no full evaluation | `w2_ike_grace_gptj6b_colab_v1.ipynb`, §Current status above |
+| ≥16 GB | official Llama-3-8B evaluation (planned, not executed here) | — |
+
+fp16 is mandatory on 8 GB: the `mom2_n_samples=10000` second-moment estimate does not fit in fp32 together with a `gpt2-xl` forward pass.
+
+## Reproduction
+
+All commands run from the repository root with `.venv` activated. `<py>` below stands for `.venv\Scripts\python.exe`. Every stage writes JSON evidence into the teammate directory or into `w6_rev3/`, and the tracked JSONs are the ones the report quotes.
+
+### Stage W2 — single-fact baselines (`gpt2-xl`)
+
+```powershell
+<py> EasyEdit\examples\w2_rome_repro.py --data counterfact --n 50 --mom2-dataset wikitext2 --mom2-n-samples 10000 --fp16
+<py> EasyEdit\examples\w2_rome_repro.py --data zsre  --n 50 --fp16
+<py> EasyEdit\examples\w2_rome_repro.py --data mquake --n 50 --fp16
+<py> EasyEdit\examples\w2_ike_grace_repro.py --alg ike   --data zsre --model gpt2-xl --n 50 --fp16
+<py> EasyEdit\examples\w2_ike_grace_repro.py --alg grace --data zsre --model gpt2-xl --n 50 --fp16
+```
+
+ROME writes `EasyEdit/results/eval/ROME_gpt2-xl_<timestamp>.json`, which `EasyEdit/.gitignore` excludes; the six runs cited in Table 1 of the report are tracked under `FONG HIO LAM/baseline_repro/results/`. MEMIT and AlphaEdit probes: `FONG HIO LAM/baseline_repro/memit_repro.py` and `alphaedit_repro.py` (`--mock` gives a CPU smoke run, `--lam/--margin/--cases` control the probe), scoring wrapper `real_eval_w2.py`.
+
+### Stage W3 — sequential stream and the conflict gate
+
+One command for the whole W3 → W4 → W5 chain (bash; use Git Bash or WSL on Windows):
+
+```bash
+bash "TANG I CHOI/w5_report_and_reproducibility/reproduce_all.sh"
+```
+
+Environment knobs: `PY` (interpreter, default `python`), `SUBJECTS` (default 40), `FORCE_TRAIN` (default 0, reuse an existing gate checkpoint). It rebuilds the gate datasets, retrains the gate, re-runs the four ablation arms, recomputes statistics, then regenerates the W5 figures and tables. Individual steps:
+
+```powershell
+<py> "TANG I CHOI\w3_conflict_gate_training_and_classifier\build_gate_training_data.py"
+<py> "TANG I CHOI\w3_conflict_gate_training_and_classifier\train_gate_classifier.py"
+<py> "TANG I CHOI\w3_conflict_gate_training_and_classifier\evaluate_gate_online_gap.py"
+<py> "TANG I CHOI\w4_gate_ablations\run_w4_gate_ablation.py" --all-arms --subjects 40
+<py> "TANG I CHOI\w4_gate_ablations\analyze_w4_statistics.py" --stream canonical
+<py> "TANG I CHOI\w3_conflict_gate_training_and_classifier\analysis_gate_roc_pr.py"
+<py> "TANG I CHOI\w6_cross_review\check_gate_acceptance.py"
+<py> EasyEdit\examples\w3_calm_stream.py --data counterfact --max-edits 5000 --write-budget 128 --dual-write
+```
+
+Gate classifier figures quoted in the report (test 835 rows: accuracy 0.8766, macro-F1 0.8429) are in `TANG I CHOI/w3_conflict_gate_training_and_classifier/gate_model/metrics.md`; the stream behaviour (`write_budget=128`, 97.4% routed to memory, 97.48% end-to-end) is reproduced by the `w3_calm_stream.py` line above with `--output-dir` pointing at a scratch directory.
+
+### Stage W4 — model-level write quality
+
+```powershell
+<py> EasyEdit\examples\w4_closedform_smoke.py --mode calm
+<py> EasyEdit\examples\audit_per_edit.py --ckpt <hypernet-checkpoint> --out "FONG CHIN WAI\w4_model_level_improve\results\audit_baseline.json" --max-edits 128
+```
+
+`--mode` is `direct` (parameter edit only) or `calm` (closed-form writer + side memory); the audit script replays a checkpoint under the W4 `b128` protocol and separates real parameter WRITE hits from REJECT/ROUTE hits, which is where the 4/128 (3.1%) figure comes from. The four audit JSONs and the coherence/multi-seed variants sit in `FONG CHIN WAI/w4_model_level_improve/results/`.
+
+### Stage W5 — figures and tables
+
+```powershell
+<py> "TANG I CHOI\w5_report_and_reproducibility\make_w5_figures.py"
+<py> "TANG I CHOI\w5_report_and_reproducibility\collect_w5_tables.py"
+```
+
+### Stage W6 / Rev.4 — defer window, delta budget, holdout
+
+The Rev.4 campaign is driven by PowerShell wrappers in `w6_rev3/`, each of which calls `EasyEdit\examples\w6_defer_stream.py` with the frozen operating point (`--defer-window 50 --layers 4,5,6,7,8 --refine-passes 1 --delta-budget 0.25 --guard-scale 0.5 --memory-read --memory-read-template instruct`):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_sweep_rev3.ps1   # R3  headline 8 slices, offsets 0-700
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_param_probe.ps1  # R11 budget 0.15 / 0.35 / W=25 arms
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_budget_w50.ps1   # R3  budget 0.25 vs 1.00
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_retro8.ps1       # R4  hybrid retro arms
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_retag_w50.ps1    # R3  gate-threshold retag
+powershell -ExecutionPolicy Bypass -File w6_rev3\run_o400.ps1         # single-slice deep dive
+```
+
+The window arm (W=100) and the fresh holdout slices (offsets 1600–1900) are Python drivers without a CLI:
+
+```powershell
+<py> w6_rev3\window_probe_driver.py    # -> w6run\R12_o*_W100, pooled into r12_window_probe_pooled.json
+<py> w6_rev3\holdout_driver.py         # -> w6run\R13_o*_W50/W100, pooled into r13_holdout_pooled.json
+```
+
+Aggregation, in this order (these scripts produce exactly the JSONs the report tables and figures are drawn from):
+
+| Script | Output | Used by |
+|---|---|---|
+| `w6_rev3\w6_pool_param.py` | `r11_param_probe_pooled.json` | Table 2 (Dev. 50), Fig. 3 (budget 0.15/0.35), Fig. 5 |
+| `w6_rev3\w6_pool_param_r12.py` | `r12_window_probe_pooled.json` | Table 2 (Dev. 100), Fig. 4 |
+| `w6_rev3\w6_pool_holdout.py` | `r13_holdout_pooled.json` | Table 2 (Fresh 50/100), Fig. 2, Fig. 4 paired CI |
+| `w6_rev3\w6_log_append.py` | `rev3_pooled_b050.json` | Fig. 3 (budget 0.50) |
+| `w6_rev3\w6_headroom.py` | `r16_headroom.json` | Fig. 5 (both-channels-wrong 38.1–43.0%) |
+| `w6_rev3\w6_operating_curve.py` | `rev3_operating_curve.json` | §Conflict gate operating curve |
+| `w6_rev3\w6_rev4_summary.py` | `rev4_summary.json` | cross-stream summary |
+
+**Portability caveat.** All `w6_rev3\run_*.ps1` wrappers and the drivers (`window_probe_driver.py`, `holdout_driver.py`, `param_probe_driver.py`) hard-code `C:\Users\07viv\Desktop\CALM-Editor-CISC7021-Task1-Group26` as the repository root and expect the interpreter at `.venv\Scripts\python.exe` (21 files in total). On another machine, edit that one `$repo` / `REPO` constant first — nothing else in the Rev.4 path is machine-specific. The wrappers are resumable: a slice whose `results_defer_W*.json` already exists is skipped, so an interrupted campaign can be restarted without recomputation.
+
+**Runtime budget on 8 GB.** One W=50 slice (100 edits) takes 570–640 s; the eight-slice R3 sweep is about 1.5 h, and the full Rev.4 campaign (R3 + R4 + R11 + R12 + R13) is roughly 8–10 h of wall clock. W2 `n=50` runs take 340–370 s each.
+

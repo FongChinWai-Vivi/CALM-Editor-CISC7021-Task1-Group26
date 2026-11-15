@@ -1,0 +1,22 @@
+{
+  "alg": "ROME",
+  "model": "gpt2-xl",
+  "split": "zsre (official, first 3)",
+  "n": 3,
+  "seed": 42,
+  "rewrite_acc": 1.0,
+  "rephrase_acc": 1.0,
+  "locality": {
+    "nq_acc": 1.0
+  },
+  "portability": {},
+  "smoke": 0,
+  "gpu": "RTX4070-8GB",
+  "fp16": true,
+  "mom2_dataset": "wikitext2",
+  "mom2_n_samples": 10000,
+  "elapsed_s": 23.4,
+  "peak_vram_mb": 4512,
+  "hparams": "hparams/ROME/gpt2-xl.yaml",
+  "timestamp": "2026-10-18T18:50:20"
+}

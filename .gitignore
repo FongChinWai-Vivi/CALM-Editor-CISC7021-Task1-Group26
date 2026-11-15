@@ -43,6 +43,10 @@ outputs/
 logs/
 tmp/
 
+# w2 ROME baseline eval json (committed evidence: small files, hand-checked)
+!FONG HIO LAM/baseline_repro/results/
+!FONG HIO LAM/baseline_repro/results/*.json
+
 # ===== Environment Variables & Secrets =====
 .env
 .env.*

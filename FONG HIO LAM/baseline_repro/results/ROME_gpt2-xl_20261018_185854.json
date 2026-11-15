@@ -1,0 +1,22 @@
+{
+  "alg": "ROME",
+  "model": "gpt2-xl",
+  "split": "mquake (official, first 3)",
+  "n": 3,
+  "seed": 42,
+  "rewrite_acc": 0.8333333333333334,
+  "rephrase_acc": null,
+  "locality": {},
+  "portability": {
+    "p1_acc": 0.13492063492063494
+  },
+  "smoke": 0,
+  "gpu": "RTX4070-8GB",
+  "fp16": true,
+  "mom2_dataset": "wikitext2",
+  "mom2_n_samples": 10000,
+  "elapsed_s": 21.5,
+  "peak_vram_mb": 4246,
+  "hparams": "hparams/ROME/gpt2-xl.yaml",
+  "timestamp": "2026-10-18T18:58:54"
+}
